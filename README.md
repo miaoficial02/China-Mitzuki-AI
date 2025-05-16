@@ -1,4 +1,4 @@
-# 🌟 ¡Bienvenido al Repositorio de Shizuka para WhatsApp! 🌟
+#  🍁 🍁 🍁 🍁 🍁
 <h1 style="color:purple; text-align:center;">✨ ¡Descubre la magia de Shizuka en WhatsApp! ✨</h1>
 
 ![Descripción de la imagen de Shizuka para WhatsApp (Opcional)](./assets/shizuka_whatsapp.png)
