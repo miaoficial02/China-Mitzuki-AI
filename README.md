@@ -29,6 +29,13 @@ Si te gusta Shizuka y quieres verla crecer, considera:
 ## 🙋‍♂️ Soporte y Ayuda
 Si tienes alguna pregunta, encuentras algún problema o tienes sugerencias, no dudes en contactarnos a través del grupo de WhatsApp.
 
+<p align="center">
+  <a href="https://chat.whatsapp.com/EgH3eilZtqCIAjEF9G2Vgz">
+    <img src="./assets/whatsapp_group_badge.png" alt="Grupo de Soporte" width="200">
+  </a>
+</p>
+
+
 ## ✍️ Autor
 Carlos
 
