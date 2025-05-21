@@ -15,7 +15,7 @@ Si disfrutas de las funcionalidades y la experiencia que Shizuka ofrece en Whats
 
 <p align="center">
   <a href="https://chat.whatsapp.com/K4O3rZ0qdXz1cNKBbIbaxF">
-    <img src="./assets/whatsapp_group_badge.png" alt="Unirse al Grupo de WhatsApp" width="200">
+    <img src="./media/Logo.jpg" alt="Unirse al Grupo de WhatsApp" width="200">
   </a>
 </p>
 
