@@ -18,8 +18,6 @@ Si disfrutas de las funcionalidades y la experiencia que Shizuka ofrece en Whats
     <img src="./assets/whatsapp_group_badge.png" alt="Unirse al Grupo de WhatsApp" width="200">
   </a>
 </p>
-*(Asegúrate de tener una imagen `whatsapp_group_badge.png` en tu carpeta `assets` o ajusta la ruta si es diferente)*
-
 
 
 ## 💖 ¡Tu Apoyo es Importante!
