@@ -1,7 +1,8 @@
 #  🍁 🍁 🍁 🍁 🍁
 <h1 style="color:purple; text-align:center;">✨ ¡Descubre la magia de Shizuka en WhatsApp! ✨</h1>
 
-![Descripción de la imagen de Shizuka para WhatsApp (Opcional)](./assets/shizuka_whatsapp.png)
+![Descripción de la imagen](https://i.postimg.cc/HLJxWfNR/Shizuka-telegram.png)
+
 
 ## ⭐ ¡Regálale una Estrellita a Shizuka! ⭐
 
