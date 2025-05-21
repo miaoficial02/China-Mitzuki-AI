@@ -12,7 +12,7 @@ const sendMessage = async (conn, to, message, options = {}, additionalOptions = 
 
 async function handler(conn, { message }) {
     const botPrefix = '.';
-    const totalPlugins = 50; // Número total de plugins/comandos
+    const totalPlugins = 46; // Número total de plugins/comandos
 
     // Obtener la hora actual en Cuba
     const hora = new Date().getHours();
