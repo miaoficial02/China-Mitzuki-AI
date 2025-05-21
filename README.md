@@ -42,3 +42,4 @@ Carlos
 ---
 # ✨ ✨ ✨ ✨ ✨
 
+![Descripción de la imagen](https://i.postimg.cc/HLJxWfNR/Shizuka-telegram.png)
