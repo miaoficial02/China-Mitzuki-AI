@@ -43,7 +43,7 @@ Carlos
 # ✨ ✨ ✨ ✨ ✨
 
 ### 📦⛏️ BOXMINE HOST 
-<a href="https://boxmineworld.com"><img src="https://i.imgur.com/allAyd4.png" height="125px"></a>
+<a href="https://boxmineworld.com"><img src="https://i.postimg.cc/qBC5GXSJ/BoxMine.jpg" height="125px"></a>
 ### BoxMine Host
 - **Pagina Oficial:** [`Boxmineworld`](https://boxmineworld.com)
 - **Dashboard:** [`Dash`](https://dash.boxmineworld.com)
