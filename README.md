@@ -14,7 +14,7 @@ Si disfrutas de las funcionalidades y la experiencia que Shizuka ofrece en Whats
 ¿Quieres estar al tanto de las últimas novedades, compartir ideas y ser parte de nuestra comunidad? ¡Te invitamos a unirte al **grupo oficial de Shizuka** en WhatsApp! 🌟
 
 <p align="center">
-  <a href="https://chat.whatsapp.com/K4O3rZ0qdXz1cNKBbIbaxF">
+  <a href="https://chat.whatsapp.com/BWo2qTJTePQLj6PTqMfQWp">
     <img src="./media/grupo1.png" alt="Unirse al Grupo de WhatsApp" width="200">
   </a>
 </p>
