@@ -42,4 +42,10 @@ Carlos
 ---
 # ✨ ✨ ✨ ✨ ✨
 
-![Descripción de la imagen](https://i.postimg.cc/m2zyC1yQ/Logo.jpg)
+### 📦⛏️ BOXMINE HOST 
+<a href="https://boxmineworld.com"><img src="https://i.imgur.com/allAyd4.png" height="125px"></a>
+### BoxMine World
+- **Pagina Oficial:** [`Boxmineworld`](https://boxmineworld.com)
+- **Tutorial - Crear cuenta en la Dashboard:** [`Dashboard`](https://www.youtube.com/watch?v=ZAwBLuNmIlI)
+- **Dashboard:** [`Dash`](https://dash.boxmineworld.com)
+- **Panel:** [`Aquí`](https://panel.boxmineworld.com)
