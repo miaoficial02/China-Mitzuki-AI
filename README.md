@@ -42,9 +42,17 @@ Carlos
 ---
 # ✨ ✨ ✨ ✨ ✨
 
-### 📦⛏️ BOXMINE HOST 
-<a href="https://boxmineworld.com"><img src="https://i.postimg.cc/qBC5GXSJ/BoxMine.jpg" height="125px"></a>
-### BoxMine Host
-- **Pagina Oficial:** [`Boxmineworld`](https://boxmineworld.com)
-- **Dashboard:** [`Dash`](https://dash.boxmineworld.com)
-- **Panel:** [`Aquí`](https://panel.boxmineworld.com)
+## Despliegue en BoxMineWorld
+
+[![Logo BoxMineWorld](https://boxmineworld.com/img/Logo.png)](https://boxmineworld.com)
+
+<details>
+  <summary><b>:paperclip: Enlaces Importantes</b></summary>
+
+- **Sitio Web:** [https://boxmineworld.com](https://boxmineworld.com)  
+- **Área de Clientes:** [https://dash.boxmineworld.com](https://dash.boxmineworld.com)  
+- **Panel de Control:** [https://panel.boxmineworld.com](https://panel.boxmineworld.com)  
+- **Documentación:** [https://docs.boxmineworld.com](https://docs.boxmineworld.com)  
+- **Comunidad de Discord:** [¡Únete aquí!](https://discord.gg/84qsr4v)
+
+</details>
