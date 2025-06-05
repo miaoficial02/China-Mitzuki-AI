@@ -1,9 +1,5 @@
 import fetch from 'node-fetch';
 
-if (!db.data.chats[m.chat].nsfw && m.isGroup) {
-    return m.reply(`🚫 El contenido *NSFW* está desactivado en este grupo.\n🔹 Un administrador puede activarlo con » *#nsfw on*`);
-}
-
 let handler = async (m, { conn }) => {
     try {
         await m.react('🔍'); // Indica que está procesando
