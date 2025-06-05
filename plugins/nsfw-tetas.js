@@ -3,10 +3,6 @@ let handler = async (m, { conn, usedPrefix }) => {
 if (!db.data.chats[m.chat].nsfw && m.isGroup) {
     return m.reply(`《✦》El contenido *NSFW* está desactivado en este grupo.\n> Un administrador puede activarlo con el comando » *#nsfw on*`);
 }
-let handler = async (m, { conn }) => {
-    try {
-        await m.react('🔍'); // Indica que está procesando
-        conn.reply(m.chat, '🔍 Buscando, espere...', m);
 
         let images = [
             "https://telegra.ph/file/17d7a52fa4d09bffd4021.jpg",
