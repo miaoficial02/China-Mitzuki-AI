@@ -50,7 +50,7 @@ global.botname = 'Shizuka-AI'
 global.wm = '𝙎𝙃𝙄𝙕𝙐𝙆𝘼-𝘼𝙄'
 global.author = 'Power By Carlos'
 global.dev = '© 𝙋𝙤𝙬𝙚𝙧-𝙗𝙮-Carlos°'
-global.textbot = '𝙎𝙝𝙞𝙕𝙪𝙠𝙖-𝘼𝙄 𝙋𝙤𝙬𝙚𝙧 𝙗𝙮 Carlos '
+global.textbot = '𝙎𝙝𝙞𝙯𝙪𝙠𝙖-𝘼𝙄 𝙋𝙤𝙬𝙚𝙧 𝙗𝙮 Carlos '
 global.etiqueta = 'Carlos'
 
 
