@@ -2,7 +2,7 @@ import axios from 'axios';
 
 let handler = async (m, { conn, usedPrefix, command, text }) => {
   if (!text) {
-    return conn.reply(m.chat, '🚩 Ingresa el link del canal de WhatsApp que deseas obtener información.\n\n`Ejemplo:`\n' + `> *${usedPrefix + command}* https://whatsapp.com/channel/0029ValMlRS6buMFL9d0iQ0S`, m, rcanal);
+    return conn.reply(m.chat, '🚩 Ingresa el link del canal de WhatsApp que deseas obtener información.\n\n`Ejemplo:`\n' + `> *${usedPrefix + command}* https://whatsapp.com/channel/0029VbAVMtj2f3EFmXmrzt0v`, m, rcanal);
   }
   await m.react('🕓');
 
