@@ -40,12 +40,25 @@ Si tienes alguna pregunta, encuentras algún problema o tienes sugerencias, no d
 **Carlos:** [`Contactar`](https://wa.me/5355699866)
 
 ---
-## 📊 **Estadísticas de GitHub**
+## 🚀 **Estadísticas de GitHub**
 
 <p align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=Kone457&repo=Shizuka-AI&show_icons=true&theme=radical&hide_border=true" alt="Estadísticas de GitHub">
-  <img src="https://github-readme-streak-stats.herokuapp.com/?user=Kone457&theme=radical&hide_border=true" alt="Racha de GitHub">
+  <img src="https://github-readme-stats.vercel.app/api?username=Kone457&repo=Shizuka-AI&show_icons=true&theme=tokyonight&bg_color=0D1117&title_color=ff00ff&text_color=00ffff&icon_color=f1c40f&hide_border=true" alt="Estadísticas de GitHub">
+  <img src="https://github-readme-streak-stats.herokuapp.com/?user=Kone457&theme=tokyonight&background=0D1117&ring=ff00ff&fire=f1c40f&currStreakLabel=00ffff&hide_border=true" alt="Racha de GitHub">
+  <img src="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=Kone457&theme=tokyonight" alt="Detalles del perfil">
 </p>
+
+---
+
+🌟 **¡Personalización total!** 
+- **`theme=tokyonight`** → Estilo con tonos oscuros y neón.
+- **`bg_color=0D1117`** → Fondo oscuro elegante.
+- **`title_color=ff00ff`** → Títulos en morado intenso.
+- **`text_color=00ffff`** → Texto en azul neón.
+- **`icon_color=f1c40f`** → Iconos en dorado.
+- **`ring=ff00ff` y `fire=f1c40f`** → Efectos en la racha.
+
+Puedes probar otros temas y colores en [GitHub Readme Stats](https://github.com/anuraghazra/github-readme-stats) y [GitHub Profile Summary](https://github.com/vn7n24fzkq/github-profile-summary-cards).
 # ✨ ✨ ✨ ✨ ✨
 
 ## Despliegue en BoxMineWorld
