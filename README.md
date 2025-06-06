@@ -40,6 +40,12 @@ Si tienes alguna pregunta, encuentras algún problema o tienes sugerencias, no d
 **Carlos:** [`Contactar`](https://wa.me/5355699866)
 
 ---
+## 📊 **Estadísticas de GitHub**
+
+<p align="center">
+  <img src="https://github-readme-stats.vercel.app/api?username=Kone457&repo=Shizuka-AI&show_icons=true&theme=radical&hide_border=true" alt="Estadísticas de GitHub">
+  <img src="https://github-readme-streak-stats.herokuapp.com/?user=Kone457&theme=radical&hide_border=true" alt="Racha de GitHub">
+</p>
 # ✨ ✨ ✨ ✨ ✨
 
 ## Despliegue en BoxMineWorld
