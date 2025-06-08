@@ -64,8 +64,8 @@ global.avatar = 'https://raw.githubusercontent.com/Kone457/Nexus/refs/heads/main
 
 //-----------------------------
 
-global.gp1 = 'https://chat.whatsapp.com/BWo2qTJTePQLj6PTqMfQWp'
-global.comunidad1 = 'https://chat.whatsapp.com/FKdA4geFvKVD17dP6O6MHt'
+global.gp1 = 'https://chat.whatsapp.com/FULTpMKUnwcI6zR7LT3qsW'
+global.comunidad1 = 'https://chat.whatsapp.com/KUQIRhtLBir2FhiiFuqbGO'
 global.channel = 'https://whatsapp.com/channel/0029VbAVMtj2f3EFmXmrzt0v'
 global.channel2 = 'https://whatsapp.com/channel/0029VbAVMtj2f3EFmXmrzt0v'
 global.md = 'https://github.com/Kone457/Shizuka-AI'
