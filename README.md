@@ -39,6 +39,7 @@ Si tienes alguna pregunta, encuentras algún problema o tienes sugerencias, no d
 ## 👑 Creador 
 **Carlos:** [`Contactar`](https://wa.me/5355699866)
 
+**Canal oficial:** [Canal](https://whatsapp.com/channel/0029VbAVMtj2f3EFmXmrzt0v)
 ---
 ## 🚀 **Estadísticas de GitHub**
 
