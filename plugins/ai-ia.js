@@ -39,7 +39,7 @@ handler.help = ['ia', 'chatgpt']
 handler.tags = ['ai']
 handler.register = true
 handler.command = ['ia', 'chatgpt', 'luminai', 'shizuka']
-handler.group = true
+handler.group = false
 
 export default handler
 
