@@ -40,6 +40,9 @@ Si tienes alguna pregunta, encuentras algún problema o tienes sugerencias, no d
 **Carlos:** [`Contactar`](https://wa.me/5355699866)
 
 **Canal oficial:** [`Canal`](https://whatsapp.com/channel/0029VbAVMtj2f3EFmXmrzt0v)
+
+[![Discord](https://img.shields.io/badge/Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/TJeyxkA9V2)
+
 ---
 ## 🚀 **Estadísticas de GitHub**
 
