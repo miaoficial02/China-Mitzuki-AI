@@ -58,7 +58,7 @@ global.etiqueta = 'Carlos'
 
 global.moneda = 'Coins'
 global.welcom1 = '❍ Edita Con El Comando setwelcome'
-global.welcom2 = '¡Adiós, [nombre]! 😘 Te vas, pero no sin dejar un vacío travieso en este grupo. 😏✨ Espero que encuentres más aventuras... ¡y que no te olvides de lo que te perdiste aquí! 😉💋 ¡Vuelve pronto, que la diversión nunca se detiene! 🔥💖'
+global.welcom2 = '¡Adiós, ${groupMetadata.subject}! 😘 Te vas, pero no sin dejar un vacío travieso en este grupo. 😏✨ Espero que encuentres más aventuras... ¡y que no te olvides de lo que te perdiste aquí! 😉💋 ¡Vuelve pronto, que la diversión nunca se detiene! 🔥💖'
 global.banner = 'https://raw.githubusercontent.com/Kone457/Nexus/refs/heads/main/s2.jpg'
 global.avatar = 'https://raw.githubusercontent.com/Kone457/Nexus/refs/heads/main/sss.jpg'
 
