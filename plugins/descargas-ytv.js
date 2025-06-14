@@ -75,6 +75,6 @@ const handler = async (m, { conn, command, text, usedPrefix }) => {
 
 handler.help = ['ytv'].map(v => v + ' *<consulta>*')
 handler.tags = ['downloader']
-handler.command = ["ytv"]
+handler.command = ["ytv2"]
 handler.group = true;
 export default handler
