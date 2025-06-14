@@ -14,7 +14,7 @@ const handler = async (m, { conn }) => {
 
   const apiUrl = `https://some-random-api.com/canvas/gay?avatar=${encodeURIComponent(avatarUrl)}`;
 
-  await conn.sendFile(m.chat, apiUrl, 'gay.png', '*🏳️‍🌈 Miren a este gay 🏳️‍🌈*\n Igual que Oscar.', m);
+  await conn.sendFile(m.chat, apiUrl, 'gay.png', '*🏳️‍🌈 Miren a este gay 🏳️‍🌈*\n > Igual que Oscar.', m);
 };
 
 handler.help = ['gay'];
