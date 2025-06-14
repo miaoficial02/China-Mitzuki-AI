@@ -24,7 +24,7 @@ let handler = async (m, { conn, usedPrefix, command }) => {
             image: { url: img },
             caption: txt,
             buttons: buttons,
-            viewOnce: true
+            viewOnce: false
         },
         { quoted: m }
     );
