@@ -6,7 +6,7 @@ let handler = async (m, { conn, usedPrefix, command }) => {
     return m.reply(hotw);
     }
 
-    m.react('💋');
+    m.react('🤭');
 
     let txt = 'Pack 🔥';
     let img = 'https://delirius-apiofc.vercel.app/nsfw/girls';
