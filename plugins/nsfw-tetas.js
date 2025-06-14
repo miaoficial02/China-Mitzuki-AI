@@ -45,5 +45,6 @@ handler.help = handler.command = [
 ];
 
 handler.tags = ['nsfw'];
-
+handler.group = true;
+                
 export default handler;
