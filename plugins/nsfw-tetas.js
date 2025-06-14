@@ -41,7 +41,10 @@ try {
 };
 
 handler.help = handler.command = [
-    'tetas', 'pechos'
+    'tetas', 'pechos', 'nsfwloli', 'nsfwfoot', 'nsfwass', 'nsfwbdsm', 'nsfwcum', 'nsfwero', 
+    'nsfwfemdom', 'nsfwglass', 'nsfworgy', 'yuri', 'yuri2', 'yaoi', 'yaoi2', 
+    'panties', 'tetas', 'booty', 'ecchi', 'furro', 'hentai', 'trapito', 
+    'imagenlesbians', 'pene', 'porno', 'randomxxx'
 ];
 
 handler.tags = ['nsfw'];
