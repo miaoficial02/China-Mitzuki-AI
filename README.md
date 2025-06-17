@@ -1,5 +1,5 @@
 #  🍁 🍁 🍁 🍁 🍁
-<h1 style="color:purple; text-align:center;">✨ ¡Descubre la magia de Shizuka en WhatsApp! ✨</h1>
+<h1 style="color:purple; text-align:center;">✨ ¡Descubre la magia de _Shizuka en WhatsApp_ ! ✨</h1>
 
 ![Descripción de la imagen](https://raw.githubusercontent.com/Kone457/Nexus/refs/heads/main/sss.jpg)
 
