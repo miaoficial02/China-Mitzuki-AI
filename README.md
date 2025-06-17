@@ -1,5 +1,5 @@
 #  🍁 🍁 🍁 🍁 🍁
-<h1 style="color:purple; text-align:center;">✨ _¡Shizuka!_ ✨</h1>
+<h1 style="color:purple; text-align:center;">✨ [¡̲̲̅̅S̲̲̅̅h̲̲̅̅i̲̲̅̅z̲̲̅̅u̲̲̅̅k̲̲̅̅a̲̲̅̅ ̲̲̅̅-̲̲̅̅ ̲̲̅̅A̲̲̅̅I̲̲̅̅!̲̲̅̅] ✨</h1>
 
 ![Descripción de la imagen](https://raw.githubusercontent.com/Kone457/Nexus/refs/heads/main/sss.jpg)
 
