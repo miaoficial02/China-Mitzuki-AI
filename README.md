@@ -71,4 +71,4 @@ Si tienes alguna pregunta, encuentras algún problema o tienes sugerencias, no d
 
 </details>
 
-<a href="https://boxmineworld.com"><img src="https://i.postimg.cc/qBC5GXSJ/BoxMine.jpg" height="125px"></a>
+<a href="https://boxmineworld.com"><img src="https://i.postimg.cc/VNNfmhB7/perfil.png" height="125px"></a>
