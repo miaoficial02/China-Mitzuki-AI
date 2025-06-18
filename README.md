@@ -40,9 +40,7 @@ Si tienes alguna pregunta, encuentras algún problema o tienes sugerencias, no d
 
 ## 👑 Creador 
 <a href="https://wa.me/5355699866"><img src="https://i.postimg.cc/VNNfmhB7/perfil.png" height="125px"></a>
-
-
-**Canal oficial:** [`Canal`](https://whatsapp.com/channel/0029VbAVMtj2f3EFmXmrzt0v)
+> 𝙏𝙤𝙘𝙖𝙧 𝙡𝙖 𝙞𝙢𝙖𝙜𝙚𝙣
 
 ---
 ## 🚀 **Estadísticas de GitHub**
