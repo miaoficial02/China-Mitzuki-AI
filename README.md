@@ -70,3 +70,5 @@ Si tienes alguna pregunta, encuentras algún problema o tienes sugerencias, no d
 - **Comunidad de Discord:** [¡Únete aquí!](https://discord.gg/84qsr4v)
 
 </details>
+
+<a href="https://boxmineworld.com"><img src="https://i.postimg.cc/qBC5GXSJ/BoxMine.jpg" height="125px"></a>
