@@ -38,7 +38,7 @@ Si tienes alguna pregunta, encuentras algún problema o tienes sugerencias, no d
 </p>
 
 
-## 👑 Creador 
+## 👑 Creador  <img src="https://raw.githubusercontent.com/MBM-D/Github-Emoji/refs/heads/master/Emojis/Smilies/Zzz.png" alt="Heart on Fire" width="23" height="23" />
 <a href="https://wa.me/5355699866"><img src="https://i.postimg.cc/VNNfmhB7/perfil.png" height="125px"></a>
 > 𝙏𝙤𝙘𝙖𝙧 𝙡𝙖 𝙞𝙢𝙖𝙜𝙚𝙣
 
