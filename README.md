@@ -22,7 +22,7 @@ Si disfrutas de las funcionalidades y la experiencia que Shizuka ofrece en Whats
 </p>
 
 
-## 💖 ¡Tu Apoyo es Importante!
+## 💖 ¡Tu Apoyo es Importante! <img src="https://raw.githubusercontent.com/MBM-D/Github-Emoji/refs/heads/master/Emojis/Animals/Cricket.png" alt="Heart on Fire" width="23" height="23" />
 Si te gusta Shizuka y quieres verla crecer, considera:
 
 * Dejar una **estrellita ⭐** en este repositorio.
