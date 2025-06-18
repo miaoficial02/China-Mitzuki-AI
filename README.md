@@ -39,7 +39,8 @@ Si tienes alguna pregunta, encuentras algún problema o tienes sugerencias, no d
 
 
 ## 👑 Creador 
-**Carlos:** [`Contactar`](https://wa.me/5355699866)
+<a href="https://wa.me/5355699866"><img src="https://i.postimg.cc/VNNfmhB7/perfil.png" height="125px"></a>
+
 
 **Canal oficial:** [`Canal`](https://whatsapp.com/channel/0029VbAVMtj2f3EFmXmrzt0v)
 
@@ -70,5 +71,3 @@ Si tienes alguna pregunta, encuentras algún problema o tienes sugerencias, no d
 - **Comunidad de Discord:** [¡Únete aquí!](https://discord.gg/84qsr4v)
 
 </details>
-
-<a href="https://boxmineworld.com"><img src="https://i.postimg.cc/VNNfmhB7/perfil.png" height="125px"></a>
