@@ -1,5 +1,5 @@
 #  🍁 🍁 🍁 🍁 🍁
-<h1 style="color:purple; text-align:center;"> <img src="https://raw.githubusercontent.com/Bots-WhatsApp-OFC/Github-Emoji/master/Emojis/Smilies/Heart%20on%20Fire.png" alt="Heart on Fire" width="23" height="23" />[¡̲̲̅̅S̲̲̅̅h̲̲̅̅i̲̲̅̅z̲̲̅̅u̲̲̅̅k̲̲̅̅a̲̲̅̅ ̲̲̅̅-̲̲̅̅ ̲̲̅̅A̲̲̅̅I̲̲̅̅!̲̲̅̅] <img src="https://raw.githubusercontent.com/Bots-WhatsApp-OFC/Github-Emoji/master/Emojis/Smilies/Heart%20on%20Fire.png" alt="Heart on Fire" width="23" height="23" /> </h1>
+<h1 style="color:purple; text-align:center;"> <img src="https://raw.githubusercontent.com/Bots-WhatsApp-OFC/Github-Emoji/master/Emojis/Smilies/Heart%20on%20Fire.png" alt="Heart on Fire" width="23" height="23" />[¡̲̲̅̅S̲̲̅̅h̲̲̅̅i̲̲̅̅z̲̲̅̅u̲̲̅̅k̲̲̅̅a̲̲̅̅ ̲̲̅̅-̲̲̅̅ ̲̲̅̅A̲̲̅̅I̲̲̅̅!̲̲̅̅] <img src="https://raw.githubusercontent.com/Bots-WhatsApp-OFC/Github-Emoji/master/Emojis/Smilies/Heart%20on%20Fire.png" alt="Heart on Fire" width="32" height="32" /> </h1>
 
 >𝓢𝓾𝓹𝓮𝓻 𝓫𝓸𝓽 𝓬𝓻𝓮𝓪𝓭𝓸 𝓹𝓪𝓻𝓪 𝓽𝓲
 
