@@ -10,6 +10,12 @@
 
 Si disfrutas de las funcionalidades y la experiencia que Shizuka ofrece en WhatsApp, ¡una **estrellita ⭐** en este repositorio sería increíble! Es una forma sencilla y gratuita de mostrar tu apoyo y animarnos a seguir creando cosas geniales. 💖
 
+<p align="center" style="animation: slide-up 1s ease-in;">
+  <a href="https://github.com/Kone457/Shizuka-AI/stargazers">
+    <img src="https://img.shields.io/github/stars/Kone457/Shizuka-AI?style=for-the-badge&color=ff00ff">
+  </a>
+</p>
+
 
 ## 💬 ¡Únete a la Comunidad Oficial de Shizuka en WhatsApp!
 
