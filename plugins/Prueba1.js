@@ -1,3 +1,7 @@
+//código y API desarrollada por
+// Https://github.com/deylin-eliac
+// No quites créditos
+
 import fetch from 'node-fetch'
 import { downloadContentFromMessage } from '@whiskeysockets/baileys'
 
