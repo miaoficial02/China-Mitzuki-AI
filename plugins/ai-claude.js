@@ -7,7 +7,7 @@ if (!text) return conn.reply(m.chat, `${emoji} Ingrese una petición para que cl
 try {
 await m.react(rwait)
 conn.sendPresenceUpdate('composing', m.chat)
-var apii = await fetch(`https://delirius-apiofc.vercel.app/ia/gptprompt?text=quien%20eres%20y%20quien%20es%20tu%20creador?&prompt=${text}`)
+var apii = await fetch(`https://api.alyachan.dev/api/ai-meta?prompt=${text}&apikey=OjjSVA`)
 var res = await apii.json()
 await m.reply(res.result)
 } catch {
