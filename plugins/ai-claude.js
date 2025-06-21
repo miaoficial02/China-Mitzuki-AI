@@ -3,7 +3,7 @@
 
 import fetch from 'node-fetch'
 var handler = async (m, { text,  usedPrefix, command }) => {
-if (!text) return conn.reply(m.chat, `${emoji} Ingrese una petición para que deepseek lo responda.`, m)
+if (!text) return conn.reply(m.chat, `${emoji} Ingrese una petición para que claude lo responda.`, m)
 try {
 await m.react(rwait)
 conn.sendPresenceUpdate('composing', m.chat)
@@ -12,7 +12,7 @@ var res = await apii.json()
 await m.reply(res.result)
 } catch {
 await m.react('💔')
-await conn.reply(m.chat, `${msm} Deepseek no puede responder a esa pregunta.`, m)
+await conn.reply(m.chat, `${msm} Claude no puede responder a esa pregunta.`, m)
 }}
 handler.command = ['claude']
 handler.help = ['claude']
