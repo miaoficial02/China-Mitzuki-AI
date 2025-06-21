@@ -7,7 +7,7 @@ if (!text) return conn.reply(m.chat, `${emoji} Ingrese una petición para que cl
 try {
 await m.react(rwait)
 conn.sendPresenceUpdate('composing', m.chat)
-var apii = await fetch(`https://itzpire.com/ai/claude?prompt=${text}`)
+var apii = await fetch(`https://delirius-apiofc.vercel.app/ia/llamaia?query=${text}`)
 var res = await apii.json()
 await m.reply(res.result)
 } catch {
