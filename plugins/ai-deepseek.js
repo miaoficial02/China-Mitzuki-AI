@@ -7,15 +7,15 @@ if (!text) return conn.reply(m.chat, `${emoji} Ingrese una petición para que de
 try {
 await m.react(rwait)
 conn.sendPresenceUpdate('composing', m.chat)
-var apii = await fetch(`https://api.dorratz.com/ai/deepseek?prompt=${text}`)
+var apii = await fetch(`https://itzpire.com/ai/claude?prompt=${text}`)
 var res = await apii.json()
 await m.reply(res.result)
 } catch {
 await m.react('💔')
 await conn.reply(m.chat, `${msm} Deepseek no puede responder a esa pregunta.`, m)
 }}
-handler.command = ['deepseek']
-handler.help = ['deepseek']
+handler.command = ['claude']
+handler.help = ['claude']
 handler.tags = ['ai']
 handler.group = true;
 handler.register = true;
