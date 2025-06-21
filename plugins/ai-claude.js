@@ -14,8 +14,8 @@ await m.reply(res.result)
 await m.react('💔')
 await conn.reply(m.chat, `${msm} Claude no puede responder a esa pregunta.`, m)
 }}
-handler.command = ['claude']
-handler.help = ['claude']
+handler.command = ['meta']
+handler.help = ['meta']
 handler.tags = ['ai']
 handler.group = true;
 handler.register = true;
