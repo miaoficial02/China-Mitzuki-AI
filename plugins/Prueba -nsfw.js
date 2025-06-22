@@ -1,5 +1,3 @@
-let user = global.db.data.users[userId]
-    let name = conn.getName(userId)
 
 import fetch from 'node-fetch';
 
@@ -71,7 +69,7 @@ const handler = async (m, { conn, usedPrefix, command }) => {
           m.chat, 
           imageUrl, 
           'anime_girl.jpg', 
-          ` Aquí tienes ${userId.split('@')[0]}\n` +
+          ` Aquí tienes amig@\n` +
           `👉 Reacciona con ${REACTIONS.success} si te gustó`,
           m
         );
