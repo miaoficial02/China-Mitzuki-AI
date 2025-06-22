@@ -140,5 +140,8 @@ function isValidImageUrl(url) {
 handler.help = ['xx'];
 handler.tags = ['nsfw'];
 handler.command = 'xx';
+handler.register = true;
+handler.group = true;
+handler.fail = null;
 
 export default handler;
