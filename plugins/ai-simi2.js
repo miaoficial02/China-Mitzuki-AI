@@ -1,49 +1,47 @@
 import fetch from 'node-fetch';
 
-// Configuración
 const emoji = '🤖';
 const rwait = '⏳';
 const msm = '⚠️';
 
-var handler = async (m, { text, conn }) => {
-    if (!text) return conn.reply(m.chat, `${emoji} Escribe tu pregunta. Ejemplo: *!simi Hola*`, m);
-    
+var handler = async (m, { text }) => {
+    if (!text) return m.reply(`${emoji} Escribe algo. Ejemplo: *!simi Hola*`);
+
     try {
         await m.react(rwait);
         conn.sendPresenceUpdate('composing', m.chat);
 
-        // Timeout manual para evitar bloqueos
-        const timeoutPromise = new Promise((_, reject) => 
-            setTimeout(() => reject(new Error('Tiempo de espera agotado (10s)')), 10000)
-        );
-
-        // API alternativa (SimSimi oficial)
-        const apiUrl = `https://api.simsimi.vn/v1/simtalk?text=${encodeURIComponent(text)}&lc=es`;
+        // API alternativa (SimSimi oficial con POST)
+        const apiUrl = 'https://api.simsimi.vn/v2/simtalk';
         
-        const fetchPromise = fetch(apiUrl, {
-            headers: { 'Content-Type': 'application/json' }
+        const response = await fetch(apiUrl, {
+            method: 'POST',  // ¡Importante! Esta API usa POST
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+                text: text,
+                lc: 'es'
+            }),
+            timeout: 8000
         });
 
-        // Race: fetch vs timeout
-        const response = await Promise.race([fetchPromise, timeoutPromise]);
+        if (!response.ok) throw new Error(`Error ${response.status}: ${response.statusText}`);
         
-        if (!response.ok) throw new Error(`API error: ${response.status}`);
         const data = await response.json();
-
-        // Respuesta adaptativa
-        const reply = data.message || data.response || "No puedo responder ahora 😢";
+        const reply = data.message || "No puedo responder ahora 😢";
+        
         await m.reply(reply);
         await m.react('✅');
 
     } catch (error) {
-        console.error('DEBUG ERROR:', error); // Debug detallado
+        console.error('Error en SimSimi:', error);
         await m.react('❌');
-        await conn.reply(m.chat, `${msm} Error: ${error.message}`, m);
+        await m.reply(`${msm} *Error:*\n${error.message}\n\nPrueba con otra pregunta.`);
     }
 };
 
-// Comandos y metadata
 handler.command = ['simi', 'bot'];
-handler.help = ['simi <texto> - Chatea con SimSimi'];
-handler.tags = ['ai'];
+handler.help = ['simi <texto> - Chatea con IA'];
 export default handler;
