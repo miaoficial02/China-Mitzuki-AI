@@ -63,17 +63,30 @@ Si tienes alguna pregunta, encuentras algún problema o tienes sugerencias, no d
 
 # ✨ ✨ ✨ ✨ ✨
 
-## Despliegue en BoxMineWorld
+## Despliegue en BoxMineWorld  
 
 [![Logo BoxMineWorld](https://boxmineworld.com/img/Logo.png)](https://boxmineworld.com)
 
+<p align="center">
+  <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&size=25&duration=3000&pause=1000&color=FF69B4&center=true&vCenter=true&width=500&lines=¡El+hogar+perfecto+para+tu+bot!;Servidores+potentes+⚡;Soporte+24⁄7+💙;Instalación+automática+🚀" alt="Features BoxMineWorld">
+</p>
+
 <details>
-  <summary><b>:paperclip: Enlaces Importantes</b></summary>
+  <summary><h2>📎 <b>Enlaces Importantes</b> 🌟</h2></summary>
 
-- **Sitio Web:** [https://boxmineworld.com](https://boxmineworld.com)  
-- **Área de Clientes:** [https://dash.boxmineworld.com](https://dash.boxmineworld.com)  
-- **Panel de Control:** [https://panel.boxmineworld.com](https://panel.boxmineworld.com)  
-- **Documentación:** [https://docs.boxmineworld.com](https://docs.boxmineworld.com)  
-- **Comunidad de Discord:** [¡Únete aquí!](https://discord.gg/84qsr4v)
+<div align="center">
 
+| 🔗 **Recurso** | 🎨 **Enlace** | 💫 **Descripción** |
+|---------------|--------------|-------------------|
+| 🌐 Sitio Web | [boxmineworld.com](https://boxmineworld.com) | Página principal con todos los servicios |
+| 🖥 Área Clientes | [dash.boxmineworld.com](https://dash.boxmineworld.com) | Gestiona tus servicios y facturación |
+| ⚙ Panel Control | [panel.boxmineworld.com](https://panel.boxmineworld.com) | Administra tus servidores y aplicaciones |
+| 📚 Documentación | [docs.boxmineworld.com](https://docs.boxmineworld.com) | Guías completas para configuración |
+| 💬 Comunidad | [Discord](https://discord.gg/84qsr4v) | Soporte en vivo y comunidad activa |
+
+</div>
 </details>
+
+<p align="center">
+  <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExc2VlZ3V6Z2F5bW9yY3J4dWZ1aGJ5dXZqY2JtN2R6eGZ4eGZ6YiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3o7abKhK8ErT5fXhU4/giphy.gif" width="300">
+</p>
