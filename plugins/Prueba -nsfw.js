@@ -1,3 +1,6 @@
+let user = global.db.data.users[userId]
+    let name = conn.getName(userId)
+
 import fetch from 'node-fetch';
 
 // Emojis para reacciones
@@ -68,7 +71,7 @@ const handler = async (m, { conn, usedPrefix, command }) => {
           m.chat, 
           imageUrl, 
           'anime_girl.jpg', 
-          `🎀 *Imagen de ${api.name}*\n` +
+          ` Aquí tienes ${userId.split('@')[0]}\n` +
           `👉 Reacciona con ${REACTIONS.success} si te gustó`,
           m
         );
