@@ -69,7 +69,7 @@ const handler = async (m, { conn, usedPrefix, command }) => {
           m.chat, 
           imageUrl, 
           'anime_girl.jpg', 
-          ` Aquí tienes amig@\n` +
+          `> Aquí tienes amig@\n` +
           `👉 Reacciona con ${REACTIONS.success} si te gustó`,
           m
         );
