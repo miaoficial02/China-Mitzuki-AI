@@ -1,4 +1,5 @@
-
+//---Creado por Carlos
+//---https://github.com/Kone457
 import fetch from 'node-fetch';
 
 // Emojis para reacciones
