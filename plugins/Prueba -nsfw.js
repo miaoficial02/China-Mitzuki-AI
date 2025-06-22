@@ -1,5 +1,6 @@
 //---Creado por Carlos
 //---https://github.com/Kone457
+
 import fetch from 'node-fetch';
 
 // Emojis para reacciones
@@ -137,7 +138,7 @@ function isValidImageUrl(url) {
 
 // Configuración
 handler.help = ['xx'];
-handler.tags = ['anime', 'imagen'];
+handler.tags = ['nsfw'];
 handler.command = 'xx';
 
 export default handler;
