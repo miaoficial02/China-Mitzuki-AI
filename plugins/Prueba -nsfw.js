@@ -6,7 +6,7 @@ const handler = async (m, { conn, usedPrefix, command }) => {
     
     try {
         // Opciones de la API
-        const apiUrl = 'https://delirius-apiofc.vercel.app/meme/girls';
+        const apiUrl = 'https://delirius-apiofc.vercel.app/nsfw/girls';
         const response = await fetch(apiUrl);
         
         if (!response.ok) throw new Error(`API respondió con estado ${response.status}`);
