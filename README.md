@@ -87,6 +87,3 @@ Si tienes alguna pregunta, encuentras algún problema o tienes sugerencias, no d
 </div>
 </details>
 
-<p align="center">
-  <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExc2VlZ3V6Z2F5bW9yY3J4dWZ1aGJ5dXZqY2JtN2R6eGZ4eGZ6YiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3o7abKhK8ErT5fXhU4/giphy.gif" width="300">
-</p>
