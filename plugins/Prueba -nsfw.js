@@ -1,57 +1,90 @@
 import fetch from 'node-fetch';
 
 const handler = async (m, { conn, usedPrefix, command }) => {
-    // Mensaje de espera
-    const waitMsg = await conn.reply(m.chat, '🔄 Cargando imagen...', m);
-    
-    try {
-        // Opciones de la API
-        const apiUrl = 'https://delirius-apiofc.vercel.app/nsfw/girls';
-        const response = await fetch(apiUrl);
-        
-        if (!response.ok) throw new Error(`API respondió con estado ${response.status}`);
-        
-        // Obtener la URL de la imagen
-        const data = await response.json();
-        if (!data.url || !data.url.match(/\.(jpe?g|png|gif)$/i)) {
-            throw new Error('Respuesta de API no contiene una imagen válida');
+    // Reacciones iniciales
+    await conn.sendMessage(m.chat, { 
+        react: { 
+            text: '⏳', 
+            key: m.key 
         }
+    });
+
+    try {
+        const apiUrl = 'https://delirius-apiofc.vercel.app/nsfw/girls';
         
-        // Enviar la imagen con marca de agua
-        await conn.sendFile(m.chat, data.url, 'imagen.jpg', 
-            `🌸 *Imagen generada por* ${conn.getName(m.sender)}\n` +
-            `🔗 *Enlace:* ${data.url}\n` +
-            `📛 *Uso:* ${usedPrefix + command}`,
-            m
-        );
-        
-        // Eliminar mensaje de espera
-        await conn.sendMessage(m.chat, { delete: waitMsg.key });
-        
-    } catch (error) {
-        console.error('Error en el plugin girls:', error);
-        
-        // Manejo de errores
-        await conn.reply(m.chat, 
-            `❌ Error al obtener la imagen:\n` +
-            `${error.message}\n\n` +
-            `Prueba de nuevo más tarde o usa *${usedPrefix}reporte* para notificar el problema.`,
-            m
-        );
-        
-        // Mantener el mensaje de espera para contexto
+        // 1. Verificar si la API está activa
         await conn.sendMessage(m.chat, { 
-            text: '⚠️ Se produjo un error (ver arriba)',
-            delete: waitMsg.key 
+            react: { 
+                text: '🔍', 
+                key: m.key 
+            }
+        });
+        
+        const checkApi = await fetch(apiUrl, { method: 'HEAD' });
+        if (!checkApi.ok) throw new Error('API no responde');
+        
+        // 2. Descargar imagen con indicador
+        await conn.sendMessage(m.chat, { 
+            react: { 
+                text: '📥', 
+                key: m.key 
+            }
+        });
+        
+        const response = await fetch(apiUrl);
+        if (!response.ok) throw new Error(`Error ${response.status}`);
+        
+        // 3. Validar que sea imagen
+        const contentType = response.headers.get('content-type');
+        if (!contentType?.startsWith('image/')) throw new Error('Formato no soportado');
+        
+        // 4. Enviar imagen con reacción de éxito
+        await conn.sendFile(m.chat, apiUrl, 'girl.jpg', 
+            `✨ *Imagen generada*\n` + 
+            `🔗 ${apiUrl}\n` +
+            `💖 Reacciona con 👍 si te gustó`,
+            m
+        );
+        
+        await conn.sendMessage(m.chat, { 
+            react: { 
+                text: '✅', 
+                key: m.key 
+            }
+        });
+
+    } catch (error) {
+        // Reacción de error y mensaje
+        await conn.sendMessage(m.chat, { 
+            react: { 
+                text: '❌', 
+                key: m.key 
+            }
+        });
+        
+        await conn.reply(m.chat, 
+            `⚠️ *Error*\n` +
+            `${error.message}\n\n` +
+            `Prueba con:\n` +
+            `• *${usedPrefix}reload* - Recargar plugin\n` +
+            `• *${usedPrefix}reporte* - Notificar error`,
+            m
+        );
+        
+        // Reacción adicional para diagnóstico
+        await conn.sendMessage(m.chat, { 
+            react: { 
+                text: '⁉️', 
+                key: m.key 
+            }
         });
     }
 };
 
-// Configuración del comando
+// Configuración
 handler.help = ['girls'];
 handler.tags = ['anime', 'imagen'];
-handler.command = 'girls';
-handler.limit = true; // Limitar uso excesivo
-handler.register = true; // Opcional: Registrar como plugin oficial
+handler.command = 'xx';
+handler.limit = true;
 
 export default handler;
