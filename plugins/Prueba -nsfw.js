@@ -69,7 +69,6 @@ const handler = async (m, { conn, usedPrefix, command }) => {
           imageUrl, 
           'anime_girl.jpg', 
           `🎀 *Imagen de ${api.name}*\n` +
-          `🔗 Fuente: ${imageUrl}\n` +
           `👉 Reacciona con ${REACTIONS.success} si te gustó`,
           m
         );
