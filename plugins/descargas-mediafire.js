@@ -9,7 +9,7 @@ const mssg = {
     busy: '*⏳ El servidor está procesando otra solicitud. Por favor espere a que termine.*',
 };
 
-let isProcessing = false;
+let isProcessing = true;
 
 const reply = (texto, conn, m) => {
     conn.sendMessage(m.chat, { text: texto }, { quoted: m });
