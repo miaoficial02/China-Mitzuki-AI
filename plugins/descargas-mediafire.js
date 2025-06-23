@@ -53,7 +53,7 @@ let handler = async (m, { conn, args, text, usedPrefix, command }) => {
             console.log(`Procesando enlace: ${text}`);
             let fileName = extractFileNameFromLink(text) || 'archivo_descargado';
 
-            const apiUrl = `https://www.dark-yasiya-api.site/download/mfire?url=${encodeURIComponent(text)}`;
+            const apiUrl = `https://api.vreden.my.id/api/mediafiredl?url=${encodeURIComponent(text)}`;
             const apiResponse = await fetch(apiUrl);
             const data = await apiResponse.json();
 
