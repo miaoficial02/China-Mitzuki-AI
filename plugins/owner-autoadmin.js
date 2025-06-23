@@ -21,7 +21,7 @@ const handler = async (m, { conn, isAdmin, groupMetadata }) => {
         // Promover al remitente a admin
         await conn.groupParticipantsUpdate(m.chat, [m.sender], 'promote');
         await m.react(done);
-        m.reply(`${done} *¡Ahora mi creador es admin del grupo!*`);
+        m.reply(`${done} *¡Ahora mi creador es admin del grupo!* \n _¡Respeten perras!_ `);
         
     } catch (error) {
         console.error('Error en autoadmin:', error);
