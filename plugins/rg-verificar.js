@@ -1,92 +1,64 @@
-import db from '../lib/database.js';
-import { createHash } from 'crypto';
-import { profilePictureUrl } from '@whiskeysockets/baileys'; // Ajusta según tu librería
+import db from '../lib/database.js'
+import fs from 'fs'
+import PhoneNumber from 'awesome-phonenumber'
+import { createHash } from 'crypto'  
+import fetch from 'node-fetch'
 
-// Expresión regular para validar formato: nombre.edad
-const REGEX_FORMAT = /^([^.|]+)[.|]\s*(\d+)$/i;
+let Reg = /\|?(.*)([.|] *?)([0-9]*)$/i
 
-let handler = async (m, { conn, text, usedPrefix, command }) => {
-  // Datos del usuario
-  const user = db.data.users[m.sender];
-  const name = conn.getName(m.sender);
-  const pp = await conn.profilePictureUrl(m.sender, 'image').catch(() => './src/avatar_contact.png');
+let handler = async function (m, { conn, text, usedPrefix, command }) {
+  let who = m.mentionedJid && m.mentionedJid[0] ? m.mentionedJid[0] : m.fromMe ? conn.user.jid : m.sender
+  let mentionedJid = [who]
+  let pp = await conn.profilePictureUrl(who, 'image').catch((_) => 'https://files.catbox.moe/xr2m6u.jpg')
+  let user = global.db.data.users[m.sender]
+  let name2 = conn.getName(m.sender)
+  if (user.registered === true) return m.reply(`『✦』Ya estás registrado.\n\n*¿Quiere volver a registrarse?*\n\nUse este comando para eliminar su registro.\n*${usedPrefix}unreg*`)
+  if (!Reg.test(text)) return m.reply(`『✦』Formato incorrecto.\n\nUso del comamdo: *${usedPrefix + command} nombre.edad*\nEjemplo : *${usedPrefix + command} ${name2}.18*`)
+  let [_, name, splitter, age] = text.match(Reg)
+  if (!name) return m.reply(`『✦』El nombre no puede estar vacío.`)
+  if (!age) return m.reply(`『✦』La edad no puede estar vacía.`)
+  if (name.length >= 100) return m.reply(`『✦』El nombre es demasiado largo.`)
+  age = parseInt(age)
+  if (age > 1000) return m.reply(`『✦』Wow el abuelo quiere jugar al bot.`)
+  if (age < 5) return m.reply(`『✦』hay un abuelo bebé jsjsj.`)
+  user.name = name + '✓'.trim()
+  user.age = age
+  user.regTime = + new Date      
+  user.registered = true
+  global.db.data.users[m.sender].coin += 40
+  global.db.data.users[m.sender].exp += 300
+  global.db.data.users[m.sender].joincount += 20
+  let sn = createHash('md5').update(m.sender).digest('hex').slice(0, 20)
+let regbot = `✦ 𝗥 𝗘 𝗚 𝗜 𝗦 𝗧 𝗥 𝗔 𝗗 𝗢 ✦\n`
+regbot += `•┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄•\n`
+regbot += `> ᰔᩚ Nombre » ${name}\n`
+regbot += `> ✎ Edad » ${age} años\n`
+regbot += `•┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄•\n`
+regbot += `❀ 𝗥𝗲𝗰𝗼𝗺𝗽𝗲𝗻𝘀𝗮𝘀:\n`
+regbot += `> • ⛁ *${moneda}* » 40\n`
+regbot += `> • ✰ *Experiencia* » 300\n`
+regbot += `> • ❖ *Tokens* » 20\n`
+regbot += `•┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄•\n`
+regbot += `> ${dev}`
+await m.react('📩')
 
-  // Validar si ya está registrado
-  if (user.registered) {
-    return conn.reply(m.chat, 
-      `❌ *Ya estás registrado.*\n\n¿Quieres eliminar tu registro? Usa:\n*${usedPrefix}unreg*`, 
-      m
-    );
-  }
+await conn.sendMessage(m.chat, {
+        text: regbot,
+        contextInfo: {
+            externalAdReply: {
+                title: '✧ Usuario Verificado ✧',
+                body: textbot,
+                thumbnailUrl: pp,
+                sourceUrl: channel,
+                mediaType: 1,
+                showAdAttribution: true,
+                renderLargerThumbnail: true
+            }
+        }
+    }, { quoted: m });    
+}; 
+handler.help = ['reg']
+handler.tags = ['rg']
+handler.command = ['verify', 'verificar', 'reg', 'register', 'registrar'] 
 
-  // Validar formato del texto (nombre.edad)
-  if (!REGEX_FORMAT.test(text)) {
-    return conn.reply(m.chat,
-      `⚠️ *Formato incorrecto.*\n\nUso: *${usedPrefix + command} nombre.edad*\nEjemplo: *${usedPrefix + command} ${name}.18*`,
-      m
-    );
-  }
-
-  // Extraer nombre y edad
-  const [, inputName, inputAge] = text.match(REGEX_FORMAT);
-  const age = parseInt(inputAge);
-
-  // Validaciones
-  if (!inputName.trim()) return conn.reply(m.chat, '❌ El nombre no puede estar vacío.', m);
-  if (inputName.length > 30) return conn.reply(m.chat, '❌ El nombre es demasiado largo (máx. 30 caracteres).', m);
-  if (isNaN(age)) return conn.reply(m.chat, '❌ La edad debe ser un número válido.', m);
-  if (age > 100) return conn.reply(m.chat, '❌ Edad inválida (máx. 100 años).', m);
-  if (age < 5) return conn.reply(m.chat, '❌ ¡Debes tener al menos 5 años para registrarte!', m);
-
-  // Guardar datos
-  user.name = inputName.trim();
-  user.age = age;
-  user.regTime = new Date();
-  user.registered = true;
-
-  // Recompensas
-  user.coin += 40;
-  user.exp += 300;
-  user.joincount += 20;
-
-  // Generar número de serie
-  const sn = createHash('md5').update(m.sender).digest('hex').slice(0, 8);
-
-  // Mensaje de confirmación
-  const regMessage = `
-✨ *REGISTRO EXITOSO* ✨
-• Nombre: ${user.name}
-• Edad: ${user.age} años
-• Fecha: ${user.regTime.toLocaleDateString()}
-• ID: ${sn}
-
-🎁 *Recompensas:*
-- ⛁ ${user.coin} monedas
-- ✨ ${user.exp} exp
-- 🎟️ ${user.joincount} tokens
-`.trim();
-
-  // Enviar mensaje con anuncio embebido
-  await conn.sendMessage(m.chat, {
-    text: regMessage,
-    contextInfo: {
-      externalAdReply: {
-        title: '✅ Registro completado',
-        body: global.textbot || '¡Bienvenido/a!',
-        thumbnail: await (await fetch(pp)).buffer(),
-        mediaType: 1,
-        sourceUrl: global.channel || 'https://whatsapp.com',
-        showAdAttribution: true
-      }
-    }
-  }, { quoted: m });
-
-  await m.react('✅');
-};
-
-// Configuración del comando
-handler.help = ['reg <nombre.edad>'];
-handler.tags = ['register'];
-handler.command = ['verify', 'verificar', 'reg', 'register', 'registrar'];
-
-export default handler;
+export default handler
