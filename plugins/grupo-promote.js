@@ -1,37 +1,49 @@
-var handler = async (m, { conn,usedPrefix, command, text }) => {
+let handler = async (m, { conn, usedPrefix, command, text }) => {
+  try {
+    let number, user
 
-if (isNaN(text) && !text.match(/@/g)){
+    // Validación inicial: se requiere texto o mensaje citado
+    if (!text && !m.quoted) {
+      return m.reply(
+        `🚫 *Comando incompleto.*\n\n📝 Usa: *${usedPrefix + command} @usuario* o responde al mensaje de alguien.\n🔍 Necesito saber a quién debo promover para ejecutar la orden.`
+      )
+    }
 
-} else if (isNaN(text)) {
-var number = text.split`@`[1]
-} else if (!isNaN(text)) {
-var number = text
-}
+    // Procesamiento del input para extraer el número
+    if (text) {
+      if (isNaN(text)) {
+        if (!text.includes("@")) {
+          return m.reply(`⚠️ *Formato inválido.*\n\n🧾 Debes etiquetar correctamente al usuario o ingresar un número.`)
+        }
+        number = text.split("@")[1]
+      } else {
+        number = text
+      }
+    } else if (m.quoted) {
+      number = m.quoted.sender.split("@")[0]
+    }
 
-if (!text && !m.quoted) return conn.reply(m.chat, `${emoji} Debes mencionar a un usuario para poder promoverlo a administrador.`, m)
-if (number.length > 13 || (number.length < 11 && number.length > 0)) return conn.reply(m.chat, `${emoji} Debe de responder o mensionar a una persona para usar este comando.`, m)
+    // Validación de longitud
+    if (!number || number.length > 13 || number.length < 8) {
+      return m.reply(
+        `❎ *Número inválido.*\n\n🔢 El número debe tener entre 8 y 13 dígitos.\n💡 Ejemplo: *${usedPrefix + command} 521234567890*`
+      )
+    }
 
-try {
-if (text) {
-var user = number + '@s.whatsapp.net'
-} else if (m.quoted.sender) {
-var user = m.quoted.sender
-} else if (m.mentionedJid) {
-var user = number + '@s.whatsapp.net'
-} 
-} catch (e) {
-} finally {
-conn.groupParticipantsUpdate(m.chat, [user], 'promote')
-conn.reply(m.chat, `${done} Fue agregado como admin del grupo con exito.`, m)
-}
+    // Construcción del JID completo
+    user = `${number}@s.whatsapp.net`
 
-}
-handler.help = ['promote']
-handler.tags = ['grupo']
-handler.command = ['promote','darpija', 'promover']
-handler.group = true
-handler.admin = true
-handler.botAdmin = true
-handler.fail = null
+    // Verificación del grupo
+    const metadata = await conn.groupMetadata(m.chat)
+    const participante = metadata.participants.find(p => p.id === user)
 
-export default handler
+    if (!participante) {
+      return m.reply(`🔎 *El usuario no está en este grupo.*\n\n⚠️ No puedo promover a alguien que no forma parte de la unidad.`)
+    }
+
+    if (participante.admin === "admin" || participante.admin === "superadmin") {
+      return m.reply(`⚠️ *El usuario ya es administrador.*\n\n🎖️ No necesito otorgar poder donde ya existe autoridad.`)
+    }
+
+    // Ejecución
+    await conn.groupParticipantsUpdate(m.chat,
