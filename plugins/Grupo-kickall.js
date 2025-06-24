@@ -17,15 +17,33 @@ let handler = async (m, { conn, participants, isBotAdmin, isAdmin }) => {
 👥 *Miembros objetivo identificados:* ${operativos.length}
 🛡️ *Preservando autoridad de los oficiales al mando...*
 
-⚔️ Ejecutando expulsiones estratégicas...`
+⚔️ Ejecutando expulsiones estratégicas...
+📂 Los soldados serán archivados para posible reintegración futura.`
   )
 
+  // Registro de expulsados
+  global.db.data.expulsados ??= {}
+  global.db.data.expulsados[m.chat] ??= []
+
   for (let id of operativos) {
-    await conn.groupParticipantsUpdate(m.chat, [id], 'remove')
-    await delay(1500) // Evita spam o bloqueo por velocidad
+    try {
+      await conn.groupParticipantsUpdate(m.chat, [id], 'remove')
+      if (!global.db.data.expulsados[m.chat].includes(id)) {
+        global.db.data.expulsados[m.chat].push(id)
+      }
+      await delay(1500)
+    } catch (e) {
+      console.error(`❌ No se pudo expulsar a ${id}`, e)
+    }
   }
 
-  await m.reply(`✅ *Operación finalizada, comandante.*\n\n💥 Todos los soldados sin rango han sido evacuados del escuadrón.\n🧭 *Shizuka lista para nuevas instrucciones.*`)
+  await m.reply(
+    `✅ *Evacuación completada, comandante.*
+
+📦 *Soldados removidos:* ${operativos.length}
+🗃️ *Registro actualizado en la base de datos de Shizuka.*
+🧭 *Listo para nuevas maniobras.*`
+  )
 }
 
 handler.help = ['kickall']
