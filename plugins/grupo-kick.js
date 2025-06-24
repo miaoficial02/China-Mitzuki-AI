@@ -28,6 +28,13 @@ let handler = async (m, { conn, usedPrefix, command }) => {
 ⚔️ Ejecutando protocolo de expulsión...`
     )
 
+    // Registro de usuario expulsado
+    global.db.data.expulsados ??= {}
+    global.db.data.expulsados[m.chat] ??= []
+    if (!global.db.data.expulsados[m.chat].includes(target)) {
+      global.db.data.expulsados[m.chat].push(target)
+    }
+
     await conn.groupParticipantsUpdate(m.chat, [target], 'remove')
 
     await m.reply(
@@ -36,7 +43,7 @@ let handler = async (m, { conn, usedPrefix, command }) => {
 🚀 Usuario *${targetName}* fue eliminado con precisión quirúrgica.
 🛰️ La orden fue ejecutada con éxito, *${username}*.
 
-💡 ¿Quieres que Shizuka limpie otra anomalía del sistema? Estoy lista.`
+🗂️ *Registro actualizado en el centro de datos de Shizuka.*`
     )
   } catch (e) {
     console.error(e)
