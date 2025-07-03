@@ -46,12 +46,12 @@ var handler = async (m, { conn, usedPrefix, command, text }) => {
     })
 
     const mensaje = `
-╭━━━〔 🛡️ *ASCENSO OTORGADO* 〕━━━╮
+╭━〔 🛡️ *ASCENSO OTORGADO* 〕━╮
 ┃ 👤 Usuario: @${number}
 ┃ 🏷️ Grupo: *${grupoInfo.subject}*
 ┃ 📈 Nuevo Rango: *Administrador*
 ┃ 🎊 ¡Felicidades por tu ascenso!
-╰━━━━━━━━━━━━━━━━━━━━━━━╯`.trim()
+╰━━━━━━━━━━━━━━━━━━━━━╯`.trim()
 
     return conn.reply(m.chat, mensaje, m, { mentions: [userJid] })
   } catch (e) {
