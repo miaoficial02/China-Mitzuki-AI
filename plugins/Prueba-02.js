@@ -1,49 +1,74 @@
-import moment from 'moment-timezone'
-import { WAMessageStubType } from '@whiskeysockets/baileys'
-
-export async function before(m, { conn, participants, groupMetadata }) {
-  if (!m.messageStubType || !m.isGroup) return
-
-  const grupo = groupMetadata.subject
-  const fecha = moment().tz('America/Havana').format('DD/MM/YYYY HH:mm')
-
+var handler = async (m, { conn, usedPrefix, command, text }) => {
+  const grupoInfo = await conn.groupMetadata(m.chat)
+  const participantes = grupoInfo.participants || []
+  const admins = participantes.filter(p => p.admin).map(p => p.id)
   const botNumber = conn.user.jid
-  const botParticipant = participants.find(p => p.id === botNumber)
+  const botAdmin = participantes.find(p => p.id === botNumber && p.admin)
 
-  // 🚫 No soy admin
-  if (!botParticipant?.admin) {
+  // 🚫 Bot sin permisos
+  if (!botAdmin) {
     await conn.sendMessage(m.chat, {
       react: { text: '🚫', key: m.key }
     })
-    return await conn.sendMessage(m.chat, {
-      text: `⚠️ *No tengo permisos de administrador*\nNo puedo detectar ascensos en *${grupo}*.`,
-      mentions: [m.sender]
-    }, { quoted: m })
+    return conn.reply(m.chat, `🚫 *No tengo permisos de administrador en este grupo.*`, m)
   }
 
-  // ✅ PROMOTE detectado
-  if (m.messageStubType === WAMessageStubType.PROMOTE) {
-    const id = m.messageStubParameters[0]
-    const userJid = id.includes('@') ? id : `${id}@s.whatsapp.net`
-    const nombre = `@${id.split('@')[0]}`
+  // 📍 Detectar número
+  let number = ''
+  if (text) {
+    number = text.replace(/\D/g, '')
+  } else if (m.quoted) {
+    number = m.quoted.sender.split('@')[0]
+  }
 
-    // 🎉 Reacción divertida
+  if (!number || number.length < 8 || number.length > 13) {
     await conn.sendMessage(m.chat, {
-      react: { text: '🎉', key: m.key }
+      react: { text: '❓', key: m.key }
+    })
+    return conn.reply(m.chat, `⚠️ *Debes mencionar o responder a un usuario válido para promover.*`, m)
+  }
+
+  const userJid = number + '@s.whatsapp.net'
+
+  // ✅ Ya es admin
+  if (admins.includes(userJid)) {
+    await conn.sendMessage(m.chat, {
+      react: { text: '✅', key: m.key }
+    })
+    return conn.reply(m.chat, `ℹ️ @${number} *ya es administrador.*`, m, { mentions: [userJid] })
+  }
+
+  // 🔼 Promover
+  try {
+    await conn.groupParticipantsUpdate(m.chat, [userJid], 'promote')
+    await conn.sendMessage(m.chat, {
+      react: { text: '🎖️', key: m.key }
     })
 
     const mensaje = `
-┏━━━〔 🏆 *Ascenso Detectado* 〕━━━┓
-┃ 👤 Usuario: ${nombre}
-┃ 🏷️ Grupo: *${grupo}*
-┃ 🕓 Fecha: ${fecha}
-┃ 🛡️ Nuevo Rango: *Administrador*
-┃ 🎉 ¡Felicidades por tu nuevo rol!
-┗━━━━━━━━━━━━━━━━━━━━━━━┛`.trim()
+╭━━━〔 🛡️ *ASCENSO OTORGADO* 〕━━━╮
+┃ 👤 Usuario: @${number}
+┃ 🏷️ Grupo: *${grupoInfo.subject}*
+┃ 📈 Nuevo Rango: *Administrador*
+┃ 🎊 ¡Felicidades por tu ascenso!
+╰━━━━━━━━━━━━━━━━━━━━━━━╯`.trim()
 
+    return conn.reply(m.chat, mensaje, m, { mentions: [userJid] })
+  } catch (e) {
+    console.error(e)
     await conn.sendMessage(m.chat, {
-      text: mensaje,
-      mentions: [userJid]
-    }, { quoted: m })
+      react: { text: '⚠️', key: m.key }
+    })
+    return conn.reply(m.chat, `❌ *Error al promover a @${number}.*`, m, { mentions: [userJid] })
   }
 }
+
+handler.help = ['promote']
+handler.tags = ['grupo']
+handler.command = ['promote', 'ascender', 'admin']
+handler.group = true
+handler.admin = true
+handler.botAdmin = true
+handler.fail = null
+
+export default handler
