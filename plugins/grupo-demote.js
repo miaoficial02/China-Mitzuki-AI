@@ -46,7 +46,7 @@ var handler = async (m, { conn, usedPrefix, command, text }) => {
     })
 
     const mensaje = `
-╭━━━〔 ⚔️ *DEGRADACIÓN EJECUTADA* 〕━━━╮
+╭━〔 ⚔️ *DEGRADACIÓN EJECUTADA* 〕━╮
 ┃ 👤 Usuario: @${number}
 ┃ 🏷️ Grupo: *${grupoInfo.subject}*
 ┃ 📉 Nuevo Rango: *Miembro*
