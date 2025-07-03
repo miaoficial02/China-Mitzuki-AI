@@ -59,8 +59,8 @@ global.etiqueta = 'Carlos'
 global.moneda = 'Coins'
 global.welcom1 = 'Bienvenido al grupo donde la diversión nunca se detiene. Aquí estamos listos para desatar travesuras y risas. 😈💖 ¡Prepárate para disfrutar y no olvides dejar tu huella! 😉🔥 ¡Vamos a hacer de este lugar algo inolvidable! 💋'
 global.welcom2 = '¡Te vas, pero no sin dejar un vacío travieso en este grupo. 😏✨ Espero que encuentres más aventuras... ¡y que no te olvides de lo que te perdiste aquí! 😉💋 ¡Vuelve pronto, que la diversión nunca se detiene! 🔥💖'
-global.banner = 'https://raw.githubusercontent.com/Kone457/Nexus/refs/heads/main/s2.jpg'
-global.avatar = 'https://raw.githubusercontent.com/Kone457/Nexus/refs/heads/main/sss.jpg'
+global.banner = 'https://raw.githubusercontent.com/Kone457/Nexus/refs/heads/main/Shizuka.jpg'
+global.avatar = 'https://raw.githubusercontent.com/Kone457/Nexus/refs/heads/main/v2.jpg'
 
 //-----------------------------
 
