@@ -1,52 +1,74 @@
-let handler = async (m, { conn, usedPrefix, command, text }) => {
+var handler = async (m, { conn, usedPrefix, command, text }) => {
+  const grupoInfo = await conn.groupMetadata(m.chat)
+  const participantes = grupoInfo.participants || []
+  const admins = participantes.filter(p => p.admin).map(p => p.id)
+  const botNumber = conn.user.jid
+  const botAdmin = participantes.find(p => p.id === botNumber && p.admin)
+
+  // 🚫 Bot sin permisos
+  if (!botAdmin) {
+    await conn.sendMessage(m.chat, {
+      react: { text: '🚫', key: m.key }
+    })
+    return conn.reply(m.chat, `🚫 *No tengo permisos de administrador en este grupo.*`, m)
+  }
+
+  // 📍 Detectar número
+  let number = ''
+  if (text) {
+    number = text.replace(/\D/g, '')
+  } else if (m.quoted) {
+    number = m.quoted.sender.split('@')[0]
+  }
+
+  if (!number || number.length < 8 || number.length > 13) {
+    await conn.sendMessage(m.chat, {
+      react: { text: '❓', key: m.key }
+    })
+    return conn.reply(m.chat, `⚠️ *Debes mencionar o responder a un usuario válido para promover.*`, m)
+  }
+
+  const userJid = number + '@s.whatsapp.net'
+
+  // ✅ Ya es admin
+  if (admins.includes(userJid)) {
+    await conn.sendMessage(m.chat, {
+      react: { text: '✅', key: m.key }
+    })
+    return conn.reply(m.chat, `ℹ️ @${number} *ya es administrador.*`, m, { mentions: [userJid] })
+  }
+
+  // 🔼 Promover
   try {
-    let number, user
+    await conn.groupParticipantsUpdate(m.chat, [userJid], 'promote')
+    await conn.sendMessage(m.chat, {
+      react: { text: '🎖️', key: m.key }
+    })
 
-    if (!text && !m.quoted) {
-      return m.reply(
-        `🚫 *Falta objetivo, comandante.*\n\n📌 Utiliza: *${usedPrefix + command} @usuario* o responde al mensaje de alguien del escuadrón.\n🛰️ Shizuka necesita coordenadas antes de ascender a un nuevo oficial.`
-      )
-    }
+    const mensaje = `
+╭━〔 🛡️ *ASCENSO OTORGADO* 〕━╮
+┃ 👤 Usuario: @${number}
+┃ 🏷️ Grupo: *${grupoInfo.subject}*
+┃ 📈 Nuevo Rango: *Administrador*
+┃ 🎊 ¡Felicidades por tu ascenso!
+╰━━━━━━━━━━━━━━━━━━━━━╯`.trim()
 
-    if (text) {
-      if (isNaN(text)) {
-        if (!text.includes("@")) return m.reply(`⚠️ *Formato erróneo.*\n\n💬 Debes etiquetar correctamente a un miembro o ingresar su número militar.`)
-        number = text.split("@")[1]
-      } else {
-        number = text
-      }
-    } else if (m.quoted) {
-      number = m.quoted.sender.split("@")[0]
-    }
+    return conn.reply(m.chat, mensaje, m, { mentions: [userJid] })
+  } catch (e) {
+    console.error(e)
+    await conn.sendMessage(m.chat, {
+      react: { text: '⚠️', key: m.key }
+    })
+    return conn.reply(m.chat, `❌ *Error al promover a @${number}.*`, m, { mentions: [userJid] })
+  }
+}
 
-    if (!number || number.length > 13 || number.length < 8) {
-      return m.reply(`📉 *Número inválido detectado.*\n\n🔢 El ID debe tener entre 8 y 13 dígitos. Corrige la entrada, comandante.`)
-    }
+handler.help = ['promote']
+handler.tags = ['grupo']
+handler.command = ['promote', 'ascender', 'admin']
+handler.group = true
+handler.admin = true
+handler.botAdmin = true
+handler.fail = null
 
-    user = `${number}@s.whatsapp.net`
-
-    // Escaneo del pelotón
-    const metadata = await conn.groupMetadata(m.chat)
-    const participante = metadata.participants.find(p => p.id === user)
-
-    if (!participante) {
-      return m.reply(`🛑 *Objetivo no localizado.*\n\nEste individuo no forma parte de la unidad actual.`)
-    }
-
-    if (participante.admin === "admin" || participante.admin === "superadmin") {
-      return m.reply(`⚠️ *Promoción rechazada.*\n\n🎖️ El objetivo ya posee rango de administrador.`)
-    }
-
-    const promovido = await conn.getName(user)
-    const solicitante = await conn.getName(m.sender)
-
-    await m.reply(
-`🧠 *Centro de mando Shizuka conectado...*
-📡 Confirmando instrucción de: *${solicitante}*
-👤 Candidato detectado: *${promovido}*
-
-🧪 Evaluando credenciales...
-🔓 Protocolo autorizado.
-📈 Promoción en curso...`)
-    
-    await conn.groupParticipantsUpdate(m.chat,
+export default handler
