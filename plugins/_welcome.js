@@ -1,6 +1,5 @@
-
 import { generarTarjeta } from '../lib/generarTarjeta.js'
-import fetch from 'node-fetch'
+import moment from 'moment-timezone'
 import { WAMessageStubType } from '@whiskeysockets/baileys'
 
 export async function before(m, { conn, participants, groupMetadata }) {
@@ -8,22 +7,32 @@ export async function before(m, { conn, participants, groupMetadata }) {
   const chat = global.db.data.chats[m.chat]
   if (!chat.welcome) return
 
-  let isWelcome = m.messageStubType === 27
-  if (!isWelcome) return
+  if (m.messageStubType !== WAMessageStubType.ADD) return
 
-  let id = m.messageStubParameters[0]
-  let senderJid = id.includes('@') ? id : `${id}@s.whatsapp.net`
-  let pp = await conn.profilePictureUrl(senderJid, 'image').catch(_ => 'https://i.imgur.com/Oy2Stgq.png')
+  const id = m.messageStubParameters[0]
+  const senderJid = id.includes('@') ? id : `${id}@s.whatsapp.net`
 
-  let groupSize = participants.length + 1
-  let nombre = `@${id.split('@')[0]}`
-  let bufferTarjeta = await generarTarjeta({
+  // Obtener foto de perfil o usar predeterminada
+  const avatarUrl = await conn.profilePictureUrl(senderJid, 'image')
+    .catch(_ => 'https://i.imgur.com/Oy2Stgq.png')
+
+  const nombre = `@${id.split('@')[0]}`
+  const numero = id.split('@')[0]
+  const fecha = moment().tz('America/Havana').format('DD/MM/YYYY HH:mm')
+  const miembros = participants.length + 1
+  const grupo = groupMetadata.subject
+
+  // Generar imagen
+  const bufferTarjeta = await generarTarjeta({
     nombre,
-    grupo: groupMetadata.subject,
-    miembros: groupSize,
-    avatarUrl: pp
+    numero,
+    grupo,
+    miembros,
+    avatarUrl,
+    fechaIngreso: fecha
   })
 
+  // Mensaje citado
   const fkontak = {
     "key": { "participants": "0@s.whatsapp.net", "remoteJid": "status@broadcast", "fromMe": false, "id": "Halo" },
     "message": {
@@ -33,9 +42,10 @@ export async function before(m, { conn, participants, groupMetadata }) {
     }
   }
 
+  // Enviar tarjeta de bienvenida
   await conn.sendMessage(m.chat, {
     image: bufferTarjeta,
-    caption: `❀ ¡Bienvenido ${nombre} a *${groupMetadata.subject}*!\n✦ Ahora somos ${groupSize} miembros.\n•(=^ω^=)• ¡Disfruta tu estadía!`,
+    caption: `✨ *Bienvenid@ ${nombre} a ${grupo}* ✨\nActualmente somos ${miembros} miembros.\n🤖 Usa *#menu* para comenzar a interactuar con el bot.`,
     mentions: [senderJid]
   }, { quoted: fkontak })
 }
