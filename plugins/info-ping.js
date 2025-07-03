@@ -2,21 +2,15 @@ import speed from 'performance-now'
 import { exec } from 'child_process'
 
 let handler = async (m, { conn }) => {
-  const emoji = '📡'
-  const emoji2 = '⚙️'
-  const emoji3 = '✅'
-
-  // ⏱️ Medir latencia
   let timestamp = speed()
   let latencia = speed() - timestamp
 
-  // 🖥️ Ejecutar neofetch
-  exec('neofetch --stdout', async (error, stdout, stderr) => {
+  exec(`neofetch --stdout`, async (error, stdout) => {
     if (error) {
       await conn.sendMessage(m.chat, {
         react: { text: '❌', key: m.key }
       })
-      return conn.reply(m.chat, `❌ *Error al obtener información del sistema.*`, m)
+      return conn.reply(m.chat, '❌ *Error al obtener información del sistema.*', m)
     }
 
     await conn.sendMessage(m.chat, {
@@ -24,16 +18,20 @@ let handler = async (m, { conn }) => {
     })
 
     let info = stdout.toString('utf-8').replace(/Memory:/, 'RAM:')
-    let mensaje = `
-╭━━━〔 ${emoji} *PONG DEL SISTEMA* 〕━━━╮
-┃ ${emoji2} *Latencia:* ${latencia.toFixed(4)} ms
-┃ ${emoji2} *Estado:* ${emoji3} Activo
-┃ 
-┃ *Información del sistema:*
-┃ ${info.trim().split('\n').slice(0, 6).join('\n┃ ')}
-╰━━━━━━━━━━━━━━━━━━━━━━━╯`.trim()
+    let fragmentos = info.trim().split('\n').slice(0, 6).map(l => `┃ ${l}`)
 
-    conn.reply(m.chat, mensaje, m)
+    let mensaje = `
+╭━━━〔 📡 *PING DEL SISTEMA* 〕━━━╮
+┃ ⚙️ *Latencia:* ${latencia.toFixed(4)} ms
+┃ 🧠 *Estado:* ✅ Activo y receptivo
+┃ 
+┃ 🖥️ *Sistema:*
+${fragmentos.join('\n')}
+╰━━━━━━━━━━━━━━━━━━━━━━━━━━━━╯`.trim()
+
+    await conn.sendMessage(m.chat, {
+      text: mensaje
+    }, { quoted: m })
   })
 }
 
