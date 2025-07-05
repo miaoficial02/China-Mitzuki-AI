@@ -1,33 +1,43 @@
 //--- Creado por Carlos
 //--- github.com/Kone457
 
-import fetch from 'node-fetch';
+const handler = async (m, { conn, usedPrefix: _p }) => {
+  const menuText = `🌟 *Prueba de Botones Visuales*\n\nPulsa alguno para verificar el comportamiento.`;
 
-const handler = async (m, { conn }) => {
-  const response = await fetch('https://delirius-apiofc.vercel.app/nsfw/corean');
-  const json = await response.json();
-  const imageUrl = json[0]?.url;
+  const buttons = [
+    {
+      buttonId: `${_p}owner`,
+      buttonText: { displayText: "👑 Ｃ Ｒ Ｅ Ａ Ｄ Ｏ Ｒ" },
+      type: 1,
+    },
+    {
+      buttonId: `${_p}code`,
+      buttonText: { displayText: "🕹 Ｓ Ｅ Ｒ Ｂ Ｏ Ｔ" },
+      type: 1,
+    },
+    {
+      buttonId: `${_p}grupos`,
+      buttonText: { displayText: "🌪 Ｇ Ｒ Ｕ Ｐ Ｏ Ｓ" },
+      type: 1,
+    },
+  ];
 
-  const message = {
-    image: { url: imageUrl },
-    caption:
-      '🌿 *Naturaleza Random*\n' +
-      'Aquí tienes una dosis de ternura o paisaje aleatorio.\n' +
-      '🎴 ¿Quieres otra imagen?\n',
-    footer: 'Plugin visual creado por Carlos',
-    buttons: [
-      { buttonId: '.catpic', buttonText: { displayText: '🔁 Otra imagen' }, type: 1 },
-      { buttonId: '.menu', buttonText: { displayText: '📜 Menú' }, type: 1 }
-    ],
-    headerType: 4
-  };
-
-  await conn.sendMessage(m.chat, message, { quoted: m });
+  await conn.sendMessage(
+    m.chat,
+    {
+      image: { url: 'https://qu.ax/JznsE.jpg' },
+      caption: menuText,
+      footer: "Bot Visual de Carlos",
+      buttons,
+      headerType: 4
+    },
+    { quoted: m }
+  );
 };
 
-handler.command = ['cc'];
-handler.help = ['catpic'];
-handler.tags = ['fun'];
+handler.command = ['&&'];
+handler.help = ['pruebabtn'];
+handler.tags = ['test'];
 handler.group = true;
 
 export default handler;
