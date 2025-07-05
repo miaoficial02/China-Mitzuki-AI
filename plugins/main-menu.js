@@ -8,13 +8,15 @@ let handler = async (m, { conn, args }) => {
     let totalCommands = Object.values(global.plugins).filter((v) => v.help && v.tags).length
     
     let txt = `
-🌟 *¡Hola @${userId.split('@')[0]}!* 🌟
-Soy *${botname}*, tu asistente virtual.
-
-📊 *Estadísticas:*
-🕒 Tiempo activo: ${uptime}
-👥 Usuarios registrados: ${totalreg}
-📚 Comandos disponibles: ${totalCommands}
+╭━━━〔 🌟 𝘽𝙞𝙚𝙣𝙫𝙚𝙣𝙞𝙙𝙖 〕━━━╮
+┃ ¡Hola @${userId.split('@')[0]}! Soy *${botname}* 🤖
+┃ Tu asistente virtual listo para ayudarte.
+┃
+┃ 📊 *Estado del Bot:*
+┃ 🕒 Uptime: ${uptime}
+┃ 👥 Usuarios registrados: ${totalreg}
+┃ 📚 Comandos activos: ${totalCommands}
+╰━━━━━━━━━━━━━━━━━━━━━╯
 
 ╭━━━〔 𝙄𝙣𝙛𝙤-𝘽𝙤𝙩 ☄️ 〕━━━╮
 ┃ 🛠️ #menu       » Lista de comandos
