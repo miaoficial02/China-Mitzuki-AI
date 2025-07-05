@@ -11,7 +11,7 @@ const handler = async (m, { conn }) => {
 
     await conn.sendMessage(m.chat, {
       image: { url: imageUrl },
-      caption: '🌿 *Naturaleza Random*\n\nUna dosis de ternura para alegrar tu día 🐾\n\nPulsa el botón para recibir otra más.',
+      caption: '🌿 *Naturaleza Random*\n\nUna dosis de ternura para alegrar tu día 🐾\n\n.',
       footer: 'Plugin creado por Carlos • github.com/Kone457',
       templateButtons: [
         {
