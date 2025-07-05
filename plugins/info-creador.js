@@ -1,21 +1,34 @@
 import PhoneNumber from 'awesome-phonenumber'
 
 let handler = async (m, { conn }) => {
-  m.react('👋')
+  const suittag = '5355699866' // Número sin "+" ni "@s.whatsapp.net"
+  const botname = 'Shizuka-AI'
+  const correo = 'c211762O@gmail.com'
+  const md = 'https://github.com/Kone457/Shizuka-AI'
+  const channel = 'https://whatsapp.com/channel/XXXX'
+  const packname = 'ShizukaBot'
+  const dev = 'Carlos Dev'
+
+  await m.react('📇')
 
   const who = m.mentionedJid?.[0] || (m.fromMe ? conn.user.jid : m.sender)
-  const pp = await conn.profilePictureUrl(who).catch(_ => 'https://qu.ax/PRgfc.jpg')
-  
-  const biografia = await conn.fetchStatus(`${suittag}@s.whatsapp.net`).catch(() => ({ status: 'Sin Biografía' }))
-  const biografiaBot = await conn.fetchStatus(`${conn.user.jid.split('@')[0]}@s.whatsapp.net`).catch(() => ({ status: 'Sin Biografía' }))
 
-  const bio = biografia.status?.toString() || 'Sin Biografía'
-  const biobot = biografiaBot.status?.toString() || 'Sin Biografía'
-  const name = await conn.getName(who)
+  const bioOwnerData = await conn.fetchStatus(`${suittag}@s.whatsapp.net`).catch(() => ({ status: 'Sin Biografía' }))
+  const bioBotData = await conn.fetchStatus(`${conn.user.jid}`)?.catch(() => ({ status: 'Sin Biografía' }))
 
-  await sendContactArray(conn, m.chat, [
+  const bio = bioOwnerData?.status?.toString() || 'Sin Biografía'
+  const bioBot = bioBotData?.status?.toString() || 'Sin Biografía'
+
+  // Aviso en público
+  await conn.sendMessage(m.chat, {
+    text: `📬 Te envié por privado los datos de mi creador. No los pierdas.`,
+    mentions: [who]
+  }, { quoted: m })
+
+  // Envío por privado
+  await sendContactArray(conn, who, [
     [
-      `${suittag}`,
+      suittag,
       `ᰔᩚ Propietario`,
       botname,
       `❀ No Hacer Spam`,
@@ -25,19 +38,19 @@ let handler = async (m, { conn }) => {
       bio
     ],
     [
-      `${conn.user.jid.split('@')[0]}`,
+      conn.user.jid.split('@')[0],
       `✦ Es Un Bot`,
       packname,
       dev,
       correo,
-      `Sabra Dios 🫏`,
+      `Sabrá Dios 🫏`,
       channel,
-      biobot
+      bioBot
     ]
-  ], m)
+  ])
 }
 
-handler.help = ['creador', 'owner']
+handler.help = ['owner', 'creador']
 handler.tags = ['info']
 handler.command = ['owner', 'creator', 'creador', 'dueño']
 
@@ -69,17 +82,10 @@ END:VCARD`.trim()
     contacts.push({ vcard, displayName: name })
   }
 
-  return await conn.sendMessage(
-    jid,
-    {
-      contacts: {
-        displayName: contacts.length > 1 ? 'Contactos' : contacts[0].displayName,
-        contacts
-      }
-    },
-    {
-      quoted,
-      ...options
+  return await conn.sendMessage(jid, {
+    contacts: {
+      displayName: contacts.length > 1 ? 'Contactos' : contacts[0].displayName,
+      contacts
     }
-  )
+  }, { quoted, ...options })
 }
