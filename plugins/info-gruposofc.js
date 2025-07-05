@@ -16,7 +16,7 @@ let handler = async (m, { conn, usedPrefix, command }) => {
 > *❀* ${gp1}
 
 ▄︻デ══━► *𝕾𝖔𝖕𝖔𝖗𝖙𝖊 𝕯𝖆𝖗𝖐* ◄══━デ︻▄
-> 🕸️ ${comunidad1}
+> 🕸️ Soporte 
 
 ${darkBorder}
 
