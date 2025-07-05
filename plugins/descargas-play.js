@@ -59,7 +59,7 @@ author = author || 'no encontrado'
       }
     } else if (command === 'play2' || command === 'ytv' || command === 'ytmp4' || command === 'mp4') {
       try {
-        const response = await fetch(`https://api.neoxr.eu/api/youtube?url=${url}&type=video&quality=480p&apikey=GataDios`)
+        const response = await fetch(`https://api.starlights.uk/api/downloader/youtube?url=${url}&type=video&quality=480p&apikey=GataDios`)
         const json = await response.json()
         await conn.sendFile(m.chat, json.data.url, json.title + '.mp4', title, m)
       } catch (e) {
