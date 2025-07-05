@@ -1,62 +1,62 @@
-/*───────────────────────────────────────
-  📁 Módulo:     mute.js / unmute.js
-  🧠 Autor:      Carlos + MoonContentCreator
-  🛠 Proyecto:   Shizuka-AI
-───────────────────────────────────────*/
-
 import fetch from 'node-fetch'
 
-const handler = async (m, { conn, command, text, isAdmin, groupMetadata, quoted, mentionedJid }) => {
-  const target = mentionedJid?.[0] || quoted?.sender || text
-  const name = await conn.getName(target)
-  const creator = global.owner[0]?.[0] + '@s.whatsapp.net'
-  const isBot = target === conn.user.jid
+let handler = async (m, { conn, command, text, isAdmin, quoted, mentionedJid }) => {
+  if (!isAdmin) return m.reply('🍬 Solo *administradores* pueden usar este comando.')
+
+  const target =
+    mentionedJid?.[0] ||
+    quoted?.sender ||
+    (/^\d{7,}$/.test(text) ? text.trim() + '@s.whatsapp.net' : null)
+
+  if (!target) return m.reply('🎯 *Debes mencionar, responder o escribir el número del usuario.*')
+
+  const creator = global.owner?.[0]?.[0] + '@s.whatsapp.net'
   const isOwner = target === creator
-  const db = global.db.data.users[target] || {}
+  const isBot = target === conn.user.jid
 
-  const thumbMute = 'https://telegra.ph/file/f8324d9798fa2ed2317bc.png'
-  const thumbUnmute = 'https://telegra.ph/file/aea704d0b242b8c41bf15.png'
+  if (isOwner) return m.reply('🔐 *No puedes mutear al creador del bot.*')
+  if (isBot) return m.reply('🤖 *No puedes silenciar al propio bot.*')
 
-  const card = async (thumbUrl, title) => ({
-    key: { participants: '0@s.whatsapp.net', id: 'ShizukaMuteCard', fromMe: false },
+  const name = (await conn.getName(target).catch(() => null)) || 'usuario desconocido'
+  const user = global.db.data.users[target] ||= {}
+
+  const buildCard = async (title, img) => ({
+    key: { participants: '0@s.whatsapp.net', fromMe: false, id: '🔇Card' },
     message: {
       locationMessage: {
         name: title,
-        jpegThumbnail: await (await fetch(thumbUrl)).buffer(),
-        vcard: 'BEGIN:VCARD\nVERSION:3.0\nFN:ShizukaBot\nORG:Shizuka-AI\nEND:VCARD'
+        jpegThumbnail: await (await fetch(img)).buffer()
       }
-    },
-    participant: '0@s.whatsapp.net'
+    }
   })
 
-  if (!isAdmin) return m.reply('🍬 Solo un *administrador* puede usar este comando.')
-
-  if (!target) return m.reply(`🎯 *Debes mencionar o responder a alguien para usar \`${command}\`*.`)
-
-  if (isOwner) return m.reply('🔐 No puedes mutear al creador del bot.')
-  if (isBot) return m.reply('🤖 No puedes silenciar al propio bot.')
-
   if (command === 'mute') {
-    if (db.muted) return m.reply('🍭 Este usuario ya ha sido *muteado*.')
-    db.muted = true
+    if (user.muted) return m.reply('🍭 *Este usuario ya está muteado.*')
+    user.muted = true
 
-    conn.reply(
+    return conn.reply(
       m.chat,
-      `╭──〔 🔇 USUARIO MUTEADO 〕──╮\n┃ ${name} ha sido silenciado.\n┃ Sus mensajes serán eliminados.\n╰────────────────────────────╯`,
-      await card(thumbMute, 'Silenciado por protocolo'),
+      `╭──〔 🔇 USUARIO MUTEADO 〕──╮\n` +
+      `┃ ${name} ha sido *silenciado.*\n` +
+      `┃ Sus mensajes serán eliminados.\n` +
+      `╰────────────────────────────╯`,
+      await buildCard('Usuario silenciado', 'https://telegra.ph/file/f8324d9798fa2ed2317bc.png'),
       null,
       { mentions: [target] }
     )
   }
 
   if (command === 'unmute') {
-    if (!db.muted) return m.reply('🍭 Este usuario no está muteado.')
-    db.muted = false
+    if (!user.muted) return m.reply('🍭 *Ese usuario no está muteado.*')
+    user.muted = false
 
-    conn.reply(
+    return conn.reply(
       m.chat,
-      `╭──〔 🔊 USUARIO DESMUTEADO 〕──╮\n┃ ${name} ya puede hablar libremente.\n┃ El protocolo de silencio ha sido levantado.\n╰────────────────────────────────╯`,
-      await card(thumbUnmute, 'Silencio levantado'),
+      `╭──〔 🔊 USUARIO DESMUTEADO 〕──╮\n` +
+      `┃ ${name} ha sido *desmuteado.*\n` +
+      `┃ Ya puede hablar libremente 😌\n` +
+      `╰────────────────────────────╯`,
+      await buildCard('Usuario desmuteado', 'https://telegra.ph/file/aea704d0b242b8c41bf15.png'),
       null,
       { mentions: [target] }
     )
