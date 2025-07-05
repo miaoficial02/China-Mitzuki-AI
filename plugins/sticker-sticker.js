@@ -1,62 +1,74 @@
+/*───────────────────────────────────────
+  📁 Módulo:     sticker.js
+  🧠 Autor:      Carlos
+  🛠 Proyecto:   Shizuka-AI
+  🔗 GitHub:     https://github.com/Kone457/Shizuka-AI
+───────────────────────────────────────*/
+
 import { sticker } from '../lib/sticker.js'
 import uploadFile from '../lib/uploadFile.js'
 import uploadImage from '../lib/uploadImage.js'
 import { webp2png } from '../lib/webp2mp4.js'
 
-let handler = async (m, { conn, args, usedPrefix, command }) => {
+let handler = async (m, { conn, args }) => {
   let stiker = false
-  try {
-    let q = m.quoted ? m.quoted : m
-    let mime = (q.msg || q).mimetype || q.mediaType || ''
-    if (/webp|image|video/g.test(mime)) {
-      if (/video/g.test(mime) && (q.msg || q).seconds > 15) {
-        return m.reply(`✧ ¡El video no puede durar más de 15 segundos!...`)
-      }
-      let img = await q.download?.()
 
-      if (!img) {
-        return conn.reply(m.chat, `❀ Por favor, envía una imagen o video para hacer un sticker.`, m)
+  try {
+    const q = m.quoted ? m.quoted : m
+    const mime = (q.msg || q).mimetype || q.mediaType || ''
+
+    if (/webp|image|video/g.test(mime)) {
+      if (/video/.test(mime) && (q.msg || q).seconds > 15) {
+        return m.reply('⏱️ El video no puede superar los 15 segundos. Intenta con algo más corto.')
+      }
+
+      const media = await q.download?.()
+      if (!media) {
+        return m.reply('🖼️ Necesito una imagen, video o sticker para convertirlo. ¡Envíame algo bonito!')
       }
 
       let out
-      try {
-        let userId = m.sender
-        let packstickers = global.db.data.users[userId] || {}
-        let texto1 = packstickers.text1 || global.packsticker
-        let texto2 = packstickers.text2 || global.packsticker2
+      const userData = global.db.data.users[m.sender] || {}
+      const texto1 = userData.text1 || global.packsticker
+      const texto2 = userData.text2 || global.packsticker2
 
-        stiker = await sticker(img, false, texto1, texto2)
+      try {
+        stiker = await sticker(media, false, texto1, texto2)
       } finally {
         if (!stiker) {
-          if (/webp/g.test(mime)) out = await webp2png(img)
-          else if (/image/g.test(mime)) out = await uploadImage(img)
-          else if (/video/g.test(mime)) out = await uploadFile(img)
-          if (typeof out !== 'string') out = await uploadImage(img)
-          stiker = await sticker(false, out, global.packsticker, global.packsticker2)
+          if (/webp/.test(mime)) out = await webp2png(media)
+          else if (/image/.test(mime)) out = await uploadImage(media)
+          else if (/video/.test(mime)) out = await uploadFile(media)
+          if (typeof out !== 'string') out = await uploadImage(media)
+          stiker = await sticker(false, out, texto1, texto2)
         }
       }
+
     } else if (args[0]) {
       if (isUrl(args[0])) {
         stiker = await sticker(false, args[0], global.packsticker, global.packsticker2)
       } else {
-        return m.reply(`⚠︎ El URL es incorrecto...`)
+        return m.reply('🔗 El enlace no parece válido. Asegúrate de que termine en .jpg, .png o .gif.')
       }
     }
+  } catch (e) {
+    console.error(e)
   } finally {
     if (stiker) {
-      conn.sendFile(m.chat, stiker, 'sticker.webp', '', m)
+      await conn.sendFile(m.chat, stiker, 'sticker.webp', '', m)
     } else {
-      return conn.reply(m.chat, `❀ Por favor, envía una imagen o video para hacer un sticker.`, m)
+      return m.reply('💌 Aún no he podido generar tu sticker. Intenta nuevamente con una imagen o video.')
     }
   }
 }
 
-handler.help = ['stiker <img>', 'sticker <url>']
+handler.help = ['sticker <imagen|url>']
 handler.tags = ['sticker']
 handler.command = ['s', 'sticker', 'stiker']
 
 export default handler
 
-const isUrl = (text) => {
-  return text.match(new RegExp(/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&/=]*)(jpe?g|gif|png)/, 'gi'))
+const isUrl = (text = '') => {
+  const regex = /^https?:\/\/[^ ]+\.(jpe?g|png|gif)$/i
+  return regex.test(text)
 }
