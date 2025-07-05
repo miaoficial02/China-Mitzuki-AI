@@ -17,7 +17,7 @@ let handler = async (m, { conn }) => {
         `╰─────────────────────╯`
       : `╭──〔 😝 𝙇𝙚𝙣𝙜𝙪𝙖 𝙁𝙖𝙘𝙚 〕──╮\n` +
         `┃ ${name2} le sacó la lengua a ${name} 👅\n` +
-        `╰──────────────────────╯`
+        `╰─────────────────────╯`
 
   if (m.isGroup) {
     const videos = [
