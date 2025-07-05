@@ -49,7 +49,7 @@ author = author || 'no encontrado'
     await conn.reply(m.chat, infoMessage, m, JT)    
     if (command === 'play' || command === 'yta' || command === 'ytmp3' || command === 'playaudio') {
       try {
-        const api = await (await fetch(`https://api.vreden.my.id/api/ytplaymp3?query=${url}`)).json()
+        const api = await (await fetch(`https://delirius-apiofc.vercel.app/download/ytmp3?url=${url}`)).json()
         const resulta = api.result
         const result = resulta.download.url    
         if (!result) throw new Error('⚠ El enlace de audio no se generó correctamente.')
