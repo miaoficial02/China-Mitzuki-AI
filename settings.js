@@ -58,7 +58,7 @@ global.etiqueta = 'Carlos'
 
 global.moneda = 'Coins'
 global.welcom1 = 'Bienvenido al grupo donde la diversión nunca se detiene. Aquí estamos listos para desatar travesuras y risas. 😈💖 ¡Prepárate para disfrutar y no olvides dejar tu huella! 😉🔥 ¡Vamos a hacer de este lugar algo inolvidable! 💋'
-global.welcom2 = '
+global.welcom2 = `
 > *"𝕷𝖔𝖘 𝖉𝖆𝖙𝖔𝖘 𝖉𝖊 𝖘𝖚 𝖕𝖆𝖘𝖔 𝖕𝖔𝖗 𝖊𝖘𝖙𝖊 𝖑𝖚𝖌𝖆𝖗 𝖍𝖆𝖓 𝖘𝖎𝖉𝖔 𝖊𝖗𝖆𝖉𝖎𝖈𝖆𝖉𝖔𝖘.*  
 > *𝕹𝖔 𝖊𝖝𝖎𝖘𝖙𝖊 𝖈𝖔𝖕𝖎𝖆𝖘 𝖉𝖊 𝖘𝖊𝖌𝖚𝖗𝖎𝖉𝖆𝖉... 𝖔 𝖊𝖘𝖔 𝖈𝖗𝖊𝖊𝖒𝖔𝖘."*  
 
@@ -68,7 +68,8 @@ global.welcom2 = '
 ✖️ 𝕽𝖊𝖈𝖚𝖊𝖗𝖉𝖔𝖘: **𝖈𝖔𝖗𝖗𝖚𝖕𝖙𝖊𝖉**  
 
 **☠️ 𝕬𝖉𝖛𝖊𝖗𝖙𝖊𝖓𝖈𝖎𝖆 𝖕𝖆𝖗𝖆 𝖑𝖔𝖘 𝖘𝖔𝖇𝖗𝖊𝖛𝖎𝖛𝖎𝖊𝖓𝖙𝖊𝖘:**  
-*"𝕹𝖔 𝖕𝖗𝖊𝖌𝖚𝖓𝖙𝖊𝖎𝖘 𝖕𝖔𝖗 𝖊𝖑𝖑𝖔... 𝖔 𝖘𝖊𝖗𝖊𝖎𝖘 𝖊𝖑 𝖕𝖗𝖔𝖝𝖎𝖒𝖔."*'
+*"𝕹𝖔 𝖕𝖗𝖊𝖌𝖚𝖓𝖙𝖊𝖎𝖘 𝖕𝖔𝖗 𝖊𝖑𝖑𝖔... 𝖔 𝖘𝖊𝖗𝖊𝖎𝖘 𝖊𝖑 𝖕𝖗𝖔𝖝𝖎𝖒𝖔."*`
+
 global.banner = 'https://raw.githubusercontent.com/Kone457/Nexus/refs/heads/main/Shizuka.jpg'
 global.avatar = 'https://raw.githubusercontent.com/Kone457/Nexus/refs/heads/main/v2.jpg'
 
