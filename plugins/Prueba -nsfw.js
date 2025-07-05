@@ -61,10 +61,10 @@ const handler = async (m, { conn, usedPrefix, command }) => {
 
         const userMention = `@${m.sender.split('@')[0]}`;
         const message = 
-          `╭━━〔 📦 𝘾𝙤𝙣𝙩𝙚𝙣𝙞𝙙𝙤 𝘾𝙖𝙧𝙜𝙖𝙙𝙤 〕━━╮\n` +
+          `╭〔 📦 𝘾𝙤𝙣𝙩𝙚𝙣𝙞𝙙𝙤 𝘾𝙖𝙧𝙜𝙖𝙙𝙤 〕╮\n` +
           `┃ 👤 *${userMention}*, aquí tienes tu imagen:\n` +
           `┃ 👉 Reacciona con ${REACTIONS.success} si te gustó\n` +
-          `╰━━━━━━━━━━━━━━━━━━━━━╯`;
+          `╰━━━━━━━━━━━━━━━━━━━━╯`;
 
         await conn.sendFile(
           m.chat,
