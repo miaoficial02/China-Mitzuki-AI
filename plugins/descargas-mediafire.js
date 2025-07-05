@@ -9,7 +9,7 @@ const mssg = {
     busy: '*🔄 Estoy ocupado procesando otra descarga. Dame un momento y lo intento de nuevo.*`,
 };
 
-let isProcessing = false;
+let isProcessing = true;
 
 const reply = (texto, conn, m) => {
     conn.sendMessage(m.chat, { text: texto + `\n\n─ ⌬ *Zenitsu Bot ✨*`, }, { quoted: m });
