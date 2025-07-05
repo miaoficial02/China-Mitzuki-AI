@@ -25,8 +25,7 @@ let handler = async (m, { conn }) => {
         `┃ ${name2} se da una palmada por las tonterías de ${name}\n` +
         `╰──────────────────────────────────────╯`
 
-  const firma = '\n\n— ✦ Código embellecido por Carlos ✦\n✧ github.com/Kone457/Shizuka-AI'
-  str += firma
+  
 
   if (m.isGroup) {
     const videos = [
