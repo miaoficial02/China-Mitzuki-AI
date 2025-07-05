@@ -64,7 +64,7 @@ const handler = async (m, { conn, usedPrefix, command }) => {
           `╭〔 📦 𝘾𝙤𝙣𝙩𝙚𝙣𝙞𝙙𝙤 𝘾𝙖𝙧𝙜𝙖𝙙𝙤 〕╮\n` +
           `┃ 👤 *${userMention}*, aquí tienes tu imagen:\n` +
           `┃ 👉 Reacciona con ${REACTIONS.success} si te gustó\n` +
-          `╰━━━━━━━━━━━━━━━━━━━━╯`;
+          `╰━━━━━━━━━━━━━━━━━━━╯`;
 
         await conn.sendFile(
           m.chat,
