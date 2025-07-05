@@ -3,7 +3,6 @@
 
 import fetch from 'node-fetch';
 
-// Emojis para reacciones
 const REACTIONS = {
   waiting: '⏳',
   checking: '🔍',
@@ -14,69 +13,68 @@ const REACTIONS = {
 };
 
 const handler = async (m, { conn, usedPrefix, command }) => {
-  // 1. Reacción inicial
   await react(m, REACTIONS.waiting);
 
   try {
-    // Lista de APIs alternativas (prioridad descendente)
     const imageAPIs = [
       {
         name: "Delirius-API",
         url: "https://delirius-apiofc.vercel.app/nsfw/girls",
-        method: "direct" // Intenta descargar directamente
+        method: "direct"
       },
       {
         name: "Waifu-Pics",
         url: "https://api.waifu.pics/sfw/waifu",
-        method: "json" // Necesita extraer URL de JSON
+        method: "json"
       },
       {
         name: "Nekos-Best",
         url: "https://nekos.best/api/v2/neko",
         method: "json",
-        path: "results[0].url" // Ruta anidada en JSON
+        path: "results[0].url"
       }
     ];
 
     let lastError;
-    
+
     for (const api of imageAPIs) {
       try {
-        // Reacción de verificación
         await react(m, REACTIONS.checking);
-        
+
         const apiResponse = await fetchWithTimeout(api.url, 8000);
         if (!apiResponse.ok) continue;
 
         let imageUrl;
-        
-        // Procesamiento según el tipo de API
+
         if (api.method === "direct") {
           imageUrl = api.url;
         } else if (api.method === "json") {
           const data = await apiResponse.json();
-          imageUrl = api.path 
+          imageUrl = api.path
             ? api.path.split('.').reduce((o, i) => o[i], data)
             : data.url;
         }
 
-        // Validación de URL
         if (!isValidImageUrl(imageUrl)) continue;
 
-        // Reacción de descarga
         await react(m, REACTIONS.downloading);
-        
-        // Envío de imagen
+
+        const userMention = `@${m.sender.split('@')[0]}`;
+        const message = 
+          `╭━━〔 📦 𝘾𝙤𝙣𝙩𝙚𝙣𝙞𝙙𝙤 𝘾𝙖𝙧𝙜𝙖𝙙𝙤 〕━━╮\n` +
+          `┃ 👤 *${userMention}*, aquí tienes tu imagen:\n` +
+          `┃ 👉 Reacciona con ${REACTIONS.success} si te gustó\n` +
+          `╰━━━━━━━━━━━━━━━━━━━━━╯`;
+
         await conn.sendFile(
-          m.chat, 
-          imageUrl, 
-          'anime_girl.jpg', 
-          ` _Aquí tienes amig@_ \n` +
-          `👉 Reacciona con ${REACTIONS.success} si te gustó`,
-          m
+          m.chat,
+          imageUrl,
+          'anime_girl.jpg',
+          message,
+          m,
+          { mentions: [m.sender] }
         );
 
-        // Reacción de éxito
         await react(m, REACTIONS.success);
         return;
 
@@ -95,7 +93,6 @@ const handler = async (m, { conn, usedPrefix, command }) => {
     );
 
   } catch (error) {
-    // Manejo final de errores
     await react(m, REACTIONS.error);
     await conn.reply(
       m.chat,
@@ -123,11 +120,11 @@ async function react(m, emoji) {
 async function fetchWithTimeout(url, timeout) {
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), timeout);
-  
+
   const response = await fetch(url, {
     signal: controller.signal
   });
-  
+
   clearTimeout(timeoutId);
   return response;
 }
