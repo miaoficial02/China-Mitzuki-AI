@@ -16,502 +16,255 @@ Soy *${botname}*, tu asistente virtual.
 👥 Usuarios registrados: ${totalreg}
 📚 Comandos disponibles: ${totalCommands}
 
-╭━━━〔 *Info-Bot* 〕
-┃ ❏ #menu • muestra la lista de 
-┃ comandos.
-┃ ❏ #uptime • Ver tiempo activo del
-┃ Bot.
-┃ ❏ #sc • Link del repositorio oficial
-┃ ❏ #staff • Ver la lista de 
-┃ desarrolladores
-┃ ❏ #creador • Contacto del
-┃ creador.
-┃ ❏ #status • Ver el estado actual 
-┃ de la Bot.
-┃ ❏ #links • Enlaces oficiales 
-┃ de la bot.
-┃ ❏ #infobot • Ver la informacion
-┃ de la bot.
-┃ ❏ #ping • Muestra la velocidad 
-┃ de la Bot.
-┃ ❏ #speed • Ver las estadísticas
-┃ de velocidad.
-╰━━━━━━━━━━⬣
+╭━━━〔 𝙄𝙣𝙛𝙤-𝘽𝙤𝙩 ☄️ 〕━━━╮
+┃ 🛠️ #menu       » Lista de comandos
+┃ ⏱️ #uptime     » Tiempo activo del bot
+┃ 💻 #sc         » Repositorio oficial
+┃ 🧠 #staff      » Desarrolladores
+┃ 🧑‍💼 #creador   » Contacto del creador
+┃ 📊 #status     » Estado actual del bot
+┃ 🔗 #links      » Enlaces oficiales
+┃ 🧾 #infobot    » Información general
+┃ 📶 #ping       » Latencia de conexión
+┃ 🚀 #speed      » Estadísticas de velocidad
+╰━━━━━━━━━━━━━━━━━━━━╯
 
-╭━━━〔 *Registro* 〕
-┃ ❏ #reg • Registrarte en la bot.
-┃ ❏ #unreg • Borrar tu registro.
-┃ ❏ #profile • Ver tu perfil.
-┃ ❏ #myns • Ver tu número de serie.
-╰━━━━━━━━━━⬣
+╭━━━〔 🧍 Registro 〕━━━╮
+┃ 📝 #reg        » Registrarse
+┃ ❌ #unreg      » Borrar registro
+┃ 🧑‍💻 #profile   » Tu perfil
+┃ 🔢 #myns       » Número de serie
+╰━━━━━━━━━━━━━━━━━━╯
 
-╭━━━〔 *Descargas* 〕
-┃ ❏ #play • Descargar música de 
-┃ YouTube.
-┃ ❏ #ytmp3 • Descargar audio de 
-┃ YouTube.
-┃ ❏ #ytmp4 • Descargar video de 
-┃ YouTube.
-┃ ❏ #tiktok • Descargar video de 
-┃ TikTok.
-┃ ❏ #instagram • Descargar de 
-┃ Instagram.
-┃ ❏ #facebook • Descargar de 
-┃ Facebook.
-┃ ❏ #twitter • Descargar de Twitter.
-┃ ❏ #spotify • Descargar de Spotify.
-┃ ❏ #mediafire • Descargar de 
-┃ MediaFire.
-┃ ❏ #mega • Descargar de Mega.
-╰━━━━━━━━━━⬣
+╭━━━〔 📥 Descargas 〕━━━╮
+┃ 🎵 #play       » Música por nombre
+┃ 🎧 #ytmp3      » Audio desde YouTube
+┃ 🎞️ #ytmp4      » Video desde YouTube
+┃ 🎬 #tiktok     » Video desde TikTok
+┃ 📷 #instagram  » Media desde Instagram
+┃ 📘 #facebook   » Video desde Facebook
+┃ 🐦 #twitter    » Descarga desde Twitter
+┃ 🎼 #spotify    » Canción desde Spotify
+┃ 📂 #mediafire  » Archivos de MediaFire
+┃ 📦 #mega       » Archivos de Mega
+╰━━━━━━━━━━━━━━━━━━━━╯
 
-╭━━━〔 *Buscadores* 〕
-┃ ❏ #google • Buscar en Google.
-┃ ❏ #imagen • Buscar imágenes.
-┃ ❏ #pinterest • Buscar en Pinterest.
-┃ ❏ #yts • Buscar videos en YouTube.
-┃ ❏ #npmjs • Buscar paquetes NPM.
-┃ ❏ #github • Buscar repositorios.
-┃ ❏ #infoanime • Información de anime.
-╰━━━━━━━━━━⬣
+╭━━━〔 🔍 𝘽𝙪𝙨𝙘𝙖𝙙𝙤𝙧𝙚𝙨 〕━━━╮
+┃ 🌐 #google        » Buscar en Google
+┃ 🖼️ #imagen        » Imágenes desde Google
+┃ 📌 #pinterest     » Buscar en Pinterest
+┃ 🎥 #yts           » Videos en YouTube
+┃ 📦 #npmjs         » Paquetes NPM
+┃ 🧬 #github        » Repositorios GitHub
+┃ 🎌 #infoanime     » Info de Anime
+╰━━━━━━━━━━━━━━━━━━━╯
 
-╭━━━〔 *Convertidores* 〕
-┃ ❏ #tomp3 • Convertir a MP3.
-┃ ❏ #tovideo • Convertir a video.
-┃ ❏ #tourl • Convertir a enlace.
-┃ ❏ #tts • Texto a voz.
-┃ ❏ #togif • Convertir a GIF.
-╰━━━━━━━━━━⬣
+╭━━━〔 ♻️ 𝘾𝙤𝙣𝙫𝙚𝙧𝙩𝙞𝙙𝙤𝙧𝙚𝙨 〕━━━╮
+┃ 🎶 #tomp3         » Video a MP3
+┃ 🎞️ #tovideo       » Convertir a video
+┃ 🔗 #tourl         » Archivo a enlace
+┃ 🗣️ #tts           » Texto a voz
+┃ 🌀 #togif         » Video a GIF
+╰━━━━━━━━━━━━━━━━━━━╯
 
-╭━━━〔 *Inteligencia Artificial* 〕
-┃ ❏ #ia • Chat con IA.
-┃ ❏ #gemini • Chat con Gemini.
-┃ ❏ #dalle • Generar imágenes IA.
-┃ ❏ #flux • Generar imágenes Flux.
-┃ ❏ #simi • Chat con SimSimi.
-╰━━━━━━━━━━⬣
+╭━━━〔 🤖 𝙄𝙣𝙩𝙚𝙡𝙞𝙜𝙚𝙣𝙘𝙞𝙖 𝘼𝙧𝙩𝙞𝙛𝙞𝙘𝙞𝙖𝙡 〕━━━╮
+┃ 💬 #ia            » Chat con IA
+┃ 🤖 #gemini        » Gemini AI
+┃ 🎨 #dalle         » Generar imágenes (IA)
+┃ 💡 #flux          » Imágenes Flux
+┃ 😺 #simi          » Habla con SimSimi
+╰━━━━━━━━━━━━━━━━━━━━━━━╯
 
-╭━━━〔 *Anime* 〕
-┃ ❏ #waifu • Imágenes de waifus.
-┃ ❏ #hug • Dar un abrazo.
-┃ ❏ #kiss • Dar un beso.
-┃ ❏ #pat • Acariciar.
-┃ ❏ #slap • Dar una bofetada.
-┃ ❏ #angry • Mostrar enojo.
-┃ ❏ #happy • Mostrar felicidad.
-┃ ❏ #sad • Mostrar tristeza.
-┃ ❏ #love • Mostrar amor.
-┃ ❏ #cry • Llorar.
-┃ ❏ #dance • Bailar.
-┃ ❏ #sleep • Dormir.
-╰━━━━━━━━━━⬣
+╭━━━〔 🎌 𝘼𝙣𝙞𝙢𝙚 & 𝘼𝙘𝙘𝙞𝙤𝙣𝙚𝙨 〕━━━╮
+┃ 💘 #waifu         » Imagen waifu
+┃ 🤗 #hug           » Abrazo
+┃ 😘 #kiss          » Beso
+┃ 👋 #pat           » Acariciar
+┃ 👋 #slap          » Bofetada
+┃ 😠 #angry         » Enfadarse
+┃ 😄 #happy         » Alegría
+┃ 😢 #sad           » Tristeza
+┃ ❤️ #love          » Amor
+┃ 😭 #cry           » Llorar
+┃ 💃 #dance         » Bailar
+┃ 😴 #sleep         » Dormir
+╰━━━━━━━━━━━━━━━━━━━╯
 
-╭━━━〔 *Stickers* 〕
-┃ ❏ #sticker • Crear sticker.
-┃ ❏ #emojimix • Mezclar emojis.
-┃ ❏ #wm • Agregar marca de agua.
-┃ ❏ #take • Cambiar nombre de sticker.
-╰━━━━━━━━━━⬣locidad.
-┃ ❏ #usuarios • Muestra los 
-┃ usuarios 
-┃ ❏ #ds • Eliminar archivos de 
-┃ sesiones.
-╰━━━━━━━━━━⬣
+╭━━━〔 🧩 𝙎𝙩𝙞𝙘𝙠𝙚𝙧𝙨 〕━━━╮
+┃ 🖼️ #sticker       » Crear sticker
+┃ 🧬 #emojimix      » Fusionar emojis
+┃ 💧 #wm            » Marca de agua
+┃ ✏️ #take          » Renombrar sticker
+╰━━━━━━━━━━━━━━━━━╯
 
-╭━━━〔 *Buscadores*〕
-┃ ❏ #tiktoksearch • Buscar videos
-┃ en tiktok.
-┃ ❏ #tweetposts • Buscador de post  
-┃ de Twitter.
-┃ ❏ #ytsearch • Realiza búsquedas 
-┃ de Youtube.
-┃ ❏ #githubsearch • Buscador de 
-┃ GitHub
-┃ ❏ #cuevana • Buscador de 
-┃ películas/series.
-┃ ❏ #google • Realiza búsquedas 
-┃ en Google
-┃ ❏ #pin • Buscador de imagenes
-┃ de Pinterest
-┃ ❏ #imagen • Busca imagenes 
-┃ en google
-┃ ❏ #infoanim • Busca información 
-┃ de anime
-┃ ❏ #hentaisearch • Busca capítulos 
-┃ hentai
-┃ ❏ #xnxxs • Buscador de vídeos 
-┃ de Xnxx.
-┃ ❏ #xvideossearch • Busca vídeos
-┃ en Xvideos.
-┃ ❏ #pornhubsearch • Busca videos
-┃ en Pornhub.
-┃ ❏ #npmjs • Buscandor de npmjs.
-╰━━━━━━━━━━⬣
+╭━━━〔 📎 𝘿𝙚𝙨𝙘𝙖𝙧𝙜𝙖𝙨 〕━━━╮
+┃ 🎵 #play          » Descargar audio
+┃ 🎬 #play2         » Descargar video
+┃ 🕺 #tiktok         » Videos de TikTok
+┃ 📘 #facebook       » Videos de Facebook
+┃ 🐦 #twitter        » Videos de Twitter
+┃ 📷 #instagram      » Medios de Instagram
+┃ 📂 #mediafire      » Archivos MediaFire
+┃ 📦 #mega           » Archivos Mega
+┃ 🧊 #terabox        » Descargas de Terabox
+┃ 🧬 #gitclone       » Clonar de GitHub
+┃ 📥 #pinvid         » Videos de Pinterest
+┃ 🛠 #apk            » APKs de Aptoide
+╰━━━━━━━━━━━━━━━━━━━╯
 
-╭━━━〔 *Descargas*〕
-┃ ❏ #tiktok • Descarga videos 
-┃ de TikTok.
-┃ ❏ #mediafire • Descarga archivos
-┃ de mediafire
-┃ ❏ #pinvid • Descargar vídeos 
-┃ de Pinterest.
-┃ ❏ #mega • Descarga archivos 
-┃ de mega
-┃ ❏ #play • Descarga audio.
-┃ ❏ #play2 • Descargas video.
-┃ ❏ #facebook • Descarga videos 
-┃ de Facebook.
-┃ ❏ #twitter • Descarga videos 
-┃ de Twitter
-┃ ❏ #instagram • Descargas de 
-┃ Instagram
-┃ ❏ #terabox • Descarga archivos 
-┃ de terabox
-┃ ❏ #gitclone • Descargas desde 
-┃ github
-┃ ❏ #xvideosdl • Descargar videos
-┃ desde (Xvideos).
-┃ ❏ #xnxxdl Dercargar desde 
-┃ (xnxx).
-┃ ❏ #apk • Descargar aplicaciones 
-┃ de aptoide
-╰━━━━━━━━━━⬣
+╭━━〔 💰 𝙀𝙘𝙤𝙣𝙤𝙢í𝙖 〕━━╮
+┃ 🛠️ #work        » Trabaja por ${moneda}
+┃ 🎲 #suerte      » Apuesta tu ${moneda}
+┃ 💣 #crime       » Realiza un crimen
+┃ 🎰 #ruleta      » Juega a la ruleta
+┃ 🏦 #casino      » Prueba suerte en el casino
+┃ 🎰 #slot        » Slot de la fortuna
+┃ 👛 #cartera     » Ver billetera
+┃ 🏛️ #bank        » Ver cuenta bancaria
+┃ 💳 #depositar   » Deposita ${moneda}
+┃ 🏧 #retirar     » Retira del banco
+┃ 🔁 #transfer    » Transferir ${moneda}/XP
+┃ ⛏️ #minar       » Trabajo de minería
+┃ 🛒 #buy         » Comprar con XP
+┃ 📆 #daily       » Recompensa diaria
+┃ 🎁 #cofre       » Cofre diario
+┃ 📅 #semanal     » Regalo semanal
+┃ 📆 #mensual     » Recompensa mensual
+┃ 🦹 #robar       » Roba ${moneda}
+┃ 🧠 #robarxp     » Roba experiencia
+┃ 🏆 #baltop      » Ranking global
+┃ 🧭 #aventura    » Viaje de aventura
+┃ 💉 #curar       » Recupera tu salud
+┃ 🐗 #cazar       » Caza animales
+┃ 🎒 #inventario  » Ver inventario
+┃ 🏰 #mazmorra    » Explora mazmorras
+┃ 🎃 #halloween   » Evento especial
+┃ 🎄 #navidad     » Regalo navideño
+╰━━━━━━━━━━━━━━━━━━╯
 
-╭━━━〔 *Economia*〕
-┃ ❏ #work • Trabaja para ganar 
-┃ ${moneda}.
-┃ ❏ #slut • Prostituyete y gana
-┃ ${moneda}.
-┃ ❏ #suerte • Apuesta tus ${moneda}.
-┃ ❏ #crime • Has un crimen y gana
-┃ ${moneda}.
-┃ ❏ #ruleta • Apuesta ${moneda} 
-┃ en la ruleta
-┃ ❏ #casino • Apuesta ${moneda} 
-┃ en el casino
-┃ ❏ #slot • Apuesta ${moneda} y 
-┃ prueba tu suerte
-┃ ❏ #cartera • Ver tus ${moneda}
-┃ en la cartera.
-┃ ❏ #bank • Ver tus ${moneda}
-┃ en el banco.
-┃ ❏ #depositar • Deposita ${moneda} 
-┃ al banco.
-┃ ❏ #retirar • Retira ${moneda} 
-┃ del banco.
-┃ ❏ #transfer • Transfiere ${moneda}
-┃ o XP.
-┃ ❏ #minar • Trabaja como minero.
-┃ ❏ #buy • Compra ${moneda} con tu XP.
-┃ ❏ #daily • Reclama tu 
-┃ recompensa diaria.
-┃ ❏ #cofre • Reclama un cofre 
-┃ diario.
-┃ ❏ #semanal • Reclama tu regalo
-┃ semanal.
-┃ ❏ #mensual • Reclama tu 
-┃ recompensa mensual.
-┃ ❏ #robar • Intenta robar ${moneda} 
-┃ a alguien
-┃ ❏ #robarxp • Intenta robar XP 
-┃ a un usuario.
-┃ ❏ #baltop • Ver el ranking 
-┃ de usuarios.
-┃ ❏ #aventura • Aventúrate en un
-┃ nuevo reino.
-┃ ❏ #curar • Cura tu salud.
-┃ ❏ #cazar • Caza animales.
-┃ ❏ #inventario • Ver tu inventario.
-┃ ❏ #mazmorra • Explora la
-┃ mazmorra.
-┃ ❏ #halloween • Reclama tu dulce
-┃ o truco.
-┃ ❏ #navidad • Reclama tu regalo 
-┃ navideño.
-╰━━━━━━━━━━⬣
+╭━━〔 🎴 𝙂𝙖𝙘𝙝𝙖 & 𝙋𝙚𝙧𝙨𝙤𝙣𝙖𝙟𝙚𝙨 〕━━╮
+┃ 🎎 #rw          » Waifu o husbando random
+┃ 📥 #claim       » Reclamar personaje
+┃ 📜 ##waifus     » Tus personajes
+┃ 🎭 #wimage      » Imagen aleatoria
+┃ 🧾 #winfo       » Info del personaje
+┃ 🎁 #regalar     » Regala personaje
+┃ 🗳️ #votar       » Vota por personaje
+┃ 🔝 #waifustop   » Ranking waifus
+╰━━━━━━━━━━━━━━━━━━━━━━━━╯
 
-╭━━━〔 *Gacha*〕
-┃ ❏ #rw • Waifu o husbando 
-┃ aleatorio.
-┃ ❏ #claim • Reclamar un 
-┃ personaje.
-┃ ❏ ##waifus • Ver tus personajes 
-┃ reclamados.
-┃ ❏ #wimage • Imagen aleatoria de 
-┃ un personaje.
-┃ ❏ #winfo • Ver información de 
-┃ un personaje.
-┃ ❏ #regalar • Regala un personaje.
-┃ ❏ #votar • Vota por un personaje.
-┃ ❏ #waifustop • Ver el top de
-┃ personajes.
-╰━━━━━━━━━━⬣
+╭━━〔 🖼️ 𝙎𝙩𝙞𝙘𝙠𝙚𝙧𝙨 〕━━╮
+┃ 🧷 #sticker     » Crear sticker
+┃ ✍️ #setmeta     » Fijar autor del pack
+┃ 🧹 #delmeta     » Eliminar pack
+┃ 👤 #pfp         » Foto de perfil
+┃ 🧾 #qc          » Sticker con texto
+┃ 📤 #img         » Sticker a imagen
+┃ 💬 #attp        » Sticker estilo texto
+┃ 💞 #emojimix    » Fusión de emojis
+┃ 🖋️ #wm          » Marcar sticker
+╰━━━━━━━━━━━━━━━━━╯
 
-╭━━━〔 *Stickers*〕
-┃ ❏ #sticker • Crea un sticker.
-┃ ❏ #setmeta • Estable autor para 
-┃ los stickers
-┃ ❏ #delmeta • Elimina tu pack 
-┃ de stickers.
-┃ ❏ #pfp • Obtén la foto de 
-┃ un usuario
-┃ ❏ #qc Crea stickers con texto .
-┃ ❏ #img • Convierte stickers 
-┃ en imagen.
-┃ ❏ #attp • Crea stickers con texto.
-┃ ❏ #emojimix • Fuciona 2 emojis y 
-┃ crea sticker
-┃ ❏ #wm • Cambia el nombre de 
-┃ los stickers.
-╰━━━━━━━━━━⬣
+╭━━〔 🧰 𝙃𝙚𝙧𝙧𝙖𝙢𝙞𝙚𝙣𝙩𝙖𝙨 〕━━╮
+┃ ➗ #calcular    » Resolver ecuaciones
+┃ 🌦️ #clima       » Clima de un país
+┃ 🕒 #horario     » Hora global
+┃ 🧪 #fake        » Mensaje falso
+┃ 🖼️ #hd          » Mejorar imagen
+┃ ✒️ #letra       » Cambiar fuente
+┃ 👁️ #ver         » Ver imágenes fugaces
+┃ 🎶 #shazam      » Detectar canción
+┃ 📡 #ss          » Estado de una web
+┃ 🔍 #tamaño      » Escalar imágenes
+┃ 🗣️ #say         » Repetir texto
+┃ 📝 #todoc       » Documento multimedia
+┃ 🌍 #traducir    » Traductor universal
+╰━━━━━━━━━━━━━━━━╯
 
-╭━━━〔 *Herramientas*〕
-┃ ❏ #calcular • Calcula ecuaciones.
-┃ ❏ #clima • Ver el clima de un pais.
-┃ ❏ #horario • Ver el horario global.
-┃ ❏ #fake • Crea un mensaje falso 
-┃ de un usuario
-┃ ❏ #hd • Mejora la calidad de 
-┃ una imagen.
-┃ ❏ #letra • Cambia la fuente de 
-┃ las letras.
-┃ ❏ #ver • Ver imágenes de una 
-┃ sola vista.
-┃ ❏ #shazam • Descubre el nombre
-┃ de canciones.
-┃ ❏ #ss • Ver el estado de una 
-┃ página web.
-┃ ❏ #tamaño • Cambia el tamaño 
-┃ de imágenes.
-┃ ❏ #say • Repetir un mensaje.
-┃ ❏ #todoc • Crea documentos de
-┃ (audio,imágen).
-┃ ❏ #traducir • Traduce palabras.
-╰━━━━━━━━━━⬣
+╭━━〔 👤 𝙋𝙚𝙧𝙛𝙞𝙡 〕━━╮
+┃ 📝 #reg         » Registro de usuario
+┃ ❌ #unreg       » Eliminar registro
+┃ 🧑‍💻 #profile    » Mostrar perfil
+┃ 💍 #marry       » Proponer matrimonio
+┃ 💔 #divorce     » Divorciarse
+┃ 🚻 #setgenero   » Establecer género
+┃ 🧽 #delgenero   » Borrar género
+┃ 🎂 #setbirth    » Registrar cumpleaños
+┃ 🗑️ #delbirth    » Borrar cumpleaños
+┃ 🧾 #setdesc     » Descripción personal
+┃ ✂️ #deldesc     » Quitar descripción
+┃ 🏅 #lb          » Top de usuarios
+┃ 🆙 #level       » Nivel de experiencia
+┃ 💎 #premium     » Activar premium
+┃ 💌 #confesar    » Declarar sentimientos
+╰━━━━━━━━━━━━━━━━━╯
 
+╭━━〔 👥 𝙂𝙧𝙪𝙥𝙤𝙨 〕━━╮
+┃ 📢 #tag           » Mencionar a todos
+┃ 🏷️ #gp            » Información del grupo
+┃ 🧍 #linea         » Usuarios en línea
+┃ 🎉 #setwelcome    » Mensaje de bienvenida
+┃ 👋 #setbye        » Mensaje de despedida
+┃ 🔗 #link          » Enlace del grupo
+┃ 👑 #admin         » Mencionar admins
+┃ ♻️ #revoke        » Restablecer enlace
+┃ 🔓 #group open    » Abrir grupo
+┃ 🔒 #group close   » Cerrar grupo
+┃ 👢 #kick          » Eliminar usuario
+┃ ➕ #add           » Agregar usuario
+┃ 📈 #promote       » Promover a admin
+┃ 📉 #demote        » Quitar admin
+┃ 🖼️ #gpbanner      » Cambiar imagen del grupo
+┃ ✏️ #gpname        » Cambiar nombre
+┃ 📝 #gpdesc        » Cambiar descripción
+┃ ⚠️ #warn          » Dar advertencia
+┃ ✅ #unwarn        » Quitar advertencia
+┃ 🗂️ #advlist       » Ver advertidos
+┃ ⚙️ #bot on        » Encender bot
+┃ 📴 #bot off       » Apagar bot
+┃ 🔇 #mute          » Silenciar usuario
+┃ 🔊 #unmute        » Quitar silencio
+┃ 📊 #poll          » Crear encuesta
+┃ 🗑️ #delete        » Borrar mensaje
+┃ 👻 #fantasmas     » Ver inactivos
+┃ 🧹 #kickfantasmas » Eliminar inactivos
+┃ 🧙 #invocar       » Invocar a todos
+┃ 🌟 #setemoji      » Establecer emoji
+┃ 🔢 #kicknum       » Kick por código país
+╰━━━━━━━━━━━━━━━━━━╯
 
-╭━━━〔 *Perfil*〕
-┃ ❏ #reg • Registra tu nombre y 
-┃ edad en el bot
-┃ ❏ #unreg • Elimina tu registro 
-┃ del bot.
-┃ ❏ #profile • Muestra tu perfil 
-┃ de usuario.
-┃ ❏ #marry • Propón matrimonio a 
-┃ otro usuario.
-┃ ❏ #divorce • Divorciarte de 
-┃ tu pareja.
-┃ ❏ #setgenero • Establece tu 
-┃ género.
-┃ ❏ #delgenero • Elimina tu género 
-┃ del perfil 
-┃ ❏ #setbirth • Establece fecha de
-┃ nacimiento
-┃ ❏ #delbirth • Elimina fecha de 
-┃ nacimiento 
-┃ ❏ #setdesc • Establece 
-┃ descripción de perfil 
-┃ ❏ #deldesc • Elimina descripción
-┃ de perfil
-┃ ❏ #lb • Top de usuarios 
-┃ ❏ #level • Ver tu nivel y 
-┃ experiencia actual.
-┃ ❏ #premium • Compra un pase 
-┃ premium del bot.
-┃ ❏ #confesar • Confiesa 
-┃ sentimientos.
-╰━━━━━━━━━━⬣
-
-╭━━━〔 *Grupos*〕
-┃ ❏ #tag • Envia un mensaje 
-┃ mencionando a todos
-┃ ❏ #gp • Ver la Informacion 
-┃ del grupo.
-┃ ❏ #linea • Lista de los usuarios 
-┃ en linea.
-┃ ❏ #setwelcome • Establecer la
-┃ bienvenida
-┃ ❏ #setbye • Establecer la 
-┃ despedida.
-┃ ❏ #link • El bot envia el link
-┃ del grupo.
-┃ ❏ #admin • Mencionar a los 
-┃ admins.
-┃ ❏ #revoke • Restablecer el enlace 
-┃ del grupo.
-┃ ❏ #group open • Abrir grupo.
-┃ ❏ #group close • Cerrar grupo.
-┃ ❏ #kick • Elimina a un usuario
-┃ del grupo.
-┃ ❏ #add • Invita a un usuario a 
-┃ tu grupo.
-┃ ❏ #promote • Promover usuario a 
-┃ admin
-┃ ❏ #demote • Degradar usuario 
-┃ ❏ #gpbanner • Cambia la imagen 
-┃ del grupo
-┃ ❏ #gpname • Cambia el nombre 
-┃ del grupo 
-┃ ❏ #gpdesc • Cambiar la descripción
-┃ del grupo.
-┃ ❏ #warn • Darle una advertencia 
-┃ aún usuario.
-┃ ❏ #unwarn • Quitar advertencias.
-┃ ❏ #advlist • Ver lista de usuarios
-┃ advertidos
-┃ ❏ #bot on • Enciende el bot en un 
-┃ grupo.
-┃ ❏ #bot off • Apaga el bot en un
-┃ grupo.
-┃ ❏ #mute • Elimina los mensajes
-┃ del usuario.
-┃ ❏ #unmute • Deja de eliminar 
-┃ los mensajes.
-┃ ❏ #poll • Crea una encuesta.
-┃ ❏ #delete • Elimina mensaje de 
-┃ otros usuarios
-┃ ❏ #fantasmas • Ver lista de 
-┃ inactivos.
-┃ ❏ #kickfantasmas • Elimina a los 
-┃ inactivos.
-┃ ❏ #invocar • Invoca a todos los
-┃ usuarios.
-┃ ❏ #setemoji • Cambia el emojide 
-┃ invitación.
-┃ ❏ #kicknum • Elimine a usuario 
-┃ por el prefijo del pais.
-╰━━━━━━━━━━⬣
-
-╭━━━〔 *Anime*〕
-┃ ❏ #angry • Estar enojado.
-┃ ❏ #bite • Muerde a alguien.
-┃ ❏ #bleh • Sacar la lengua.
-┃ ❏ #blush • Sonrojarte.
-┃ ❏ #bored • Estar aburrido.
-┃ ❏ #cry • Llorar por algo o alguien.
-┃ ❏ #cuddle • Acurrucarse.
-┃ ❏ #dance • Sacate los pasitos 
-┃ prohíbidos.
-┃ ❏ #drunk • Estar borracho.
-┃ ❏ #comer • Comer algo delicioso.
-┃ ❏ #facepalm • Darte una palmada 
-┃ en la cara.
-┃ ❏ #happy • Salta de felicidad.
-┃ ❏ #hug • Dar un abrazo.
-┃ ❏ #preg • Embarazar a alguien.
-┃ ❏ #kill • Toma tu arma y mata a 
-┃ alguien.
-┃ ❏ #kiss • Dar un beso.
-┃ ❏ #laugh • Reírte de algo o
-┃ alguien.
-┃ ❏ #lick • Lamer a alguien.
-┃ ❏ #love • Sentirse enamorado.
-┃ ❏ #pat • Acaricia a alguien.
-┃ ❏ #poke • Picar a alguien.
-┃ ❏ #pout • Hacer pucheros.
-┃ ❏ #punch • Dar un puñetazo.
-┃ ❏ #run • Correr.
-┃ ❏ #sad • Expresar tristeza.
-┃ ❏ #scared • Estar asustado.
-┃ ❏ #seduce • Seducir a alguien.
-┃ ❏ #shy • Sentir timidez.
-┃ ❏ #slap • Dar una bofetada.
-┃ ❏ #dias • Darle los buenos días 
-┃ a alguien.
-┃ ❏ #noches • Darle las buenas
-┃ noches a alguien
-┃ ❏ #sleep • Tumbarte a dormir.
-┃ ❏ #smoke • Fumar.
-┃ ❏ #think • Pensar en algo.
-╰━━━━━━━━━━⬣
-
-╭━━━〔 *NSFW*〕
-┃ ❏ #anal • Hacer un anal.
-┃ ❏ #waifu • Buscá una waifu 
-┃ aleatorio.
-┃ ❏ #bath • Bañarse.
-┃ ❏ #mamada • Dar una mamada.
-┃ ❏ #boobjob • Hacer una rusa.
-┃ ❏ #cum • Venirse en alguien.
-┃ ❏ #fap • Hacerse una paja.
-┃ ❏ #ppcp • Genera imagenes para 
-┃ amistades o parejas.
-┃ ❏ #footjob • Hacer una paja con 
-┃ los pies.
-┃ ❏ #fuck • Follarte a alguien.
-┃ ❏ #coffe • Tomate un cafecito con 
-┃ alguien.
-┃ ❏ #violar • Viola a alguien.
-┃ ❏ #grabboobs • Agarrrar tetas.
-┃ ❏ #grop • Manosear a alguien.
-┃ ❏ #lickpussy • Lamer un coño.
-┃ ❏ #r34 • Buscar imagenes en 
-┃ Rule34.
-┃ ❏ #69 • Haz un 69 con alguien.
-┃ ❏ #spank • Dar una nalgada.
-┃ ❏ #suckboobs • Chupar tetas. 
-┃ ❏ #encuerar • Desnudar a alguien.
-┃ ❏ #tijeras • Hacer tijeras.
-╰━━━━━━━━━━⬣
-
-╭━━━〔 *Juegos*〕
-┃ ❏ #amistad • hacer amigos con 
-┃ un juego. 
-┃ ❏ #chaqueta • Hacerte una 
-┃ chaqueta.
-┃ ❏ #chiste • La bot te cuenta un 
-┃ chiste.
-┃ ❏ #consejo • La bot te da un
-┃ consejo. 
-┃ ❏ #doxear • Simular un doxeo 
-┃ falso.
-┃ ❏ #facto • La bot te lanza un 
-┃ facto. 
-┃ ❏ #formarpareja • Forma una 
-┃ pareja. 
-┃ ❏ #formarpareja5 • Forma 5 
-┃ parejas diferentes
-┃ ❏ #frase • La bot te da una frase.
-┃ ❏ #huevo • Agarrale el huevo a
-┃ alguien.
-┃ ❏ #chupalo • Hacer que un 
-┃ usuario te la chupe
-┃ ❏ #aplauso • Aplaudirle a alguien.
-┃ ❏ #marron • Burlarte del color de
-┃ piel.
-┃ ❏ #suicidar • Suicidate. 
-┃ ❏ #iq • Calcular el iq de alguna
-┃ persona.
-┃ ❏ #meme • La bot te envía un 
-┃ meme aleatorio.
-┃ ❏ #morse • Convierte un texto a
-┃ codigo morse.
-┃ ❏ #nombreninja • Nombre ninja 
-┃ aleatorio.
-┃ ❏ #paja • La bot te hace una paja.
-┃ ❏ #personalidad • Busca tu 
-┃ personalidad. 
-┃ ❏ #piropo • Lanza un piropo.
-┃ ❏ #pregunta • Hazle una pregunta 
-┃ a la bot.
-┃ ❏ #ship • Probabilidad de 
-┃ enamorarte
-┃ ❏ #sorteo • Empieza un sorteo. 
-┃ ❏ #top • Empieza un top de
-┃ personas.
-┃ ❏ #formartrio • Forma un trio.
-┃ ❏ #ahorcado • Juega el juego
-┃ ahorcado.
-┃ ❏ #mates • Preguntas de 
-┃ matemáticas
-┃ ❏ #ppt • Juega piedra papel o 
-┃ tijeras.
-┃ ❏ #sopa • Juego de sopa de 
-┃ letras
-┃ ❏ #pvp • Juega un pvp contra otro 
-┃ usuario.
-╰━━━━━━━━━━⬣
-
+╭━━〔 🎌 𝘼𝙣𝙞𝙢𝙚 〕━━╮
+┃ 😡 #angry         » Estar enojado
+┃ 😬 #bite          » Morder a alguien
+┃ 😛 #bleh          » Sacar lengua
+┃ 😊 #blush         » Sonrojarse
+┃ 😑 #bored         » Estar aburrido
+┃ 😢 #cry           » Llorar
+┃ 🤗 #cuddle        » Acurrucarse
+┃ 💃 #dance         » Bailar un rato
+┃ 🥴 #drunk         » Estar borracho
+┃ 🍔 #comer         » Comer algo
+┃ 🤦 #facepalm      » Palmada en la cara
+┃ 😄 #happy         » Estar feliz
+┃ 🤝 #hug           » Abrazar
+┃ 💋 #kiss          » Dar un beso
+┃ 😂 #laugh         » Reír
+┃ 👅 #lick          » Lamer (sano)
+┃ ❤️ #love          » Enamorarse
+┃ 🖐️ #pat          » Acariciar
+┃ 👈 #poke          » Picar a alguien
+┃ 😤 #pout          » Puchero
+┃ 👊 #punch         » Puñetazo amistoso
+┃ 🏃 #run           » Correr
+┃ 😔 #sad           » Mostrar tristeza
+┃ 😱 #scared        » Asustado
+┃ 🙈 #shy           » Timidez
+┃ ✋ #slap          » Bofetada
+┃ 🌞 #dias          » Buenos días
+┃ 🌙 #noches        » Buenas noches
+┃ 💤 #sleep         » Dormir
+┃ 🤔 #think         » Pensar en algo
+╰━━━━━━━━━━━━━━━━━╯
 
     `.trim()
 
