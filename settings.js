@@ -57,7 +57,19 @@ global.etiqueta = 'Carlos'
 //-----------------------------
 
 global.moneda = 'Coins'
-global.welcom1 = 'Bienvenido al grupo donde la diversión nunca se detiene. Aquí estamos listos para desatar travesuras y risas. 😈💖 ¡Prepárate para disfrutar y no olvides dejar tu huella! 😉🔥 ¡Vamos a hacer de este lugar algo inolvidable! 💋'
+global.welcom1 = `
+
+> *"𝕊𝕦 𝕡𝕣𝕖𝕤𝕖𝕟𝕔𝕚𝕒 𝕙𝕒 𝕤𝕚𝕕𝕠 𝕣𝕖𝕘𝕚�𝕥𝕣𝕒𝕕𝕒 𝕖𝕟 𝕟𝕦𝕖𝕤𝕥𝕣𝕠 𝕤𝕚𝕤𝕥𝕖𝕞𝕒. ℙ𝕖𝕣𝕗𝕚� 𝕕𝕖 𝕔𝕠𝕣𝕣𝕦𝕡𝕔𝕚ó𝕟: 68%. 𝔹𝕚𝕖𝕟𝕧𝕖𝕟𝕚𝕕𝕠 𝕒 𝕝𝕒 𝕞𝕒𝕥𝕣𝕚𝕫."*  `
+
+**🕸️ 𝕽𝖊𝖌𝖑𝖆𝖘 𝖉𝖊 𝖘𝖔𝖇𝖗𝖊𝖛𝖎𝖛𝖊𝖓𝖈𝖎𝖆:**  
+- 𝕹𝖔 𝖆𝖈𝖊𝖕𝖙𝖊𝖘 𝖉𝖚𝖑𝖈𝖊𝖘 𝖉𝖊𝖑 𝖇𝖔𝖙 (𝖘𝖔𝖓 𝖛𝖊𝖓𝖊𝖓𝖔 𝖉𝖎𝖌𝖎𝖙𝖆𝖑)  
+- 𝕷𝖔𝖘 𝖒𝖊𝖓𝖘𝖆𝖏𝖊𝖘 𝖉𝖊 𝖑𝖆 �𝖒𝖆𝖉𝖗𝖚𝖌𝖆𝖉𝖆 𝖘𝖔𝖓 𝖑𝖊𝖞  
+- 𝕾𝖎 𝖛𝖊𝖘 𝖙𝖚 𝖓𝖔𝖒𝖇𝖗𝖊 𝖊𝖓 𝖗𝖔𝖏𝖔... 𝖍𝖚𝖞𝖊 𝖎𝖓𝖒𝖊𝖉𝖎𝖆𝖙𝖆𝖒𝖊𝖓𝖙𝖊  
+
+**💀 𝕯𝖆𝖙𝖔 𝖘𝖎𝖓𝖎𝖊𝖘𝖙𝖗𝖔:**  
+*"𝕰𝖑 97% 𝖉𝖊 𝖑𝖔𝖘 𝖖𝖚𝖊 𝖊𝖓𝖙𝖗𝖆𝖓 𝖓𝖔 𝖛𝖚𝖊𝖑𝖛𝖊𝖓 𝖆 𝖘𝖊𝖗 𝖍𝖚𝖒𝖆𝖓𝖔𝖘."*  
+
+**🕷️ 𝕯𝖎𝖘𝖋𝖗𝖚𝖙𝖆 𝖙𝖚 𝖊𝖘𝖙𝖆𝖓𝖈𝖎𝖆... 𝖒𝖎𝖊𝖓𝖙𝖗𝖆𝖘 𝖕𝖚𝖊𝖉𝖆𝖘.**  
 global.welcom2 = `
 > *"𝕷𝖔𝖘 𝖉𝖆𝖙𝖔𝖘 𝖉𝖊 𝖘𝖚 𝖕𝖆𝖘𝖔 𝖕𝖔𝖗 𝖊𝖘𝖙𝖊 𝖑𝖚𝖌𝖆𝖗 𝖍𝖆𝖓 𝖘𝖎𝖉𝖔 𝖊𝖗𝖆𝖉𝖎𝖈𝖆𝖉𝖔𝖘.*  
 > *𝕹𝖔 𝖊𝖝𝖎𝖘𝖙𝖊 𝖈𝖔𝖕𝖎𝖆𝖘 𝖉𝖊 𝖘𝖊𝖌𝖚𝖗𝖎𝖉𝖆𝖉... 𝖔 𝖊𝖘𝖔 𝖈𝖗𝖊𝖊𝖒𝖔𝖘."*  
