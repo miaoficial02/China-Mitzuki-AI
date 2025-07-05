@@ -1,28 +1,23 @@
 import fetch from 'node-fetch';
 
 const mssg = {
-    noLink: (platform) => `*⚠️ Por favor, proporciona un enlace de ${platform}*.`,
-    invalidLink: (platform) => `*❌ El enlace proporcionado no es válido de ${platform}. Por favor verifica el enlace.*`,
-    error: '*⚠️ Ocurrió un error al intentar procesar la descarga.*',
-    fileNotFound: '*❌ No se pudo encontrar el archivo en Mediafire. Asegúrate de que el enlace sea correcto.*',
-    fileTooLarge: '*☁️ El archivo es demasiado grande más de \`650 MB\`. No se puede procesar.*',
-    busy: '*⏳ El servidor está procesando otra solicitud. Por favor espere a que termine.*',
+    noLink: (platform) => `*🔗 ¡Ups! Parece que olvidaste poner un enlace de ${platform}. Por favor, compártelo para continuar.*`,
+    invalidLink: (platform) => `*🚫 Hmm... el enlace no parece ser válido de ${platform}. Revisa que esté correcto y vuelve a intentarlo.*`,
+    error: '*💥 Algo salió mal al procesar la descarga. Intenta más tarde o consulta con el desarrollador.*',
+    fileNotFound: '*📭 No se encontró el archivo en Mediafire. ¿Seguro que el enlace es válido y el archivo aún está disponible?*',
+    fileTooLarge: '*📦 El archivo supera los \`650 MB\` permitidos. Intenta con uno más liviano, por favor.*',
+    busy: '*🔄 Estoy ocupado procesando otra descarga. Dame un momento y lo intento de nuevo.*`,
 };
 
 let isProcessing = false;
 
 const reply = (texto, conn, m) => {
-    conn.sendMessage(m.chat, { text: texto }, { quoted: m });
+    conn.sendMessage(m.chat, { text: texto + `\n\n─ ⌬ *Zenitsu Bot ✨*`, }, { quoted: m });
 };
 
 const isValidUrl = (url) => {
     const regex = /^(https?:\/\/)?(www\.)?mediafire\.com\/.*$/i;
     return regex.test(url);
-};
-
-const extractFileNameFromLink = (url) => {
-    const match = url.match(/\/file\/[^/]+\/(.+?)\/file$/i);
-    return match ? decodeURIComponent(match[1].replace(/%20/g, ' ')) : null;
 };
 
 const getMimeType = (fileName) => {
@@ -40,9 +35,9 @@ const getMimeType = (fileName) => {
     return mimeTypes[ext] || 'application/octet-stream';
 };
 
-let handler = async (m, { conn, args, text, usedPrefix, command }) => {
+let handler = async (m, { conn, text, command }) => {
     if (command === 'mediafire') {
-        if (!text) return reply(`*📥 Por favor, ingresa un enlace de Mediafire*`, conn, m);
+        if (!text) return reply(mssg.noLink('Mediafire'), conn, m);
         if (isProcessing) return reply(mssg.busy, conn, m);
         if (!isValidUrl(text)) return reply(mssg.invalidLink('Mediafire'), conn, m);
 
@@ -50,36 +45,41 @@ let handler = async (m, { conn, args, text, usedPrefix, command }) => {
             isProcessing = true;
             await conn.sendMessage(m.chat, { react: { text: '⏳', key: m.key } });
 
-            console.log(`Procesando enlace: ${text}`);
-            let fileName = extractFileNameFromLink(text) || 'archivo_descargado';
-
             const apiUrl = `https://api.vreden.my.id/api/mediafiredl?url=${encodeURIComponent(text)}`;
-            const apiResponse = await fetch(apiUrl);
-            const data = await apiResponse.json();
+            const res = await fetch(apiUrl);
+            const data = await res.json();
 
-            if (data.status && data.result && data.result.dl_link) {
-                const downloadUrl = data.result.dl_link;
-                const fileSize = parseFloat(data.result.size.replace(/[^0-9.]/g, ''));
-
-                if (fileSize > 650) return reply(mssg.fileTooLarge, conn, m);
-
-                const mimeType = getMimeType(fileName);
-
-                await conn.sendMessage(m.chat, {
-                    document: { url: downloadUrl },
-                    mimetype: mimeType,
-                    fileName: fileName,
-                }, { quoted: m });
-
-                await conn.sendMessage(m.chat, { react: { text: '✅', key: m.key } });
-            } else {
+            if (!data.status || !data.result || !data.result.dl_link) {
                 return reply(mssg.fileNotFound, conn, m);
             }
 
-        } catch (error) {
-            console.error('❌ Error con la API de Dark Yasiya:', error.message);
+            const { dl_link, filename, size } = data.result;
+            const sizeMB = parseFloat(size.replace(/[^0-9.]/g, ''));
+
+            if (sizeMB > 650) return reply(mssg.fileTooLarge, conn, m);
+
+            await conn.sendMessage(m.chat, {
+                text: `✨ *Archivo listo para descargar:*\n\n📌 *Nombre:* ${filename}\n📏 *Tamaño:* ${size}\n\n_Enviando tu archivo..._`,
+            }, { quoted: m });
+
+            const mimeType = getMimeType(filename || 'documento');
+
+            await conn.sendMessage(m.chat, {
+                document: { url: dl_link },
+                mimetype: mimeType,
+                fileName: filename,
+            }, { quoted: m });
+
+            await conn.sendMessage(m.chat, {
+                text: '✅ *¡Archivo enviado con éxito!* Si necesitas otra descarga, no dudes en escribirme. 😎',
+            }, { quoted: m });
+
+            await conn.sendMessage(m.chat, { react: { text: '✅', key: m.key } });
+
+        } catch (err) {
+            console.error('❌ Error con la API:', err);
             await conn.sendMessage(m.chat, { react: { text: '❌', key: m.key } });
-            return reply(mssg.error, conn, m);
+            return reply(`${mssg.error}\n\`\`\`${err.message}\`\`\``, conn, m);
         } finally {
             isProcessing = false;
         }
