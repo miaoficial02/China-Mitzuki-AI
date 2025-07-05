@@ -9,25 +9,23 @@ const handler = async (m, { conn }) => {
     const json = await res.json();
     const imageUrl = json[0]?.url;
 
-    const template = {
+    await conn.sendMessage(m.chat, {
       image: { url: imageUrl },
-      caption: '🌿 *Naturaleza Random*\n\nUna dosis de ternura natural 🐾\nPulsa el botón para ver otra.',
+      caption: '🌿 *Naturaleza Random*\n\nUna dosis de ternura para alegrar tu día 🐾\n\nPulsa el botón para recibir otra más.',
       footer: 'Plugin creado por Carlos • github.com/Kone457',
       templateButtons: [
         {
           index: 1,
           quickReplyButton: {
             displayText: '🔁 Ｏ Ｔ Ｒ Ａ Ｍ Á Ｓ',
-            id: '.catpic'
+            id: 'catpic' // sin punto, como comando limpio
           }
         }
       ]
-    };
-
-    await conn.sendMessage(m.chat, template, { quoted: m });
+    }, { quoted: m });
   } catch (error) {
     console.error(error);
-    await conn.reply(m.chat, '❌ Ocurrió un error al obtener la imagen. Intenta nuevamente.', m);
+    await conn.reply(m.chat, '❌ No se pudo cargar la imagen. Intenta de nuevo más tarde.', m);
   }
 };
 
