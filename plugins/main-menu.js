@@ -1,13 +1,26 @@
-let handler = async (m, { conn, args }) => {
-    let userId = m.mentionedJid && m.mentionedJid[0] ? m.mentionedJid[0] : m.sender
-    let user = global.db.data.users[userId]
-    let name = conn.getName(userId)
-    let _uptime = process.uptime() * 1000
-    let uptime = clockString(_uptime)
-    let totalreg = Object.keys(global.db.data.users).length
-    let totalCommands = Object.values(global.plugins).filter((v) => v.help && v.tags).length
-    
-    let txt = `
+function clockString(ms) {
+  const d = Math.floor(ms / (1000 * 60 * 60 * 24));
+  const h = Math.floor((ms / (1000 * 60 * 60)) % 24);
+  const m = Math.floor((ms / (1000 * 60)) % 60);
+  const s = Math.floor((ms / 1000) % 60);
+  return [d ? `${d}d ` : '', h ? `${h}h ` : '', m ? `${m}m ` : '', `${s}s`]
+    .join('')
+    .trim();
+}
+
+const handler = async (m, { conn }) => {
+  const userId = m.sender;
+  const uptime = clockString(process.uptime() * 1000);
+  const txt = `
+╭━━━〔 🌟 𝘽𝙞𝙚𝙣𝙫𝙚𝙣𝙞𝙙𝙖 〕━━━╮
+┃ ¡Hola @${userId.split('@')[0]}! Soy *${botname}* 🤖
+┃ Tu asistente virtual listo para ayudarte.
+┃
+┃ 📊 *Estado del Bot:*
+┃ 🕒 Uptime: ${uptime}
+┃ 👥 Usuarios registrados: ${totalreg}
+┃ 📚 Comandos activos: ${totalCommands}
+╰━━━━━━━━━━━━━━━━━━━━━╯
 ╭━━━〔 🌟 𝘽𝙞𝙚𝙣𝙫𝙚𝙣𝙞𝙙𝙖 〕━━━╮
 ┃ ¡Hola @${userId.split('@')[0]}! Soy *${botname}* 🤖
 ┃ Tu asistente virtual listo para ayudarte.
@@ -267,37 +280,29 @@ let handler = async (m, { conn, args }) => {
 ┃ 💤 #sleep         » Dormir
 ┃ 🤔 #think         » Pensar en algo
 ╰━━━━━━━━━━━━━━━━━╯
+`.trim();
 
-    `.trim()
+  await conn.sendMessage(m.chat, {
+    text: txt,
+    contextInfo: {
+      mentionedJid: [userId],
+      externalAdReply: {
+        title: `🤖 ${botname} - Menú Principal`,
+        body: textbot,
+        thumbnailUrl: banner,
+        sourceUrl: redes,
+        mediaType: 1,
+        showAdAttribution: true,
+        renderLargerThumbnail: true
+      },
+      forwardingScore: 999,
+      isForwarded: true
+    }
+  }, { quoted: m });
+};
 
-    await conn.sendMessage(m.chat, { 
-        text: txt,
-        contextInfo: {
-            mentionedJid: [m.sender, userId],
-            externalAdReply: {
-                title: `🤖 ${botname} - Menu Principal`,
-                body: textbot,
-                thumbnailUrl: banner,
-                sourceUrl: redes,
-                mediaType: 1,
-                showAdAttribution: true,
-                renderLargerThumbnail: true
-            },
-            forwardingScore: 999
-        }
-    }, { quoted: m })
-}
+handler.help = ['menu', 'help'];
+handler.tags = ['main'];
+handler.command = /^(menu|menú|help|ayuda)$/i;
 
-handler.help = ['menu', 'help']
-handler.tags = ['main']
-handler.command = /^(menu|menú|help|ayuda)$/i
-
-export default handler
-
-function clockString(ms) {
-    let d = Math.floor(ms / (1000 * 60 * 60 * 24))
-    let h = Math.floor((ms / (1000 * 60 * 60)) % 24
-    let m = Math.floor((ms / (1000 * 60)) % 60
-    let s = Math.floor((ms / 1000)) % 60
-    return [d > 0 ? `${d}d ` : '', h > 0 ? `${h}h ` : '', m > 0 ? `${m}m ` : '', s > 0 ? `${s}s` : ''].join('').trim() || '0s'
-}
+export default handler;
