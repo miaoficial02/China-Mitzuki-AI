@@ -49,7 +49,7 @@ author = author || 'no encontrado'
     await conn.reply(m.chat, infoMessage, m, JT)    
     if (command === 'play' || command === 'yta' || command === 'ytmp3' || command === 'playaudio') {
       try {
-        const api = await (await fetch(`https://api3.alyabot.xyz/search_youtube?query=${url}`)).json()
+        const api = await (await fetch(`https://api.starlights.uk/api/downloader/youtube?url=${url}`)).json()
         const resulta = api.result
         const result = resulta.download.url    
         if (!result) throw new Error('⚠ El enlace de audio no se generó correctamente.')
