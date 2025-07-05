@@ -49,7 +49,7 @@ author = author || 'no encontrado'
     await conn.reply(m.chat, infoMessage, m, JT)    
     if (command === 'play' || command === 'yta' || command === 'ytmp3' || command === 'playaudio') {
       try {
-        const api = await (await fetch(`https://api.starlights.uk/api/downloader/youtube?url=${url}`)).json()
+        const api = await (await fetch(`https://api3.alyabot.xyz/download_video?url=${url}`)).json()
         const resulta = api.result
         const result = resulta.download.url    
         if (!result) throw new Error('⚠ El enlace de audio no se generó correctamente.')
@@ -59,7 +59,7 @@ author = author || 'no encontrado'
       }
     } else if (command === 'play2' || command === 'ytv' || command === 'ytmp4' || command === 'mp4') {
       try {
-        const response = await fetch(`https://api.starlights.uk/api/downloader/youtube?url=${url}&type=video&quality=480p&apikey=GataDios`)
+        const response = await fetch(`https://api3.alyabot.xyz/download_video?url=${url}&type=video&quality=480p&apikey=GataDios`)
         const json = await response.json()
         await conn.sendFile(m.chat, json.data.url, json.title + '.mp4', title, m)
       } catch (e) {
