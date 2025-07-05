@@ -23,9 +23,7 @@ let handler = async (m, { conn }) => {
         `┃ ${name2} está llorando por ${name}\n` +
         `╰──────────────────────────────╯`
 
-  const firma = '\n\n— ✦ Código embellecido por Carlos ✦\n✧ github.com/Kone457/Shizuka-AI'
-  str += firma
-
+  
   if (m.isGroup) {
     const videos = [
       'https://raw.githubusercontent.com/The-King-Destroy/Adiciones/main/Contenido/1742848091425.mp4',
