@@ -8,9 +8,13 @@ let handler = async (m, { conn, args }) => {
     let totalCommands = Object.values(global.plugins).filter((v) => v.help && v.tags).length
     
     let txt = `
-Hola @${userId.split('@')[0]}! Soy  *${botname}* 
-Aquí tienes la lista de comandos:
+🌟 *¡Hola @${userId.split('@')[0]}!* 🌟
+Soy *${botname}*, tu asistente virtual.
 
+📊 *Estadísticas:*
+🕒 Tiempo activo: ${uptime}
+👥 Usuarios registrados: ${totalreg}
+📚 Comandos disponibles: ${totalCommands}
 
 ╭━━━〔 *Info-Bot* 〕
 ┃ ❏ #menu • muestra la lista de 
@@ -508,42 +512,37 @@ Aquí tienes la lista de comandos:
 ┃ usuario.
 ╰━━━━━━━━━━⬣
 
-  `.trim()
 
-  await conn.sendMessage(m.chat, { 
-      text: txt,
-      contextInfo: {
-          mentionedJid: [m.sender, userId],
-          isForwarded: true,
-          forwardedNewsletterMessageInfo: {
-              newsletterJid: channelRD.id,
-              newsletterName: channelRD.name,
-              serverMessageId: -1,
-          },
-          forwardingScore: 999,
-          externalAdReply: {
-              title: botname,
-              body: textbot,
-              thumbnailUrl: banner,
-              sourceUrl: redes,
-              mediaType: 1,
-              showAdAttribution: true,
-              renderLargerThumbnail: true,
-          },
-      },
-  }, { quoted: m })
+    `.trim()
 
+    await conn.sendMessage(m.chat, { 
+        text: txt,
+        contextInfo: {
+            mentionedJid: [m.sender, userId],
+            externalAdReply: {
+                title: `🤖 ${botname} - Menu Principal`,
+                body: textbot,
+                thumbnailUrl: banner,
+                sourceUrl: redes,
+                mediaType: 1,
+                showAdAttribution: true,
+                renderLargerThumbnail: true
+            },
+            forwardingScore: 999
+        }
+    }, { quoted: m })
 }
 
-handler.help = ['menu']
+handler.help = ['menu', 'help']
 handler.tags = ['main']
-handler.command = ['menu', 'menú', 'help']
+handler.command = /^(menu|menú|help|ayuda)$/i
 
 export default handler
 
 function clockString(ms) {
-    let seconds = Math.floor((ms / 1000) % 60)
-    let minutes = Math.floor((ms / (1000 * 60)) % 60)
-    let hours = Math.floor((ms / (1000 * 60 * 60)) % 24)
-    return `${hours}h ${minutes}m ${seconds}s`
+    let d = Math.floor(ms / (1000 * 60 * 60 * 24))
+    let h = Math.floor((ms / (1000 * 60 * 60)) % 24
+    let m = Math.floor((ms / (1000 * 60)) % 60
+    let s = Math.floor((ms / 1000)) % 60
+    return [d > 0 ? `${d}d ` : '', h > 0 ? `${h}h ` : '', m > 0 ? `${m}m ` : '', s > 0 ? `${s}s` : ''].join('').trim() || '0s'
 }
