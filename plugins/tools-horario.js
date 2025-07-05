@@ -1,53 +1,49 @@
-import moment from 'moment-timezone';
+/*───────────────────────────────────────
+  📁 Módulo:     horario.js
+  🧠 Autor:      Carlos
+  🛠 Proyecto:   Shizuka-AI
+───────────────────────────────────────*/
 
-const handler = async (m, {conn}) => {
-  const fechaper = moment().tz('America/Lima').format('DD/MM HH:mm');
-  const fechamex = moment().tz('America/Mexico_City').format('DD/MM HH:mm');
-  const fechabol = moment().tz('America/La_Paz').format('DD/MM HH:mm');
-  const fechachi = moment().tz('America/Santiago').format('DD/MM HH:mm');
-  const fechaarg = moment().tz('America/Argentina/Buenos_Aires').format('DD/MM HH:mm');
-  const fechacol = moment().tz('America/Bogota').format('DD/MM HH:mm');
-  const fechaecu = moment().tz('America/Guayaquil').format('DD/MM HH:mm');
-  const fechacosr = moment().tz('America/Costa_Rica').format('DD/MM HH:mm');
-  const fechacub = moment().tz('America/Havana').format('DD/MM HH:mm');
-  const fechagua = moment().tz('America/Guatemala').format('DD/MM HH:mm');
-  const fechahon = moment().tz('America/Tegucigalpa').format('DD/MM HH:mm');
-  const fechanic = moment().tz('America/Managua').format('DD/MM HH:mm');
-  const fechapan = moment().tz('America/Panama').format('DD/MM HH:mm');
-  const fechauru = moment().tz('America/Montevideo').format('DD/MM HH:mm');
-  const fechaven = moment().tz('America/Caracas').format('DD/MM HH:mm');
-  const fechapar = moment().tz('America/Asuncion').format('DD/MM HH:mm');
-  const fechanew = moment().tz('America/New_York').format('DD/MM HH:mm');
-  const fechaasi = moment().tz('Asia/Jakarta').format('DD/MM HH:mm');
-  const fechabra = moment().tz('America/Sao_Paulo').format('DD/MM HH:mm');
-  const fechaafri = moment().tz('Africa/Malabo').format('DD/MM HH:mm');
-  await conn.sendMessage(m.chat, {text: `「 ZONA-HORARIA ⏰ 」
-⏱️Peru       : ${fechaper}
-⏱️Mexico     : ${fechamex}
-⏱️Bolivia    : ${fechabol}
-⏱️Chile      : ${fechachi}
-⏱️Argentina  : ${fechaarg}
-⏱️Colombia   : ${fechacol}
-⏱️Ecuador    : ${fechaecu}
-⏱️Costa_Rica : ${fechacosr}
-⏱️Cuba       : ${fechacub}
-⏱️Guatemala  : ${fechagua}
-⏱️Honduras   : ${fechahon}
-⏱️Nicaragua  : ${fechanic}
-⏱️Panama     : ${fechapan}
-⏱️Uruguay    : ${fechauru}
-⏱️Venezuela  : ${fechaven}
-⏱️Paraguay   : ${fechapar}
-⏱️New York   : ${fechanew}
-⏱️Asia       : ${fechaasi}
-⏱️Brasil     : ${fechabra}
-⏱️G.N.Q      : ${fechaafri}
-${String.fromCharCode(8206).repeat(850)}
-Zona horaria del servidor actual:\n[ ${Intl.DateTimeFormat().resolvedOptions().timeZone} ] ${moment().tz(Intl.DateTimeFormat().resolvedOptions().timeZone).format('DD/MM/YY HH:mm:ss')}`}, {quoted: m});
-};
+import moment from 'moment-timezone'
 
-handler.help = ['horario'];
-handler.tags = ['info'];
+const handler = async (m, { conn }) => {
+  const tz = (zone) => moment().tz(zone).format('DD/MM HH:mm')
+
+  const zonas = [
+    { emoji: '🇵🇪', label: 'Perú', zona: 'America/Lima' },
+    { emoji: '🇲🇽', label: 'México', zona: 'America/Mexico_City' },
+    { emoji: '🇧🇴', label: 'Bolivia', zona: 'America/La_Paz' },
+    { emoji: '🇨🇱', label: 'Chile', zona: 'America/Santiago' },
+    { emoji: '🇦🇷', label: 'Argentina', zona: 'America/Argentina/Buenos_Aires' },
+    { emoji: '🇨🇴', label: 'Colombia', zona: 'America/Bogota' },
+    { emoji: '🇪🇨', label: 'Ecuador', zona: 'America/Guayaquil' },
+    { emoji: '🇨🇷', label: 'Costa Rica', zona: 'America/Costa_Rica' },
+    { emoji: '🇨🇺', label: 'Cuba', zona: 'America/Havana' },
+    { emoji: '🇬🇹', label: 'Guatemala', zona: 'America/Guatemala' },
+    { emoji: '🇭🇳', label: 'Honduras', zona: 'America/Tegucigalpa' },
+    { emoji: '🇳🇮', label: 'Nicaragua', zona: 'America/Managua' },
+    { emoji: '🇵🇦', label: 'Panamá', zona: 'America/Panama' },
+    { emoji: '🇺🇾', label: 'Uruguay', zona: 'America/Montevideo' },
+    { emoji: '🇻🇪', label: 'Venezuela', zona: 'America/Caracas' },
+    { emoji: '🇵🇾', label: 'Paraguay', zona: 'America/Asuncion' },
+    { emoji: '🇺🇸', label: 'New York', zona: 'America/New_York' },
+    { emoji: '🇧🇷', label: 'Brasil', zona: 'America/Sao_Paulo' },
+    { emoji: '🇬🇶', label: 'Guinea Ecuatorial', zona: 'Africa/Malabo' },
+    { emoji: '🌏', label: 'Asia (Jakarta)', zona: 'Asia/Jakarta' }
+  ]
+
+  const ahora = zonas.map(z => `⏱️ ${z.label.padEnd(14)}: ${tz(z.zona)}`).join('\n')
+
+  const zonaServidor = Intl.DateTimeFormat().resolvedOptions().timeZone
+  const horaServidor = moment().tz(zonaServidor).format('DD/MM/YY HH:mm:ss')
+
+  const mensaje = `「 🌐 ZONA HORARIA GLOBAL 」\n${ahora}\n\n📍 Zona del servidor: [${zonaServidor}] ${horaServidor}`
+
+  await conn.sendMessage(m.chat, { text: mensaje }, { quoted: m })
+}
+
+handler.help = ['horario']
+handler.tags = ['info']
 handler.command = ['horario']
 
-export default handler;
+export default handler
