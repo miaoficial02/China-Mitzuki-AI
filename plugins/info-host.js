@@ -1,51 +1,49 @@
 import fetch from 'node-fetch';
 
 const mssg = {
-    noUrl: '🌐 *¿Olvidaste la URL?* Por favor, indícame el sitio que deseas verificar.\n\nEjemplo:\n`.cekhost https://www.vreden.my.id`',
-    error: '💥 *Ups… hubo un error al intentar verificar el estado del sitio.* Inténtalo de nuevo más tarde.',
-    notReachable: '🚫 *No se obtuvo respuesta desde los nodos consultados.* El host podría estar fuera de línea o inaccesible.',
+    error: '💥 *Ups… no pude obtener una imagen para adivinar.* Intenta de nuevo más tarde.',
 };
 
-// Función para enviar respuesta simple
-const reply = (texto, conn, m) => {
-    conn.sendMessage(m.chat, { text: texto }, { quoted: m });
+// Función para enviar respuestas
+const reply = (text, conn, m) => {
+    conn.sendMessage(m.chat, { text }, { quoted: m });
 };
 
-// Handler principal
-let handler = async (m, { conn, text, usedPrefix, command }) => {
-    if (!text) return reply(mssg.noUrl, conn, m);
-
+// Handler del comando
+let handler = async (m, { conn, usedPrefix, command }) => {
     try {
-        const url = `https://api.vreden.my.id/api/tools/cekhost?url=${encodeURIComponent(text)}`;
-        const res = await fetch(url);
+        const apiUrl = 'https://api.vreden.my.id/api/tebakgambar';
+        const res = await fetch(apiUrl);
         const json = await res.json();
 
-        if (!json.result || !json.result.cheques || json.result.cheques.length === 0) {
-            return reply(mssg.notReachable, conn, m);
+        if (!json.result || json.result.length === 0) {
+            return reply(mssg.error, conn, m);
         }
 
-        let replyText = `🎀 *Estado del Host:* _${text}_\n🆔 ID de solicitud: *${json.result.id_de_solicitud}*\n\n`;
+        const data = json.result[0];
+        const imageUrl = data.image;
+        const answer = data.jawaban;
 
-        for (const check of json.result.cheques) {
-            const s = check.servidor;
-            const h = check.http_check;
-
-            replyText += `🌸 *Nodo:* ${s.ciudad}, ${s.país} (${s.host})\n`;
-            replyText += `   🛰 IP Nodo: ${s.ip}  |  ASN: ${s.id}\n`;
-            replyText += `   📡 IP Web: ${h.ip_web}  |  Ping: ${h.ping}s\n`;
-            replyText += `   ⚙️ Código HTTP: ${h["código_de_estado"]} (${h.resultado})\n\n`;
-        }
+        // Guardar la respuesta en la sesión del usuario (si tu bot lo permite)
+        // Por ejemplo: global.db.data.users[m.sender].tebakgambar = answer;
 
         await conn.sendMessage(m.chat, {
-            text: replyText.trim(),
-            linkPreview: false,
+            image: { url: imageUrl },
+            caption: `🧩 *¡Adivina la imagen!*\n\nResponde con tu mejor intento.\n\n⌛ Tienes 1 minuto para responder.`,
         }, { quoted: m });
 
-    } catch (error) {
-        console.error('❌ Error con la API CekHost:', error.message);
+        // Opcional: puedes usar setTimeout para revelar la respuesta después de 60 segundos
+        setTimeout(() => {
+            conn.sendMessage(m.chat, {
+                text: `⏰ *Tiempo terminado!*\n📢 La respuesta era: *${answer}*`,
+            }, { quoted: m });
+        }, 60000);
+
+    } catch (e) {
+        console.error('❌ Error al obtener imagen de Tebak Gambar:', e.message);
         return reply(mssg.error, conn, m);
     }
 };
 
-handler.command = /^(cekhost|checkhost|hostcheck)$/i;
+handler.command = /^(tebakgambar|adivinaimg|gambarquiz)$/i;
 export default handler;
