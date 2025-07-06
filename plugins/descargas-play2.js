@@ -13,24 +13,23 @@ const DOWNLOAD_APIS = [
 ];
 
 async function tryFetchJSON(servers, query) {
-  for (let server of servers) {
+  for (const server of servers) {
     try {
       const res = await fetch(server.url + encodeURIComponent(query));
       if (!res.ok) continue;
       const json = await res.json();
       if (json && Object.keys(json).length) return { json, serverName: server.name };
-    } catch {
+    } catch (e) {
       continue;
     }
   }
   return { json: null, serverName: null };
 }
 
-const handler = async (m, { text, conn, command }) => {
-  if (!text) return conn.reply(m.chat, `🔍 *¿Qué video deseas descargar?*\nEscribe el nombre o enlace del video.`, m);
+const handler = async (m, { text, conn }) => {
+  if (!text) return conn.reply(m.chat, `🔎 *¿Qué video deseas descargar?*\nEscribe el nombre o link del video.`, m);
 
   try {
-    // Mensaje de búsqueda inicial
     await conn.sendMessage(m.chat, {
       text: `🔭 *Shizuka está buscando tu video...*`,
       contextInfo: {
@@ -47,71 +46,68 @@ const handler = async (m, { text, conn, command }) => {
       }
     }, { quoted: m });
 
-    // Buscar video desde los servidores Alya
-    const { json: searchJson, serverName: searchServer } = await tryFetchJSON(SEARCH_APIS, text);
-    if (!searchJson || !searchJson.results || !searchJson.results.length) {
+    const { json: searchJson, serverName } = await tryFetchJSON(SEARCH_APIS, text);
+    if (!searchJson || !searchJson.results?.length) {
       return conn.reply(m.chat, '⚠️ *No se encontraron resultados para tu búsqueda.*', m);
     }
 
     const video = searchJson.results[0];
     const thumb = video.thumbnails?.find(t => t.width >= 720)?.url || video.thumbnails?.[0]?.url;
-    const videoTitle = video.title || "Video";
-    const videoUrl = video.url;
-    const duration = video.duration ? `${Math.floor(video.duration)}s` : "Desconocido";
-    const views = video.views?.toLocaleString() || "Desconocido";
-    const channel = video.channel || "Desconocido";
+    const title = video.title || 'Sin título';
+    const url = video.url;
+    const duration = video.duration ? `${Math.floor(video.duration)}s` : 'Desconocido';
+    const views = video.views?.toLocaleString() || 'Desconocido';
+    const canal = video.channel || 'Desconocido';
 
-    const ficha = `
-🎥 *${videoTitle}*
-👤 *Canal:* ${channel}
+    const info = `
+🎞️ *${title}*
+👤 *Canal:* ${canal}
 ⏱️ *Duración:* ${duration}
 👁️ *Vistas:* ${views}
-🌐 *Servidor:* ${searchServer || 'Desconocido'}
-🔗 *Enlace:* ${videoUrl}
+🔗 *Link:* ${url}
+🌐 *Servidor:* ${serverName}
 `.trim();
 
     await conn.sendMessage(m.chat, {
       image: { url: thumb },
-      caption: ficha,
+      caption: info,
       contextInfo: {
         externalAdReply: {
           title: "🎬 Shizuka Video",
-          body: "💫 Preparando el MP4 para ti...",
+          body: "🎁 Preparando el MP4 para ti...",
           thumbnailUrl: thumb,
           mediaType: 1,
           previewType: 0,
-          mediaUrl: videoUrl,
-          sourceUrl: videoUrl,
+          mediaUrl: url,
+          sourceUrl: url,
           renderLargerThumbnail: true
         }
       }
     }, { quoted: m });
 
-    // Descargar video desde los servidores Alya
-    const { json: downloadJson } = await tryFetchJSON(DOWNLOAD_APIS, videoUrl);
-    const directLink =
+    const { json: downloadJson } = await tryFetchJSON(DOWNLOAD_APIS, url);
+    const downloadUrl =
       downloadJson?.download_url ||
       downloadJson?.result?.url ||
       downloadJson?.url ||
       downloadJson?.data?.url;
 
-    if (!downloadJson || !directLink) {
-      return conn.reply(m.chat, '🚫 *No se pudo obtener el enlace de descarga del video.*', m);
-    }
+    if (!downloadUrl) return conn.reply(m.chat, '🚫 *No se pudo obtener el enlace de descarga del video.*', m);
 
     await conn.sendMessage(m.chat, {
-      video: { url: directLink },
-      fileName: `${videoTitle}.mp4`,
+      video: { url: downloadUrl },
+      fileName: `${title}.mp4`,
       mimetype: 'video/mp4'
     }, { quoted: m });
 
-  } catch (err) {
-    console.error("❌ Error en play2:", err);
-    return conn.reply(m.chat, `❌ *Hubo un error inesperado.*\n${err}`, m);
+  } catch (e) {
+    console.error("❌ Error en play2:", e);
+    return conn.reply(m.chat, `❌ *Ocurrió un error inesperado al procesar el video.*\n${e}`, m);
   }
 };
 
 handler.command = /^play2|mp4|ytmp4|ytv$/i;
+handler.help = ['play2 <nombre del video>'];
 handler.tags = ['descargas'];
-handler.help = ['play2 <nombre o link del video>'];
+
 export default handler;
