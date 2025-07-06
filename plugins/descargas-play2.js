@@ -6,11 +6,11 @@ const SEARCH_APIS = [
   { name: 'Servidor Masachika', url: 'https://api3.alyabot.xyz/search_youtube?query=' }
 ];
 
-const DOWNLOAD_APIS = [
-  { name: 'Servidor Masha', url: 'http://api.alyabot.xyz:3269/download_video?url=' },
-  { name: 'Servidor Alya', url: 'http://api2.alyabot.xyz:5216/download_video?url=' },
-  { name: 'Servidor Masachika', url: 'https://api3.alyabot.xyz/download_video?url=' }
-];
+const DOWNLOAD_APIS = {
+  'Servidor Masha': 'http://api.alyabot.xyz:3269/download_video?url=',
+  'Servidor Alya': 'http://api2.alyabot.xyz:5216/download_video?url=',
+  'Servidor Masachika': 'https://api3.alyabot.xyz/download_video?url='
+};
 
 async function tryFetchJSON(servers, query) {
   for (const server of servers) {
@@ -19,7 +19,7 @@ async function tryFetchJSON(servers, query) {
       if (!res.ok) continue;
       const json = await res.json();
       if (json && Object.keys(json).length) return { json, serverName: server.name };
-    } catch (e) {
+    } catch {
       continue;
     }
   }
@@ -65,7 +65,6 @@ const handler = async (m, { text, conn }) => {
 ⏱️ *Duración:* ${duration}
 👁️ *Vistas:* ${views}
 🔗 *Link:* ${url}
-🌐 *Servidor:* ${serverName}
 `.trim();
 
     await conn.sendMessage(m.chat, {
@@ -85,12 +84,19 @@ const handler = async (m, { text, conn }) => {
       }
     }, { quoted: m });
 
-    const { json: downloadJson } = await tryFetchJSON(DOWNLOAD_APIS, url);
+    const downloadUrlBase = DOWNLOAD_APIS[serverName];
+    if (!downloadUrlBase) {
+      return conn.reply(m.chat, `⚠️ *No se encontró un servidor de descarga disponible.*`, m);
+    }
+
+    const res = await fetch(downloadUrlBase + encodeURIComponent(url));
+    const json = await res.json();
+
     const downloadUrl =
-      downloadJson?.download_url ||
-      downloadJson?.result?.url ||
-      downloadJson?.url ||
-      downloadJson?.data?.url;
+      json.download_url ||
+      json.result?.url ||
+      json.url ||
+      json.data?.url;
 
     if (!downloadUrl) return conn.reply(m.chat, '🚫 *No se pudo obtener el enlace de descarga del video.*', m);
 
@@ -102,12 +108,4 @@ const handler = async (m, { text, conn }) => {
 
   } catch (e) {
     console.error("❌ Error en play2:", e);
-    return conn.reply(m.chat, `❌ *Ocurrió un error inesperado al procesar el video.*\n${e}`, m);
-  }
-};
-
-handler.command = /^play2|mp4|ytmp4|ytv$/i;
-handler.help = ['play2 <nombre del video>'];
-handler.tags = ['descargas'];
-
-export default handler;
+    return
