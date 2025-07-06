@@ -1,78 +1,71 @@
-import fetch from 'node-fetch';
+import fetch from "node-fetch"
+import yts from "yt-search"
 
-const estilo = {
-  sinQuery: '🔍 *¿Qué deseas escuchar?* Escribe el título o artista para buscar en YouTube.',
-  errorBusqueda: '❌ *No encontré resultados válidos.* Intenta con otro nombre o revisa la conexión.',
-  errorDescarga: '💥 *No se pudo convertir el video a audio.* Tal vez esté restringido o no disponible.',
-  selecciona: '🎶 *Resultado encontrado:*\nPresiona el botón para descargar el audio.',
-  descargando: '📥 *Descargando MP3...* Un momento mientras preparo tu archivo 🎧',
-};
-
-const handler = async (m, { conn, args, usedPrefix, command }) => {
-  const texto = args.join(' ');
-  if (!texto) return conn.sendMessage(m.chat, { text: estilo.sinQuery }, { quoted: m });
-
-  const buscar = `https://api.sylphy.xyz/search/youtube?q=${encodeURIComponent(texto)}`;
-  try {
-    const respuesta = await fetch(buscar);
-    const resultado = await respuesta.json();
-
-    const video = Array.isArray(resultado.result) && resultado.result[0];
-    if (!video || !video.url) return conn.sendMessage(m.chat, { text: estilo.errorBusqueda }, { quoted: m });
-
-    const { title, duration, views, thumbnail, url } = video;
-
-    // Enviar botón de descarga
-    const botones = [
-      {
-        buttonId: `${usedPrefix}ytmp3shizuka ${url}`,
-        buttonText: { displayText: '🎧 Descargar MP3' },
-        type: 1,
-      },
-    ];
-
-    await conn.sendMessage(m.chat, {
-      image: { url: thumbnail },
-      caption: `✨ *${title}*\n🕒 Duración: ${duration}\n👁️ Vistas: ${views}\n\n${estilo.selecciona}`,
-      footer: 'Sistema musical de Shizuka',
-      buttons: botones,
-      headerType: 4,
-    }, { quoted: m });
-  } catch (error) {
-    console.error('🛑 Error en la búsqueda:', error);
-    conn.sendMessage(m.chat, { text: estilo.errorBusqueda }, { quoted: m });
-  }
-};
-
-// Comando para descargar el MP3 después de usar el botón
-const subHandler = async (m, { conn, args }) => {
-  const url = args[0];
-  if (!url || !url.includes('youtube.com') && !url.includes('youtu.be')) {
-    return conn.sendMessage(m.chat, { text: '⚠️ *Enlace de YouTube no válido.*' }, { quoted: m });
+const handler = async (m, { conn, text }) => {
+  if (!text.trim()) {
+    return conn.reply(m.chat, `🔎 *Ingresa el nombre de la canción o artista que deseas buscar.*`, m)
   }
 
-  const api = `https://api.sylphy.xyz/download/ytmp3?url=${encodeURIComponent(url)}`;
-
   try {
-    await conn.sendMessage(m.chat, { text: estilo.descargando }, { quoted: m });
+    const search = await yts(text)
+    const video = search?.videos?.[0]
+    if (!video) {
+      return conn.reply(m.chat, `❌ *No se encontraron resultados para:* "${text}"`, m)
+    }
 
-    const res = await fetch(api);
-    const json = await res.json();
-    const { title, link, size } = json.result;
+    const { title, thumbnail, timestamp, views, ago, url, author } = video
+    const canal = author?.name || "Desconocido"
+    const info = `
+🎶 *${title}*
+👤 *Canal:* ${canal}
+👁️ *Vistas:* ${formatViews(views)}
+⏱️ *Duración:* ${timestamp}
+📅 *Publicado:* ${ago}
+🔗 *Link:* ${url}
+    `.trim()
+
+    const thumb = (await conn.getFile(thumbnail))?.data
+
+    await conn.sendMessage(m.chat, { text: info, contextInfo: {
+      externalAdReply: {
+        title: "🎧 Shizuka Music",
+        body: "Tu descarga está en camino",
+        mediaType: 1,
+        previewType: 0,
+        mediaUrl: url,
+        sourceUrl: url,
+        thumbnail: thumb,
+        renderLargerThumbnail: true,
+      }
+    }}, { quoted: m })
+
+    const api = await (await fetch(`https://api.vreden.my.id/api/ytplaymp3?query=${url}`)).json()
+    const audioUrl = api.result?.download?.url
+    const audioTitle = api.result?.title || "audio"
+
+    if (!audioUrl) throw new Error("No se pudo obtener el enlace de audio.")
 
     await conn.sendMessage(m.chat, {
-      document: { url: link },
-      fileName: `${title}.mp3`,
-      mimetype: 'audio/mpeg',
-    }, { quoted: m });
+      audio: { url: audioUrl },
+      fileName: `${audioTitle}.mp3`,
+      mimetype: "audio/mpeg"
+    }, { quoted: m })
 
   } catch (err) {
-    console.error('🎧 Error al descargar MP3:', err);
-    conn.sendMessage(m.chat, { text: estilo.errorDescarga }, { quoted: m });
+    console.error("💥 Error en play:", err)
+    return conn.reply(m.chat, `⚠️ *Ocurrió un problema al procesar tu solicitud.*\n${err}`, m)
   }
-};
+}
 
-handler.command = /^play|shizuka$/i;
-subHandler.command = /^ytmp3shizuka$/i;
+handler.command = /^play$/i
+handler.tags = ["descargas"]
+handler.help = ["play <nombre o link de video>"]
+export default handler
 
-export default [handler, subHandler];
+function formatViews(views) {
+  if (!views) return "0"
+  if (views >= 1e9) return (views / 1e9).toFixed(1) + "B"
+  if (views >= 1e6) return (views / 1e6).toFixed(1) + "M"
+  if (views >= 1e3) return (views / 1e3).toFixed(1) + "k"
+  return views.toString()
+}
