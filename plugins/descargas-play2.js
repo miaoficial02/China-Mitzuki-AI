@@ -1,19 +1,18 @@
-import fetch from "node-fetch"
-import yts from "yt-search"
+import fetch from "node-fetch";
+import yts from "yt-search";
 
 const handler = async (m, { conn, text }) => {
   if (!text.trim()) {
-    return conn.reply(m.chat, `🔎 *¿Qué video deseas descargar?*\nEscribe el nombre o link del video.`, m)
+    return conn.reply(m.chat, `🔎 *¿Qué video deseas descargar?*\nEscribe el nombre o enlace.`, m);
   }
 
   try {
-    // 🌠 Espera visual con miniatura personalizada
     await conn.sendMessage(m.chat, {
-      text: `⏳ *Shizuka está buscando tu video...*\n🔭 Recolectando píxeles en la galaxia 🎬`,
+      text: `⏳ *Buscando tu video...*\nShizuka está sondeando las dimensiones de YouTube 🌌`,
       contextInfo: {
         externalAdReply: {
-          title: "Buscando tu video...",
-          body: "🌌 En sintonía con la red estelar",
+          title: "Buscando en 720p...",
+          body: "🔧 Ensamblando tu MP4 con calidad HD",
           mediaType: 1,
           previewType: 0,
           mediaUrl: "https://youtube.com",
@@ -22,15 +21,15 @@ const handler = async (m, { conn, text }) => {
           renderLargerThumbnail: true
         }
       }
-    }, { quoted: m })
+    }, { quoted: m });
 
-    const busqueda = await yts(text)
-    const video = busqueda?.videos?.[0]
-    if (!video) return conn.reply(m.chat, `❌ *No se encontró ningún video para:* "${text}"`, m)
+    const busqueda = await yts(text);
+    const video = busqueda?.videos?.[0];
+    if (!video) return conn.reply(m.chat, `❌ *No se encontró ningún video para:* "${text}"`, m);
 
-    const { title, thumbnail, timestamp, views, ago, url, author } = video
-    const canal = author?.name || "Desconocido"
-    const thumb = (await conn.getFile(thumbnail))?.data
+    const { title, thumbnail, timestamp, views, ago, url, author } = video;
+    const canal = author?.name || "Desconocido";
+    const thumb = (await conn.getFile(thumbnail))?.data;
 
     const info = `
 🎥 *${title}*
@@ -40,15 +39,15 @@ const handler = async (m, { conn, text }) => {
 📆 *Publicado:* ${ago}
 🔗 *Enlace:* ${url}
 
-📦 Espera un poco... Shizuka ya está descargando tu video 🎬
-`.trim()
+📽️ Shizuka está preparando la versión 720p para ti...
+`.trim();
 
     await conn.sendMessage(m.chat, {
       text: info,
       contextInfo: {
         externalAdReply: {
           title: "🎬 Shizuka Video",
-          body: "✨ Empacando el archivo MP4 para ti",
+          body: "Descarga optimizada en calidad 720p",
           mediaUrl: url,
           sourceUrl: url,
           thumbnail: thumb,
@@ -57,54 +56,65 @@ const handler = async (m, { conn, text }) => {
           renderLargerThumbnail: true
         }
       }
-    }, { quoted: m })
+    }, { quoted: m });
 
-    // 📥 Buscar video desde múltiples APIs AlyaBot
-    const resultado = await obtenerDesdeAlya(url)
-    if (!resultado) throw new Error("Ninguna API pudo generar el video.")
+    const resultado = await obtenerVideoEn720p(url);
+    if (!resultado) throw new Error("No se encontró un enlace válido en calidad 720p.");
 
-    await conn.sendFile(m.chat, resultado.url, `${title}.mp4`, `🎬 *${title}*`, m)
+    await conn.sendFile(m.chat, resultado.url, `${title}.mp4`, `🎬 *${title}*`, m);
 
   } catch (err) {
-    console.error("❌ Error en play2:", err)
-    return conn.reply(m.chat, `🚫 *Ocurrió un problema al descargar el video.*\n🛠️ ${err}`, m)
+    console.error("❌ Error en play2:", err);
+    return conn.reply(m.chat, `🚫 *No pude procesar el video.*\n${err}`, m);
   }
-}
+};
 
-handler.command = /^play2|ytv|ytmp4|mp4$/i
-handler.tags = ["descargas"]
-handler.help = ["play2 <nombre o link del video>"]
-export default handler
+handler.command = /^play2|ytmp4|ytv|mp4$/i;
+handler.tags = ["descargas"];
+handler.help = ["play2 <video>"];
+export default handler;
 
-// 🌐 Descargar video desde múltiples servidores Alya
-async function obtenerDesdeAlya(videoUrl) {
+async function obtenerVideoEn720p(videoUrl) {
   const endpoints = [
-    (url) => `https://api.alyabot.xyz:3269/download_video?url=${encodeURIComponent(url)}`,
-    (url) => `https://api2.alyabot.xyz:5216/download_video?url=${encodeURIComponent(url)}`,
-    (url) => `https://api3.alyabot.xyz/download_video?url=${encodeURIComponent(url)}`
-  ]
+    `https://api.alyabot.xyz:3269/download_video?url=${encodeURIComponent(videoUrl)}`,
+    `https://api2.alyabot.xyz:5216/download_video?url=${encodeURIComponent(videoUrl)}`,
+    `https://api3.alyabot.xyz/download_video?url=${encodeURIComponent(videoUrl)}`
+  ];
 
-  for (const getUrl of endpoints) {
+  for (const endpoint of endpoints) {
     try {
-      const res = await fetch(getUrl(videoUrl))
-      const json = await res.json()
+      const res = await fetch(endpoint);
+      const json = await res.json();
 
-      const enlace = json?.download_url || json?.url || json?.result?.url || json?.data?.url
-      if (enlace && enlace.startsWith("http")) return { url: enlace }
+      // Verifica si hay enlaces de calidad disponibles
+      const calidades = json?.result?.qualities || json?.qualities || {};
+      const prioridad = ["720p", "hd", "HD"];
+
+      for (const q of prioridad) {
+        if (calidades[q]) return { url: calidades[q] };
+      }
+
+      // Como fallback, busca cualquier enlace directo
+      const fallback =
+        json?.download_url ||
+        json?.result?.url ||
+        json?.url ||
+        json?.data?.url;
+
+      if (fallback && fallback.startsWith("http")) return { url: fallback };
 
     } catch (e) {
-      console.warn("⚠️ API sin respuesta. Probando siguiente...");
+      console.warn("⚠️ API de video no respondió:", e.message);
     }
   }
 
-  return null
+  return null;
 }
 
-// 🔢 Formateo de vistas
 function formatViews(views) {
-  if (!views) return "0"
-  if (views >= 1e9) return (views / 1e9).toFixed(1) + "B"
-  if (views >= 1e6) return (views / 1e6).toFixed(1) + "M"
-  if (views >= 1e3) return (views / 1e3).toFixed(1) + "k"
-  return views.toString()
+  if (!views) return "0";
+  if (views >= 1e9) return (views / 1e9).toFixed(1) + "B";
+  if (views >= 1e6) return (views / 1e6).toFixed(1) + "M";
+  if (views >= 1e3) return (views / 1e3).toFixed(1) + "k";
+  return views.toString();
 }
