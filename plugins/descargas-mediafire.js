@@ -63,7 +63,7 @@ let handler = async (m, { conn, args, text, usedPrefix, command }) => {
 
             let fileName = extractFileNameFromLink(text) || 'archivo_descargado';
 
-            const apiUrl = `https://api.vreden.my.id/api/mediafiredl?url=${encodeURIComponent(text)}`;
+            const apiUrl = `httpshttps://api.ryzumi.vip/api/downloader/mediafire?url=${encodeURIComponent(text)}`;
             const apiResponse = await fetch(apiUrl);
             const data = await apiResponse.json();
 
