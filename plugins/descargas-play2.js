@@ -7,13 +7,13 @@ const handler = async (m, { conn, text }) => {
   }
 
   try {
-    // 🌠 Mensaje de espera con imagen de Shizuka
+    // 🌠 Espera visual con miniatura personalizada
     await conn.sendMessage(m.chat, {
-      text: `⏳ *Buscando tu video...*\nShizuka está revisando los canales del universo 📡`,
+      text: `⏳ *Shizuka está buscando tu video...*\n🔭 Recolectando píxeles en la galaxia 🎬`,
       contextInfo: {
         externalAdReply: {
-          title: "Cazando videos galácticos...",
-          body: "🚀 Prepara las palomitas...",
+          title: "Buscando tu video...",
+          body: "🌌 En sintonía con la red estelar",
           mediaType: 1,
           previewType: 0,
           mediaUrl: "https://youtube.com",
@@ -24,33 +24,31 @@ const handler = async (m, { conn, text }) => {
       }
     }, { quoted: m })
 
-    // 🔎 Buscar en YouTube
     const busqueda = await yts(text)
     const video = busqueda?.videos?.[0]
     if (!video) return conn.reply(m.chat, `❌ *No se encontró ningún video para:* "${text}"`, m)
 
     const { title, thumbnail, timestamp, views, ago, url, author } = video
     const canal = author?.name || "Desconocido"
+    const thumb = (await conn.getFile(thumbnail))?.data
 
-    const datos = `
+    const info = `
 🎥 *${title}*
 👤 *Canal:* ${canal}
-⏱️ *Duración:* ${timestamp}
 📊 *Vistas:* ${formatViews(views)}
+⏱️ *Duración:* ${timestamp}
 📆 *Publicado:* ${ago}
 🔗 *Enlace:* ${url}
 
-🎬 Tu video está listo. Shizuka lo está preparando en HD 💫
+📦 Espera un poco... Shizuka ya está descargando tu video 🎬
 `.trim()
 
-    const thumb = (await conn.getFile(thumbnail))?.data
-
     await conn.sendMessage(m.chat, {
-      text: datos,
+      text: info,
       contextInfo: {
         externalAdReply: {
           title: "🎬 Shizuka Video",
-          body: "Preparando el MP4 en alta calidad...",
+          body: "✨ Empacando el archivo MP4 para ti",
           mediaUrl: url,
           sourceUrl: url,
           thumbnail: thumb,
@@ -61,15 +59,15 @@ const handler = async (m, { conn, text }) => {
       }
     }, { quoted: m })
 
-    // 💾 Buscar video desde múltiples APIs
-    const resultado = await buscarVideoDesdeApis(url)
-    if (!resultado) throw new Error("Ninguna API pudo proporcionar el archivo MP4.")
+    // 📥 Buscar video desde múltiples APIs AlyaBot
+    const resultado = await obtenerDesdeAlya(url)
+    if (!resultado) throw new Error("Ninguna API pudo generar el video.")
 
     await conn.sendFile(m.chat, resultado.url, `${title}.mp4`, `🎬 *${title}*`, m)
 
   } catch (err) {
-    console.error("💥 Error en play2:", err)
-    return conn.reply(m.chat, `⚠️ *No fue posible obtener el video.*\n🔧 ${err}`, m)
+    console.error("❌ Error en play2:", err)
+    return conn.reply(m.chat, `🚫 *Ocurrió un problema al descargar el video.*\n🛠️ ${err}`, m)
   }
 }
 
@@ -78,30 +76,31 @@ handler.tags = ["descargas"]
 handler.help = ["play2 <nombre o link del video>"]
 export default handler
 
-// 🌐 Fallback de APIs para descargar video MP4
-async function buscarVideoDesdeApis(videoUrl) {
-  const apis = [
+// 🌐 Descargar video desde múltiples servidores Alya
+async function obtenerDesdeAlya(videoUrl) {
+  const endpoints = [
     (url) => `https://api.alyabot.xyz:3269/download_video?url=${encodeURIComponent(url)}`,
     (url) => `https://api2.alyabot.xyz:5216/download_video?url=${encodeURIComponent(url)}`,
     (url) => `https://api3.alyabot.xyz/download_video?url=${encodeURIComponent(url)}`
   ]
 
-  for (const construir of apis) {
+  for (const getUrl of endpoints) {
     try {
-      const res = await fetch(construir(videoUrl))
+      const res = await fetch(getUrl(videoUrl))
       const json = await res.json()
 
-      const link = json?.result?.url || json?.url || json?.data?.url
-      if (link && link.includes("http")) return { url: link }
+      const enlace = json?.download_url || json?.url || json?.result?.url || json?.data?.url
+      if (enlace && enlace.startsWith("http")) return { url: enlace }
+
     } catch (e) {
-      console.warn("🔁 API de video fallida, intentando otra...")
+      console.warn("⚠️ API sin respuesta. Probando siguiente...");
     }
   }
 
   return null
 }
 
-// 📈 Formato de vistas
+// 🔢 Formateo de vistas
 function formatViews(views) {
   if (!views) return "0"
   if (views >= 1e9) return (views / 1e9).toFixed(1) + "B"
