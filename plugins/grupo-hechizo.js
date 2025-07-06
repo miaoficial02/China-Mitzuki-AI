@@ -1,45 +1,45 @@
-const handler = async (m, { conn }) => {
-  const chat = m.chat;
+const handler = async (m, { conn, mentionedJid, isGroup, isAdmin, isBotAdmin }) => {
+  if (!isGroup) return conn.reply(m.chat, '👥 *Este hechizo solo se puede usar en grupos.*', m);
+  if (!isAdmin) return conn.reply(m.chat, '🧙‍♂️ *Solo los administradores pueden invocar este hechizo.*', m);
+  if (!isBotAdmin) return conn.reply(m.chat, '⚠️ *Necesito ser admin para desterrar a alguien.*', m);
 
-  const hechizo = [
+  const target = mentionedJid?.[0];
+  if (!target) return conn.reply(m.chat, '📌 *Debes mencionar a alguien para lanzar el hechizo.*\nEj: `.hechizo @usuario`', m);
+  if (target === conn.user.jid) return conn.reply(m.chat, '😏 *¿Hechizarme a mí? Te falta nivel.*', m);
+  if (target === m.sender) return conn.reply(m.chat, '🫠 *¿Quieres autohechizarte? Eso es oscura magia...*', m);
+
+  const secuencia = [
     '🪄 *Shizuka susurra entre planos...*',
-    '✨ Que comience la magia...',
-    '🌙 El aire se electrifica...',
-    '🔥 El ritmo toma forma...',
-    '🧿 Abriendo un portal sonoro...',
-    '💥 Preparando impacto dimensional...',
-    '⚡ Reuniendo energía de frecuencias olvidadas...',
-    '🔮 Un kick desde el abismo está por nacer...',
-    '🥁 ...KICK INFERNAL ACTIVADO...',
-    '💣 *BOOM* 💥',
-    '💥 *BOOM* 💥',
-    '🔥 *BOOM BOOM* 💥💥',
-    '🧨 El hechizo ha sido desatado...',
-    '🌌 Disipando vibraciones residual...',
-    '💤 Silencio... como si nada hubiera pasado.'
+    '📜 Activando runas ancestrales...',
+    '🌫️ La atmósfera se carga de tensión...',
+    '🔮 Energía caótica desbordándose...',
+    '🧿 Coordenadas astrales sincronizadas...',
+    '⚡ Canalizando flujo etéreo...',
+    '🚪 Portal de exilio estabilizado...',
+    '💢 Sellando destino de @user...',
+    '💣 *EXPULSIÓN EJECUTADA* 💥',
+    '🌪️ El polvo mágico se disipa...',
+    '🫥 *Aquí no ha pasado nada...*'
   ];
 
-  const enviados = [];
-
-  for (let i = 0; i < hechizo.length; i++) {
-    await new Promise(r => setTimeout(r, 600 + i * 100));
-    const msg = await conn.sendMessage(chat, { text: hechizo[i] }, { quoted: m });
-    enviados.push(msg.key);
+  for (let i = 0; i < secuencia.length; i++) {
+    const frase = secuencia[i].replace('@user', '@' + target.split('@')[0]);
+    await conn.sendMessage(m.chat, { text: frase, mentions: [target] }, { quoted: m });
+    await new Promise(r => setTimeout(r, 650 + i * 100));
   }
 
-  // 💨 Limpia los mensajes después de 12s
-  setTimeout(async () => {
-    for (const key of enviados) {
-      try {
-        await conn.sendMessage(chat, { delete: key });
-      } catch (e) {
-        console.warn("⛔ No pude borrar un mensaje mágico:", e.message);
-      }
-    }
-  }, 12000);
+  try {
+    await conn.groupParticipantsUpdate(m.chat, [target], 'remove');
+  } catch {
+    await conn.reply(m.chat, '🚫 *No se pudo completar el hechizo. El usuario podría haberse ido o el poder fue insuficiente.*', m);
+  }
 };
 
 handler.command = /^hechizo$/i;
-handler.tags = ['diversión'];
-handler.help = ['hechizo'];
+handler.group = true;
+handler.admin = true;
+handler.botAdmin = true;
+handler.tags = ['diversión', 'grupo'];
+handler.help = ['hechizo @usuario'];
+
 export default handler;
