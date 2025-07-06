@@ -1,70 +1,61 @@
 import fetch from 'node-fetch';
 
-const juegos = global.db = global.db || {};
-juegos.tebakgambar = juegos.tebakgambar || {};
+const mssg = {
+    noQuery: '🔍 *Por favor, proporciona un nombre de usuario para buscar en Instagram.*\n\nEjemplo:\n`.iguser yahyaalmthr`',
+    notFound: '😕 *No se encontraron resultados para ese nombre de usuario.*',
+    error: '💥 *Ocurrió un error al consultar el perfil.* Intenta más tarde.',
+};
 
-let handler = async (m, { conn, usedPrefix, command }) => {
-    if (command === 'tebakgambar') {
-        try {
-            const res = await fetch('https://api.vreden.my.id/api/tebakgambar');
-            const json = await res.json();
+const reply = (text, conn, m) => {
+    conn.sendMessage(m.chat, { text }, { quoted: m });
+};
 
-            if (!json.result || json.result.length === 0) {
-                return conn.sendMessage(m.chat, {
-                    text: '💥 *No pude obtener una imagen.* Intenta más tarde.',
-                }, { quoted: m });
-            }
+let handler = async (m, { conn, text, usedPrefix, command }) => {
+    if (!text) return reply(mssg.noQuery, conn, m);
 
-            const data = json.result[0];
-            const imageUrl = data.image;
-            const answer = data.jawaban.toLowerCase().replace(/^jawaban\s*/i, '').trim();
+    try {
+        const apiUrl = `https://api.vreden.my.id/api/instagram/users?query=${encodeURIComponent(text)}`;
+        const res = await fetch(apiUrl);
+        const json = await res.json();
 
-            // Guardar sesión para el usuario
-            if (juegos.tebakgambar[m.sender]) clearTimeout(juegos.tebakgambar[m.sender].timeout);
-            juegos.tebakgambar[m.sender] = {
-                answer,
-                timeout: setTimeout(() => {
-                    conn.sendMessage(m.chat, {
-                        text: `⌛ *Tiempo agotado*\n📢 La respuesta era: *${answer}*`,
-                    }, { quoted: m });
-                    delete juegos.tebakgambar[m.sender];
-                }, 60000),
-            };
-
-            await conn.sendMessage(m.chat, {
-                image: { url: imageUrl },
-                caption: `🧩 *¡Adivina la imagen, ${m.pushName}!*\n⌛ Tienes *60 segundos*. Responde en el chat~`,
-            }, { quoted: m });
-
-        } catch (e) {
-            console.error('❌ Error en tebakgambar:', e.message);
-            await conn.sendMessage(m.chat, {
-                text: '💥 *Hubo un error al iniciar el juego.*',
-            }, { quoted: m });
+        if (!json.result || !json.result.usuarios || json.result.usuarios.length === 0) {
+            return reply(mssg.notFound, conn, m);
         }
-    } else {
-        // Si NO es el comando, validamos si hay respuesta
-        const session = juegos.tebakgambar[m.sender];
-        if (!session || !session.answer) return;
 
-        const userAnswer = m.text.toLowerCase().trim();
-        const correct = session.answer;
+        const user = json.result.usuarios[0]; // Primer resultado
+        const {
+            nombre_completo,
+            nombre_de_usuario,
+            is_private,
+            is_verified,
+            URL_de_la_foto_de_perfil,
+            id,
+        } = {
+            nombre_completo: user.nombre_completo,
+            nombre_de_usuario: user["nombre de usuario"],
+            is_private: user.is_private,
+            is_verified: user.is_verified,
+            URL_de_la_foto_de_perfil: user["URL de la foto de perfil"],
+            id: user.id,
+        };
 
-        if (userAnswer === correct) {
-            clearTimeout(session.timeout);
-            delete juegos.tebakgambar[m.sender];
+        const caption = `📸 *Perfil de Instagram encontrado:*\n\n` +
+            `👤 Nombre: *${nombre_completo}*\n` +
+            `🔗 Usuario: *@${nombre_de_usuario}*\n` +
+            `🆔 ID: ${id}\n` +
+            `🔒 Privado: ${is_private ? 'Sí' : 'No'}\n` +
+            `✅ Verificado: ${is_verified ? 'Sí' : 'No'}`;
 
-            await conn.sendMessage(m.chat, {
-                text: `🎉 *¡Correcto, ${m.pushName}!* La respuesta es *${correct}* 👏`,
-            }, { quoted: m });
-        } else {
-            await conn.sendMessage(m.chat, {
-                text: `❌ *No es correcto, ${m.pushName}~*\nInténtalo otra vez mientras quede tiempo 🕐`,
-            }, { quoted: m });
-        }
+        await conn.sendMessage(m.chat, {
+            image: { url: URL_de_la_foto_de_perfil },
+            caption,
+        }, { quoted: m });
+
+    } catch (e) {
+        console.error('❌ Error al consultar Instagram:', e.message);
+        return reply(mssg.error, conn, m);
     }
 };
 
-handler.customPrefix = /^\.?tebakgambar$/i;
-handler.command = /^.*$/; // escucha TODO
+handler.command = /^(iguser|instauser|buscarig)$/i;
 export default handler;
