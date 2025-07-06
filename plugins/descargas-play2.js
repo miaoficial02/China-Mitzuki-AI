@@ -35,7 +35,7 @@ const handler = async (m, { text, conn }) => {
       contextInfo: {
         externalAdReply: {
           title: "🎬 Explorando YouTube...",
-          body: "⏳ Esto tomará un par de segundos",
+          body: "⏳ Un momento...",
           thumbnailUrl: "https://raw.githubusercontent.com/Kone457/Nexus/refs/heads/main/Shizuka.jpg",
           mediaType: 1,
           previewType: 0,
@@ -68,8 +68,7 @@ const handler = async (m, { text, conn }) => {
 `.trim();
 
     await conn.sendMessage(m.chat, {
-      image: { url: thumb },
-      caption: info,
+      text: info,
       contextInfo: {
         externalAdReply: {
           title: "🎬 Shizuka Video",
@@ -108,4 +107,12 @@ const handler = async (m, { text, conn }) => {
 
   } catch (e) {
     console.error("❌ Error en play2:", e);
-    return
+    return conn.reply(m.chat, `❌ *Ocurrió un error inesperado al procesar el video.*\n${e}`, m);
+  }
+};
+
+handler.command = /^play2|mp4|ytmp4|ytv$/i;
+handler.help = ['play2 <nombre del video>'];
+handler.tags = ['descargas'];
+
+export default handler;
