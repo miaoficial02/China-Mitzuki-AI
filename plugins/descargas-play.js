@@ -24,7 +24,7 @@ const handler = async (m, { conn, text }) => {
     }, { quoted: m });
 
     // 🔎 Buscar canción
-    const searchRes = await fetch(`https://delirius-apiofc.vercel.app/search/soundcloud?q=${encodeURIComponent(text)}&limit=1`);
+    const searchRes = await fetch(`https://delirius-apiofc.vercel.app/search/soundcloud?q=${encodeURIComponent(text)}&limit=5`);
     const searchJson = await searchRes.json();
     const song = searchJson?.datos?.[0];
 
@@ -58,7 +58,7 @@ const handler = async (m, { conn, text }) => {
     if (!audioUrl) throw new Error("No se pudo obtener el enlace de descarga.");
 
     try {
-      // Opción directa con stream por URL
+      // Enviar por URL directa
       await conn.sendMessage(m.chat, {
         audio: { url: audioUrl },
         fileName: `${título}.mp3`,
@@ -66,7 +66,7 @@ const handler = async (m, { conn, text }) => {
       }, { quoted: m });
 
     } catch (e) {
-      // Fallback si falla el envío directo
+      // Fallback con buffer
       const res = await fetch(audioUrl);
       const buffer = await res.buffer();
 
