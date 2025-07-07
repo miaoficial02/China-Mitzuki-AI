@@ -73,13 +73,13 @@ global.welcom1 = `
 **🕷️ Disfruta tu estancia... mientras puedas.** `
 
 global.welcom2 = `
-> *"Los datos de su paso por este lugar han sido erradicados.*  
-> *No existe copias de seguridad... o eso creemos."*
+> *Los datos de su paso por este lugar han sido erradicados.*  
+> *No existe copias de seguridad... o eso creemos.*
 
-**🕸️ Reporte de eliminación:**  
-✖️ Chat history: **deleted**  
-✖️ Relaciones: **purged**  
-✖️ Recuerdos: **corrupted**
+*🕸️ Reporte de eliminación:*  
+✖️ Chat history: *deleted*  
+✖️ Relaciones: *purged*  
+✖️ Recuerdos: *corrupted*
 
 **☠️ Advertencia para los sobrevivientes:**  
 > *"No preguntéis por ello... o seréis el próximo."*`
