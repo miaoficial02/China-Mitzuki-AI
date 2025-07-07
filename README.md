@@ -6,7 +6,7 @@
 
 >𝓢𝓾𝓹𝓮𝓻 𝓫𝓸𝓽 𝓬𝓻𝓮𝓪𝓭𝓸 𝓹𝓪𝓻𝓪 𝓽𝓲
 
-![Descripción de la imagen](https://raw.githubusercontent.com/Kone457/Nexus/refs/heads/main/sss.jpg)
+![Descripción de la imagen](https://raw.githubusercontent.com/Kone457/Nexus/refs/heads/main/v2.jpg)
 
 
 ## ⭐ ¡Regálale una Estrellita a Shizuka! ⭐
