@@ -1,127 +1,177 @@
-import fetch from "node-fetch";
-import yts from "yt-search";
+import fetch from 'node-fetch';
 
-const handler = async (m, { conn, text }) => {
-  if (!text.trim()) {
-    return conn.reply(m.chat, `🔍 *¿Qué deseas escuchar?*\nEscribe el nombre de la canción o artista.`, m);
+// Define las APIs de descarga de Spotify aquí, puedes añadir más si encuentras
+const SPOTIFY_DOWNLOAD_APIS = [
+  { name: 'Nekorinn', urlBuilder: (query) => `https://api.nekorinn.my.id/downloader/spotifyplay?q=${encodeURIComponent(query)}` },
+  // Si encuentras otras APIs de descarga de Spotify que funcionen, añádelas aquí.
+  // Ejemplo: { name: 'Otra API', urlBuilder: (query) => `https://otraapi.com/spotify?q=${encodeURIComponent(query)}` },
+];
+
+/**
+ * Tries to download Spotify audio from a list of APIs until one succeeds.
+ * @param {string} query - The search query for the Spotify track.
+ * @returns {Promise<{metadata: Object|null, downloadUrl: string|null, apiName: string|null}>} - The track metadata, download URL, and name of the API that succeeded.
+ */
+async function tryDownloadSpotify(query) {
+  for (const apiConfig of SPOTIFY_DOWNLOAD_APIS) {
+    try {
+      const fullUrl = apiConfig.urlBuilder(query);
+      // console.log(`DEBUG: Intentando descargar Spotify desde ${apiConfig.name}: ${fullUrl}`); // For debugging
+
+      const res = await fetch(fullUrl);
+      if (!res.ok) {
+        console.warn(`⚠️ API ${apiConfig.name} falló con estado: ${res.status}. Probando otra...`);
+        continue;
+      }
+
+      const json = await res.json();
+      // console.log(`DEBUG: Respuesta JSON de ${apiConfig.name}:`, json); // For debugging
+
+      if (json.status && json.result?.downloadUrl && json.result?.metadata) {
+        console.log(`✅ Descarga de Spotify exitosa desde API: ${apiConfig.name}`);
+        return {
+          metadata: json.result.metadata,
+          downloadUrl: json.result.downloadUrl,
+          apiName: apiConfig.name
+        };
+      } else {
+        console.warn(`❌ API ${apiConfig.name} no devolvió datos válidos. Probando otra...`);
+      }
+    } catch (e) {
+      console.error(`⚠️ Error al conectar con API ${apiConfig.name}: ${e.message || e}. Probando otra...`);
+    }
   }
+  console.error("⛔ Ninguna API de Spotify respondió correctamente o devolvió un enlace válido.");
+  return { metadata: null, downloadUrl: null, apiName: null };
+}
 
-  try {
-    // 🕒 Espera visual con miniatura de Shizuka
-    await conn.sendMessage(m.chat, {
-      text: `⌛ *Espera un momento...*\nShizuka está buscando tu melodía entre las estrellas 🌌`,
+
+let handler = async (m, { conn, args, command, usedPrefix }) => {
+  const text = args.join(" ");
+  if (!text) {
+    // Mensaje de uso con estilo Shizuka
+    return conn.sendMessage(m.chat, {
+      text: `🔍 *¿Qué canción de Spotify deseas buscar?*\nEscribe el nombre de la canción o artista.`,
       contextInfo: {
         externalAdReply: {
-          title: "Buscando tu canción...",
-          body: "🎧 Afinando la frecuencia musical",
+          title: "🎧 Spotify Downloader",
+          body: `Uso: ${usedPrefix + command} shakira soltera`,
           mediaType: 1,
           previewType: 0,
-          mediaUrl: "https://youtube.com",
-          sourceUrl: "https://youtube.com",
+          mediaUrl: "http://googleusercontent.com/spotify.com/0", // URL genérica para Spotify
+          sourceUrl: "http://googleusercontent.com/spotify.com/0", // URL genérica para Spotify
           thumbnailUrl: "https://raw.githubusercontent.com/Kone457/Nexus/refs/heads/main/Shizuka.jpg",
           renderLargerThumbnail: true,
         },
       },
     }, { quoted: m });
+  }
 
-    // 🔎 Búsqueda en YouTube
-    const search = await yts(text);
-    const video = search?.videos?.[0];
-    if (!video) return conn.reply(m.chat, `❌ *No encontré resultados para:* "${text}"`, m);
+  try {
+    await m.react('⌛');
 
-    const { title, thumbnail, timestamp, views, ago, url, author } = video;
-    const canal = author?.name || "Desconocido";
-
-    // 🎼 Detalles del video
-    const info = `
-🎶 *${title}*
-👤 *Canal:* ${canal}
-📊 *Vistas:* ${formatViews(views)}
-⏱️ *Duración:* ${timestamp}
-📆 *Publicado:* ${ago}
-🔗 *Link:* ${url}
-
-✨ Quédate cerca... Shizuka está preparando tu audio 🎧
-`.trim();
-
-    const thumb = (await conn.getFile(thumbnail))?.data;
-
+    // Mensaje de búsqueda inicial con estilo Shizuka
     await conn.sendMessage(m.chat, {
-      text: info,
+      text: `🔭 *Shizuka está buscando tu canción de Spotify...*`,
       contextInfo: {
         externalAdReply: {
-          title: "🎵 Shizuka Music",
-          body: "Descargando tu MP3 con estilo",
+          title: "🎵 Explorando Spotify...",
+          body: "⏳ Un momento...",
+          thumbnailUrl: "https://raw.githubusercontent.com/Kone457/Nexus/refs/heads/main/Shizuka.jpg",
           mediaType: 1,
           previewType: 0,
-          mediaUrl: url,
-          sourceUrl: url,
-          thumbnail: thumb,
+          mediaUrl: "http://googleusercontent.com/spotify.com/0",
+          sourceUrl: "http://googleusercontent.com/spotify.com/0",
           renderLargerThumbnail: true,
         },
       },
     }, { quoted: m });
 
-    // 🚀 Buscar MP3 en cascada
-    const audio = await intentarDescargaDesdeApis(url);
-    if (!audio) throw new Error("Ninguna API respondió correctamente.");
+    // Intenta descargar el audio de Spotify usando múltiples APIs
+    const { metadata, downloadUrl, apiName } = await tryDownloadSpotify(text);
+
+    if (!metadata || !downloadUrl) {
+      // Mensaje de no encontrado con estilo Shizuka
+      return conn.sendMessage(m.chat, {
+        text: `⚠️ *No se encontraron resultados para tu búsqueda en Spotify:* "${text}".`,
+        contextInfo: {
+          externalAdReply: {
+            title: "❌ Búsqueda Fallida",
+            body: "Intenta con un nombre diferente.",
+            mediaType: 1,
+            previewType: 0,
+            mediaUrl: "http://googleusercontent.com/spotify.com/0",
+            sourceUrl: "http://googleusercontent.com/spotify.com/0",
+            thumbnailUrl: "https://raw.githubusercontent.com/Kone457/Nexus/refs/heads/main/Shizuka.jpg",
+            renderLargerThumbnail: true,
+          },
+        },
+      }, { quoted: m });
+    }
+
+    const { title, artist, duration, cover, url } = metadata;
+
+    // Mensaje de información de la canción con estilo Shizuka
+    const infoMessage = `
+🎵 *Título:* ${title}
+👤 *Artista:* ${artist}
+⏱️ *Duración:* ${duration}
+🌐 *Spotify:* ${url}
+`.trim();
+
+    // Fetchear la imagen de la portada para el thumbnail
+    const coverBuffer = (await conn.getFile(cover))?.data;
 
     await conn.sendMessage(m.chat, {
-      audio: { url: audio.url },
-      fileName: `${title}.mp3`,
-      mimetype: "audio/mpeg"
+      text: infoMessage, // Usamos 'text' para el mensaje
+      contextInfo: {
+        externalAdReply: {
+          title: "🎶 Canción de Spotify Encontrada",
+          body: "🎁 Preparando tu MP3...",
+          mediaType: 1,
+          previewType: 0,
+          mediaUrl: url, // URL de la canción de Spotify
+          sourceUrl: url, // URL de la canción de Spotify
+          thumbnail: coverBuffer, // Usamos el buffer de la portada
+          renderLargerThumbnail: true,
+        },
+      },
     }, { quoted: m });
 
-  } catch (err) {
-    console.error("🎧 Error en /play:", err);
-    return conn.reply(m.chat, `❌ *No se pudo obtener el audio.*\n🔧 ${err}`, m);
+    // Enviar el audio
+    await conn.sendMessage(m.chat, {
+      audio: { url: downloadUrl },
+      mimetype: 'audio/mpeg', // Aseguramos que sea mpeg para MP3
+      ptt: false,
+      fileName: `${title}.mp3`
+    }, { quoted: m });
+
+    await m.react('✅');
+
+  } catch (e) {
+    console.error("❌ Error en el handler de Spotify:", e);
+    // Mensaje de error general con estilo Shizuka
+    return conn.sendMessage(m.chat, {
+      text: `❌ *Ocurrió un error inesperado al procesar tu solicitud.*\nIntenta nuevamente más tarde.`,
+      contextInfo: {
+        externalAdReply: {
+          title: "🚨 Error",
+          body: "Algo salió mal.",
+          mediaType: 1,
+          previewType: 0,
+          mediaUrl: "http://googleusercontent.com/spotify.com/0",
+          sourceUrl: "http://googleusercontent.com/spotify.com/0",
+          thumbnailUrl: "https://raw.githubusercontent.com/Kone457/Nexus/refs/heads/main/Shizuka.jpg",
+          renderLargerThumbnail: true,
+        },
+      },
+    }, { quoted: m });
   }
 };
 
-handler.command = /^play$/i;
-handler.tags = ["descargas"];
-handler.help = ["play <nombre o link de video>"];
+handler.help = ['play <nombre>'];
+handler.tags = ['descargas'];
+handler.command = /^playspotify$/i; // Cambiado a playspotify para evitar conflicto con el play de YouTube
+handler.register = true;
+
 export default handler;
-
-// 🎚️ Fallback de descarga MP3 por múltiples APIs
-async function intentarDescargaDesdeApis(videoUrl) {
-  const apis = [
-    (url) => `https://api.vreden.my.id/api/ytplaymp3?query=${encodeURIComponent(url)}`,
-    (url) => `https://delirius-apiofc.vercel.app/download/ytmp3?url=${encodeURIComponent(url)}`,
-    (url) => `https://api.starlights.uk/api/downloader/youtube?url=${encodeURIComponent(url)}`,
-    (url) => `https://apis-starlights-team.koyeb.app/starlight/youtube-mp3?url=${encodeURIComponent(url)}`,
-    (url) => `https://api.lolhuman.xyz/api/ytaudio?apikey=b8d3bec7f13fa5231ba88431&url=${encodeURIComponent(url)}`,
-    (url) => `https://api.ryzumi.vip/api/downloader/ytmp3?url=${encodeURIComponent(url)}`,
-  ];
-
-  for (const construir of apis) {
-    try {
-      const res = await fetch(construir(videoUrl));
-      const json = await res.json();
-
-      const enlace =
-        json?.result?.download?.url ||
-        json?.result?.link ||
-        json?.result?.url ||
-        json?.url ||
-        json?.data?.url;
-
-      if (enlace && enlace.startsWith("http")) {
-        return { url: enlace };
-      }
-    } catch (e) {
-      console.warn("⚠️ API sin respuesta, probando otra...");
-    }
-  }
-
-  return null;
-}
-
-// 📈 Formatear vistas
-function formatViews(views) {
-  if (!views) return "0";
-  if (views >= 1e9) return (views / 1e9).toFixed(1) + "B";
-  if (views >= 1e6) return (views / 1e6).toFixed(1) + "M";
-  if (views >= 1e3) return (views / 1e3).toFixed(1) + "k";
-  return views.toString();
-}
