@@ -18,62 +18,66 @@ export async function before(m, { conn, participants, groupMetadata }) {
     }, 
     "participant": "0@s.whatsapp.net"
   }  
-  
+
   // Configuración inicial
-  let pp = await conn.profilePictureUrl(m.messageStubParameters[0], 'image').catch(_ => 'https://qu.ax/rnsuj.jpg')
-  let img = await (await fetch(pp)).buffer()
+  let ppBienvenida = await conn.profilePictureUrl(m.messageStubParameters[0], 'image').catch(_ => 'https://qu.ax/rnsuj.jpg') // Imagen de bienvenida (predeterminada o perfil)
+  let ppDespedida = 'https://qu.ax/OTGDz.jpg' // Imagen personalizada para despedida (enlace alternativo)
+  
+  let imgBienvenida = await (await fetch(ppBienvenida)).buffer()
+  let imgDespedida = await (await fetch(ppDespedida)).buffer() // Buffer de la imagen de despedida
+  
   let chat = global.db.data.chats[m.chat]
   let groupSize = participants.length
-  
-  // Ajustar tamaño del grupo según evento
+
+  // Ajustar tamaño del grupo
   m.messageStubType == 27 ? groupSize++ : 
   (m.messageStubType == 28 || m.messageStubType == 32) && groupSize--
 
-  // Mensaje de BIENVENIDA (nuevo miembro)
+  // Mensaje de BIENVENIDA (imagen de perfil o predeterminada)
   if (chat.welcome && m.messageStubType == 27) {
     const mention = m.messageStubParameters[0].split('@')[0]
     const bienvenida = `
 ☠️ *▄︻デ══━💀 @${mention}...*  
-*Your data has been scanned. Welcome to the dark network*
+*Tu huella digital ha sido rastreada. Bienvenido a la red oscura.*
 
 ${global.welcom1}
 
-✦ Ahora son ${groupSize} presas
- *Sobrevivan mientras puedan!*
-> Hoy caerá tu sangre 🩸`.trim()
+✦ Presas en el sistema: ${groupSize}
+*No escaparás...*
+> Tu alma ahora es nuestra 👁️`.trim()
     
     await conn.sendMini(
       m.chat, 
       'ﮩ٨ـﮩﮩ٨ــ𝙉𝙪𝙚𝙫𝙖 𝙑𝙞𝙘𝙩𝙞𝙢𝙖ﮩ٨ـﮩﮩ٨ــ',
       dev, 
       bienvenida, 
-      img, 
-      img, 
+      imgBienvenida, 
+      imgBienvenida, 
       redes, 
       fkontak
     )
   }
 
-  // Mensaje de DESPEDIDA (estilo oscuro mejorado)
+  // Mensaje de DESPEDIDA (imagen personalizada)
   if (chat.welcome && (m.messageStubType == 28 || m.messageStubType == 32)) {
     const mention = m.messageStubParameters[0].split('@')[0]
     const bye = `
 ☠️ *▄︻デ══━💀 @${mention}...*  
-*Target eliminated. Connection terminated.*
+*¡Señal perdida! El objetivo ha abandonado la red oscura.*
 
 ${global.welcom2}
 
-✦ ${groupSize} surviving units
-*The hunt continues...*
-> We'll reclaim your data 💾`.trim()
+✦ Sobrevivientes: ${groupSize} 
+*La cacería no termina...*
+> Tu sangre aún nos pertenece 🩸`.trim()
     
     await conn.sendMini(
       m.chat, 
-      'ﮩ٨ـﮩﮩ٨ــ𝙑𝙞𝙘𝙩𝙞𝙢 �𝙚𝙧𝙙𝙞𝙙𝙖ﮩ٨ـﮩﮩ٨ــ',
+      'ﮩ٨ـﮩﮩ٨ــ𝘿𝙚𝙨𝙘𝙤𝙣𝙚𝙘𝙩𝙖𝙙𝙤ﮩ٨ـﮩﮩ٨ــ',
       dev, 
       bye, 
-      img, 
-      img, 
+      imgDespedida, // Imagen diferente para despedida
+      imgDespedida, 
       redes, 
       fkontak
     )
