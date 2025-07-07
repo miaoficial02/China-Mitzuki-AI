@@ -1,9 +1,9 @@
 import fetch from 'node-fetch';
 
 const SEARCH_APIS = [
-  {  url: 'http://api.alyabot.xyz:3269/search_youtube?query=' },
-  {  url: 'http://api2.alyabot.xyz:5216/search_youtube?query=' },
-  {  url: 'https://api3.alyabot.xyz/search_youtube?query=' }
+  { name: 'Servidor Masha', url: 'http://api.alyabot.xyz:3269/search_youtube?query=' },
+  { name: 'Servidor Alya', url: 'http://api2.alyabot.xyz:5216/search_youtube?query=' },
+  { name: 'Servidor Masachika', url: 'https://api3.alyabot.xyz/search_youtube?query=' }
 ];
 
 const DOWNLOAD_APIS = {
@@ -16,10 +16,16 @@ async function tryFetchJSON(servers, query) {
   for (const server of servers) {
     try {
       const res = await fetch(server.url + encodeURIComponent(query));
-      if (!res.ok) continue;
+      if (!res.ok) {
+        console.warn(`Server ${server.name} failed with status: ${res.status}`);
+        continue;
+      }
       const json = await res.json();
-      if (json && Object.keys(json).length) return { json, serverName: server.name };
-    } catch {
+      if (json && Object.keys(json).length) {
+        return { json, serverName: server.name };
+      }
+    } catch (error) {
+      console.error(`Error fetching from ${server.name}:`, error);
       continue;
     }
   }
@@ -39,8 +45,8 @@ const handler = async (m, { text, conn }) => {
           thumbnailUrl: "https://raw.githubusercontent.com/Kone457/Nexus/refs/heads/main/Shizuka.jpg",
           mediaType: 1,
           previewType: 0,
-          mediaUrl: "https://youtube.com",
-          sourceUrl: "https://youtube.com",
+          mediaUrl: "https://youtube.com", // This might need to be a valid URL for some platforms
+          sourceUrl: "https://youtube.com", // This might need to be a valid URL for some platforms
           renderLargerThumbnail: true
         }
       }
@@ -85,10 +91,15 @@ const handler = async (m, { text, conn }) => {
 
     const downloadUrlBase = DOWNLOAD_APIS[serverName];
     if (!downloadUrlBase) {
-      return conn.reply(m.chat, `⚠️ *No se encontró un servidor de descarga disponible.*`, m);
+      // This should ideally not happen with the fix, but good for robust error handling.
+      return conn.reply(m.chat, `⚠️ *No se encontró un servidor de descarga disponible para el servidor de búsqueda seleccionado.*`, m);
     }
 
     const res = await fetch(downloadUrlBase + encodeURIComponent(url));
+    if (!res.ok) {
+        console.error(`Download server ${serverName} failed with status: ${res.status}`);
+        return conn.reply(m.chat, `❌ *El servidor de descarga (${serverName}) respondió con un error.*`, m);
+    }
     const json = await res.json();
 
     const downloadUrl =
@@ -107,7 +118,7 @@ const handler = async (m, { text, conn }) => {
 
   } catch (e) {
     console.error("❌ Error en play2:", e);
-    return conn.reply(m.chat, `❌ *Ocurrió un error inesperado al procesar el video.*\n${e}`, m);
+    return conn.reply(m.chat, `❌ *Ocurrió un error inesperado al procesar el video.*\n${e.message || e}`, m);
   }
 };
 
