@@ -2,87 +2,88 @@ import fetch from "node-fetch";
 
 const handler = async (m, { conn, text }) => {
   if (!text.trim()) {
-    return conn.reply(m.chat, `🔍 *¿Qué deseas escuchar?*\nEscribe el nombre de la canción o artista.`, m);
+    return conn.reply(m.chat, `🔍 *¿Qué deseas escuchar?*\nEscribe el nombre del artista o canción de SoundCloud.`, m);
   }
 
   try {
-    // 🎬 Animación inicial
+    // 🎬 Mensaje inicial visual
     await conn.sendMessage(m.chat, {
-      text: `🎧 *Buscando en Spotify...*\nShizuka está ajustando la aguja del tocadiscos 🎶`,
+      text: `🎶 *Buscando en SoundCloud...*\nShizuka está sumergida en ondas musicales 🌊`,
       contextInfo: {
         externalAdReply: {
-          title: "Explorando Spotify",
-          body: "🔎 Afinando tu frecuencia musical",
+          title: "Explorando SoundCloud",
+          body: "🎧 Vibraciones en sintonía",
           mediaType: 1,
           previewType: 0,
-          mediaUrl: "https://open.spotify.com",
-          sourceUrl: "https://open.spotify.com",
-          thumbnailUrl: "https://raw.githubusercontent.com/Kone457/Nexus/refs/heads/main/Shizuka.jpg",
-          renderLargerThumbnail: true,
-        },
-      },
+          mediaUrl: "https://soundcloud.com/",
+          sourceUrl: "https://soundcloud.com/",
+          thumbnailUrl: "https://raw.githubusercontent.com/Kone457/Nexus/main/Shizuka.jpg",
+          renderLargerThumbnail: true
+        }
+      }
     }, { quoted: m });
 
     // 🔎 Buscar canción
-    const search = await fetch(`https://api.dorratz.com/spotifysearch?query=${encodeURIComponent(text)}`);
-    const result = await search.json();
-    const track = result?.data?.[0];
+    const searchRes = await fetch(`https://delirius-apiofc.vercel.app/search/soundcloud?q=${encodeURIComponent(text)}&limit=1`);
+    const searchJson = await searchRes.json();
+    const song = searchJson?.datos?.[0];
 
-    if (!track) return conn.reply(m.chat, `❌ *No se encontró nada en Spotify con:* "${text}"`, m);
+    if (!song || !song.enlace) {
+      return conn.reply(m.chat, `❌ *No se encontró ninguna canción llamada:* "${text}"`, m);
+    }
 
-    const { name: title, artists, url: trackUrl, image } = track;
-    const artist = artists || "Desconocido";
+    const { título, artista, enlace, duración, image } = song;
 
-    // 📩 Mostrar detalles
     await conn.sendMessage(m.chat, {
-      text: `🎶 *${title}*\n👤 *Artista:* ${artist}\n🔗 *Enlace:* ${trackUrl}\n\n⏳ Descargando MP3...`,
+      text: `🎵 *${título}*\n👤 *Artista:* ${artista}\n⏱️ *Duración:* ${(duración / 1000 / 60).toFixed(2)} min\n🔗 *Link:* ${enlace}`,
       contextInfo: {
         externalAdReply: {
-          title: title,
-          body: `🎤 ${artist}`,
+          title: título,
+          body: `🎤 ${artista}`,
           mediaType: 1,
           previewType: 0,
-          mediaUrl: trackUrl,
-          sourceUrl: trackUrl,
-          thumbnailUrl: image,
-          renderLargerThumbnail: true,
-        },
-      },
+          mediaUrl: enlace,
+          sourceUrl: enlace,
+          thumbnailUrl: image || "https://raw.githubusercontent.com/Kone457/Nexus/main/Shizuka.jpg",
+          renderLargerThumbnail: true
+        }
+      }
     }, { quoted: m });
 
     // 🎵 Descargar MP3
-    const dl = await fetch(`https://api.dorratz.com/spotifydl?url=${encodeURIComponent(trackUrl)}`);
-    const json = await dl.json();
-    const audioUrl = json?.download_url || json?.url;
+    const dlRes = await fetch(`https://delirius-apiofc.vercel.app/download/soundcloud?url=${encodeURIComponent(enlace)}`);
+    const dlJson = await dlRes.json();
+    const audioUrl = dlJson?.datos?.url;
 
-    if (!audioUrl) throw new Error("No se obtuvo enlace de descarga.");
+    if (!audioUrl) throw new Error("No se pudo obtener el enlace de descarga.");
 
     try {
-      // 📡 Enviar por URL
+      // Opción directa con stream por URL
       await conn.sendMessage(m.chat, {
         audio: { url: audioUrl },
-        fileName: `${title}.mp3`,
+        fileName: `${título}.mp3`,
         mimetype: "audio/mpeg"
       }, { quoted: m });
 
     } catch (e) {
-      // 🛟 Fallback con buffer
+      // Fallback si falla el envío directo
       const res = await fetch(audioUrl);
       const buffer = await res.buffer();
 
       await conn.sendMessage(m.chat, {
         audio: buffer,
-        fileName: `${title}.mp3`,
+        fileName: `${título}.mp3`,
         mimetype: "audio/mpeg"
       }, { quoted: m });
     }
 
   } catch (err) {
-    console.error("🎧 Error con Spotify:", err);
-    return conn.reply(m.chat, `❌ *Error al obtener el audio.*\n🔧 ${err.message}`, m);
+    console.error("🎧 Error en SoundCloud:", err);
+    conn.reply(m.chat, `❌ *No se pudo completar la descarga.*\n🔧 ${err.message}`, m);
   }
 };
 
-handler.command = /^play = ["descargas"];
+handler.command = /^play$/i;
+handler.tags = ["descargas"];
 handler.help = ["play <nombre o artista>"];
 export default handler;
