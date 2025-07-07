@@ -18,7 +18,7 @@ export async function before(m, { conn, participants, groupMetadata }) {
 
   if (chat.welcome && m.messageStubType == 27) {
     let bienvenida = `❀ *▄︻デ══━💀*  @${m.messageStubParameters[0].split`@`[0]} ... *  
-*𝖄𝖔𝖚𝖗 𝖉𝖆𝖙𝖆 𝖍𝖆𝖘 𝖇𝖊𝖊𝖓 𝖘𝖈𝖆𝖓𝖓𝖊𝖉. 𝖂𝖊𝖑𝖈𝖔𝖒𝖊 𝖙𝖔 𝖙𝖍𝖊 𝖉𝖆𝖗𝖐 𝖓𝖊𝖙𝖜𝖔𝖗𝖐* \n \n${global.welcom1}\n✦ Ahora son ${groupSize} Presas.\n•(=^●ω●^=)• Sobrevivan mientras puedan!\n> Hoy caerá tu sangre 🩸.`    
+*𝖄𝖔𝖚𝖗 𝖉𝖆𝖙𝖆 𝖍𝖆𝖘 𝖇𝖊𝖊𝖓 𝖘𝖈𝖆𝖓𝖓𝖊𝖉. 𝖂𝖊𝖑𝖈𝖔𝖒𝖊 𝖙𝖔 𝖙𝖍𝖊 𝖉𝖆𝖗𝖐 𝖓𝖊𝖙𝖜𝖔𝖗𝖐* \n \n${global.welcom1}\n✦ Ahora son ${groupSize} Presas.\n Sobrevivan mientras puedan!\n> Hoy caerá tu sangre 🩸.`    
     await conn.sendMini(m.chat, txt, dev, bienvenida, img, img, redes, fkontak)
   }
   
