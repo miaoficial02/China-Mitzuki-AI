@@ -5,23 +5,23 @@ const handler = async (m, { conn, args, command, usedPrefix }) => {
   if (!text) {
     return conn.reply(
       m.chat,
-      `🔍 *¿Qué deseas escuchar de Spotify?*\n\n📌 Uso: *${usedPrefix + command} nombre de canción/artista*`,
+      `🔍 *¿Qué deseas escuchar en YouTube?*\n\n📌 Uso: *${usedPrefix + command} nombre de canción/artista*`,
       m
     );
   }
 
-  // Mensaje de búsqueda visual
+  // Mensaje de búsqueda inicial con estilo YouTube
   await conn.sendMessage(m.chat, {
-    text: `🎧 *Buscando en Spotify...*\n\n⏳ Espera mientras encuentro la canción *${text}*`,
+    text: `🔎 *Buscando en YouTube...*\n\n🎬 Espera mientras encuentro la canción *${text}*`,
     contextInfo: {
       externalAdReply: {
-        title: "Spotify Search 🎵",
-        body: "Explorando los acordes digitales...",
+        title: "YouTube Music 🔴",
+        body: "Buscando el video musical...",
         mediaType: 1,
         previewType: 0,
-        mediaUrl: "https://spotify.com",
-        sourceUrl: "https://spotify.com",
-        thumbnailUrl: "https://i.scdn.co/image/ab67616d0000b27301ecf678f0f389a6ecdc7e48", // Imagen genérica mientras busca
+        mediaUrl: "https://youtube.com",
+        sourceUrl: "https://youtube.com",
+        thumbnailUrl: "https://i.ytimg.com/vi/RgKAFK5djSk/maxresdefault.jpg", // Imagen genérica de espera
         renderLargerThumbnail: true
       }
     }
@@ -32,40 +32,40 @@ const handler = async (m, { conn, args, command, usedPrefix }) => {
     const json = await res.json();
 
     if (!json.status || !json.result?.downloadUrl) {
-      return conn.reply(m.chat, `❌ *No encontré resultados en Spotify para:* "${text}"`, m);
+      return conn.reply(m.chat, `❌ *No encontré resultados en YouTube para:* "${text}"`, m);
     }
 
-    const { title, artist, duration, cover, url } = json.result.metadata;
+    const { title, artist, duration, cover } = json.result.metadata;
     const audio = json.result.downloadUrl;
 
     const caption = `
 🎶 *${title}*
-👤 *Artista:* ${artist}
+📺 *Canal:* ${artist}
 ⏱️ *Duración:* ${duration}
-🔗 *Spotify:* ${url}
+🔗 *YouTube:* https://youtube.com
 
-✅ Tu música está lista. ¡Disfrútala! 🎧
+✅ Audio procesado. ¡Disfrútalo! 🔊
 `.trim();
 
-    // ✅ Enviar portada + detalles (solo una imagen)
+    // Mostrar portada + detalles con estilo YouTube
     await conn.sendMessage(m.chat, {
       image: { url: cover },
       caption: caption,
       contextInfo: {
         externalAdReply: {
           title: title,
-          body: `🎵 ${artist}`,
+          body: `📺 ${artist} - YouTube`,
           mediaType: 1,
           previewType: 0,
-          mediaUrl: url,
-          sourceUrl: url,
+          mediaUrl: "https://youtube.com",
+          sourceUrl: "https://youtube.com",
           thumbnailUrl: cover,
           renderLargerThumbnail: true
         }
       }
     }, { quoted: m });
 
-    // 🎵 Enviar archivo MP3
+    // Enviar el audio MP3
     await conn.sendMessage(m.chat, {
       audio: { url: audio },
       fileName: `${title}.mp3`,
@@ -74,8 +74,8 @@ const handler = async (m, { conn, args, command, usedPrefix }) => {
     }, { quoted: m });
 
   } catch (e) {
-    console.error("⚠️ Error al procesar Spotify:", e);
-    return conn.reply(m.chat, `⚠️ *Ocurrió un error al obtener la canción.*\n\n🛠️ Detalle: ${e.message}`, m);
+    console.error("⚠️ Error al procesar YouTube:", e);
+    return conn.reply(m.chat, `❌ *Error al obtener el audio desde YouTube.*\n\n🛠️ ${e.message}`, m);
   }
 };
 
