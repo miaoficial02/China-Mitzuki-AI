@@ -18,7 +18,7 @@ const handler = async (m, { args, usedPrefix, command }) => {
     }
 };
 
-handler.help = ['qr <texto o URL>'];
+handler.help = ['qrc <texto o URL>'];
 handler.tags = ['tools', 'util'];
 handler.command = ['qr', 'qrcode', 'generarqr'];
 
