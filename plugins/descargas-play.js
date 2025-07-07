@@ -10,7 +10,7 @@ const handler = async (m, { conn, args, command, usedPrefix }) => {
     );
   }
 
-  // Enviando espera visual
+  // Mensaje de búsqueda visual
   await conn.sendMessage(m.chat, {
     text: `🎧 *Buscando en Spotify...*\n\n⏳ Espera mientras encuentro la canción *${text}*`,
     contextInfo: {
@@ -21,7 +21,7 @@ const handler = async (m, { conn, args, command, usedPrefix }) => {
         previewType: 0,
         mediaUrl: "https://spotify.com",
         sourceUrl: "https://spotify.com",
-        thumbnailUrl: "https://i.scdn.co/image/ab67616d0000b27301ecf678f0f389a6ecdc7e48", // Puedes cambiar el thumbnail
+        thumbnailUrl: "https://i.scdn.co/image/ab67616d0000b27301ecf678f0f389a6ecdc7e48", // Imagen genérica mientras busca
         renderLargerThumbnail: true
       }
     }
@@ -44,17 +44,17 @@ const handler = async (m, { conn, args, command, usedPrefix }) => {
 ⏱️ *Duración:* ${duration}
 🔗 *Spotify:* ${url}
 
-✅ Tu música está lista. ¡Que la disfrutes!
+✅ Tu música está lista. ¡Disfrútala! 🎧
 `.trim();
 
-    // Enviar imagen + detalles
+    // ✅ Enviar portada + detalles (solo una imagen)
     await conn.sendMessage(m.chat, {
       image: { url: cover },
-      caption,
+      caption: caption,
       contextInfo: {
         externalAdReply: {
           title: title,
-          body: `🎵 Artista: ${artist}`,
+          body: `🎵 ${artist}`,
           mediaType: 1,
           previewType: 0,
           mediaUrl: url,
@@ -65,7 +65,7 @@ const handler = async (m, { conn, args, command, usedPrefix }) => {
       }
     }, { quoted: m });
 
-    // Enviar audio MP3
+    // 🎵 Enviar archivo MP3
     await conn.sendMessage(m.chat, {
       audio: { url: audio },
       fileName: `${title}.mp3`,
@@ -75,7 +75,7 @@ const handler = async (m, { conn, args, command, usedPrefix }) => {
 
   } catch (e) {
     console.error("⚠️ Error al procesar Spotify:", e);
-    return conn.reply(m.chat, `⚠️ *Error al obtener el audio desde Spotify.*\n\n${e.message}`, m);
+    return conn.reply(m.chat, `⚠️ *Ocurrió un error al obtener la canción.*\n\n🛠️ Detalle: ${e.message}`, m);
   }
 };
 
