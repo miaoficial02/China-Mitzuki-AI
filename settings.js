@@ -68,9 +68,9 @@ global.welcom1 = `
 - Si ves tu nombre en rojo... huye inmediatamente  
 
 *💀 Dato siniestro:* 
-> *"El 97% de los que entran no vuelven a ser humanos."*
+> *El 97% de los que entran no vuelven a ser humanos.*
 
-**🕷️ Disfruta tu estancia... mientras puedas.** `
+*🕷️ Disfruta tu estancia... mientras puedas.* `
 
 global.welcom2 = `
 > *Los datos de su paso por este lugar han sido erradicados.*  
