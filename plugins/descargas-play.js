@@ -10,9 +10,9 @@ const handler = async (m, { conn, args, command, usedPrefix }) => {
     );
   }
 
-  // Mensaje de búsqueda inicial con estilo YouTube
+  // Mensaje de búsqueda tipo YouTube
   await conn.sendMessage(m.chat, {
-    text: `🔎 *Buscando en YouTube...*\n\n🎬 Espera mientras encuentro la canción *${text}*`,
+    text: `🔎 *Buscando en YouTube...*\n🎬 Espera mientras encuentro la canción *${text}*`,
     contextInfo: {
       externalAdReply: {
         title: "YouTube Music 🔴",
@@ -21,8 +21,8 @@ const handler = async (m, { conn, args, command, usedPrefix }) => {
         previewType: 0,
         mediaUrl: "https://youtube.com",
         sourceUrl: "https://youtube.com",
-        thumbnailUrl: "https://i.ytimg.com/vi/RgKAFK5djSk/maxresdefault.jpg", // Imagen genérica de espera
-        renderLargerThumbnail: true
+        // NO USAMOS thumbnailUrl para evitar duplicación visual
+        renderLargerThumbnail: false
       }
     }
   }, { quoted: m });
@@ -44,10 +44,10 @@ const handler = async (m, { conn, args, command, usedPrefix }) => {
 ⏱️ *Duración:* ${duration}
 🔗 *YouTube:* https://youtube.com
 
-✅ Audio procesado. ¡Disfrútalo! 🔊
+✅ Audio listo. ¡Disfrútalo! 🔊
 `.trim();
 
-    // Mostrar portada + detalles con estilo YouTube
+    // Enviar solo una imagen con detalles
     await conn.sendMessage(m.chat, {
       image: { url: cover },
       caption: caption,
@@ -59,7 +59,7 @@ const handler = async (m, { conn, args, command, usedPrefix }) => {
           previewType: 0,
           mediaUrl: "https://youtube.com",
           sourceUrl: "https://youtube.com",
-          thumbnailUrl: cover,
+          // SIN thumbnailUrl aquí
           renderLargerThumbnail: true
         }
       }
