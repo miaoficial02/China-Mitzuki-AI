@@ -6,45 +6,45 @@ const SEARCH_APIS = [
   { name: 'Servidor Masachika', url: 'https://api3.alyabot.xyz/search_youtube?query=' }
 ];
 
-const DOWNLOAD_APIS = {
-  'Servidor Masha': 'http://api.alyabot.xyz:3269/download_video?url=',
-  'Servidor Alya': 'http://api2.alyabot.xyz:5216/download_video?url=',
-  'Servidor Masachika': 'https://api3.alyabot.xyz/download_video?url='
-};
+const DOWNLOAD_APIS = [ // Array for iteration
+  { name: 'Servidor Masha', url: 'http://api.alyabot.xyz:3269/download_video?url=' },
+  { name: 'Servidor Alya', url: 'http://api2.alyabot.xyz:5216/download_video?url=' },
+  { name: 'Servidor Masachika', url: 'https://api3.alyabot.xyz/download_video?url=' }
+];
 
+/**
+ * Tries to fetch JSON data from a list of servers until one succeeds.
+ * @param {Array<Object>} servers - An array of server objects with 'name' and 'url' properties.
+ * @param {string} query - The query string to encode and append to the URL.
+ * @returns {Promise<{json: Object|null, serverName: string|null}>} - The JSON data and the name of the server that succeeded, or nulls if none succeeded.
+ */
 async function tryFetchJSON(servers, query) {
-  console.log('DEBUG: Iniciando tryFetchJSON para la búsqueda.');
   for (const server of servers) {
     try {
-      console.log(`DEBUG: Intentando buscar en URL: ${server.url + encodeURIComponent(query)}`);
       const res = await fetch(server.url + encodeURIComponent(query));
       if (!res.ok) {
-        console.warn(`DEBUG: Un servidor de búsqueda falló con estado: ${res.status}`);
+        // console.warn(`DEBUG: Servidor de búsqueda falló con estado: ${res.status}`); // For debugging
         continue;
       }
       const json = await res.json();
       if (json && Object.keys(json).length) {
-        console.log(`DEBUG: Búsqueda exitosa desde ${server.name}`);
         return { json, serverName: server.name };
       }
     } catch (error) {
-      console.error(`DEBUG: Error al buscar en un servidor:`, error);
+      // console.error(`DEBUG: Error en tryFetchJSON para búsqueda:`, error); // For debugging
       continue;
     }
   }
-  console.log('DEBUG: No se encontraron resultados de búsqueda válidos.');
   return { json: null, serverName: null };
 }
 
 const handler = async (m, { text, conn }) => {
-  console.log('DEBUG: Handler iniciado.');
   if (!text) {
-    console.log('DEBUG: No se proporcionó texto, enviando mensaje de ayuda.');
     return conn.reply(m.chat, `🔎 *¿Qué video deseas descargar?*\nEscribe el nombre o link del video.`, m);
   }
 
   try {
-    console.log('DEBUG: Enviando mensaje de búsqueda inicial.');
+    // --- Initial Search Message with External Ad Reply ---
     await conn.sendMessage(m.chat, {
       text: `🔭 *Shizuka está buscando tu video...*`,
       contextInfo: {
@@ -61,10 +61,10 @@ const handler = async (m, { text, conn }) => {
       }
     }, { quoted: m });
 
-    console.log(`DEBUG: Buscando video con query: ${text}`);
-    const { json: searchJson, serverName } = await tryFetchJSON(SEARCH_APIS, text);
+    // --- Search for the video ---
+    const { json: searchJson, serverName: searchServer } = await tryFetchJSON(SEARCH_APIS, text);
+
     if (!searchJson || !searchJson.results?.length) {
-      console.log('DEBUG: No se encontraron resultados para la búsqueda.');
       return conn.reply(m.chat, '⚠️ *No se encontraron resultados para tu búsqueda.*', m);
     }
 
@@ -76,6 +76,7 @@ const handler = async (m, { text, conn }) => {
     const views = video.views?.toLocaleString() || 'Desconocido';
     const canal = video.channel || 'Desconocido';
 
+    // --- Video Info Message with Original Styling (External Ad Reply) ---
     const info = `
 🎞️ *${title}*
 👤 *Canal:* ${canal}
@@ -84,7 +85,6 @@ const handler = async (m, { text, conn }) => {
 🔗 *Link:* ${url}
 `.trim();
 
-    console.log('DEBUG: Enviando información del video.');
     await conn.sendMessage(m.chat, {
       text: info,
       contextInfo: {
@@ -101,53 +101,41 @@ const handler = async (m, { text, conn }) => {
       }
     }, { quoted: m });
 
-    const downloadServersToTry = Object.keys(DOWNLOAD_APIS);
+    // --- Download Attempt Loop ---
     let downloadUrl = null;
-
-    console.log('DEBUG: Iniciando intento de descarga.');
-    for (const serverKey of downloadServersToTry) {
-      const currentDownloadUrlBase = DOWNLOAD_APIS[serverKey];
+    for (const downloadServer of DOWNLOAD_APIS) {
       try {
-        console.log(`DEBUG: Intentando descargar de un servidor de descarga.`);
-        const res = await fetch(currentDownloadUrlBase + encodeURIComponent(url));
+        const res = await fetch(downloadServer.url + encodeURIComponent(url));
 
         if (!res.ok) {
-          console.error(`DEBUG: Un servidor de descarga falló con estado: ${res.status}`);
-          continue;
+          // console.error(`DEBUG: Un servidor de descarga falló con estado: ${res.status}`); // For debugging
+          continue; // Try next server
         }
 
         const json = await res.json();
-        console.log(`DEBUG: Respuesta JSON del servidor de descarga:`, json); // Añadido para ver el JSON completo
         downloadUrl = json.download_url || json.result?.url || json.url || json.data?.url;
 
         if (downloadUrl) {
-          console.log(`DEBUG: URL de descarga obtenida con éxito: ${downloadUrl}`);
-          break;
-        } else {
-          console.warn(`DEBUG: No se encontró una URL de descarga válida en la respuesta de un servidor.`);
+          break; // Found a URL, exit loop
         }
       } catch (e) {
-        console.error(`DEBUG: Error al descargar de un servidor:`, e);
+        // console.error(`DEBUG: Error al intentar descargar de un servidor:`, e); // For debugging
       }
     }
 
     if (!downloadUrl) {
-      console.log('DEBUG: No se pudo obtener el enlace de descarga de ningún servidor.');
       return conn.reply(m.chat, '🚫 *No se pudo obtener el enlace de descarga del video desde ningún servidor disponible.*', m);
     }
 
-    console.log('DEBUG: Intentando enviar el video.');
+    // --- Send the video ---
     await conn.sendMessage(m.chat, {
       video: { url: downloadUrl },
       fileName: `${title}.mp4`,
       mimetype: 'video/mp4'
     }, { quoted: m });
-    console.log('DEBUG: Video enviado con éxito.');
 
   } catch (e) {
-    console.error("DEBUG: ❌ Error en play2 (catch principal):", e);
-    // Asegúrate de que este console.error siempre se muestre.
-    // Si incluso esto no aparece, el problema es más fundamental (ej. el entorno de ejecución).
+    console.error("❌ Error en play2:", e);
     return conn.reply(m.chat, `❌ *Ocurrió un error inesperado al procesar el video.*\n${e.message || e}`, m);
   }
 };
