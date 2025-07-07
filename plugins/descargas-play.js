@@ -21,31 +21,29 @@ const handler = async (m, { conn, args, command, usedPrefix }) => {
         previewType: 0,
         mediaUrl: "https://youtube.com",
         sourceUrl: "https://youtube.com",
-        thumbnailUrl: "https://qu.ax/GoxWU.jpg", // Imagen personalizada
+        thumbnailUrl: "https://qu.ax/GoxWU.jpg",
         renderLargerThumbnail: true
       }
     }
   }, { quoted: m });
 
   try {
-    // 1) Buscar en la API Dorratz
+    // 1) Buscar link de YouTube para mostrar usando API Dorratz
     const searchRes = await fetch(`https://api.dorratz.com/v3/yt-search?query=${encodeURIComponent(text)}`);
     const searchJson = await searchRes.json();
 
-    if (!searchJson || !searchJson.data || searchJson.data.length === 0) {
-      return conn.reply(m.chat, `❌ *No encontré resultados en YouTube para:* "${text}"`, m);
+    let videoUrl = "https://youtube.com"; // fallback por si no hay resultado
+    if (searchJson && searchJson.data && searchJson.data.length > 0) {
+      const video = searchJson.data[0];
+      videoUrl = `https://youtu.be/${video.videoId}`;
     }
 
-    // Usamos el primer video
-    const video = searchJson.data[0];
-    const videoUrl = `https://youtu.be/${video.videoId}`;
-
-    // 2) Pedimos la descarga del audio a tu API actual usando el URL real
-    const downloadRes = await fetch(`https://api.nekorinn.my.id/downloader/spotifyplay?q=${encodeURIComponent(videoUrl)}`);
+    // 2) Usar la API original con el texto de búsqueda para descargar info y audio
+    const downloadRes = await fetch(`https://api.nekorinn.my.id/downloader/spotifyplay?q=${encodeURIComponent(text)}`);
     const downloadJson = await downloadRes.json();
 
     if (!downloadJson.status || !downloadJson.result?.downloadUrl) {
-      return conn.reply(m.chat, `❌ *No pude descargar el audio para:* "${videoUrl}"`, m);
+      return conn.reply(m.chat, `❌ *No pude descargar el audio para:* "${text}"`, m);
     }
 
     const { title, artist, duration, cover } = downloadJson.result.metadata;
