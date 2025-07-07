@@ -1,5 +1,4 @@
 import fetch from "node-fetch";
-import yts from "yt-search";
 
 const handler = async (m, { conn, text }) => {
   if (!text.trim()) {
@@ -7,121 +6,68 @@ const handler = async (m, { conn, text }) => {
   }
 
   try {
-    // 🕒 Espera visual con miniatura de Shizuka
+    // 🎶 Animación inicial
     await conn.sendMessage(m.chat, {
-      text: `⌛ *Espera un momento...*\nShizuka está buscando tu melodía entre las estrellas 🌌`,
+      text: `🎧 *Buscando en Spotify...*\nShizuka está explorando nuevas vibras para ti 🌐`,
       contextInfo: {
         externalAdReply: {
-          title: "Buscando tu canción...",
-          body: "🎧 Afinando la frecuencia musical",
+          title: "Explorando Spotify",
+          body: "🎼 Encontrando tu ritmo",
           mediaType: 1,
           previewType: 0,
-          mediaUrl: "https://youtube.com",
-          sourceUrl: "https://youtube.com",
+          mediaUrl: "https://open.spotify.com",
+          sourceUrl: "https://open.spotify.com",
           thumbnailUrl: "https://raw.githubusercontent.com/Kone457/Nexus/refs/heads/main/Shizuka.jpg",
           renderLargerThumbnail: true,
         },
       },
     }, { quoted: m });
 
-    // 🔎 Búsqueda en YouTube
-    const search = await yts(text);
-    const video = search?.videos?.[0];
-    if (!video) return conn.reply(m.chat, `❌ *No encontré resultados para:* "${text}"`, m);
+    // 🔎 Buscar canción en Spotify
+    const search = await fetch(`https://api.dorratz.com/spotifysearch?query=${encodeURIComponent(text)}`);
+    const result = await search.json();
+    const track = result?.data?.[0];
 
-    const { title, thumbnail, timestamp, views, ago, url, author } = video;
-    const canal = author?.name || "Desconocido";
+    if (!track) return conn.reply(m.chat, `❌ *No se encontró nada en Spotify con:* "${text}"`, m);
 
-    // 🎼 Detalles del video
-    const info = `
-🎶 *${title}*
-👤 *Canal:* ${canal}
-📊 *Vistas:* ${formatViews(views)}
-⏱️ *Duración:* ${timestamp}
-📆 *Publicado:* ${ago}
-🔗 *Link:* ${url}
-
-✨ Quédate cerca... Shizuka está preparando tu audio 🎧
-`.trim();
-
-    const thumb = (await conn.getFile(thumbnail))?.data;
+    const { title, artists, url: trackUrl, image } = track;
+    const artist = artists?.join(", ") || "Desconocido";
 
     await conn.sendMessage(m.chat, {
-      text: info,
+      text: `🎶 *${title}*\n👤 *Artista:* ${artist}\n🔗 *Link:* ${trackUrl}\n\n🎧 Preparando el MP3...`,
       contextInfo: {
         externalAdReply: {
-          title: "🎵 Shizuka Music",
-          body: "Descargando tu MP3 con estilo",
+          title: title,
+          body: `🎤 ${artist}`,
           mediaType: 1,
           previewType: 0,
-          mediaUrl: url,
-          sourceUrl: url,
-          thumbnail: thumb,
+          mediaUrl: trackUrl,
+          sourceUrl: trackUrl,
+          thumbnailUrl: image,
           renderLargerThumbnail: true,
         },
       },
     }, { quoted: m });
 
-    // 🚀 Buscar MP3 en cascada
-    const audio = await intentarDescargaDesdeApis(url);
-    if (!audio) throw new Error("Ninguna API respondió correctamente.");
+    // 🎵 Descargar desde la API de descarga
+    const dl = await fetch(`https://api.dorratz.com/spotifydl?url=${encodeURIComponent(trackUrl)}`);
+    const json = await dl.json();
+
+    if (!json?.url) throw new Error("No se pudo descargar el MP3 desde Spotify.");
 
     await conn.sendMessage(m.chat, {
-      audio: { url: audio.url },
+      audio: { url: json.url },
       fileName: `${title}.mp3`,
       mimetype: "audio/mpeg"
     }, { quoted: m });
 
   } catch (err) {
-    console.error("🎧 Error en /play:", err);
-    return conn.reply(m.chat, `❌ *No se pudo obtener el audio.*\n🔧 ${err}`, m);
+    console.error("🎧 Error con Spotify:", err);
+    conn.reply(m.chat, `❌ *Error al obtener el audio desde Spotify.*\n🔧 ${err}`, m);
   }
 };
 
 handler.command = /^play$/i;
 handler.tags = ["descargas"];
-handler.help = ["play <nombre o link de video>"];
+handler.help = ["play <nombre o artista>"];
 export default handler;
-
-// 🎚️ Fallback de descarga MP3 por múltiples APIs
-async function intentarDescargaDesdeApis(videoUrl) {
-  const apis = [
-    (url) => `https://api.vreden.my.id/api/ytplaymp3?query=${encodeURIComponent(url)}`,
-    (url) => `https://delirius-apiofc.vercel.app/download/ytmp3?url=${encodeURIComponent(url)}`,
-    (url) => `https://api.starlights.uk/api/downloader/youtube?url=${encodeURIComponent(url)}`,
-    (url) => `https://apis-starlights-team.koyeb.app/starlight/youtube-mp3?url=${encodeURIComponent(url)}`,
-    (url) => `https://api.lolhuman.xyz/api/ytaudio?apikey=b8d3bec7f13fa5231ba88431&url=${encodeURIComponent(url)}`,
-    (url) => `https://api.ryzumi.vip/api/downloader/ytmp3?url=${encodeURIComponent(url)}`,
-  ];
-
-  for (const construir of apis) {
-    try {
-      const res = await fetch(construir(videoUrl));
-      const json = await res.json();
-
-      const enlace =
-        json?.result?.download?.url ||
-        json?.result?.link ||
-        json?.result?.url ||
-        json?.url ||
-        json?.data?.url;
-
-      if (enlace && enlace.startsWith("http")) {
-        return { url: enlace };
-      }
-    } catch (e) {
-      console.warn("⚠️ API sin respuesta, probando otra...");
-    }
-  }
-
-  return null;
-}
-
-// 📈 Formatear vistas
-function formatViews(views) {
-  if (!views) return "0";
-  if (views >= 1e9) return (views / 1e9).toFixed(1) + "B";
-  if (views >= 1e6) return (views / 1e6).toFixed(1) + "M";
-  if (views >= 1e3) return (views / 1e3).toFixed(1) + "k";
-  return views.toString();
-}
