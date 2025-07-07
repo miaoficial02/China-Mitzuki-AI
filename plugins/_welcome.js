@@ -54,22 +54,22 @@ ${global.welcom1}
     )
   }
 
-  // Mensaje de DESPEDIDA (miembro salió)
+  // Mensaje de DESPEDIDA (estilo oscuro mejorado)
   if (chat.welcome && (m.messageStubType == 28 || m.messageStubType == 32)) {
     const mention = m.messageStubParameters[0].split('@')[0]
     const bye = `
-❀ *Adiós* de ${groupMetadata.subject}
-✰ @${mention}
+☠️ *▄︻デ══━💀 @${mention}...*  
+*Target eliminated. Connection terminated.*
 
 ${global.welcom2}
 
-✦ Ahora somos ${groupSize} miembros
-•(=^●ω●^=)• *Te esperamos pronto!*
-> Usa *${usedPrefix}help* para ver comandos`.trim()
+✦ ${groupSize} surviving units
+*The hunt continues...*
+> We'll reclaim your data 💾`.trim()
     
     await conn.sendMini(
       m.chat, 
-      'ゲ◜៹ Bye Member ៹◞ゲ',
+      'ﮩ٨ـﮩﮩ٨ــ𝙑𝙞𝙘𝙩𝙞𝙢 �𝙚𝙧𝙙𝙞𝙙𝙖ﮩ٨ـﮩﮩ٨ــ',
       dev, 
       bye, 
       img, 
