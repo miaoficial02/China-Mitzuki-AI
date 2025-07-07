@@ -1,56 +1,25 @@
-import { createHash } from 'crypto';
+import QRCode from 'qrcode';
 
-const handler = async (m, { conn, text, usedPrefix, command, isOwner }) => {
-    if (!isOwner) {
-        return m.reply('🚫 *Acceso denegado*: Este comando solo puede ser usado por el owner del bot');
+const handler = async (m, { args, usedPrefix, command }) => {
+    const texto = args.join(' ');
+    if (!texto) {
+        return m.reply(`📌 *Uso correcto:*\n${usedPrefix + command} <texto o URL>\n\nEjemplo:\n${usedPrefix + command} https://tubot.com/panel`);
     }
-
-    if (!text) {
-        return m.reply(`📌 *Uso correcto:*\n${usedPrefix + command} <mensaje>\n\nEjemplo:\n${usedPrefix + command} Anuncio importante: Mantenimiento mañana a las 10:00 AM`);
-    }
-
-    // ⚠️ Usa el JID exacto del canal obtenido desde conn.chats
-    const channelID = '120363400241973967@newsletter'; // ← confirma que este sea el real
 
     try {
-        // Enviar mensaje enriquecido al canal
-        await conn.sendMessage(channelID, {
-            text: text,
-            contextInfo: {
-                isForwarded: true,
-                forwardingScore: 999,
-                mentionedJid: [conn.user.jid],
-                externalAdReply: {
-                    title: '📢 Anuncio Oficial',
-                    body: `Publicado por ${await conn.getName(conn.user.jid)}`,
-                    thumbnailUrl: 'https://qu.ax/GoxWU.jpg',
-                    mediaType: 1,
-                    renderLargerThumbnail: true,
-                    sourceUrl: 'https://whatsapp.com/channel/0029VbAVMtj2f3EFmXmrzt0v'
-                }
-            }
-        });
-
-        // Confirmación interactiva al owner
+        const qr = await QRCode.toBuffer(texto, { type: 'png' });
         await conn.sendMessage(m.chat, {
-            text: `✅ *Mensaje enviado exitosamente al canal*`,
-            footer: '📝 Contenido: ' + text,
-            buttons: [
-                { buttonId: 'menu', buttonText: { displayText: '📋 Menú' }, type: 1 },
-                { buttonId: 'estado', buttonText: { displayText: '📈 Estado' }, type: 1 }
-            ],
-            headerType: 1
+            image: qr,
+            caption: `🔲 *Código QR generado para:*\n${texto}`
         }, { quoted: m });
-
-    } catch (error) {
-        console.error('❌ Error al enviar al canal:', error);
-        await m.reply('❌ *Ocurrió un error al enviar el mensaje al canal*. Puede que el canal no acepte mensajes directos o que el JID esté incorrecto.');
+    } catch (err) {
+        console.error('❌ Error al generar QR:', err);
+        await m.reply('❌ *Hubo un error generando el código QR.* Asegúrate de que el texto sea válido.');
     }
 };
 
-handler.help = ['enviarcanal <mensaje>'];
-handler.tags = ['owner'];
-handler.command = ['enviarcanal', 'sendchannel', 'canal'];
-handler.owner = true;
+handler.help = ['qr <texto o URL>'];
+handler.tags = ['tools', 'util'];
+handler.command = ['qr', 'qrcode', 'generarqr'];
 
 export default handler;
