@@ -10,21 +10,9 @@ const handler = async (m, { conn, args, command, usedPrefix }) => {
     );
   }
 
-  // Mensaje de búsqueda tipo YouTube
+  // Mensaje de búsqueda (opcional: puedes quitar esto si aún te da problemas de preview)
   await conn.sendMessage(m.chat, {
-    text: `🔎 *Buscando en YouTube...*\n🎬 Espera mientras encuentro la canción *${text}*`,
-    contextInfo: {
-      externalAdReply: {
-        title: "YouTube Music 🔴",
-        body: "Buscando el video musical...",
-        mediaType: 1,
-        previewType: 0,
-        mediaUrl: "https://youtube.com",
-        sourceUrl: "https://youtube.com",
-        // NO USAMOS thumbnailUrl para evitar duplicación visual
-        renderLargerThumbnail: false
-      }
-    }
+    text: `🔎 *Buscando en YouTube...*\n🎬 Espera mientras encuentro la canción *${text}*`
   }, { quoted: m });
 
   try {
@@ -47,25 +35,13 @@ const handler = async (m, { conn, args, command, usedPrefix }) => {
 ✅ Audio listo. ¡Disfrútalo! 🔊
 `.trim();
 
-    // Enviar solo una imagen con detalles
+    // ✅ Enviar portada con detalles, sin externalAdReply
     await conn.sendMessage(m.chat, {
       image: { url: cover },
-      caption: caption,
-      contextInfo: {
-        externalAdReply: {
-          title: title,
-          body: `📺 ${artist} - YouTube`,
-          mediaType: 1,
-          previewType: 0,
-          mediaUrl: "https://youtube.com",
-          sourceUrl: "https://youtube.com",
-          // SIN thumbnailUrl aquí
-          renderLargerThumbnail: true
-        }
-      }
+      caption: caption
     }, { quoted: m });
 
-    // Enviar el audio MP3
+    // 🎧 Enviar el audio MP3
     await conn.sendMessage(m.chat, {
       audio: { url: audio },
       fileName: `${title}.mp3`,
