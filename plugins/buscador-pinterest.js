@@ -83,7 +83,7 @@ const pinterest = async (m, { conn, text, usedPrefix, command }) => {
         await sendAlbumMessage(m.chat, images, { caption, quoted: m });
 
         await m.react('✅');
-        await conn.reply(m.chat, `✨ *Listo.* Aquí están las imágenes de **"${text}"**. ¿Te gustaría buscar otra cosa o ver más resultados?`, m);
+        await conn.reply(m.chat, `✨ *Listo.* Aquí están las imágenes de *"${text}"*. ¿Te gustaría buscar otra cosa o ver más resultados?`, m);
 
     } catch (error) {
         console.error(error);
