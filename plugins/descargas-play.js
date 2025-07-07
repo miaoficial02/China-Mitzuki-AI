@@ -10,7 +10,7 @@ const handler = async (m, { conn, args, command, usedPrefix }) => {
     );
   }
 
-  // ✅ Mensaje inicial con miniatura personalizada
+  // Mensaje inicial con miniatura personalizada
   await conn.sendMessage(m.chat, {
     text: `🔎 *Buscando en YouTube...*\n🎬 Espera mientras encuentro la canción *${text}*`,
     contextInfo: {
@@ -21,39 +21,52 @@ const handler = async (m, { conn, args, command, usedPrefix }) => {
         previewType: 0,
         mediaUrl: "https://youtube.com",
         sourceUrl: "https://youtube.com",
-        thumbnailUrl: "https://qu.ax/GoxWU.jpg", // Tu miniatura personalizada
+        thumbnailUrl: "https://qu.ax/GoxWU.jpg", // Imagen personalizada
         renderLargerThumbnail: true
       }
     }
   }, { quoted: m });
 
   try {
-    const res = await fetch(`https://api.nekorinn.my.id/downloader/spotifyplay?q=${encodeURIComponent(text)}`);
-    const json = await res.json();
+    // 1) Buscar en la API Dorratz
+    const searchRes = await fetch(`https://api.dorratz.com/v3/yt-search?query=${encodeURIComponent(text)}`);
+    const searchJson = await searchRes.json();
 
-    if (!json.status || !json.result?.downloadUrl) {
+    if (!searchJson || !searchJson.data || searchJson.data.length === 0) {
       return conn.reply(m.chat, `❌ *No encontré resultados en YouTube para:* "${text}"`, m);
     }
 
-    const { title, artist, duration, cover } = json.result.metadata;
-    const audio = json.result.downloadUrl;
+    // Usamos el primer video
+    const video = searchJson.data[0];
+    const videoUrl = `https://youtu.be/${video.videoId}`;
+
+    // 2) Pedimos la descarga del audio a tu API actual usando el URL real
+    const downloadRes = await fetch(`https://api.nekorinn.my.id/downloader/spotifyplay?q=${encodeURIComponent(videoUrl)}`);
+    const downloadJson = await downloadRes.json();
+
+    if (!downloadJson.status || !downloadJson.result?.downloadUrl) {
+      return conn.reply(m.chat, `❌ *No pude descargar el audio para:* "${videoUrl}"`, m);
+    }
+
+    const { title, artist, duration, cover } = downloadJson.result.metadata;
+    const audio = downloadJson.result.downloadUrl;
 
     const caption = `
 🎶 *${title}*
 📺 *Canal:* ${artist}
 ⏱️ *Duración:* ${duration}
-🔗 *YouTube:* https://youtube.com
+🔗 *YouTube:* ${videoUrl}
 
 ✅ Audio listo. ¡Disfrútalo! 🔊
 `.trim();
 
-    // ✅ Enviar la portada del video (solo una imagen)
+    // Enviar portada (solo una imagen)
     await conn.sendMessage(m.chat, {
       image: { url: cover },
       caption: caption
     }, { quoted: m });
 
-    // 🎵 Enviar el audio
+    // Enviar audio mp3
     await conn.sendMessage(m.chat, {
       audio: { url: audio },
       fileName: `${title}.mp3`,
