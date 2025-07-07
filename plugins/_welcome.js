@@ -39,8 +39,8 @@ export async function before(m, { conn, participants, groupMetadata }) {
 ${global.welcom1}
 
 ✦ Ahora son ${groupSize} presas
-🩸 *Sobrevivan mientras puedan!*
-> "Hoy caerá tu sangre"`.trim()
+ *Sobrevivan mientras puedan!*
+> Hoy caerá tu sangre 🩸`.trim()
     
     await conn.sendMini(
       m.chat, 
