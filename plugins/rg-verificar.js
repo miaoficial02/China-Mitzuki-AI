@@ -43,7 +43,7 @@ let handler = async function (m, { conn, text, args, usedPrefix, command }) {
 
     let sn = createHash('md5').update(m.sender).digest('hex')
     let regbot = `╔═━──══━────────━══──━═╗
-║    *Registrado por NagiBot*
+║    *Registrado por Shizuka*
 ╚═━──══━────────━══──━═╝\n`
 regbot += `✦✧─────┈┈ ♡ ┈┈─────✧✦\n`
 regbot += `*「 」Nombre:* ${name}\n`
