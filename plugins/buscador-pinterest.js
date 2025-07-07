@@ -43,7 +43,7 @@ async function sendAlbumMessage(jid, medias, options = {}) {
 
 const pinterest = async (m, { conn, text, usedPrefix, command }) => {
     if (!text) {
-        return conn.reply(m.chat, `❀ *¿Qué estás buscando?* Ingresa una palabra clave para buscar imágenes en Pinterest.`, m);
+        return conn.reply(m.chat, ` *¿Qué estás buscando?* Ingresa una palabra clave para buscar imágenes en Pinterest.`, m);
     }
 
     await m.react('🕒');
