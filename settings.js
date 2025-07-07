@@ -81,7 +81,7 @@ global.welcom2 = `
 ✖️ Relaciones: *purged*  
 ✖️ Recuerdos: *corrupted*
 
-**☠️ Advertencia para los sobrevivientes:**  
+*☠️ Advertencia para los sobrevivientes:* 
 > *"No preguntéis por ello... o seréis el próximo."*`
 
 global.banner = 'https://raw.githubusercontent.com/Kone457/Nexus/refs/heads/main/Shizuka.jpg'
