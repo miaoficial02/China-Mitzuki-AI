@@ -1,53 +1,59 @@
-const handler = async (m, { conn, text, isGroup, isAdmin, isBotAdmin }) => {
+const handler = async (m, { conn, mentionedJid, text, isGroup, isAdmin, isBotAdmin }) => {
   if (!isGroup && !m.chat.endsWith('@g.us'))
-    return conn.reply(m.chat, '👥 *Este hechizo solo se puede usar en grupos.*', m);
+    return conn.reply(m.chat, '👥 *Este comando solo se puede usar en grupos.*', m);
   if (!isAdmin)
-    return conn.reply(m.chat, '🧙‍♂️ *Solo los administradores pueden invocar este hechizo.*', m);
+    return conn.reply(m.chat, '🧙‍♂️ *Solo los depredadores alfa pueden iniciar la cacería.*', m);
   if (!isBotAdmin)
-    return conn.reply(m.chat, '⚠️ *Necesito ser admin para desterrar a alguien.*', m);
+    return conn.reply(m.chat, '⚠️ *Necesito ser admin para dar el zarpazo final.*', m);
 
-  const userId = m.mentionedJid?.[0] ||
-                 (text ? text.replace(/[^0-9]/g, '') + '@s.whatsapp.net' : null);
+  const target = mentionedJid?.[0] || (text ? text.replace(/[^0-9]/g, '') + '@s.whatsapp.net' : null);
+  if (!target)
+    return conn.reply(m.chat, '📌 *Debes mencionar a la presa a cazar.*\nEj: `.presa @usuario` o `.presa 52123456789`', m);
+  if (target === conn.user.jid)
+    return conn.reply(m.chat, '😼 *¿A mí? Soy la bestia detrás de la jauría.*', m);
+  if (target === m.sender)
+    return conn.reply(m.chat, '😵 *¿Vas a cazarte a ti mismo? Esa locura no es táctica.*', m);
 
-  if (!userId)
-    return conn.reply(m.chat, '📌 *Menciona a alguien o escribe su número para lanzar el hechizo.*\nEjemplo: `.hechizo @usuario` o `.hechizo 52123456789`', m);
-
-  if (userId === conn.user.jid)
-    return conn.reply(m.chat, '😏 *¿Hechizarme a mí? Te falta nivel.*', m);
-  if (userId === m.sender)
-    return conn.reply(m.chat, '🫣 *¿Hechizarte a ti mismo? Oscura tentación... pero no.*', m);
-
-  const pasos = [
-    '🪄 *Shizuka susurra entre planos...*',
-    '📜 Desplegando grimorio etéreo...',
-    '🌫️ La atmósfera vibra con energía contenida...',
-    '🔮 El sello ancestral comienza a formarse...',
-    '⛓️ Coordenadas astrales fijadas...',
-    '🧿 Destino de @user entrelazado...',
-    '⚡ Canalizando poder desde la aurora digital...',
-    '💣 *¡DESTIERRO INMINENTE!*',
-    '🌪️ La esencia se disuelve en el viento...',
-    '🫥 *Aquí no ha pasado nada...*'
+  const secuencia = [
+    '🐾 *Las sombras se agitan en silencio...*',
+    '🌑 Los depredadores despiertan...',
+    '👁️‍🗨️ El rastro de @user ha sido detectado...',
+    '👣 Olfateando huellas frescas...',
+    '🌫️ Acechando entre la niebla...',
+    '🔪 Afilando las garras digitales...',
+    '🕯️ Círculo de cerco cerrado...',
+    '📡 Coordenadas fijadas sobre @user...',
+    '🔥 La manada se lanza al ataque...',
+    '🩸 *¡Captura ejecutada!*',
+    '🚷 La presa ha sido desterrada del territorio...',
+    '🌌 *El rastro se desvanece. Aquí no hay nada.*'
   ];
 
-  for (let i = 0; i < pasos.length; i++) {
-    const txt = pasos[i].replace('@user', '@' + userId.split('@')[0]);
-    await conn.sendMessage(m.chat, { text: txt, mentions: [userId] }, { quoted: m });
-    await new Promise(r => setTimeout(r, 700 + i * 80));
+  for (let i = 0; i < secuencia.length - 2; i++) {
+    const txt = secuencia[i].replace('@user', '@' + target.split('@')[0]);
+    await conn.sendMessage(m.chat, { text: txt, mentions: [target] }, { quoted: m });
+    await new Promise(r => setTimeout(r, 650 + i * 80));
   }
 
+  // Zarpazo final
   try {
-    await conn.groupParticipantsUpdate(m.chat, [userId], 'remove');
+    await conn.groupParticipantsUpdate(m.chat, [target], 'remove');
   } catch {
-    await conn.reply(m.chat, '🚫 *El hechizo falló. Puede que el objetivo ya no esté, o que mis poderes estén limitados.*', m);
+    return conn.reply(m.chat, '🚫 *No pudimos atrapar a la presa. Tal vez se escurrió...*', m);
   }
+
+  // Cierre teatral después del kick
+  await new Promise(r => setTimeout(r, 600));
+  await conn.sendMessage(m.chat, { text: secuencia[secuencia.length - 2], mentions: [target] }, { quoted: m });
+  await new Promise(r => setTimeout(r, 400));
+  await conn.sendMessage(m.chat, { text: secuencia[secuencia.length - 1] }, { quoted: m });
 };
 
-handler.command = /^hechizo$/i;
+handler.command = /^presa$/i;
 handler.group = true;
 handler.admin = true;
 handler.botAdmin = true;
-handler.tags = ['diversión', 'grupo'];
-handler.help = ['hechizo @usuario | número'];
+handler.tags = ['grupo', 'diversión'];
+handler.help = ['presa @usuario'];
 
 export default handler;
