@@ -27,7 +27,7 @@ const handler = async (m, { conn, text, usedPrefix, command, isOwner }) => {
                     externalAdReply: {
                         title: '📢 Anuncio Oficial',
                         body: `Publicado por ${conn.getName(conn.user.jid)}`,
-                        thumbnailUrl: 'https://telegra.ph/file/6543d1b4c0f6e50a61d0a.jpg',
+                        thumbnailUrl: https://qu.ax/GoxWU.jpg',
                         mediaType: 1,
                         sourceUrl: 'https://chat.whatsapp.com/...'
                     }
