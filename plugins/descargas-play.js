@@ -10,18 +10,18 @@ const handler = async (m, { conn, args, command, usedPrefix }) => {
     );
   }
 
-  // ✅ Mensaje de búsqueda con miniatura tipo YouTube
+  // ✅ Mensaje inicial con miniatura personalizada
   await conn.sendMessage(m.chat, {
     text: `🔎 *Buscando en YouTube...*\n🎬 Espera mientras encuentro la canción *${text}*`,
     contextInfo: {
       externalAdReply: {
-        title: "🔍 YouTube Music",
-        body: "Procesando tu búsqueda musical...",
+        title: "🎧 YouTube Music",
+        body: "Explorando el universo musical...",
         mediaType: 1,
         previewType: 0,
         mediaUrl: "https://youtube.com",
         sourceUrl: "https://youtube.com",
-        thumbnailUrl: "https://i.ytimg.com/vi/RgKAFK5djSk/maxresdefault.jpg", // Imagen de espera
+        thumbnailUrl: "https://qu.ax/GoxWU.jpg", // Tu miniatura personalizada
         renderLargerThumbnail: true
       }
     }
@@ -47,13 +47,13 @@ const handler = async (m, { conn, args, command, usedPrefix }) => {
 ✅ Audio listo. ¡Disfrútalo! 🔊
 `.trim();
 
-    // ✅ Solo imagen con caption (sin miniatura extra)
+    // ✅ Enviar la portada del video (solo una imagen)
     await conn.sendMessage(m.chat, {
       image: { url: cover },
       caption: caption
     }, { quoted: m });
 
-    // 🎧 Audio
+    // 🎵 Enviar el audio
     await conn.sendMessage(m.chat, {
       audio: { url: audio },
       fileName: `${title}.mp3`,
