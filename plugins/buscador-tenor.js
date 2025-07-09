@@ -58,5 +58,5 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
   }
 };
 
-handler.command = ['shtenor', 'tenor', 'tenorsearch'];
+handler.command = ['shstenor', 'tenor', 'tenorsearch'];
 export default handler;
