@@ -5,10 +5,12 @@
   🔗 GitHub:     https://github.com/Kone457/Shizuka-AI
 ───────────────────────────────────────*/
 
-import { sticker } from '../lib/sticker.js'
+
+      import { sticker } from '../lib/sticker.js'
 import uploadFile from '../lib/uploadFile.js'
 import uploadImage from '../lib/uploadImage.js'
 import { webp2png } from '../lib/webp2mp4.js'
+import fetch from 'node-fetch'
 
 let handler = async (m, { conn, args }) => {
   let stiker = false
@@ -55,7 +57,8 @@ let handler = async (m, { conn, args }) => {
     console.error(e)
   } finally {
     if (stiker) {
-      await conn.sendFile(m.chat, stiker, 'sticker.webp', '', m)
+      const thumbnailBuffer = await (await fetch('https://qu.ax/phgPU.jpg')).buffer()
+      await conn.sendFile(m.chat, stiker, 'sticker.webp', '', m, { thumbnail: thumbnailBuffer })
     } else {
       return m.reply('💌 Aún no he podido generar tu sticker. Intenta nuevamente con una imagen o video.')
     }
