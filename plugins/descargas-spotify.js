@@ -1,7 +1,8 @@
 import fetch from 'node-fetch';
+import { writeFileSync } from 'fs';
 
 let handler = async (m, { conn, text, usedPrefix, command }) => {
-  const thumbnailCard = 'https://qu.ax/phgPU.jpg'; // Miniatura fija para la tarjeta
+  const thumbnailCard = 'https://qu.ax/phgPU.jpg';
 
   if (!text || !text.includes('spotify.com/track')) {
     return conn.sendMessage(m.chat, {
@@ -16,6 +17,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
         }
       }
     }, { quoted: m });
+    return;
   }
 
   try {
@@ -28,19 +30,13 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
       return m.reply('❌ No se pudo obtener información del track. Verifica el enlace.');
     }
 
-    const caption = `
-🎵 *${track.title}*
-👤 Artista: ${track.artists}
-📀 Tipo: ${track.type}
-📅 Lanzamiento: ${track.release'}
-🔗 [Descargar MP3](${track.music})
-`;
+    const mp3Res = await fetch(track.music);
+    const buffer = await mp3Res.buffer();
 
     await conn.sendMessage(m.chat, {
       image: { url: track.cover || thumbnailCard },
-      caption,
-      footer: '🎧 Info obtenida vía Vreden API',
-      // Nota: esta sección ya no interfiere con la imagen
+      caption: `🎵 *${track.title}*\n👤 Artista: ${track.artists}\n📀 Tipo: ${track.type}\n📅 Lanzamiento: ${track.releaseDate || 'No disponible'}\n🎧 Enviando audio...`,
+      footer: '🎶 Info obtenida vía Vreden API',
       contextInfo: {
         externalAdReply: {
           title: track.title,
@@ -51,10 +47,15 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
       }
     }, { quoted: m });
 
+    await conn.sendMessage(m.chat, {
+      audio: buffer,
+      mimetype: 'audio/mpeg',
+      fileName: `${track.title}.mp3`
+    }, { quoted: m });
+
   } catch (error) {
-    console.error('💥 Error al obtener info:', error);
-    m.reply(`⚠️ Ocurrió un error al recuperar el track.\n📛 Detalles: ${error.message}`);
-    m.react('🛠️');
+    console.error(error);
+    m.reply(`💥 Error al enviar la música.\n📛 Detalles: ${error.message}`);
   }
 };
 
