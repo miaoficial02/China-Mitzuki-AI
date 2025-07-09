@@ -12,7 +12,7 @@ import { webp2png } from '../lib/webp2mp4.js'
 
 let handler = async (m, { conn, args }) => {
   let stiker = false
-  const thumbnailCard = 'https://qu.ax/phgPU.jpg' // Miniatura fija tipo tarjeta
+  const thumbnailCard = 'https://qu.ax/phgPU.jpg' // Miniatura usada en la tarjeta
 
   try {
     const q = m.quoted ? m.quoted : m
@@ -71,7 +71,18 @@ let handler = async (m, { conn, args }) => {
 
       await conn.sendFile(m.chat, stiker, 'sticker.webp', '', m)
     } else {
-      return m.reply('💌 Aún no he podido generar tu sticker. Intenta nuevamente con una imagen o video.')
+      await conn.sendMessage(m.chat, {
+        text: '💌 Aún no he podido generar tu sticker. Intenta nuevamente con una imagen o video.',
+        footer: '🎨 Generador automático de stickers',
+        contextInfo: {
+          externalAdReply: {
+            title: 'No se pudo generar el sticker',
+            body: 'Envíame una imagen o video para convertir',
+            thumbnailUrl: thumbnailCard,
+            sourceUrl: thumbnailCard
+          }
+        }
+      }, { quoted: m })
     }
   }
 }
