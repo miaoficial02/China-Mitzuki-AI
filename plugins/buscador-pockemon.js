@@ -51,5 +51,5 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
   }
 };
 
-handler.command = ['pokecardsearch', 'cartapokemon', 'pokecard'];
+handler.command = ['pokemon', 'cartapokemon', 'pokecard'];
 export default handler;
