@@ -67,5 +67,5 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
   }
 };
 
-handler.command = ['wabotsearch', 'dorratzbot', 'whatsappbot'];
+handler.command = ['botcode', 'dorratzbot', 'whatsappbot'];
 export default handler;
