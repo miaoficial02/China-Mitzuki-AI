@@ -12,7 +12,7 @@ import { webp2png } from '../lib/webp2mp4.js'
 
 let handler = async (m, { conn, args }) => {
   let stiker = false
-  const thumbnailCard = 'https://qu.ax/phgPU.jpg' // Miniatura tipo tarjeta
+  const thumbnailCard = 'https://qu.ax/phgPU.jpg' // Miniatura fija tipo tarjeta
 
   try {
     const q = m.quoted ? m.quoted : m
@@ -20,12 +20,12 @@ let handler = async (m, { conn, args }) => {
 
     if (/webp|image|video/g.test(mime)) {
       if (/video/.test(mime) && (q.msg || q).seconds > 15) {
-        return m.reply('⏱️ El video no puede superar los 15 segundos.')
+        return m.reply('⏱️ El video no puede superar los 15 segundos. Intenta con algo más corto.')
       }
 
       const media = await q.download?.()
       if (!media) {
-        return m.reply('🖼️ Necesito una imagen, video o sticker para convertirlo.')
+        return m.reply('🖼️ Necesito una imagen, video o sticker para convertirlo. ¡Envíame algo bonito!')
       }
 
       let out
@@ -49,20 +49,20 @@ let handler = async (m, { conn, args }) => {
       if (isUrl(args[0])) {
         stiker = await sticker(false, args[0], texto1, texto2)
       } else {
-        return m.reply('🔗 Enlace inválido. Usa .jpg, .png o .gif.')
+        return m.reply('🔗 El enlace no parece válido. Asegúrate de que termine en .jpg, .png o .gif.')
       }
     }
   } catch (e) {
     console.error(e)
   } finally {
     if (stiker) {
-      conn.sendMessage(m.chat, {
+      await conn.sendMessage(m.chat, {
         text: '🎁 Tu sticker está listo 🎉',
-        footer: '✨ Personalización automática por el sistema de stickers',
+        footer: '✨ Generado con estilo personalizado',
         contextInfo: {
           externalAdReply: {
-            title: 'Sticker generado con estilo',
-            body: 'Pulsa para ver la imagen base',
+            title: 'Sticker convertido',
+            body: 'Vista previa de la imagen base',
             thumbnailUrl: thumbnailCard,
             sourceUrl: args[0] || thumbnailCard
           }
@@ -71,7 +71,7 @@ let handler = async (m, { conn, args }) => {
 
       await conn.sendFile(m.chat, stiker, 'sticker.webp', '', m)
     } else {
-      return m.reply('💌 No pude generar el sticker. Intenta con otra imagen.')
+      return m.reply('💌 Aún no he podido generar tu sticker. Intenta nuevamente con una imagen o video.')
     }
   }
 }
