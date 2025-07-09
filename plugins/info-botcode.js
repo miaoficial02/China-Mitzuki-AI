@@ -1,9 +1,10 @@
-// 🌐 𝗕𝘂𝘀𝗰𝗮𝗱𝗼𝗿 𝗱𝗲 𝗥𝗲𝗽𝗼𝘀𝗶𝘁𝗼𝗿𝗶𝗼𝘀 𝗱𝗲 𝗪𝗵𝗮𝘁𝘀𝗔𝗽𝗽 𝗕𝗼𝘁 𝗽𝗼𝗿 𝗗𝗼𝗿𝗿𝗮𝘁𝘇
+// 🌐 𝗕𝘂𝘀𝗰𝗮𝗱𝗼𝗿 𝗱𝗲 𝗪𝗵𝗮𝘁𝘀𝗔𝗽𝗽 𝗕𝗼𝘁𝘀 𝗽𝗼𝗿 𝗗𝗼𝗿𝗿𝗮𝘁𝘇
 
 import fetch from 'node-fetch';
 
 let handler = async (m, { conn, text, usedPrefix, command }) => {
-  const thumbnail = 'https://qu.ax/phgPU.jpg';
+  const thumbnailCard = 'https://qu.ax/phgPU.jpg'; // Miniatura de la tarjeta
+  const mainImage = 'https://qu.ax/POPBx.jpg';     // Imagen principal del mensaje
 
   if (!text) {
     return conn.sendMessage(m.chat, {
@@ -13,7 +14,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
         externalAdReply: {
           title: 'Buscador de Repositorios',
           body: 'WhatsApp Bots y más desde GitHub',
-          thumbnailUrl: thumbnail,
+          thumbnailUrl: thumbnailCard,
           sourceUrl: 'https://api.dorratz.com'
         }
       }
@@ -30,8 +31,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
       return m.reply('❌ No se encontraron resultados para: ' + text);
     }
 
-    let result = repos[0]; // Puedes mostrar más con botones o navegación
-
+    let result = repos[0];
     let repoName = result.repo?.repository?.name || 'Sin nombre';
     let owner = result.repo?.repository?.owner_login || 'Desconocido';
     let updated = result.repo?.repository?.updated_at?.slice(0, 10) || 'Sin fecha';
@@ -47,14 +47,14 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 `.trim();
 
     conn.sendMessage(m.chat, {
-      image: { url: thumbnail },
+      image: { url: mainImage },
       caption,
       footer: '🚀 Repositorio encontrado vía Dorratz API',
       contextInfo: {
         externalAdReply: {
           title: repoName,
           body: `${owner} • ${followers} followers`,
-          thumbnailUrl: thumbnail,
+          thumbnailUrl: thumbnailCard,
           sourceUrl: link
         }
       }
