@@ -4,7 +4,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
   const thumbnailCard = 'https://qu.ax/phgPU.jpg';
 
   if (!text) {
-    return conn.sendMessage(m.chat, {
+    await conn.sendMessage(m.chat, {
       text: `🔎 *Escribe el nombre de un video para buscar en YouTube.*\nEjemplo:\n${usedPrefix + command} DJ Ambatukam`,
       footer: '📺 Búsqueda vía Vreden API',
       contextInfo: {
@@ -18,6 +18,20 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
     }, { quoted: m });
     return;
   }
+
+  // Mensaje de espera visual 🕓
+  await conn.sendMessage(m.chat, {
+    text: '⏳ *Procesando tu búsqueda...*\n🔍 Por favor espera mientras se obtiene el video.',
+    footer: '🧩 Vreden está preparando tu contenido',
+    contextInfo: {
+      externalAdReply: {
+        title: 'Buscando en YouTube...',
+        body: 'Esto puede tardar unos segundos',
+        thumbnailUrl: thumbnailCard,
+        sourceUrl: 'https://api.vreden.my.id'
+      }
+    }
+  }, { quoted: m });
 
   try {
     const searchRes = await fetch(`https://api.vreden.my.id/api/yts?query=${encodeURIComponent(text)}`);
@@ -39,12 +53,12 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
     }
 
     const caption = `
-📺 *${meta.title}*
+🎬 *${meta.title}*
 🎙️ Autor: ${meta.author.name}
+📅 Publicado: ${meta.ago}
 ⏱️ Duración: ${meta.duration.timestamp}
 👁️ Vistas: ${meta.views.toLocaleString()}
-📝 Descripción: ${meta.description.slice(0, 200)}...
-`;
+📝 ${meta.description.slice(0, 160)}...`;
 
     await conn.sendMessage(m.chat, {
       image: { url: meta.thumbnail || thumbnailCard },
@@ -68,7 +82,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 
   } catch (error) {
     console.error('💥 Error en YouTube plugin:', error);
-    m.reply(`❌ Error al procesar tu búsqueda.\n📛 ${error.message}`);
+    m.reply(`❌ Ocurrió un error al procesar tu solicitud.\n📛 ${error.message}`);
   }
 };
 
