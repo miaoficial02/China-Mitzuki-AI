@@ -60,5 +60,5 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
   }
 };
 
-handler.command = ['steamsearch', 'gamefinder', 'juegosteam'];
+handler.command = ['steamsearch', 'steam', 'juegosteam'];
 export default handler;
