@@ -1,4 +1,4 @@
-// 🃏 Buscador de cartas Pokémon por Delirius API
+// 🃏 Buscador de Cartas Pokémon por Delirius API
 
 import fetch from 'node-fetch';
 
@@ -7,23 +7,24 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 
   if (!text) {
     return conn.sendMessage(m.chat, {
-      text: `🧃 *Escribe el nombre de una carta Pokémon para buscar.*\nEjemplo:\n${usedPrefix + command} Caterpie`,
-      footer: '🃏 Pokecard Finder por Delirius API',
+      text: `🎴 *Escribe el nombre de una carta Pokémon para buscar.*\nEjemplo:\n${usedPrefix + command} Caterpie`,
+      footer: '🧩 Pokecard Finder por Delirius API',
       contextInfo: {
         externalAdReply: {
           title: 'Buscador de Cartas Pokémon',
-          body: 'Explora cartas desde Pokecard',
+          body: 'Explora colecciones visuales desde Pokecard',
           thumbnailUrl: thumbnailCard,
           sourceUrl: 'https://pokemoncard.io'
         }
       }
     }, { quoted: m });
+    return;
   }
 
   try {
     let api = `https://delirius-apiofc.vercel.app/search/pokecard?text=${encodeURIComponent(text)}`;
     let res = await fetch(api);
-    let imageUrl = await res.text(); // La API devuelve directamente la URL de la imagen
+    let imageUrl = await res.text(); // Devuelve la URL de la carta directamente
 
     if (!imageUrl || !imageUrl.startsWith('http')) {
       return m.reply(`❌ No se encontró ninguna carta para: ${text}`);
@@ -31,12 +32,12 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 
     conn.sendMessage(m.chat, {
       image: { url: imageUrl },
-      caption: `🃏 *Carta Pokémon:* ${text}`,
-      footer: '🚀 Carta obtenida vía Delirius API',
+      caption: `🃏 *Carta Pokémon encontrada:*\n🔎 *Nombre:* ${text}`,
+      footer: '🚀 Obtenido vía Delirius API',
       contextInfo: {
         externalAdReply: {
           title: text,
-          body: 'Carta Pokémon',
+          body: 'Visualiza la carta Pokémon',
           thumbnailUrl: thumbnailCard,
           sourceUrl: imageUrl
         }
@@ -45,10 +46,10 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 
   } catch (error) {
     console.error(error);
-    m.reply(`❌ Error al obtener la carta.\nDetalles: ${error.message}`);
+    m.reply(`❌ Error al obtener la carta Pokémon.\n📛 Detalles: ${error.message}`);
     m.react('⚠️');
   }
 };
 
-handler.command = ['pokecardsearch', 'pokemoncard', 'cartapokemon'];
+handler.command = ['pokecardsearch', 'cartapokemon', 'pokecard'];
 export default handler;
