@@ -1,18 +1,18 @@
-// 🎞️ Buscador de GIFs Tenor con miniatura de tarjeta fija
+// 🎞️ Buscador de GIFs de Nayeon por Delirius API
 
 import fetch from 'node-fetch';
 
 let handler = async (m, { conn, text, usedPrefix, command }) => {
-  const thumbnailCard = 'https://qu.ax/phgPU.jpg'; // miniatura fija en tarjeta
-  
+  const thumbnailCard = 'https://qu.ax/phgPU.jpg'; // Miniatura fija en la tarjeta
+
   if (!text) {
     return conn.sendMessage(m.chat, {
-      text: `🎬 *Escribe una palabra clave para buscar GIFs.*\nEjemplo:\n${usedPrefix + command} rias gremory`,
-      footer: '🌀 Tenor Finder por Dorratz API',
+      text: `🎬 *Escribe una palabra clave para buscar GIFs de Nayeon.*\nEjemplo:\n${usedPrefix + command} nayeon`,
+      footer: '🌀 Tenor Finder por Delirius API',
       contextInfo: {
         externalAdReply: {
-          title: 'Tenor GIF Finder',
-          body: 'Busca animaciones con estilo',
+          title: 'Buscador de GIFs',
+          body: 'Explora animaciones con estilo',
           thumbnailUrl: thumbnailCard,
           sourceUrl: 'https://tenor.com'
         }
@@ -21,29 +21,32 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
   }
 
   try {
-    let api = `https://api.dorratz.com/v3/tenor?q=${encodeURIComponent(text)}&limit=20`;
+    let api = `https://delirius-apiofc.vercel.app/search/tenor?q=${encodeURIComponent(text)}`;
     let res = await fetch(api);
     let json = await res.json();
 
-    let results = json.resultados;
+    let results = json.data;
     if (!Array.isArray(results) || results.length === 0) {
       return m.reply(`❌ No se encontraron GIFs para: ${text}`);
     }
 
     let gif = results[0];
-    let gifLink = gif.Enlace || gif.enlace || 'https://tenor.com';
-    let altText = gif.alt || 'GIF de Tenor';
+    let caption = `
+🎀 *Descripción:* ${gif.title}
+📅 *Fecha:* ${gif.created}
+🔗 *Tenor:* ${gif.gif}
+`.trim();
 
     conn.sendMessage(m.chat, {
-      video: { url: gif.gif },
-      caption: `🎀 *Descripción:* ${altText}\n🔗 *Tenor:* ${gifLink}`,
-      footer: '🚀 GIF obtenido vía Dorratz API',
+      video: { url: gif.mp4 },
+      caption,
+      footer: '🚀 GIF obtenido vía Delirius API',
       contextInfo: {
         externalAdReply: {
           title: text,
-          body: altText,
+          body: gif.title,
           thumbnailUrl: thumbnailCard,
-          sourceUrl: gifLink
+          sourceUrl: gif.gif
         }
       }
     }, { quoted: m });
@@ -55,5 +58,5 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
   }
 };
 
-handler.command = ['tenorsearch', 'tenor', 'riasgif'];
+handler.command = ['shtenor', 'tenor', 'tenorsearch'];
 export default handler;
