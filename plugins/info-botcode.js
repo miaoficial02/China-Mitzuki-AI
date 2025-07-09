@@ -1,4 +1,4 @@
-// 🌐 𝗕𝘂𝘀𝗰𝗮𝗱𝗼𝗿 𝗱𝗲 𝗖𝗼́𝗱𝗶𝗴𝗼 𝗱𝗲 𝗪𝗵𝗮𝘁𝘀𝗔𝗽𝗽 𝗕𝗼𝘁
+// 🌐 𝗕𝘂𝘀𝗰𝗮𝗱𝗼𝗿 𝗱𝗲 𝗥𝗲𝗽𝗼𝘀𝗶𝘁𝗼𝗿𝗶𝗼𝘀 𝗱𝗲 𝗪𝗵𝗮𝘁𝘀𝗔𝗽𝗽 𝗕𝗼𝘁 𝗽𝗼𝗿 𝗗𝗼𝗿𝗿𝗮𝘁𝘇
 
 import fetch from 'node-fetch';
 
@@ -7,12 +7,12 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 
   if (!text) {
     return conn.sendMessage(m.chat, {
-      text: '🧃 *Ingresa una palabra clave para buscar código de bots de WhatsApp.*\nEjemplo:\n' + usedPrefix + command + ' index WhatsApp Bot',
-      footer: '🔎 GitHub Code Finder por Dorratz',
+      text: '🧃 *Escribe una palabra clave para buscar repositorios.*\nEjemplo:\n' + usedPrefix + command + ' index WhatsApp Bot',
+      footer: '🔎 GitHub Finder por Dorratz API',
       contextInfo: {
         externalAdReply: {
-          title: 'WhatsApp Bot Code Search',
-          body: 'Explora fragmentos de código en segundos',
+          title: 'Buscador de Repositorios',
+          body: 'WhatsApp Bots y más desde GitHub',
           thumbnailUrl: thumbnail,
           sourceUrl: 'https://api.dorratz.com'
         }
@@ -23,45 +23,49 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
   try {
     let api = `https://api.dorratz.com/v3/github-code?q=${encodeURIComponent(text)}`;
     let response = await fetch(api);
-    let json = await response.json();
+    let data = await response.json();
+    let repos = data.results?.payload?.results;
 
-    if (!json || !json.result || json.result.length === 0) {
-      return m.reply('❌ *No se encontraron resultados para:* ' + text);
+    if (!repos || repos.length === 0) {
+      return m.reply('❌ No se encontraron resultados para: ' + text);
     }
 
-    let result = json.result[0]; // Puedes hacer un bucle si quieres mostrar más
+    let result = repos[0]; // Puedes mostrar más con botones o navegación
+
+    let repoName = result.repo?.repository?.name || 'Sin nombre';
+    let owner = result.repo?.repository?.owner_login || 'Desconocido';
+    let updated = result.repo?.repository?.updated_at?.slice(0, 10) || 'Sin fecha';
+    let link = `https://github.com/${owner}/${repoName.replace(/blob-main-index\.js/g, '')}`;
+    let followers = result.followers ?? 0;
 
     let caption = `
-🧠 *Archivo:* ${result.file}
-📁 *Repositorio:* ${result.repo}
-👤 *Autor:* ${result.author}
-📜 *Fragmento:* 
-\`\`\`
-${result.code.slice(0, 300)}...
-\`\`\`
-🔗 *Link:* ${result.url}
+🧠 *Repositorio:* ${repoName}
+👤 *Owner:* ${owner}
+📅 *Última actualización:* ${updated}
+👥 *Followers:* ${followers}
+🔗 *GitHub:* ${link}
 `.trim();
 
     conn.sendMessage(m.chat, {
       image: { url: thumbnail },
       caption,
-      footer: '🚀 Código obtenido vía Dorratz API',
+      footer: '🚀 Repositorio encontrado vía Dorratz API',
       contextInfo: {
         externalAdReply: {
-          title: result.repo,
-          body: `${result.author} • ${result.file}`,
+          title: repoName,
+          body: `${owner} • ${followers} followers`,
           thumbnailUrl: thumbnail,
-          sourceUrl: result.url
+          sourceUrl: link
         }
       }
     }, { quoted: m });
 
   } catch (error) {
     console.error(error);
-    m.reply(`❌ *Error:* No se pudo obtener el código.\nIntenta con otra palabra clave o revisa la API.`);
+    m.reply(`❌ Error al obtener datos.\nDetalles: ${error.message}`);
     m.react('⚠️');
   }
 };
 
-handler.command = ['botcode', 'whatsappcode'];
+handler.command = ['wabotsearch', 'dorratzbot', 'whatsappbot'];
 export default handler;
