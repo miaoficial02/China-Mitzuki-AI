@@ -55,5 +55,5 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
   }
 };
 
-handler.command = ['tenorsearch', 'gifsearch', 'riasgif'];
+handler.command = ['tenorsearch', 'tenor', 'riasgif'];
 export default handler;
