@@ -2,10 +2,10 @@ import fetch from 'node-fetch';
 
 let handler = async (m, { conn, text, usedPrefix, command }) => {
   const thumbnailCard = 'https://qu.ax/phgPU.jpg';
-
+  
   if (!text) {
     return conn.sendMessage(m.chat, {
-      text: `🎵 *Proporcióname el nombre de la canción o el enlace de Spotify.*\nEjemplo:\n${usedPrefix + command} DJ Opus`,
+      text: `🎵 *Escribe el nombre de una canción o pega el enlace de Spotify.*\nEjemplo:\n${usedPrefix + command} DJ Opus`,
       footer: '🔍 Buscar y descargar vía Vreden API',
       contextInfo: {
         externalAdReply: {
@@ -18,19 +18,24 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
     }, { quoted: m });
   }
 
-  let trackUrl = text;
+  let trackUrl;
 
-  if (!text.includes('spotify.com/track')) {
-    // Buscar canción por nombre
+  // Detectar si es enlace válido de Spotify
+  const isSpotifyLink = text.includes('spotify.com/track');
+
+  if (isSpotifyLink) {
+    trackUrl = text.trim();
+  } else {
+    // Buscar por nombre
     const searchUrl = `https://api.vreden.my.id/api/spotifysearch?query=${encodeURIComponent(text)}`;
-    const res = await fetch(searchUrl);
-    const json = await res.json();
+    const searchRes = await fetch(searchUrl);
+    const searchJson = await searchRes.json();
 
-    if (!json?.result || json.result.length === 0) {
-      return m.reply('❌ No se encontró ninguna canción con ese nombre.');
+    if (!searchJson?.result || !searchJson.result[0]) {
+      return m.reply(`❌ No se encontró ninguna canción con el término: ${text}`);
     }
 
-    trackUrl = json.result[0].spotifyLink;
+    trackUrl = searchJson.result[0].spotifyLink;
   }
 
   try {
@@ -39,16 +44,17 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
     const track = trackData.result;
 
     if (!track?.status || !track.music) {
-      return m.reply('❌ No se pudo obtener información del track desde el enlace.');
+      return m.reply(`⚠️ No se pudo obtener datos válidos del track.`);
     }
 
-    const audioBuffer = await (await fetch(track.music)).buffer();
+    const audioRes = await fetch(track.music);
+    const audioBuffer = await audioRes.buffer();
 
-    // Enviar info visual
+    // Enviar información del track con imagen
     await conn.sendMessage(m.chat, {
       image: { url: track.cover || thumbnailCard },
       caption: `🎶 *${track.title}*\n👤 Artista: ${track.artists}\n📀 Tipo: ${track.type}\n📅 Lanzamiento: ${track.releaseDate || 'No disponible'}\n🎧 Enviando audio...`,
-      footerida vía Vreden API',
+      footer: '🟢 Extraído vía Vreden API',
       contextInfo: {
         externalAdReply: {
           title: track.title,
@@ -59,16 +65,16 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
       }
     }, { quoted: m });
 
-    // Enviar audio
+    // Enviar audio en formato MP3
     await conn.sendMessage(m.chat, {
       audio: audioBuffer,
       mimetype: 'audio/mpeg',
       fileName: `${track.title}.mp3`
     }, { quoted: m });
 
-  } catch (error) {
-    console.error('💥 Error al procesar:', error);
-    m.reply(`⚠️ Ocurrió un error.\n📛 Detalles: ${error.message}`);
+  } catch (err) {
+    console.error('❌ Error:', err);
+    m.reply(`💥 Ocurrió un error al procesar la solicitud.\n📛 ${err.message}`);
   }
 };
 
