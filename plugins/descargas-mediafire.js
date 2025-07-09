@@ -1,10 +1,12 @@
-// 📦 Descargador de MediaFire 
+// 📦 Descargador de MediaFire
 
 import fetch from 'node-fetch';
 
 let handler = async (m, { conn, text, usedPrefix, command }) => {
-  if (m._mediafireProcessed) return;
-  m._mediafireProcessed = true;
+  // 🛡️ Protección por ID único del mensaje
+  global._processedMessages ??= new Set();
+  if (global._processedMessages.has(m.key.id)) return;
+  global._processedMessages.add(m.key.id);
 
   const thumbnailCard = 'https://qu.ax/phgPU.jpg';
   const mainImage = 'https://qu.ax/AEkvz.jpg';
@@ -42,7 +44,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 🖥️ *Servidor:* ${file.server}
 `.trim();
 
-    // Mensaje 1: descripción con imagen personalizada
+    // 🖼️ Mensaje 1: descripción visual
     await conn.sendMessage(m.chat, {
       image: { url: mainImage },
       caption,
@@ -57,7 +59,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
       }
     }, { quoted: m });
 
-    // Mensaje 2: documento ZIP
+    // 📁 Mensaje 2: envío del archivo como documento ZIP
     await conn.sendMessage(m.chat, {
       document: {
         url: file.link,
@@ -74,5 +76,5 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
   }
 };
 
-handler.command = ['mf']; 
+handler.command = ['mf'];
 export default handler;
