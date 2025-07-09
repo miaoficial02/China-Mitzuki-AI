@@ -1,9 +1,10 @@
-// 📦 Descargador de MediaFire (descripción + archivo por separado)
+// 📦 Descargador de MediaFire 
 
 import fetch from 'node-fetch';
 
 let handler = async (m, { conn, text, usedPrefix, command }) => {
-  const thumbnailCard = 'https://qu.ax/phgPU.jpg';
+  const thumbnailCard = 'https://qu.ax/phgPU.jpg'; // Miniatura para tarjeta visual
+  const mainImage = 'https://qu.ax/AEkvz.jpg';     // Imagen principal del mensaje
 
   if (!text || !text.includes('mediafire.com')) {
     return conn.sendMessage(m.chat, {
@@ -36,12 +37,11 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 📁 *Tipo:* ${file.mime}
 📏 *Tamaño:* ${file.size}
 🖥️ *Servidor:* ${file.server}
-🔗 *Enlace directo:* ${file.link}
 `.trim();
 
-    // Mensaje 1: descripción del archivo
+    // Mensaje 1: descripción con imagen personalizada
     await conn.sendMessage(m.chat, {
-      image: { url: thumbnailCard },
+      image: { url: mainImage },
       caption,
       footer: '📦 Información del archivo vía Vreden API',
       contextInfo: {
@@ -56,9 +56,11 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 
     // Mensaje 2: archivo como documento
     await conn.sendMessage(m.chat, {
-      document: { url: file.link, fileName: decodeURIComponent(file.nama), mimetype: 'application/zip' },
-      mimetype: 'application/zip',
-      fileName: decodeURIComponent(file.nama),
+      document: {
+        url: file.link,
+        fileName: decodeURIComponent(file.nama),
+        mimetype: 'application/zip'
+      },
       caption: '📥 Archivo descargado desde MediaFire'
     }, { quoted: m });
 
@@ -69,5 +71,5 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
   }
 };
 
-handler.command = ['mediafiredl', 'mf', 'mediafire'];
+handler.command = ['mediafire', 'mf', 'descargarmf'];
 export default handler;
