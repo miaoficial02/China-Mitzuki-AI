@@ -2,7 +2,7 @@ import fetch from 'node-fetch';
 
 let handler = async (m, { conn, text, usedPrefix, command }) => {
   const thumbnailCard = 'https://qu.ax/phgPU.jpg';
-
+  
   if (!text) {
     return conn.sendMessage(m.chat, {
       text: `🎵 *Escribe el nombre de una canción o pega el enlace de Spotify.*\nEjemplo:\n${usedPrefix + command} DJ Opus`,
@@ -16,61 +16,45 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
         }
       }
     }, { quoted: m });
-    return;
   }
 
-  let trackUrl = text;
+  let trackUrl;
+
+  // Detectar si es enlace válido de Spotify
   const isSpotifyLink = text.includes('spotify.com/track');
 
-  if (!isSpotifyLink) {
-    try {
-      const searchUrl = `https://api.vreden.my.id/api/spotifysearch?query=${encodeURIComponent(text)}`;
-      const res = await fetch(searchUrl);
-      const json = await res.json();
-      const results = json?.result;
+  if (isSpotifyLink) {
+    trackUrl = text.trim();
+  } else {
+    // Buscar por nombre
+    const searchUrl = `https://api.vreden.my.id/api/spotifysearch?query=${encodeURIComponent(text)}`;
+    const searchRes = await fetch(searchUrl);
+    const searchJson = await searchRes.json();
 
-      if (!results || results.length === 0) {
-        return m.reply(`❌ No se encontró ninguna canción para: ${text}`);
-      }
-
-      let found = false;
-
-      for (let i = 0; i < Math.min(results.length, 5); i++) {
-        const candidateLink = results[i]?.spotifyLink;
-        const apiUrl = `https://api.vreden.my.id/api/spotify?url=${encodeURIComponent(candidateLink)}`;
-        const info = await fetch(apiUrl);
-        const jsonTrack = await info.json();
-
-        if (jsonTrack?.result?.status && jsonTrack?.result?.music) {
-          trackUrl = candidateLink;
-          found = true;
-          break;
-        }
-      }
-
-      if (!found) return m.reply(`⚠️ No se pudo obtener información válida de ninguno de los resultados para "${text}". Intenta con otro término.`);
-
-    } catch (error) {
-      console.error('🎯 Error durante la búsqueda:', error);
-      return m.reply(`❌ Error al buscar el término: ${text}\n📛 ${error.message}`);
+    if (!searchJson?.result || !searchJson.result[0]) {
+      return m.reply(`❌ No se encontró ninguna canción con el término: ${text}`);
     }
+
+    trackUrl = searchJson.result[0].spotifyLink;
   }
 
   try {
-    const res = await fetch(`https://api.vreden.my.id/api/spotify?url=${encodeURIComponent(trackUrl)}`);
-    const trackData = await res.json();
+    const infoRes = await fetch(`https://api.vreden.my.id/api/spotify?url=${encodeURIComponent(trackUrl)}`);
+    const trackData = await infoRes.json();
     const track = trackData.result;
 
-    if (!track?.status || !track?.music) {
-      return m.reply(`❌ No se pudo obtener datos válidos del track desde el enlace: ${trackUrl}`);
+    if (!track?.status || !track.music) {
+      return m.reply(`⚠️ No se pudo obtener datos válidos del track.`);
     }
 
-    const buffer = await (await fetch(track.music)).buffer();
+    const audioRes = await fetch(track.music);
+    const audioBuffer = await audioRes.buffer();
 
+    // Enviar información del track con imagen
     await conn.sendMessage(m.chat, {
       image: { url: track.cover || thumbnailCard },
       caption: `🎶 *${track.title}*\n👤 Artista: ${track.artists}\n📀 Tipo: ${track.type}\n📅 Lanzamiento: ${track.releaseDate || 'No disponible'}\n🎧 Enviando audio...`,
-      footer: '🎵 Extraído vía Vreden API',
+      footer: '🟢 Extraído vía Vreden API',
       contextInfo: {
         externalAdReply: {
           title: track.title,
@@ -81,17 +65,18 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
       }
     }, { quoted: m });
 
+    // Enviar audio en formato MP3
     await conn.sendMessage(m.chat, {
-      audio: buffer,
+      audio: audioBuffer,
       mimetype: 'audio/mpeg',
       fileName: `${track.title}.mp3`
     }, { quoted: m });
 
   } catch (err) {
-    console.error('💥 Error final:', err);
-    m.reply(`⚠️ Error al procesar la canción.\n📛 ${err.message}`);
+    console.error('❌ Error:', err);
+    m.reply(`💥 Ocurrió un error al procesar la solicitud.\n📛 ${err.message}`);
   }
 };
 
-handler.command = ['spotify', 'trackvreden', 'buscaspotify', 'songcard'];
+handler.command = ['spotify', 'trackvreden', 'songcard', 'buscaspotify'];
 export default handler;
