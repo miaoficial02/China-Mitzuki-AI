@@ -23,17 +23,18 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
   }
 
   try {
-    let api = `https://api.vreden.my.id/api/mediafiredl?url=${encodeURIComponent(text)}`;
-    let res = await fetch(api);
-    let json = await res.json();
+    const api = `https://api.vreden.my.id/api/mediafiredl?url=${encodeURIComponent(text)}`;
+    const res = await fetch(api);
+    const json = await res.json();
 
-    let file = json.result?.[0];
+    const file = json.result?.[0];
     if (!file?.status || !file.link) {
-      return m.reply(`❌ No se pudo obtener el archivo desde MediaFire.`);
+      return m.reply('❌ No se pudo obtener el archivo desde MediaFire.');
     }
 
-    let caption = `
-📄 *Nombre:* ${decodeURIComponent(file.nama)}
+    const fileName = decodeURIComponent(file.nama);
+    const caption = `
+📄 *Nombre:* ${fileName}
 📁 *Tipo:* ${file.mime}
 📏 *Tamaño:* ${file.size}
 🖥️ *Servidor:* ${file.server}
@@ -46,7 +47,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
       footer: '📦 Información del archivo vía Vreden API',
       contextInfo: {
         externalAdReply: {
-          title: decodeURIComponent(file.nama),
+          title: fileName,
           body: `${file.size} • ${file.mime}`,
           thumbnailUrl: thumbnailCard,
           sourceUrl: file.link
@@ -58,7 +59,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
     await conn.sendMessage(m.chat, {
       document: {
         url: file.link,
-        fileName: decodeURIComponent(file.nama),
+        fileName,
         mimetype: 'application/zip'
       },
       caption: '📥 Archivo descargado desde MediaFire'
