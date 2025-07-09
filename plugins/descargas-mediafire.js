@@ -1,10 +1,9 @@
-
-// 📦 Descargador de MediaFire por Vreden API
+// 📦 Descargador de MediaFire (descripción + archivo por separado)
 
 import fetch from 'node-fetch';
 
 let handler = async (m, { conn, text, usedPrefix, command }) => {
-  const thumbnailCard = 'https://qu.ax/phgPU.jpg'; // Miniatura fija en la tarjeta
+  const thumbnailCard = 'https://qu.ax/phgPU.jpg';
 
   if (!text || !text.includes('mediafire.com')) {
     return conn.sendMessage(m.chat, {
@@ -19,6 +18,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
         }
       }
     }, { quoted: m });
+    return;
   }
 
   try {
@@ -32,16 +32,18 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
     }
 
     let caption = `
-📦 *Archivo:* ${decodeURIComponent(file.nama)}
+📄 *Nombre:* ${decodeURIComponent(file.nama)}
 📁 *Tipo:* ${file.mime}
 📏 *Tamaño:* ${file.size}
+🖥️ *Servidor:* ${file.server}
 🔗 *Enlace directo:* ${file.link}
 `.trim();
 
-    conn.sendMessage(m.chat, {
-      document: { url: file.link, fileName: decodeURIComponent(file.nama), mimetype: 'application/zip' },
+    // Mensaje 1: descripción del archivo
+    await conn.sendMessage(m.chat, {
+      image: { url: thumbnailCard },
       caption,
-      footer: '🚀 Archivo obtenido vía Vreden API',
+      footer: '📦 Información del archivo vía Vreden API',
       contextInfo: {
         externalAdReply: {
           title: decodeURIComponent(file.nama),
@@ -52,6 +54,14 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
       }
     }, { quoted: m });
 
+    // Mensaje 2: archivo como documento
+    await conn.sendMessage(m.chat, {
+      document: { url: file.link, fileName: decodeURIComponent(file.nama), mimetype: 'application/zip' },
+      mimetype: 'application/zip',
+      fileName: decodeURIComponent(file.nama),
+      caption: '📥 Archivo descargado desde MediaFire'
+    }, { quoted: m });
+
   } catch (error) {
     console.error(error);
     m.reply(`❌ Error al procesar el enlace.\n📛 Detalles: ${error.message}`);
@@ -59,5 +69,5 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
   }
 };
 
-handler.command = ['mediafiredl', 'mf', 'mefiafire'];
+handler.command = ['mediafiredl', 'mf', 'mediafire'];
 export default handler;
