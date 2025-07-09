@@ -5,15 +5,14 @@
   🔗 GitHub:     https://github.com/Kone457/Shizuka-AI
 ───────────────────────────────────────*/
 
-
-      import { sticker } from '../lib/sticker.js'
+import { sticker } from '../lib/sticker.js'
 import uploadFile from '../lib/uploadFile.js'
 import uploadImage from '../lib/uploadImage.js'
 import { webp2png } from '../lib/webp2mp4.js'
-import fetch from 'node-fetch'
 
 let handler = async (m, { conn, args }) => {
   let stiker = false
+  const thumbnailCard = 'https://qu.ax/phgPU.jpg' // Miniatura tipo tarjeta
 
   try {
     const q = m.quoted ? m.quoted : m
@@ -21,12 +20,12 @@ let handler = async (m, { conn, args }) => {
 
     if (/webp|image|video/g.test(mime)) {
       if (/video/.test(mime) && (q.msg || q).seconds > 15) {
-        return m.reply('⏱️ El video no puede superar los 15 segundos. Intenta con algo más corto.')
+        return m.reply('⏱️ El video no puede superar los 15 segundos.')
       }
 
       const media = await q.download?.()
       if (!media) {
-        return m.reply('🖼️ Necesito una imagen, video o sticker para convertirlo. ¡Envíame algo bonito!')
+        return m.reply('🖼️ Necesito una imagen, video o sticker para convertirlo.')
       }
 
       let out
@@ -48,19 +47,31 @@ let handler = async (m, { conn, args }) => {
 
     } else if (args[0]) {
       if (isUrl(args[0])) {
-        stiker = await sticker(false, args[0], global.packsticker, global.packsticker2)
+        stiker = await sticker(false, args[0], texto1, texto2)
       } else {
-        return m.reply('🔗 El enlace no parece válido. Asegúrate de que termine en .jpg, .png o .gif.')
+        return m.reply('🔗 Enlace inválido. Usa .jpg, .png o .gif.')
       }
     }
   } catch (e) {
     console.error(e)
   } finally {
     if (stiker) {
-      const thumbnailBuffer = await (await fetch('https://qu.ax/phgPU.jpg')).buffer()
-      await conn.sendFile(m.chat, stiker, 'sticker.webp', '', m, { thumbnail: thumbnailBuffer })
+      conn.sendMessage(m.chat, {
+        text: '🎁 Tu sticker está listo 🎉',
+        footer: '✨ Personalización automática por el sistema de stickers',
+        contextInfo: {
+          externalAdReply: {
+            title: 'Sticker generado con estilo',
+            body: 'Pulsa para ver la imagen base',
+            thumbnailUrl: thumbnailCard,
+            sourceUrl: args[0] || thumbnailCard
+          }
+        }
+      }, { quoted: m })
+
+      await conn.sendFile(m.chat, stiker, 'sticker.webp', '', m)
     } else {
-      return m.reply('💌 Aún no he podido generar tu sticker. Intenta nuevamente con una imagen o video.')
+      return m.reply('💌 No pude generar el sticker. Intenta con otra imagen.')
     }
   }
 }
