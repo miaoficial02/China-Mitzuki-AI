@@ -26,12 +26,11 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
     let data = await response.json();
     let gifs = data.resultados;
 
-    if (!gifs || gifs.length === 0) {
-      return m.reply('❌ No se encontraron GIFs para: ' + text);
+    if (!Array.isArray(gifs) || gifs.length === 0) {
+      return m.reply(`❌ No se encontraron GIFs para: ${text}`);
     }
 
-    let gif = gifs[0]; // Puedes hacer navegación con botones si quieres mostrar más
-
+    let gif = gifs[0];
     let caption = `
 🎀 *Descripción:* ${gif.alt}
 🔗 *Tenor:* ${gif.Enlace || gif.enlace}
