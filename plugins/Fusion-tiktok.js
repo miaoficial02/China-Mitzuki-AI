@@ -75,5 +75,5 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
   }
 };
 
-handler.command = ['tiktoksearch', 'tiktokdl', 'buscatiktok'];
+handler.command = ['tt2', 'tiktokdl', 'buscatiktok'];
 export default handler;
