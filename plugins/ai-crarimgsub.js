@@ -51,5 +51,5 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
   }
 };
 
-handler.command = ['underwatertext', 'textsubmarino', 'subtext'];
+handler.command = ['subtext', 'textsubmarino', 'subtext'];
 export default handler;
