@@ -1,16 +1,16 @@
-// 📦 Descargador de Mediafire 
+// 📦 Descargador de MediaFire 
 
 import fetch from 'node-fetch';
 
 let handler = async (m, { conn, text, usedPrefix, command }) => {
-  if (m._mediafireProcessed) return; // 🛡️ Evita mensajes duplicados
+  if (m._mediafireProcessed) return;
   m._mediafireProcessed = true;
 
-  const thumbnailCard = 'https://qu.ax/phgPU.jpg'; // Miniatura para tarjeta
-  const mainImage = 'https://qu.ax/AEkvz.jpg';     // Imagen principal del mensaje
+  const thumbnailCard = 'https://qu.ax/phgPU.jpg';
+  const mainImage = 'https://qu.ax/AEkvz.jpg';
 
   if (!text || !text.includes('mediafire.com')) {
-    return conn.sendMessage(m.chat, {
+    return await conn.sendMessage(m.chat, {
       text: `📥 *Proporciona un enlace válido de MediaFire para descargar.*\nEjemplo:\n${usedPrefix + command} https://www.mediafire.com/file/abc123/example.zip/file`,
       footer: '🔗 MediaFire Downloader por Vreden API',
       contextInfo: {
@@ -42,7 +42,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 🖥️ *Servidor:* ${file.server}
 `.trim();
 
-    // 🖼️ Mensaje 1: imagen con descripción
+    // Mensaje 1: descripción con imagen personalizada
     await conn.sendMessage(m.chat, {
       image: { url: mainImage },
       caption,
@@ -57,7 +57,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
       }
     }, { quoted: m });
 
-    // 📁 Mensaje 2: envío del archivo como documento ZIP
+    // Mensaje 2: documento ZIP
     await conn.sendMessage(m.chat, {
       document: {
         url: file.link,
@@ -74,5 +74,5 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
   }
 };
 
-handler.command = ['mf', 'mediafire'];
+handler.command = ['mf']; 
 export default handler;
