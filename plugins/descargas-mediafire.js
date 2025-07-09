@@ -1,19 +1,63 @@
-/*- `PLUGIN DOWNLOAD MEDIAFIRE`- By KenisawaDev*/
 
-import fetch from 'node-fetch'
+// 📦 Descargador de MediaFire por Vreden API
+
+import fetch from 'node-fetch';
 
 let handler = async (m, { conn, text, usedPrefix, command }) => {
-if (!text) throw m.reply(`Ingresa un link de mediafire\n*👻 Ejemplo:* ${usedPrefix}${command} https://www.mediafire.com/file/2v2x1p0x58qomva/WhatsApp_Messenger_2.24.21.8_beta_By_WhatsApp_LLC.apk/file`);
-conn.sendMessage(m.chat, { react: { text: "🕒", key: m.key } });
-	let ouh = await fetch(`https://api.agatz.xyz/api/mediafire?url=${text}`)
-  let gyh = await ouh.json()
-	await conn.sendFile(m.chat, gyh.data[0].link, `${gyh.data[0].nama}`, `*📝 Nombre:* ${gyh.data[0].nama}\n*🎮 Tamaño:* ${gyh.data[0].size}\n*💾 Extensión:* ${gyh.data[0].mime}\n> 𓆪͟͞blackclover⚔️`, m)
-	await conn.sendMessage(m.chat, { react: { text: '✅', key: m.key }})
-}
-handler.help = ['mediafire']
-handler.tags = ['descargas']
-handler.command ='mediafire' , /^(mediafire|mf)$/i
-handler.premium = false
-handler.dragones = 1
-handler.register = true
-export default handler
+  const thumbnailCard = 'https://qu.ax/phgPU.jpg'; // Miniatura fija en la tarjeta
+
+  if (!text || !text.includes('mediafire.com')) {
+    return conn.sendMessage(m.chat, {
+      text: `📥 *Proporciona un enlace válido de MediaFire para descargar.*\nEjemplo:\n${usedPrefix + command} https://www.mediafire.com/file/abc123/example.zip/file`,
+      footer: '🔗 MediaFire Downloader por Vreden API',
+      contextInfo: {
+        externalAdReply: {
+          title: 'Descarga directa desde MediaFire',
+          body: 'Convierte enlaces en descargas instantáneas',
+          thumbnailUrl: thumbnailCard,
+          sourceUrl: 'https://mediafire.com'
+        }
+      }
+    }, { quoted: m });
+  }
+
+  try {
+    let api = `https://api.vreden.my.id/api/mediafiredl?url=${encodeURIComponent(text)}`;
+    let res = await fetch(api);
+    let json = await res.json();
+
+    let file = json.result?.[0];
+    if (!file?.status || !file.link) {
+      return m.reply(`❌ No se pudo obtener el archivo desde MediaFire.`);
+    }
+
+    let caption = `
+📦 *Archivo:* ${decodeURIComponent(file.nama)}
+📁 *Tipo:* ${file.mime}
+📏 *Tamaño:* ${file.size}
+🔗 *Enlace directo:* ${file.link}
+`.trim();
+
+    conn.sendMessage(m.chat, {
+      document: { url: file.link, fileName: decodeURIComponent(file.nama), mimetype: 'application/zip' },
+      caption,
+      footer: '🚀 Archivo obtenido vía Vreden API',
+      contextInfo: {
+        externalAdReply: {
+          title: decodeURIComponent(file.nama),
+          body: `${file.size} • ${file.mime}`,
+          thumbnailUrl: thumbnailCard,
+          sourceUrl: file.link
+        }
+      }
+    }, { quoted: m });
+
+  } catch (error) {
+    console.error(error);
+    m.reply(`❌ Error al procesar el enlace.\n📛 Detalles: ${error.message}`);
+    m.react('⚠️');
+  }
+};
+
+handler.command = ['mediafiredl', 'mf', 'mefiafire'];
+export default handler;
