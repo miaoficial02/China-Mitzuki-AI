@@ -25,28 +25,28 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
     let res = await fetch(api);
     let json = await res.json();
 
-    let games = json.datos;
+    let games = json.data;
     if (!Array.isArray(games) || games.length === 0) {
       return m.reply(`❌ No se encontraron juegos para: ${text}`);
     }
 
     let game = games[0];
     let caption = `
-🎮 *Título:* ${game.título}
-📅 *Lanzamiento:* ${game.release_date}
-💰 *Precio:* ${game.precio}
+🎮 *Título:* ${game.title}
+📅 *Lanzamiento:* ${game.release_date || 'Sin fecha'}
+💰 *Precio:* ${game.price}
 ⭐ *Valoración:* ${game.rating}
 🔗 *Steam:* ${game.url}
 `.trim();
 
     conn.sendMessage(m.chat, {
-      image: { url: game.imagen },
+      image: { url: game.image },
       caption,
       footer: '🚀 Juego obtenido vía Delirius API',
       contextInfo: {
         externalAdReply: {
-          title: game.título,
-          body: `${game.precio} • ${game.rating}`,
+          title: game.title,
+          body: `${game.price} • ${game.rating}`,
           thumbnailUrl: thumbnailCard,
           sourceUrl: game.url
         }
@@ -60,5 +60,5 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
   }
 };
 
-handler.command = ['steamsearch', 'gamefinder', 'steam'];
+handler.command = ['steamsearch', 'gamefinder', 'juegosteam'];
 export default handler;
