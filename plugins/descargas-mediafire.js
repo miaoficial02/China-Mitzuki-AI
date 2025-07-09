@@ -1,9 +1,12 @@
-// 📦 Descargador de MediaFire 
+// 📦 Descargador de Mediafire 
 
 import fetch from 'node-fetch';
 
 let handler = async (m, { conn, text, usedPrefix, command }) => {
-  const thumbnailCard = 'https://qu.ax/phgPU.jpg'; // Miniatura para tarjeta visual
+  if (m._mediafireProcessed) return; // 🛡️ Evita mensajes duplicados
+  m._mediafireProcessed = true;
+
+  const thumbnailCard = 'https://qu.ax/phgPU.jpg'; // Miniatura para tarjeta
   const mainImage = 'https://qu.ax/AEkvz.jpg';     // Imagen principal del mensaje
 
   if (!text || !text.includes('mediafire.com')) {
@@ -19,7 +22,6 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
         }
       }
     }, { quoted: m });
-    return;
   }
 
   try {
@@ -40,7 +42,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 🖥️ *Servidor:* ${file.server}
 `.trim();
 
-    // Mensaje 1: descripción con imagen personalizada
+    // 🖼️ Mensaje 1: imagen con descripción
     await conn.sendMessage(m.chat, {
       image: { url: mainImage },
       caption,
@@ -55,7 +57,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
       }
     }, { quoted: m });
 
-    // Mensaje 2: archivo como documento
+    // 📁 Mensaje 2: envío del archivo como documento ZIP
     await conn.sendMessage(m.chat, {
       document: {
         url: file.link,
@@ -72,5 +74,5 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
   }
 };
 
-handler.command = ['mediafire', 'mf', 'descargarmf'];
+handler.command = ['mf', 'mediafire'];
 export default handler;
