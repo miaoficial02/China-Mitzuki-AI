@@ -1,17 +1,19 @@
 import fetch from 'node-fetch';
+import FormData from 'form-data';
 
-let handler = async (m, { conn, text, usedPrefix, command }) => {
-  const thumbnailCard = 'https://i.imgur.com/vj2fakm.jpeg'; // Imagen decorativa
-  const apiEndpoint = 'https://delirius-apiofc.vercel.app/tools/checknsfw?image=';
+let handler = async (m, { conn, args, usedPrefix, command }) => {
+  const thumbnailCard = 'https://i.imgur.com/vj2fakm.jpeg';
+  let imageUrl = args[0];
 
-  if (!text) {
+  // Validación básica
+  if (!imageUrl && !m.quoted?.mimetype?.startsWith('image')) {
     await conn.sendMessage(m.chat, {
-      text: `📸 *Envía la URL de una imagen para escanear contenido NSFW.*\nEjemplo:\n${usedPrefix + command} https://i.postimg.cc/3wkL5vtn/13.jpg`,
-      footer: '🕵️‍♂️ Escaneo vía Delirius API',
+      text: `📸 *Envía una imagen o URL para escanear contenido NSFW.*\nEjemplo:\n${usedPrefix + command} https://i.postimg.cc/3wkL5vtn/13.jpg`,
+      footer: '🕵️‍♂️ Detector vía Delirius API + Telegraph',
       contextInfo: {
         externalAdReply: {
-          title: 'Detector de contenido NSFW',
-          body: 'Comprueba imágenes antes de compartirlas',
+          title: 'Escaneo inteligente sin API key',
+          body: 'Detecta contenido sensible en imágenes',
           thumbnailUrl: thumbnailCard,
           sourceUrl: 'https://delirius-apiofc.vercel.app'
         }
@@ -21,40 +23,58 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
   }
 
   try {
-    const res = await fetch(`${apiEndpoint}${encodeURIComponent(text)}`);
-    const json = await res.json();
+    // Si la imagen fue enviada directamente
+    if (!imageUrl && m.quoted) {
+      const buffer = await conn.downloadMediaMessage(m.quoted);
+      const form = new FormData();
+      form.append('file', buffer, 'imagen.jpg');
+
+      const upload = await fetch('https://telegra.ph/upload', {
+        method: 'POST',
+        body: form
+      });
+
+      const resUpload = await upload.json();
+      if (!resUpload[0]?.src) throw new Error('No se pudo subir la imagen.');
+
+      imageUrl = 'https://telegra.ph' + resUpload[0].src;
+    }
+
+    // Escanear con Delirius API
+    const scan = await fetch(`https://delirius-apiofc.vercel.app/tools/checknsfw?image=${encodeURIComponent(imageUrl)}`);
+    const json = await scan.json();
     const result = json?.data;
 
     if (!json?.status || typeof result?.NSFW !== 'boolean') {
       return m.reply(`❌ No se pudo analizar la imagen.`);
     }
 
-    const statusIcon = result.NSFW ? '⚠️' : '✅';
-    const statusText = result.NSFW ? 'NSFW detectado' : 'Apta para todo público';
+    const icon = result.NSFW ? '⚠️' : '✅';
+    const estado = result.NSFW ? 'NSFW detectado' : 'Imagen segura';
 
     const caption = `
-${statusIcon} *Resultado: ${statusText}*
-📊 Probabilidad: ${result.percentage}
-🔒 Seguro: ${result.safe ? 'Sí' : 'No'}
+${icon} *Resultado:* ${estado}
+📊 *Probabilidad:* ${result.percentage}
+🔒 *Seguro:* ${result.safe ? 'Sí' : 'No'}
 📝 ${result.response}`;
 
     await conn.sendMessage(m.chat, {
-      image: { url: text },
+      image: { url: imageUrl },
       caption,
-      footer: '📷 Análisis vía Delirius API',
+      footer: '📷 Escaneo vía Delirius API',
       contextInfo: {
         externalAdReply: {
-          title: statusText,
+          title: estado,
           body: `Probabilidad NSFW: ${result.percentage}`,
-          thumbnailUrl: text,
+          thumbnailUrl: imageUrl,
           sourceUrl: 'https://delirius-apiofc.vercel.app'
         }
       }
     }, { quoted: m });
 
   } catch (error) {
-    console.error('💥 Error en NSFW checker plugin:', error);
-    m.reply(`❌ Ocurrió un error al analizar la imagen.\n📛 ${error.message}`);
+    console.error('💥 Error en plugin NSFW sin API key:', error);
+    m.reply(`❌ Hubo un problema con el análisis.\n📛 ${error.message}`);
   }
 };
 
