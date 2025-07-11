@@ -1,19 +1,19 @@
 import fetch from 'node-fetch';
 import FormData from 'form-data';
+import fs from 'fs';
 
 let handler = async (m, { conn, args, usedPrefix, command }) => {
   const thumbnailCard = 'https://i.imgur.com/vj2fakm.jpeg';
   let imageUrl = args[0];
 
-  // Verifica si se recibió imagen o URL
-  if (!imageUrl && !m.quoted?.mimetype?.includes('image')) {
+  if (!imageUrl && !(m.quoted && m.quoted.mimetype && m.quoted.mimetype.includes('image'))) {
     await conn.sendMessage(m.chat, {
       text: `📸 *Envía una imagen o una URL para escanear contenido NSFW.*\nEjemplo:\n${usedPrefix + command} https://i.postimg.cc/3wkL5vtn/13.jpg`,
       footer: '🕵️ Detector NSFW sin API key',
       contextInfo: {
         externalAdReply: {
-          title: 'Detector sin dependencias',
-          body: 'Funciona con Telegraph y Delirius',
+          title: 'Detector con Telegraph',
+          body: 'Sin claves ni permisos especiales',
           thumbnailUrl: thumbnailCard,
           sourceUrl: 'https://delirius-apiofc.vercel.app'
         }
@@ -23,22 +23,28 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
   }
 
   try {
-    // Si la imagen fue reenviada o respondida
-    if (!imageUrl && m.quoted?.mimetype.includes('image')) {
-      const buffer = await conn.getFile(m.quoted).then(res => res.data); // Usa getFile en lugar de downloadMediaMessage
+    // Si es imagen adjunta, se guarda localmente
+    if (!imageUrl && m.quoted && m.quoted.mimetype.includes('image')) {
+      const filePath = await conn.downloadAndSaveMediaMessage(m.quoted);
+      const buffer = fs.readFileSync(filePath);
+
       const form = new FormData();
-      form.append('file', buffer, 'image.jpg');
+      form.append('file', buffer, 'imagen.jpg');
 
-      const teleRes = await fetch('https://telegra.ph/upload', { method: 'POST', body: form });
-      const teleJson = await teleRes.json();
-      if (!teleJson[0]?.src) throw new Error('No se pudo subir la imagen.');
+      const upload = await fetch('https://telegra.ph/upload', {
+        method: 'POST',
+        body: form
+      });
 
-      imageUrl = 'https://telegra.ph' + teleJson[0].src;
+      const resultUpload = await upload.json();
+      if (!resultUpload[0]?.src) throw new Error('No se pudo subir la imagen.');
+
+      imageUrl = 'https://telegra.ph' + resultUpload[0].src;
+      fs.unlinkSync(filePath); // Limpia el archivo temporal
     }
 
-    // Escaneo con Delirius
-    const scan = await fetch(`https://delirius-apiofc.vercel.app/tools/checknsfw?image=${encodeURIComponent(imageUrl)}`);
-    const json = await scan.json();
+    const res = await fetch(`https://delirius-apiofc.vercel.app/tools/checknsfw?image=${encodeURIComponent(imageUrl)}`);
+    const json = await res.json();
     const result = json?.data;
 
     if (!json?.status || typeof result?.NSFW !== 'boolean') {
@@ -67,3 +73,12 @@ ${icon} *Resultado:* ${estado}
         }
       }
     }, { quoted: m });
+
+  } catch (error) {
+    console.error('💥 Error en NSFW plugin:', error);
+    m.reply(`❌ Ocurrió un error durante el análisis.\n📛 ${error.message}`);
+  }
+};
+
+handler.command = ['checknsfw', 'nsfwdetect', 'verificarimagen'];
+export default handler;
