@@ -1,7 +1,7 @@
 import fetch from 'node-fetch'
 
 let handler = async (m, { conn, text, usedPrefix, command }) => {
-  const thumbnailCard = 'https://qu.ax/phgPU.jpg' // Imagen personalizada
+  const thumbnailCard = 'https://qu.ax/phgPU.jpg'
   const apiUrl = 'https://api.diioffc.web.id/api/ai/bard?query='
 
   if (!text) {
@@ -23,8 +23,9 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
   try {
     const res = await fetch(`${apiUrl}${encodeURIComponent(text)}`)
     const json = await res.json()
+    const answer = json?.result || json?.data?.result || json?.data
 
-    if (!json?.status || !json?.result) {
+    if (!json?.status || typeof answer !== 'string') {
       await conn.sendMessage(m.chat, {
         text: `❌ No se pudo procesar la solicitud.\n📛 ${json?.message || 'Respuesta no disponible'}`,
         footer: '⚠️ Bard AI por DiiOffc',
@@ -41,7 +42,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
     }
 
     await conn.sendMessage(m.chat, {
-      text: `🧠 *Respuesta de Bard AI:*\n\n${json.result}`,
+      text: `🧠 *Respuesta de Bard AI:*\n\n${answer}`,
       footer: '📡 Generado vía DiiOffc',
       contextInfo: {
         externalAdReply: {
