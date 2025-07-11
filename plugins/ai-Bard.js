@@ -23,9 +23,17 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
   try {
     const res = await fetch(`${apiUrl}${encodeURIComponent(text)}`)
     const json = await res.json()
-    const answer = json?.result || json?.data?.result || json?.data
 
-    if (!json?.status || typeof answer !== 'string') {
+    // Intenta extraer contenido textual desde múltiples estructuras
+    const answer =
+      typeof json?.result === 'string' ? json.result :
+      typeof json?.data === 'string' ? json.data :
+      typeof json?.data?.result === 'string' ? json.data.result :
+      typeof json?.data?.text === 'string' ? json.data.text :
+      typeof json?.text === 'string' ? json.text :
+      null
+
+    if (!json?.status || !answer) {
       await conn.sendMessage(m.chat, {
         text: `❌ No se pudo procesar la solicitud.\n📛 ${json?.message || 'Respuesta no disponible'}`,
         footer: '⚠️ Bard AI por DiiOffc',
