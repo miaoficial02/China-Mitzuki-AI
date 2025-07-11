@@ -3,51 +3,53 @@ import uploadFile from '../lib/uploadFile.js'
 import uploadImage from '../lib/uploadImage.js'
 
 let handler = async (m, { conn }) => {
-  // Solo aplica en grupos y si el mensaje contiene una imagen
   if (!m.isGroup || !(m.mimetype || '').includes('image')) return
 
   try {
-    // Convertir imagen a enlace
     const media = await m.download()
     const isImage = /image\/(png|jpe?g|gif)/.test(m.mimetype)
     const link = await (isImage ? uploadImage : uploadFile)(media)
-
     if (!link) return
 
-    // Enviar a Delirius API
-    const res = await fetch(`https://delirius-apiofc.vercel.app/tools/checknsfw?image=${encodeURIComponent(link)}`)
-    const json = await res.json()
+    const scan = await fetch(`https://delirius-apiofc.vercel.app/tools/checknsfw?image=${encodeURIComponent(link)}`)
+    const json = await scan.json()
     const result = json?.data
 
     if (!json?.status || typeof result?.NSFW !== 'boolean') return
 
     if (result.NSFW) {
       const sender = m.sender
+      const nombre = await conn.getName(sender)
       const groupMetadata = await conn.groupMetadata(m.chat)
       const bot = groupMetadata.participants.find(p => p.id === conn.user.jid)
       const isBotAdmin = bot?.admin || bot?.admin === 'superadmin'
 
-      const nombre = await conn.getName(sender)
-
       if (isBotAdmin) {
         await m.reply(
-`⚠️ Imagen no permitida.
+`⚠️ *Contenido NSFW detectado.*
 
-🔎 Detectado contenido NSFW con una probabilidad de ${result.percentage}.
-📛 El usuario *${nombre}* será eliminado por violar las normas.`)
+Probabilidad: ${result.percentage}
+El usuario *${nombre}* ha violado las reglas.
+
+🚫 Se procederá a su eliminación del grupo.`)
 
         await conn.groupParticipantsUpdate(m.chat, [sender], 'remove')
       } else {
         await m.reply(
-`⚠️ Imagen inapropiada detectada.
+`⚠️ *Contenido NSFW detectado.*
 
-🔎 Probabilidad NSFW: ${result.percentage}
-❌ *${nombre}* ha incumplido las reglas del grupo, pero no tengo permisos para expulsar.`)
+Probabilidad: ${result.percentage}
+El usuario *${nombre}* ha violado las reglas, pero no tengo permisos de administrador para actuar.`)
       }
     }
   } catch (e) {
-    console.error('Error en moderación automática NSFW:', e)
+    console.error('⛔ Error moderando imagen NSFW:', e)
   }
 }
+
+// SIN comando — activa automáticamente ante imágenes
+handler.customPrefix = /^$/
+handler.before = handler
+handler.group = true
 
 export default handler
