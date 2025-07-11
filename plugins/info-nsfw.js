@@ -1,12 +1,11 @@
 import fetch from 'node-fetch'
 import uploadFile from '../lib/uploadFile.js'
 import uploadImage from '../lib/uploadImage.js'
-import FormData from 'form-data'
 
 let handler = async (m, { conn }) => {
   let q = m.quoted || m
   let mime = (q.msg || q).mimetype || ''
-  if (!mime) return conn.reply(m.chat, '🖼️ Responde a una *imagen* o *video* para analizar.', m)
+  if (!mime) return conn.reply(m.chat, '🖼️ Responde a una imagen o video para analizar.', m)
 
   await m.react('⏳')
 
@@ -19,39 +18,34 @@ let handler = async (m, { conn }) => {
     let short = await shortUrl(link)
     let buffer = await (await fetch(link)).buffer()
 
-    // Escaneo NSFW
     const res = await fetch(`https://delirius-apiofc.vercel.app/tools/checknsfw?image=${encodeURIComponent(link)}`)
     const json = await res.json()
     const result = json?.data
-
     if (!json?.status || typeof result?.NSFW !== 'boolean') {
-      return m.reply('❌ No se pudo analizar la imagen.')
+      return m.reply('No se pudo analizar la imagen.')
     }
 
     let icon = result.NSFW ? '⚠️' : '✅'
     let estado = result.NSFW ? 'NSFW detectado' : 'Imagen segura'
-    let txt = `乂 *A N Á L I S I S  -  N S F W* 乂\n\n`
-    txt += `🔗 *Enlace:* ${link}\n`
-    txt += `🔍 *Acortado:* ${short}\n`
-    txt += `📦 *Tamaño:* ${formatBytes(media.length)}\n`
-    txt += `🧠 *Estado:* ${estado}\n`
-    txt += `📊 *Probabilidad:* ${result.percentage}\n`
-    txt += `🔒 *Seguro:* ${result.safe ? 'Sí' : 'No'}\n`
-    txt += `📝 ${result.response}\n\n`
-   
 
-    await conn.sendFile(m.chat, buffer, 'thumb.jpg', txt, m)
+    let txt = `
+${icon} ${estado}
+🔗 ${short}
+📦 ${formatBytes(media.length)}
+📊 Probabilidad: ${result.percentage}
+🔒 Seguro: ${result.safe ? 'Sí' : 'No'}
+📝 ${result.response}`
+
+    await conn.sendFile(m.chat, buffer, 'imagen.jpg', txt, m)
     await m.react('✅')
 
   } catch (e) {
-    console.error('💥 Error en plugin fusionado:', e)
-    await m.reply(`❌ Error durante el análisis.\n📛 ${e.message}`)
+    console.error('⛔ Error en el análisis NSFW:', e)
+    await m.reply(`Error al analizar la imagen.\n${e.message}`)
     await m.react('❌')
   }
 }
 
-handler.help = ['nsfwcheck']
-handler.tags = ['herramientas']
 handler.command = ['nsfwcheck', 'analizar']
 export default handler
 
