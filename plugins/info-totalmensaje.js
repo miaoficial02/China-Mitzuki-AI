@@ -1,5 +1,5 @@
-const fs = require("fs");
-const path = require("path");
+import fs from "fs";
+import path from "path";
 
 const handler = async (msg, { conn }) => {
   const chatId = msg.key.remoteJid;
@@ -35,8 +35,8 @@ const handler = async (msg, { conn }) => {
   const groupName = metadata.subject || "Grupo";
 
   const usuariosOrdenados = Object.entries(groupData)
-    .sort(([, a], [, b]) => b - a) // Ordenar de mayor a menor
-    .slice(0, 30); // Top 30 máximo (o menos si quieres)
+    .sort(([, a], [, b]) => b - a)
+    .slice(0, 30);
 
   if (usuariosOrdenados.length === 0) {
     await conn.sendMessage(chatId, {
@@ -46,7 +46,6 @@ const handler = async (msg, { conn }) => {
   }
 
   let texto = `🏆 *Top de usuarios más activos en ${groupName}:*\n\n`;
-
   const menciones = [];
 
   for (let i = 0; i < usuariosOrdenados.length; i++) {
@@ -63,4 +62,4 @@ const handler = async (msg, { conn }) => {
 };
 
 handler.command = ["totalmensaje"];
-module.exports = handler;
+export default handler;
