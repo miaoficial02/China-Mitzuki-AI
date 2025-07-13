@@ -6,29 +6,28 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
   if (!text) {
     await conn.sendMessage(m.chat, {
       text: `🔎 *Escribe el nombre de un video para buscar en YouTube.*\nEjemplo:\n${usedPrefix + command} DJ Ambatukam`,
-      footer: '📺 Búsqueda vía Vreden API',
+      footer: '📺 Búsqueda vía Dorratz API',
       contextInfo: {
         externalAdReply: {
           title: 'YouTube Downloader',
           body: 'Busca y descarga videos en MP4',
           thumbnailUrl: thumbnailCard,
-          sourceUrl: 'https://api.vreden.my.id'
+          sourceUrl: 'https://api.dorratz.com'
         }
       }
     }, { quoted: m });
     return;
   }
 
-  // Mensaje de espera visual 🕓
   await conn.sendMessage(m.chat, {
     text: '⏳ *Procesando tu búsqueda...*\n🔍 Por favor espera mientras se obtiene el video.',
-    footer: '🧩 Vreden está preparando tu contenido',
+    footer: '🧩 Delirius está preparando tu contenido',
     contextInfo: {
       externalAdReply: {
         title: 'Buscando en YouTube...',
         body: 'Esto puede tardar unos segundos',
         thumbnailUrl: thumbnailCard,
-        sourceUrl: 'https://api.vreden.my.id'
+        sourceUrl: 'https://api.dorratz.com'
       }
     }
   }, { quoted: m });
@@ -36,17 +35,17 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
   try {
     const searchRes = await fetch(`https://api.dorratz.com/v3/yt-search?query=${encodeURIComponent(text)}`);
     const searchJson = await searchRes.json();
-    const videoList = searchJson?.result?.all;
+    const videoList = searchJson?.data || searchJson?.result?.all;
 
     if (!videoList || !videoList.length) {
       return m.reply(`❌ No se encontraron videos para el término: ${text}`);
     }
 
     const selected = videoList[0];
-    const downloadRes = await fetch(`https://hexagate.darkcore.xyz/api/ytmp4?key=darkmes&url=${encodeURIComponent(selected.url)}`);
+    const downloadRes = await fetch(`https://delirius-apiofc.vercel.app/download/ytmp4?url=${encodeURIComponent(selected.url)}`);
     const downloadJson = await downloadRes.json();
-    const meta = downloadJson?.result?.metadata;
-    const dl = downloadJson?.result?.download;
+    const meta = downloadJson?.data;
+    const dl = meta?.download;
 
     if (!downloadJson?.status || !dl?.url) {
       return m.reply(`⚠️ No se pudo obtener el enlace de descarga para: ${selected.title}`);
@@ -54,22 +53,25 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 
     const caption = `
 🎬 *${meta.title}*
-🎙️ Autor: ${meta.author.name}
-📅 Publicado: ${meta.ago}
-⏱️ Duración: ${meta.duration.timestamp}
-👁️ Vistas: ${meta.views.toLocaleString()}
-📝 ${meta.description.slice(0, 160)}...`;
+🎙️ Autor: ${meta.author}
+📁 Categoría: ${meta.category}
+⏱️ Duración: ${meta.duration}s
+👁️ Vistas: ${parseInt(meta.views).toLocaleString()}
+👍 Likes: ${parseInt(meta.likes).toLocaleString()}
+💬 Comentarios: ${parseInt(meta.comments).toLocaleString()}
+📥 Calidad: ${dl.quality} — ${dl.size}
+`;
 
     await conn.sendMessage(m.chat, {
-      image: { url: meta.thumbnail || thumbnailCard },
+      image: { url: meta.image_max_resolution || meta.image || thumbnailCard },
       caption,
-      footer: '🎥 Video obtenido vía Vreden API',
+      footer: '🎥 Video obtenido vía Delirius API',
       contextInfo: {
         externalAdReply: {
           title: meta.title,
           body: 'Click para ver o descargar en MP4',
-          thumbnailUrl: thumbnailCard,
-          sourceUrl: meta.url
+          thumbnailUrl: meta.image || thumbnailCard,
+          sourceUrl: selected.url
         }
       }
     }, { quoted: m });
