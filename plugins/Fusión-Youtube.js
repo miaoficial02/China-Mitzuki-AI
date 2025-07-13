@@ -43,7 +43,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
     }
 
     const selected = videoList[0];
-    const downloadRes = await fetch(`https://api.vreden.my.id/api/ytmp4?url=${encodeURIComponent(selected.url)}`);
+    const downloadRes = await fetch(`https://hexagate.darkcore.xyz/api/ytmp4?key=darkmes&url=${encodeURIComponent(selected.url)}`);
     const downloadJson = await downloadRes.json();
     const meta = downloadJson?.result?.metadata;
     const dl = downloadJson?.result?.download;
