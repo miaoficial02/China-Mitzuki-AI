@@ -21,7 +21,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 
   await conn.sendMessage(m.chat, {
     text: '⏳ *Procesando tu búsqueda...*\n🔍 Por favor espera mientras se obtiene el video.',
-    footer: '🧩 Delirius está preparando tu contenido',
+    footer: '🧩 Vreden está preparando tu contenido',
     contextInfo: {
       externalAdReply: {
         title: 'Buscando en YouTube...',
@@ -33,6 +33,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
   }, { quoted: m });
 
   try {
+    // 🔍 Búsqueda en YouTube
     const searchRes = await fetch(`https://api.dorratz.com/v3/yt-search?query=${encodeURIComponent(text)}`);
     const searchJson = await searchRes.json();
     const videoList = searchJson?.data || searchJson?.result?.all;
@@ -42,40 +43,46 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
     }
 
     const selected = videoList[0];
-    const downloadRes = await fetch(`https://delirius-apiofc.vercel.app/download/ytmp4?url=${encodeURIComponent(selected.url)}`);
-    const downloadJson = await downloadRes.json();
-    const meta = downloadJson?.data;
-    const dl = meta?.download;
 
-    if (!downloadJson?.status || !dl?.url) {
+    // 🎥 Descarga vía Vreden
+    const downloadRes = await fetch(`https://api.vreden.my.id/api/ytmp4?url=${encodeURIComponent(selected.url)}`);
+    const downloadJson = await downloadRes.json();
+    const result = downloadJson?.result;
+    const meta = result?.metadata;
+    const dl = result?.download;
+
+    if (!result?.status || !dl?.url) {
       return m.reply(`⚠️ No se pudo obtener el enlace de descarga para: ${selected.title}`);
     }
 
+    // 📝 Información del video
     const caption = `
 🎬 *${meta.title}*
-🎙️ Autor: ${meta.author}
-📁 Categoría: ${meta.category}
-⏱️ Duración: ${meta.duration}s
-👁️ Vistas: ${parseInt(meta.views).toLocaleString()}
-👍 Likes: ${parseInt(meta.likes).toLocaleString()}
-💬 Comentarios: ${parseInt(meta.comments).toLocaleString()}
-📥 Calidad: ${dl.quality} — ${dl.size}
+🎙️ Autor: ${meta.author.name}
+📅 Publicado: ${meta.ago}
+⏱️ Duración: ${meta.timestamp}
+👁️ Vistas: ${meta.views.toLocaleString()}
+📝 ${meta.description.slice(0, 160)}...
+📥 Calidad: ${dl.quality}
+📄 Archivo: ${dl.filename}
 `;
 
+    // 📸 Miniatura e info
     await conn.sendMessage(m.chat, {
-      image: { url: meta.image_max_resolution || meta.image || thumbnailCard },
+      image: { url: meta.image || meta.thumbnail || thumbnailCard },
       caption,
-      footer: '🎥 Video obtenido vía Delirius API',
+      footer: '🎥 Video obtenido vía Vreden API',
       contextInfo: {
         externalAdReply: {
           title: meta.title,
-          body: 'Click para ver o descargar en MP4',
-          thumbnailUrl: meta.image || thumbnailCard,
-          sourceUrl: selected.url
+          body: 'Click para ver o descargar',
+          thumbnailUrl: meta.thumbnail || thumbnailCard,
+          sourceUrl: meta.url
         }
       }
     }, { quoted: m });
 
+    // 📦 Envío del video
     await conn.sendMessage(m.chat, {
       video: { url: dl.url },
       mimetype: 'video/mp4',
