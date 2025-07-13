@@ -1,18 +1,74 @@
 import fetch from 'node-fetch';
 
+// 🔍 Búsqueda con múltiples APIs en cascada
+const getVideoResult = async (query) => {
+  // EliasarYT
+  try {
+    const res = await fetch(`https://eliasar-yt-api.vercel.app/api/search/youtube?query=${encodeURIComponent(query)}`);
+    const json = await res.json();
+    const list = json?.results?.resultado;
+    if (list?.length) return list[0];
+  } catch (err) {
+    console.warn('⚠️ EliasarYT falló:', err.message);
+  }
+
+  // Dorratz
+  try {
+    const res = await fetch(`https://api.dorratz.com/v3/yt-search?query=${encodeURIComponent(query)}`);
+    const json = await res.json();
+    const list = json?.data || json?.result?.all;
+    if (list?.length) return list[0];
+  } catch (err) {
+    console.warn('⚠️ Dorratz falló:', err.message);
+  }
+
+  // Starlight Team
+  try {
+    const res = await fetch(`https://apis-starlights-team.koyeb.app/starlight/youtube-search?text=${encodeURIComponent(query)}`);
+    const json = await res.json();
+    const list = json?.results;
+    if (list?.length) return list[0];
+  } catch (err) {
+    console.warn('⚠️ Starlight API falló:', err.message);
+  }
+
+  // Delirius
+  try {
+    const res = await fetch(`https://delirius-apiofc.vercel.app/search/ytsearch?q=${encodeURIComponent(query)}`);
+    const json = await res.json();
+    const list = json?.data;
+    if (list?.length) return list[0];
+  } catch (err) {
+    console.warn('⚠️ Delirius API falló:', err.message);
+  }
+
+  // Sylphy
+  try {
+    const res = await fetch(`https://api.sylphy.xyz/search/youtube?q=${encodeURIComponent(query)}`);
+    const json = await res.json();
+    const list = json?.res;
+    if (list?.length) return list[0];
+  } catch (err) {
+    console.warn('⚠️ Sylphy API falló:', err.message);
+  }
+
+  return null;
+};
+
+// 🔧 Comando principal
 let handler = async (m, { conn, text, usedPrefix, command }) => {
   const thumbnailCard = 'https://qu.ax/phgPU.jpg';
 
   if (!text) {
     await conn.sendMessage(m.chat, {
       text: `🔎 *Escribe el nombre de un video para buscar en YouTube.*\nEjemplo:\n${usedPrefix + command} Empire funk`,
-      footer: '📺 Búsqueda vía EliasarYT API',
+      footer: '📺 Búsqueda con múltiples APIs',
       contextInfo: {
         externalAdReply: {
           title: 'YouTube MP4 Downloader',
           body: 'Busca y descarga videos fácilmente',
           thumbnailUrl: thumbnailCard,
-          sourceUrl: 'https://eliasar-yt-api.vercel.app'
+          sourceUrl: 'https://api.vreden.my.id'
         }
       }
     }, { quoted: m });
@@ -20,30 +76,24 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
   }
 
   await conn.sendMessage(m.chat, {
-    text: '⏳ *Buscando tu video...*\n🔍 Por favor espera mientras se obtiene el resultado.',
+    text: '⏳ *Buscando tu video...*\n🔍 Probando múltiples fuentes hasta encontrar el mejor resultado.',
     footer: '🧩 Preparando tu contenido con estilo',
     contextInfo: {
       externalAdReply: {
         title: 'Buscando en YouTube...',
         body: 'Esto tomará solo unos segundos',
         thumbnailUrl: thumbnailCard,
-        sourceUrl: 'https://eliasar-yt-api.vercel.app'
+        sourceUrl: 'https://api.vreden.my.id'
       }
     }
   }, { quoted: m });
 
+  const selected = await getVideoResult(text);
+  if (!selected) {
+    return m.reply(`❌ No se encontró ningún video para: ${text}\n📛 Intenta con otro término.`);
+  }
+
   try {
-    // 🔍 Búsqueda vía EliasarYT
-    const searchRes = await fetch(`https://eliasar-yt-api.vercel.app/api/search/youtube?query=${encodeURIComponent(text)}`);
-    const searchJson = await searchRes.json();
-    const videoList = searchJson?.results?.resultado;
-
-    if (!videoList || !videoList.length) {
-      return m.reply(`❌ No se encontraron videos para: ${text}`);
-    }
-
-    const selected = videoList[0];
-
     // 🎥 Descarga vía Vreden
     const downloadRes = await fetch(`https://api.vreden.my.id/api/ytmp4?url=${encodeURIComponent(selected.url)}`);
     const downloadJson = await downloadRes.json();
@@ -55,7 +105,6 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
       return m.reply(`⚠️ No se pudo obtener el enlace de descarga para: ${selected.title}`);
     }
 
-    // 📝 Info del video
     const caption = `
 🎬 *${meta.title}*
 🎙️ Autor: ${meta.author.name}
@@ -67,22 +116,20 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 📄 Archivo: ${dl.filename}
 `;
 
-    // 🖼️ Enviar info visual
     await conn.sendMessage(m.chat, {
-      image: { url: meta.thumbnail || thumbnailCard },
+      image: { url: meta.image || meta.thumbnail || thumbnailCard },
       caption,
-      footer: '🎥 Video obtenido vía EliasarYT + Vreden API',
+      footer: '🎥 Video obtenido vía Vreden API',
       contextInfo: {
         externalAdReply: {
           title: meta.title,
           body: 'Click para ver o descargar',
-          thumbnailUrl: meta.thumbnail,
+          thumbnailUrl: meta.thumbnail || thumbnailCard,
           sourceUrl: selected.url
         }
       }
     }, { quoted: m });
 
-    // 🎞️ Enviar el video MP4
     await conn.sendMessage(m.chat, {
       video: { url: dl.url },
       mimetype: 'video/mp4',
