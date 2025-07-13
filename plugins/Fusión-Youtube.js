@@ -34,7 +34,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
   }, { quoted: m });
 
   try {
-    const searchRes = await fetch(`https://api.vreden.my.id/api/yts?query=${encodeURIComponent(text)}`);
+    const searchRes = await fetch(`https://api.dorratz.com/v3/yt-search?query=${encodeURIComponent(text)}`);
     const searchJson = await searchRes.json();
     const videoList = searchJson?.result?.all;
 
