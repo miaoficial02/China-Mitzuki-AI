@@ -41,7 +41,7 @@ global.nameqr = 'Shizuka-AI'
 global.namebot = 'Shizuka-AI'
 global.sessions = 'Sessions'
 global.jadi = 'JadiBots' 
-global.yukiJadibts = false
+
 
 //-----------------------------
 
