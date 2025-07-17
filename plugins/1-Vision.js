@@ -5,7 +5,7 @@ import { uploadImage } from '../lib/uploadImage.js'; // Ajusta si tu estructura 
 
 let handler = async (m, { conn, usedPrefix, command }) => {
   const thumbnailCard = 'https://qu.ax/phgPU.jpg';
-  const apiKey = 'TU_API_KEY_AQUI'; // Reemplaza por tu clave de Gemini
+  const apiKey = 'AIzaSyBrYQZ3s5IVrp-on-ewJON8Gj6ZoD_NWWI'; // Reemplaza por tu clave de Gemini
 
   let quoted = m.quoted || m.message?.extendedTextMessage?.contextInfo?.quotedMessage;
   if (!quoted?.mime || !quoted.mime.startsWith('image/')) {
