@@ -1,7 +1,7 @@
-// 🖼️ VisionReply por Gemini API usando módulo de subida
+// 🧠 VisionReply con Gemini usando base64 directo
 
 import fetch from 'node-fetch';
-import { uploadImage } from '../lib/uploadImage.js'; // Ajusta la ruta si usas ESModules
+import fs from 'fs';
 
 let handler = async (m, { conn, usedPrefix, command }) => {
   const thumbnailCard = 'https://qu.ax/phgPU.jpg';
@@ -9,12 +9,12 @@ let handler = async (m, { conn, usedPrefix, command }) => {
   let imageMessage = m.message?.extendedTextMessage?.contextInfo?.quotedMessage?.imageMessage;
   if (!imageMessage) {
     return conn.sendMessage(m.chat, {
-      text: `📷 *Responde a un mensaje con una imagen para analizarla.*\nEjemplo:\n"${usedPrefix + command}" como respuesta a una imagen.`,
-      footer: '🔍 Gemini VisionReply',
+      text: `📷 *Responde con "${usedPrefix + command}" a una imagen para que la analice.*`,
+      footer: '🧠 Gemini VisionReply',
       contextInfo: {
         externalAdReply: {
-          title: 'Análisis inteligente con Gemini',
-          body: 'Obtén una descripción detallada al instante',
+          title: 'Análisis de Imagen con IA',
+          body: 'Obtén una descripción precisa en segundos',
           thumbnailUrl: thumbnailCard,
           sourceUrl: 'https://ai.google.dev'
         }
@@ -24,9 +24,9 @@ let handler = async (m, { conn, usedPrefix, command }) => {
 
   try {
     let buffer = await conn.downloadMediaMessage(imageMessage);
-    let imageUrl = await uploadImage(buffer); // Aquí subimos la imagen y obtenemos la URL
+    let base64Image = buffer.toString('base64');
 
-    const apiKey = 'TU_API_KEY'; // Sustituye por tu clave de Gemini
+    const apiKey = 'TU_API_KEY_AQUI';
     const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro-vision:generateContent?key=${apiKey}`;
 
     let res = await fetch(apiUrl, {
@@ -36,11 +36,14 @@ let handler = async (m, { conn, usedPrefix, command }) => {
         contents: [
           {
             parts: [
-              { text: 'Describe esta imagen con el máximo detalle posible.' },
               {
-                image: {
-                  url: imageUrl
+                inlineData: {
+                  mimeType: 'image/jpeg', // cambia si tu imagen es .png, etc.
+                  data: base64Image
                 }
+              },
+              {
+                text: 'Describe esta imagen de forma clara, precisa y creativa.'
               }
             ]
           }
@@ -49,15 +52,15 @@ let handler = async (m, { conn, usedPrefix, command }) => {
     });
 
     let json = await res.json();
-    let description = json?.candidates?.[0]?.content?.parts?.[0]?.text || '⚠️ No se pudo generar descripción.';
+    let description = json?.candidates?.[0]?.content?.parts?.[0]?.text || '⚠️ No se pudo generar la descripción.';
 
     conn.sendMessage(m.chat, {
-      text: `🖼️ *Descripción generada por IA:*\n${description}`,
+      text: `🖼️ *Descripción generada por Gemini:*\n${description}`,
       footer: '🔬 Gemini VisionReply API',
       contextInfo: {
         externalAdReply: {
           title: 'Resultado del análisis',
-          body: 'Contenido interpretado con IA',
+          body: 'Contenido interpretado por inteligencia artificial',
           thumbnailUrl: thumbnailCard,
           sourceUrl: 'https://ai.google.dev'
         }
@@ -66,10 +69,10 @@ let handler = async (m, { conn, usedPrefix, command }) => {
 
   } catch (error) {
     console.error(error);
-    m.reply(`❌ Error al analizar imagen.\nDetalles: ${error.message}`);
+    m.reply(`❌ Error al procesar la imagen.\nDetalles: ${error.message}`);
     m.react('⚠️');
   }
 };
 
-handler.command = ['vision', 'geminianalyze'];
+handler.command = ['visiongemini', 'geminianalyze'];
 export default handler;
