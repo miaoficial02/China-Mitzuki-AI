@@ -1,20 +1,20 @@
-// 🧠 VisionReply con Gemini API (Google AI)
+// 🖼️ VisionReply por Gemini API usando módulo de subida
 
-// Asegúrate de tener tu API Key y endpoint configurados
 import fetch from 'node-fetch';
+import { uploadImage } from '../lib/uploadImage.js'; // Ajusta la ruta si usas ESModules
 
 let handler = async (m, { conn, usedPrefix, command }) => {
-  const thumbnailCard = 'https://qu.ax/phgPU.jpg'; // Miniatura personalizada
+  const thumbnailCard = 'https://qu.ax/phgPU.jpg';
 
   let imageMessage = m.message?.extendedTextMessage?.contextInfo?.quotedMessage?.imageMessage;
   if (!imageMessage) {
     return conn.sendMessage(m.chat, {
-      text: `📷 *Responde a un mensaje que contenga una imagen para que pueda analizarla.*\nEjemplo:\nResponde con "${usedPrefix + command}" a una foto.`,
-      footer: '🔍 Gemini VisionReply por Delirius',
+      text: `📷 *Responde a un mensaje con una imagen para analizarla.*\nEjemplo:\n"${usedPrefix + command}" como respuesta a una imagen.`,
+      footer: '🔍 Gemini VisionReply',
       contextInfo: {
         externalAdReply: {
-          title: 'Análisis Inteligente de Imágenes',
-          body: 'Descubre el contenido de cualquier imagen al instante',
+          title: 'Análisis inteligente con Gemini',
+          body: 'Obtén una descripción detallada al instante',
           thumbnailUrl: thumbnailCard,
           sourceUrl: 'https://ai.google.dev'
         }
@@ -23,16 +23,11 @@ let handler = async (m, { conn, usedPrefix, command }) => {
   }
 
   try {
-    // Descarga la imagen localmente
-    let imagePath = await conn.downloadAndSaveMediaMessage(imageMessage);
+    let buffer = await conn.downloadMediaMessage(imageMessage);
+    let imageUrl = await uploadImage(buffer); // Aquí subimos la imagen y obtenemos la URL
 
-    // Convierte la imagen a base64
-    const fs = require('fs');
-    let base64Image = fs.readFileSync(imagePath, { encoding: 'base64' });
-
-    // Solicitud a Gemini API
-    const apiKey = 'AIzaSyBrYQZ3s5IVrp-on-ewJON8Gj6ZoD_NWWI'; // Reemplaza con tu clave real
-    const apiUrl = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-pro-vision:generateContent?key=' + apiKey;
+    const apiKey = 'TU_API_KEY'; // Sustituye por tu clave de Gemini
+    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro-vision:generateContent?key=${apiKey}`;
 
     let res = await fetch(apiUrl, {
       method: 'POST',
@@ -41,14 +36,11 @@ let handler = async (m, { conn, usedPrefix, command }) => {
         contents: [
           {
             parts: [
+              { text: 'Describe esta imagen con el máximo detalle posible.' },
               {
-                inlineData: {
-                  mimeType: 'image/jpeg',
-                  data: base64Image
+                image: {
+                  url: imageUrl
                 }
-              },
-              {
-                text: 'Describe detalladamente esta imagen.'
               }
             ]
           }
@@ -57,15 +49,15 @@ let handler = async (m, { conn, usedPrefix, command }) => {
     });
 
     let json = await res.json();
-    let description = json?.candidates?.[0]?.content?.parts?.[0]?.text || 'No se pudo analizar la imagen.';
+    let description = json?.candidates?.[0]?.content?.parts?.[0]?.text || '⚠️ No se pudo generar descripción.';
 
     conn.sendMessage(m.chat, {
       text: `🖼️ *Descripción generada por IA:*\n${description}`,
       footer: '🔬 Gemini VisionReply API',
       contextInfo: {
         externalAdReply: {
-          title: 'Imagen analizada con Gemini',
-          body: 'Respuestas precisas y contextuales por IA',
+          title: 'Resultado del análisis',
+          body: 'Contenido interpretado con IA',
           thumbnailUrl: thumbnailCard,
           sourceUrl: 'https://ai.google.dev'
         }
@@ -74,10 +66,10 @@ let handler = async (m, { conn, usedPrefix, command }) => {
 
   } catch (error) {
     console.error(error);
-    m.reply(`❌ Hubo un error analizando la imagen.\nDetalles: ${error.message}`);
+    m.reply(`❌ Error al analizar imagen.\nDetalles: ${error.message}`);
     m.react('⚠️');
   }
 };
 
-handler.command = ['visiongemini', 'geminianalyze'];
+handler.command = ['vision', 'geminianalyze'];
 export default handler;
