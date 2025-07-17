@@ -1,20 +1,21 @@
-// 🧠 VisionReply con Gemini usando base64 directo
+// 🧠 VisionReply por Gemini + Delirius Style
 
 import fetch from 'node-fetch';
-import fs from 'fs';
+import { uploadImage } from '../lib/uploadImage.js'; // Ajusta si tu estructura cambia
 
 let handler = async (m, { conn, usedPrefix, command }) => {
   const thumbnailCard = 'https://qu.ax/phgPU.jpg';
+  const apiKey = 'TU_API_KEY_AQUI'; // Reemplaza por tu clave de Gemini
 
-  let imageMessage = m.message?.extendedTextMessage?.contextInfo?.quotedMessage?.imageMessage;
-  if (!imageMessage) {
+  let quoted = m.quoted || m.message?.extendedTextMessage?.contextInfo?.quotedMessage;
+  if (!quoted?.mime || !quoted.mime.startsWith('image/')) {
     return conn.sendMessage(m.chat, {
-      text: `📷 *Responde con "${usedPrefix + command}" a una imagen para que la analice.*`,
-      footer: '🧠 Gemini VisionReply',
+      text: `📸 *Responde a una imagen con el comando*:\n${usedPrefix + command}\nAsí podré analizarla.`,
+      footer: '🧠 VisionReply por Gemini',
       contextInfo: {
         externalAdReply: {
-          title: 'Análisis de Imagen con IA',
-          body: 'Obtén una descripción precisa en segundos',
+          title: 'Análisis visual con IA',
+          body: 'Interpreta imágenes con precisión artificial',
           thumbnailUrl: thumbnailCard,
           sourceUrl: 'https://ai.google.dev'
         }
@@ -23,28 +24,18 @@ let handler = async (m, { conn, usedPrefix, command }) => {
   }
 
   try {
-    let buffer = await conn.downloadMediaMessage(imageMessage);
-    let base64Image = buffer.toString('base64');
+    let buffer = await quoted.download();
+    let imageUrl = await uploadImage(buffer); // Subida con tu módulo
 
-    const apiKey = 'TU_API_KEY_AQUI';
-    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro-vision:generateContent?key=${apiKey}`;
-
-    let res = await fetch(apiUrl, {
+    let res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-pro-vision:generateContent?key=${apiKey}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         contents: [
           {
             parts: [
-              {
-                inlineData: {
-                  mimeType: 'image/jpeg', // cambia si tu imagen es .png, etc.
-                  data: base64Image
-                }
-              },
-              {
-                text: 'Describe esta imagen de forma clara, precisa y creativa.'
-              }
+              { text: 'Describe detalladamente esta imagen en estilo observador y creativo.' },
+              { image: { url: imageUrl } }
             ]
           }
         ]
@@ -52,15 +43,15 @@ let handler = async (m, { conn, usedPrefix, command }) => {
     });
 
     let json = await res.json();
-    let description = json?.candidates?.[0]?.content?.parts?.[0]?.text || '⚠️ No se pudo generar la descripción.';
+    let description = json?.candidates?.[0]?.content?.parts?.[0]?.text || '⚠️ No se pudo generar descripción.';
 
     conn.sendMessage(m.chat, {
-      text: `🖼️ *Descripción generada por Gemini:*\n${description}`,
+      text: `🖼️ *Descripción generada por IA:*\n${description}`,
       footer: '🔬 Gemini VisionReply API',
       contextInfo: {
         externalAdReply: {
-          title: 'Resultado del análisis',
-          body: 'Contenido interpretado por inteligencia artificial',
+          title: 'Resultado de análisis visual',
+          body: 'Contenido procesado con inteligencia artificial',
           thumbnailUrl: thumbnailCard,
           sourceUrl: 'https://ai.google.dev'
         }
@@ -69,7 +60,7 @@ let handler = async (m, { conn, usedPrefix, command }) => {
 
   } catch (error) {
     console.error(error);
-    m.reply(`❌ Error al procesar la imagen.\nDetalles: ${error.message}`);
+    m.reply(`❌ Error al procesar imagen.\nDetalles: ${error.message}`);
     m.react('⚠️');
   }
 };
