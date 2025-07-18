@@ -1,4 +1,4 @@
-import { makeWASocket, generateProfilePicture } from '@whiskeysockets/baileys';
+import sharp from 'sharp';
 
 let handler = async (m, { conn }) => {
   let q = m.quoted ? m.quoted : m;
@@ -9,16 +9,18 @@ let handler = async (m, { conn }) => {
     if (!img) return m.reply('⚠️ Te faltó la imagen para el perfil del grupo.');
 
     try {
-      // Procesar imagen en formato correcto
-      const { img: preview, preview: full } = await generateProfilePicture(img);
+      const buffer = await sharp(img)
+        .resize(720, 720)
+        .jpeg({ quality: 80 })
+        .toBuffer();
 
-      await conn.updateProfilePicture(m.chat, preview);
-      m.reply('✅ Perfecto.');
+      await conn.updateProfilePicture(m.chat, buffer);
+      m.reply('✅ Perfecto, imagen actualizada.');
     } catch (e) {
-      m.reply(`⚠️ Ocurrió un error: ${e.message}`);
+      m.reply(`⚠️ Error al actualizar el perfil: ${e.message}`);
     }
   } else {
-    return m.reply('⚠️ Te faltó la imagen para cambiar el perfil del grupo.');
+    m.reply('⚠️ Te faltó la imagen para cambiar el perfil del grupo.');
   }
 };
 
