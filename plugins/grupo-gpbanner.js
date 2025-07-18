@@ -1,22 +1,24 @@
-import { makeWASocket } from '@whiskeysockets/baileys';
+import { makeWASocket, generateProfilePicture } from '@whiskeysockets/baileys';
 
-let handler = async (m, { conn, usedPrefix, command }) => {
+let handler = async (m, { conn }) => {
   let q = m.quoted ? m.quoted : m;
   let mime = (q.msg || q).mimetype || q.mediaType || '';
 
   if (/image/.test(mime)) {
     let img = await q.download();
-    if (!img) return m.reply(`${emoji} Te faltó la imagen para el perfil del grupo.`);
+    if (!img) return m.reply('⚠️ Te faltó la imagen para el perfil del grupo.');
 
     try {
-      await conn.updateProfilePicture(m.chat, img);
-      m.reply(`${emoji} Perfecto.`);
-      m.react(done)
+      // Procesar imagen en formato correcto
+      const { img: preview, preview: full } = await generateProfilePicture(img);
+
+      await conn.updateProfilePicture(m.chat, preview);
+      m.reply('✅ Perfecto.');
     } catch (e) {
-      m.reply(`︎${msm} Ocurrió un error: ${e.message}`);
+      m.reply(`⚠️ Ocurrió un error: ${e.message}`);
     }
   } else {
-    return m.reply(`${emoji} Te faltó la imagen para cambiar el perfil del grupo.`);
+    return m.reply('⚠️ Te faltó la imagen para cambiar el perfil del grupo.');
   }
 };
 
