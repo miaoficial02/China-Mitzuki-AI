@@ -1,21 +1,22 @@
 import sharp from 'sharp';
 
 let handler = async (m, { conn }) => {
-  let q = m.quoted ? m.quoted : m;
-  let mime = (q.msg || q).mimetype || q.mediaType || '';
+  const q = m.quoted ? m.quoted : m;
+  const mime = (q.msg || q).mimetype || q.mediaType || '';
 
   if (/image/.test(mime)) {
-    let img = await q.download();
-    if (!img) return m.reply('⚠️ Te faltó la imagen para el perfil del grupo.');
+    const img = await q.download();
+    if (!img) return m.reply('⚠️ Te faltó subir una imagen.');
 
     try {
-      const buffer = await sharp(img)
+      // Crea una imagen redimensionada manualmente
+      const processedImage = await sharp(img)
         .resize(720, 720)
         .jpeg({ quality: 80 })
         .toBuffer();
 
-      await conn.updateProfilePicture(m.chat, buffer);
-      m.reply('✅ Perfecto, imagen actualizada.');
+      await conn.updateProfilePicture(m.chat, processedImage);
+      m.reply('✅ Imagen del grupo actualizada.');
     } catch (e) {
       m.reply(`⚠️ Error al actualizar el perfil: ${e.message}`);
     }
