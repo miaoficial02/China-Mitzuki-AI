@@ -20,6 +20,8 @@ async function fetchPinterestPin(url) {
 }
 
 const handler = async (m, { text, conn }) => {
+  const DEFAULT_THUMB = 'https://raw.githubusercontent.com/Kone457/Nexus/refs/heads/main/Shizuka.jpg';
+
   if (!text) {
     return conn.sendMessage(m.chat, {
       text: '📌 *Por favor, proporciona un enlace válido de Pinterest.*',
@@ -27,7 +29,7 @@ const handler = async (m, { text, conn }) => {
         externalAdReply: {
           title: '🔎 Buscando contenido...',
           body: 'Esperando el pin...',
-          thumbnailUrl: 'https://raw.githubusercontent.com/Kone457/Nexus/refs/heads/main/Shizuka.jpg',
+          thumbnailUrl: DEFAULT_THUMB,
           mediaType: 1,
           previewType: 0,
           mediaUrl: 'https://pinterest.com',
@@ -40,17 +42,16 @@ const handler = async (m, { text, conn }) => {
 
   const pin = await fetchPinterestPin(text);
   if (!pin || !pin.media_urls?.length) {
-    return conn.sendMessage(m.chat, {
-      text: '🚫 *No se encontró contenido válido en el pin.*',
+    return conn.send      text: '🚫 *No se encontró contenido válido en el pin.*',
       contextInfo: {
         externalAdReply: {
           title: '❌ Pin no válido',
           body: 'Intenta con otro enlace',
-          thumbnailUrl: 'https://raw.githubusercontent.com/Kone457/Nexus/refs/heads/main/Shizuka.jpg',
+          thumbnailUrl: DEFAULT_THUMB,
           mediaType: 1,
           previewType: 0,
-          mediaUrl: 'https://pinterest.com',
-          sourceUrl: 'https://pinterest.com',
+          mediaUrl: text,
+          sourceUrl: text,
           renderLargerThumbnail: true
         }
       }
@@ -59,7 +60,7 @@ const handler = async (m, { text, conn }) => {
 
   const title = pin.title || 'Sin título';
   const color = pin.dominant_color || '#AAA';
-  const thumb = pin.media_urls?.[1]?.url || pin.media_urls?.[0]?.url;
+  const thumb = pin.media_urls?.[1]?.url || pin.media_urls?.[0]?.url || DEFAULT_THUMB;
 
   const info = `
 📍 *Título:* ${title}
