@@ -55,10 +55,10 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
       footer: '📲 Video obtenido vía Vreden + Delirius API',
       contextInfo: {
         externalAdReply: {
-          title: 'Hola pendejo',
+          title: 'TikTok Video',
           body: 'Descarga completada',
           thumbnailUrl: thumbnailCard,
-          sourceUrl: videoUrl
+          sourceUrl: _Power by Carlos_
         }
       }
     }, { quoted: m });
