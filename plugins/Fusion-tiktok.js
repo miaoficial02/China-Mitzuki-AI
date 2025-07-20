@@ -55,7 +55,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
       footer: '📲 Video obtenido vía Vreden + Delirius API',
       contextInfo: {
         externalAdReply: {
-          title: 'TikTok Video',
+          title: 'Hola pendejo',
           body: 'Descarga completada',
           thumbnailUrl: thumbnailCard,
           sourceUrl: videoUrl
