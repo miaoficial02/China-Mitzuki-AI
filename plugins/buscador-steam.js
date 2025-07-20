@@ -1,9 +1,7 @@
-// 🎮 Buscador de juegos Steam por Delirius API
-
 import fetch from 'node-fetch';
 
 let handler = async (m, { conn, text, usedPrefix, command }) => {
-  const thumbnailCard = 'https://qu.ax/phgPU.jpg'; // Miniatura fija en la tarjeta
+  const thumbnailCard = 'https://qu.ax/phgPU.jpg';
 
   if (!text) {
     return conn.sendMessage(m.chat, {
@@ -30,28 +28,30 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
       return m.reply(`❌ No se encontraron juegos para: ${text}`);
     }
 
-    let game = games[0];
-    let caption = `
+    let selectedGames = games.slice(0, 3); // puedes ajustar cuántos mostrar
+    for (let game of selectedGames) {
+      let caption = `
 🎮 *Título:* ${game.title}
 📅 *Lanzamiento:* ${game.release_date || 'Sin fecha'}
 💰 *Precio:* ${game.price}
 ⭐ *Valoración:* ${game.rating}
 🔗 *Steam:* ${game.url}
-`.trim();
+      `.trim();
 
-    conn.sendMessage(m.chat, {
-      image: { url: game.image },
-      caption,
-      footer: '🚀 Juego obtenido vía Delirius API',
-      contextInfo: {
-        externalAdReply: {
-          title: game.title,
-          body: `${game.price} • ${game.rating}`,
-          thumbnailUrl: thumbnailCard,
-          sourceUrl: game.url
+      await conn.sendMessage(m.chat, {
+        image: { url: game.image },
+        caption,
+        footer: '🚀 Juego obtenido vía Delirius API',
+        contextInfo: {
+          externalAdReply: {
+            title: game.title,
+            body: `${game.price} • ${game.rating}`,
+            thumbnailUrl: thumbnailCard,
+            sourceUrl: game.url
+          }
         }
-      }
-    }, { quoted: m });
+      }, { quoted: m });
+    }
 
   } catch (error) {
     console.error(error);
