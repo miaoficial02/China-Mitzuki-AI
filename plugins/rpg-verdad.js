@@ -14,7 +14,7 @@ let handler = async (m, { conn }) => {
   let name2 = await conn.getName(m.sender)
 
   const preguntas = [
-        '¿Cuál es tu mayor miedo?',
+        '¿Cuál es tu mayor miedo?.',
     '¿Alguna vez has tenido un crush en un amigo?',
     '¿Cuál es la cosa más vergonzosa que has hecho?',
     '¿Qué es lo más raro que has comido?',
