@@ -120,7 +120,7 @@ let handler = async (m, { conn }) => {
 
   let str =
     who === m.sender
-      ? `╭─〔 🔥 Te atreves a decir la verdad 😏 〕─╮\n` +
+      ? `╭〔 🔥 Te atreves a decir la verdad 😏 〕╮\n` +
         `┃ ${name2}, comparte tu verdad:\n┃ ${pregunta}\n` +
         `╰──────────────────────╯\n` +
         `🤖 *Shizuka-AI* conoce la verdad... ¿la dirás tú?`
