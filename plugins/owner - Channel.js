@@ -1,49 +1,41 @@
 let handler = async (m, { conn, text }) => {
-  if (!text.includes('chat.whatsapp.com/')) {
+  const canalID = '120363400241973967@newsletter' // Canal exclusivo
+
+  if (!text) {
     return m.reply(
-      `🌙 *Por favor, proporciona el enlace de invitación del canal y el mensaje.*\n` +
-      `📎 Ejemplo: #publicar https://chat.whatsapp.com/XXXX Mensaje aquí`
+      `🌙 *Por favor, escribe el mensaje que Shizuka debe compartir en el canal.*\n` +
+      `📎 Ejemplo: #post Canal abierto a nuevas energías 🌸`
     )
   }
 
-  let [link, ...messageParts] = text.trim().split(' ')
-  let message = messageParts.join(' ')
-  if (!message) return m.reply(`📝 *Escribe el mensaje que deseas enviar al canal.*`)
-
-  let inviteCode = link.split('/')[3]
-  if (!inviteCode) return m.reply(`⚠️ *El enlace parece inválido. Verifica el formato.*`)
-
   try {
-    // Intentamos unirnos para obtener el ID del canal
-    let res = await conn.groupAcceptInvite(inviteCode)
-    let channelID = res.id
-
-    // Verificamos si Shizuka es admin
-    let metadata = await conn.groupMetadata(channelID)
+    // Validamos si Shizuka es administradora del canal
+    let metadata = await conn.groupMetadata(canalID)
     let shizuka = metadata.participants.find(p => p.id === conn.user.jid)
     let isAdmin = shizuka?.admin === 'admin' || shizuka?.admin === 'superadmin'
 
     if (!isAdmin) {
       return m.reply(
-        `🚫 *Shizuka no tiene privilegios de administración en ese canal.*\n` +
-        `📎 No se puede publicar sin permisos suficientes.`
+        `🚫 *Shizuka no tiene rango de administradora en el canal.*\n` +
+        `🧘‍♀️ *No puede compartir mensajes sin acceso elevado.*`
       )
     }
 
-    await conn.sendMessage(channelID, { text: message }, { quoted: m })
-    m.reply(`🌸 *Mensaje enviado exitosamente al canal.*`)
+    // Publicación en canal newsletter
+    await conn.sendMessage(canalID, { text }, { quoted: m })
+    await m.reply(`📮 *Mensaje enviado con éxito al canal de difusión.*\n🦢 *Shizuka ha compartido tu palabra al mundo.*`)
   } catch (e) {
     console.error(e)
     m.reply(
-      `⚠️ *No se pudo acceder o publicar en el canal.*\n` +
-      `📎 Detalles técnicos: ${e.message || e}`
+      `⚠️ *Ocurrió un error inesperado al intentar publicar.*\n` +
+      `📎 Detalle técnico: ${e.message || e}`
     )
   }
 }
 
-handler.help = ['publicar <link> <mensaje>']
+handler.help = ['post <mensaje>']
 handler.tags = ['tools']
-handler.command = ['publicar', 'postcanal']
+handler.command = ['post', 'enviarcanal', 'share']
 handler.rowner = true
 
 export default handler
