@@ -1,11 +1,14 @@
 let handler = async (m, { conn, text, participants }) => {
   if (!text) {
-    return conn.reply(m.chat, `🌙 *Indica el número o etiqueta al usuario que deseas eliminar.*\n📎 Ejemplo: #expulsar 573001234567`, m)
+    return conn.reply(m.chat, `🌸 *Indica el número o menciona al usuario que deseas eliminar.*\n📎 Ejemplo: #expulsar 573001234567`, m)
   }
 
   let target = text.replace(/[^0-9]/g, '') + '@s.whatsapp.net'
   let kickedGroups = []
   let failedGroups = []
+
+  // Mensaje inicial con efecto emocional 🌫️
+  await conn.reply(m.chat, `🌙 *Shizuka susurra...* "Espera un momento, estoy buscando en cada rincón del silencio."`, m)
 
   for (let groupId of Object.keys(conn.chats)) {
     if (!groupId.endsWith('@g.us')) continue
@@ -25,13 +28,17 @@ let handler = async (m, { conn, text, participants }) => {
     }
   }
 
-  let result = `🧹 *Operación completada por Shizuka*\n\n`
-  result += `🗑️ Usuario expulsado: ${target.replace('@s.whatsapp.net', '')}\n`
-  result += `📤 Expulsado de ${kickedGroups.length} grupo(s):\n`
-  result += kickedGroups.map(name => `  ◦ ${name}`).join('\n') || '  ◦ Ninguno'
+  let result = `🌸 *Shizuka ha completado su recorrido.*\n\n`
+  result += `👤 *Usuario expulsado:* ${target.replace('@s.whatsapp.net', '')}\n`
+  result += `📤 *Expulsado de:* ${kickedGroups.length} grupo(s)\n`
+  if (kickedGroups.length) {
+    result += `📜 *Detalles:*\n` + kickedGroups.map(name => `  ◦ ${name}`).join('\n')
+  } else {
+    result += `◦ *No se encontró al usuario en grupos donde Shizuka tenga control.*`
+  }
 
   if (failedGroups.length) {
-    result += `\n\n⚠️ Falló en ${failedGroups.length} grupo(s)`
+    result += `\n⚠️ *Fallos en:* ${failedGroups.length} grupo(s)`
   }
 
   await conn.reply(m.chat, result, m)
