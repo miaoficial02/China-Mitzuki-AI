@@ -20,200 +20,201 @@ let handler = async (m, { conn, args }) => {
 ╰━━━━━━━━━━━━━━━━━━━━━━━━╯
 
 ╭━━━〔 🔰 𝗜𝗡𝗙𝗢-𝗕𝗢𝗧 〕━━━╮
-┃ ✦ #menu
-┃ ✦ #uptime
-┃ ✦ #status
-┃ ✦ #ping
-┃ ✦ #speed
-┃ ✦ #sc
-┃ ✦ #staff
-┃ ✦ #creador
-┃ ✦ #links
-┃ ✦ #infobot
+┃ ✦ menu
+┃ ✦ uptime
+┃ ✦ status
+┃ ✦ ping
+┃ ✦ speed
+┃ ✦ sc
+┃ ✦ staff
+┃ ✦ creador
+┃ ✦ links
+┃ ✦ infobot
 ╰━━━━━━━━━━━━━━━━━━━━━━━━╯
 
 ╭━━━〔 📜 𝗥𝗘𝗚𝗜𝗦𝗧𝗥𝗢 〕━━━╮
-┃ ✦ #reg
-┃ ✦ #unreg
-┃ ✦ #profile
-┃ ✦ #myns
+┃ ✦ reg
+┃ ✦ unreg
+┃ ✦ profile
+┃ ✦ myns
 ╰━━━━━━━━━━━━━━━━━━━━━━━━╯
 
 ╭━━━〔 📥 𝗗𝗘𝗦𝗖𝗔𝗥𝗚𝗔𝗦 〕━━━╮
-┃ ✦ #play
-┃ ✦ #play2
-┃ ✦ #ytmp3
-┃ ✦ #ytmp4
-┃ ✦ #tiktok
-┃ ✦ #instagram
-┃ ✦ #facebook
-┃ ✦ #twitter
-┃ ✦ #spotify
-┃ ✦ #mediafire
-┃ ✦ #mega
-┃ ✦ #terabox
-┃ ✦ #apk
-┃ ✦ #pinvid
-┃ ✦ #gitclone
+┃ ✦ play
+┃ ✦ play2
+┃ ✦ ytmp3
+┃ ✦ ytmp4
+┃ ✦ tiktok
+┃ ✦ instagram
+┃ ✦ facebook
+┃ ✦ twitter
+┃ ✦ spotify
+┃ ✦ mediafire
+┃ ✦ mega
+┃ ✦ terabox
+┃ ✦ apk
+┃ ✦ pinvid
+┃ ✦ gitclone
 ╰━━━━━━━━━━━━━━━━━━━━━━━━╯
 
 ╭━━━〔 🔍 𝗕𝗨𝗦𝗖𝗔𝗗𝗢𝗥𝗘𝗦 〕━━━╮
-┃ ✦ #google
-┃ ✦ #imagen
-┃ ✦ #pinterest
-┃ ✦ #yts
-┃ ✦ #npmjs
-┃ ✦ #github
-┃ ✦ #infoanime
+┃ ✦ google
+┃ ✦ imagen
+┃ ✦ pinterest
+┃ ✦ yts
+┃ ✦ npmjs
+┃ ✦ github
+┃ ✦ infoanime
 ╰━━━━━━━━━━━━━━━━━━━━━━━━╯
 
 ╭━━━〔 ♻️ 𝗖𝗢𝗡𝗩𝗘𝗥𝗧𝗜𝗗𝗢𝗥𝗘𝗦 〕━━━╮
-┃ ✦ #tomp3
-┃ ✦ #tovideo
-┃ ✦ #tourl
-┃ ✦ #tts
-┃ ✦ #togif
+┃ ✦ tomp3
+┃ ✦ tovideo
+┃ ✦ tourl
+┃ ✦ tts
+┃ ✦ togif
 ╰━━━━━━━━━━━━━━━━━━━━━━━━╯
 
 ╭━━━〔 🤖 𝗜𝗔/𝗔𝗥𝗧𝗜𝗙𝗜𝗖𝗜𝗔𝗟 〕━━━╮
-┃ ✦ #ia
-┃ ✦ #gemini
-┃ ✦ #dalle
-┃ ✦ #flux
-┃ ✦ #simi
+┃ ✦ ia
+┃ ✦ gemini
+┃ ✦ dalle
+┃ ✦ flux
+┃ ✦ simi
 ╰━━━━━━━━━━━━━━━━━━━━━━━━╯
 
 ╭━━━〔 🎌 𝗔𝗡𝗜𝗠𝗘/𝗥𝗘𝗔𝗖𝗜𝗢𝗡 〕━━━╮
-┃ ✦ #waifu
-┃ ✦ #hug
-┃ ✦ #kiss
-┃ ✦ #pat
-┃ ✦ #slap
-┃ ✦ #angry
-┃ ✦ #happy
-┃ ✦ #sad
-┃ ✦ #cry
-┃ ✦ #dance
-┃ ✦ #sleep
+┃ ✦ waifu
+┃ ✦ hug
+┃ ✦ kiss
+┃ ✦ pat
+┃ ✦ slap
+┃ ✦ angry
+┃ ✦ happy
+┃ ✦ sad
+┃ ✦ cry
+┃ ✦ dance
+┃ ✦ sleep
 ╰━━━━━━━━━━━━━━━━━━━━━━━━╯
 
 ╭━━━〔 🎴 𝗚𝗔𝗖𝗛𝗔𝗦/𝗣𝗘𝗥𝗦𝗢𝗡𝗔𝗝𝗘 〕━━━╮
-┃ ✦ #rw
-┃ ✦ #claim
-┃ ✦ #waifus
-┃ ✦ #wimage
-┃ ✦ #winfo
-┃ ✦ #regalar
-┃ ✦ #votar
-┃ ✦ #waifustop
+┃ ✦ rw
+┃ ✦ claim
+┃ ✦ waifus
+┃ ✦ wimage
+┃ ✦ winfo
+┃ ✦ regalar
+┃ ✦ votar
+┃ ✦ waifustop
 ╰━━━━━━━━━━━━━━━━━━━━━━━━╯
 
 ╭━━━〔 🖼️ 𝗦𝗧𝗜𝗖𝗞𝗘𝗥𝗦 〕━━━╮
-┃ ✦ #sticker
-┃ ✦ #emojimix
-┃ ✦ #wm
-┃ ✦ #take
-┃ ✦ #setmeta
-┃ ✦ #delmeta
-┃ ✦ #qc
-┃ ✦ #img
-┃ ✦ #attp
+┃ ✦ sticker
+┃ ✦ emojimix
+┃ ✦ wm
+┃ ✦ take
+┃ ✦ setmeta
+┃ ✦ delmeta
+┃ ✦ qc
+┃ ✦ img
+┃ ✦ attp
 ╰━━━━━━━━━━━━━━━━━━━━━━━━╯
 
 ╭━━━〔 💰 𝗘𝗖𝗢𝗡𝗢𝗠𝗜𝗔/𝗥𝗨𝗞𝗜𝗔 〕━━━╮
-┃ ✦ #work
-┃ ✦ #suerte
-┃ ✦ #crime
-┃ ✦ #ruleta
-┃ ✦ #casino
-┃ ✦ #slot
-┃ ✦ #cartera
-┃ ✦ #bank
-┃ ✦ #depositar
-┃ ✦ #retirar
-┃ ✦ #transfer
-┃ ✦ #minar
-┃ ✦ #buy
-┃ ✦ #daily
-┃ ✦ #cofre
-┃ ✦ #semanal
-┃ ✦ #mensual
-┃ ✦ #robar
-┃ ✦ #robarxp
-┃ ✦ #baltop
-┃ ✦ #aventura
-┃ ✦ #curar
-┃ ✦ #cazar
-┃ ✦ #inventario
-┃ ✦ #mazmorra
-┃ ✦ #halloween
-┃ ✦ #navidad
+┃ ✦ work
+┃ ✦ suerte
+┃ ✦ crime
+┃ ✦ ruleta
+┃ ✦ casino
+┃ ✦ slot
+┃ ✦ cartera
+┃ ✦ bank
+┃ ✦ depositar
+┃ ✦ retirar
+┃ ✦ transfer
+┃ ✦ minar
+┃ ✦ buy
+┃ ✦ daily
+┃ ✦ cofre
+┃ ✦ semanal
+┃ ✦ mensual
+┃ ✦ robar
+┃ ✦ robarxp
+┃ ✦ baltop
+┃ ✦ aventura
+┃ ✦ curar
+┃ ✦ cazar
+┃ ✦ inventario
+┃ ✦ mazmorra
+┃ ✦ halloween
+┃ ✦ navidad
 ╰━━━━━━━━━━━━━━━━━━━━━━━━╯
 
 ╭━━━〔 🧰 𝗛𝗘𝗥𝗥𝗔𝗠𝗜𝗘𝗡𝗧𝗔𝗦 〕━━━╮
-┃ ✦ #calcular
-┃ ✦ #clima
-┃ ✦ #horario
-┃ ✦ #fake
-┃ ✦ #hd
-┃ ✦ #letra
-┃ ✦ #ver
-┃ ✦ #shazam
-┃ ✦ #ss
-┃ ✦ #tamaño
-┃ ✦ #say
-┃ ✦ #todoc
-┃ ✦ #traducir
+┃ ✦ calcular
+┃ ✦ clima
+┃ ✦ horario
+┃ ✦ fake
+┃ ✦ hd
+┃ ✦ letra
+┃ ✦ ver
+┃ ✦ shazam
+┃ ✦ ss
+┃ ✦ tamaño
+┃ ✦ say
+┃ ✦ todoc
+┃ ✦ traducir
 ╰━━━━━━━━━━━━━━━━━━━━━━━━╯
 
 ╭━━━〔 👤 𝗣𝗘𝗥𝗙𝗜𝗟/𝗨𝗦𝗨𝗔𝗥𝗜𝗢𝗦 〕━━━╮
-┃ ✦ #marry
-┃ ✦ #divorce
-┃ ✦ #setgenero
-┃ ✦ #delgenero
-┃ ✦ #setbirth
-┃ ✦ #delbirth
-┃ ✦ #setdesc
-┃ ✦ #deldesc
-┃ ✦ #lb
-┃ ✦ #level
-┃ ✦ #premium
-┃ ✦ #confesar
+┃ ✦ marry
+┃ ✦ divorce
+┃ ✦ setgenero
+┃ ✦ delgenero
+┃ ✦ setbirth
+┃ ✦ delbirth
+┃ ✦ setdesc
+┃ ✦ deldesc
+┃ ✦ lb
+┃ ✦ level
+┃ ✦ premium
+┃ ✦ confesar
 ╰━━━━━━━━━━━━━━━━━━━━━━━━╯
 
 ╭━━━〔 👥 𝗚𝗥𝗨𝗣𝗢𝗦/𝗖𝗢𝗡𝗙𝗜𝗚 〕━━━╮
-┃ ✦ #tag
-┃ ✦ #gp
-┃ ✦ #linea
-┃ ✦ #setwelcome
-┃ ✦ #setbye
-┃ ✦ #link
-┃ ✦ #admin
-┃ ✦ #revoke
-┃ ✦ #group open
-┃ ✦ #group close
-┃ ✦ #kick
-┃ ✦ #add
-┃ ✦ #promote
-┃ ✦ #demote
-┃ ✦ #gpbanner
-┃ ✦ #gpname
-┃ ✦ #gpdesc
-┃ ✦ #warn
-┃ ✦ #unwarn
-┃ ✦ #advlist
-┃ ✦ #bot on
-┃ ✦ #bot off
-┃ ✦ #mute
-┃ ✦ #unmute
-┃ ✦ #poll
-┃ ✦ #delete
-┃ ✦ #fantasmas
-┃ ✦ #kickfantasmas
-┃ ✦ #invocar
-┃ ✦ #setemoji
-┃ ✦ #kicknum
+┃ ✦ tag
+┃ ✦ gp
+┃ ✦ linea
+┃ ✦ setwelcome
+┃ ✦ setbye
+┃ ✦ link
+┃ ✦ admin
+┃ ✦ revoke
+┃ ✦ group open
+┃ ✦ group close
+┃ ✦ kick
+┃ ✦ add
+┃ ✦ promote
+┃ ✦ demote
+┃ ✦ gpbanner
+┃ ✦ gpname
+┃ ✦ gpdesc
+┃ ✦ warn
+┃ ✦ unwarn
+┃ ✦ advlist
+┃ ✦ bot on
+┃ ✦ bot off
+┃ ✦ mute
+┃ ✦ unmute
+┃ ✦ poll
+┃ ✦ delete
+┃ ✦ fantasmas
+┃ ✦ kickfantasmas
+┃ ✦ invocar
+┃ ✦ setemoji
+┃ ✦ kicknum
 ╰━━━━━━━━━━━━━━━━━━━━━━━━╯
+
 
 
 `.trim()
