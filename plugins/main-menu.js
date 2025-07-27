@@ -211,6 +211,7 @@ let handler = async (m, { conn, args }) => {
 ┃ ✦ setemoji
 ┃ ✦ kicknum
 ╰━━━━━━━━━━━━━━━━━━━━━━━━╯
+> by RukiaXzyV2 Actualizada 🥷🏻✨
 
 
 `.trim()
