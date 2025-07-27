@@ -19,7 +19,7 @@ let handler = async (m, { conn }) => {
   let grupos = chats.filter(([jid, chat]) => jid.endsWith('@g.us') && !chat?.metadata?.read_only && !chat?.metadata?.announce)
 
   let texto = `
-╭━━━〔 🛰️ 𝗗𝗜𝗔𝗚𝗡𝗢́𝗦𝗧𝗜𝗖𝗢 𝗥𝗨𝗞𝗜𝗔-𝗕𝗢𝗧 〕━━━╮
+╭━━━〔 📈 𝗗𝗜𝗔𝗚𝗡𝗢́𝗦𝗧𝗜𝗖𝗢 𝗥𝗨𝗞𝗜𝗔-𝗕𝗢𝗧 〕━━━╮
 ┃ ✦ *Velocidad de Respuesta:* ${latencia.toFixed(4)} ms
 ┃ ✦ *Tiempo Activo:* ${uptime}
 ┃ ✦ *Sesiones Activas:*
