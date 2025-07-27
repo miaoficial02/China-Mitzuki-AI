@@ -561,12 +561,12 @@ const msg = {
   unreg: `📜 *𝙍𝙚𝙜𝙞𝙨𝙩𝙧𝙤 𝙍𝙚𝙦𝙪𝙚𝙧𝙞𝙙𝙤* 📜\n» Necesitas registrarte antes de usar *${comando}*.\n\n✦ Usa: #${verifyaleatorio} ${user2}.${edadaleatoria}`,
 
   restrict: `🔒 *𝙁𝙪𝙣𝙘𝙞ó𝙣 𝙄𝙣𝙝𝙖𝙗𝙞𝙡𝙞𝙩𝙖𝙙𝙖* 🔒\n» Esta función está desactivada en el sistema de *Rukia-Bot*.`
+
+ 
 }[type];
+if (msg) return m.reply(msg).then(_ => m.react('✖️'))}
 
-if (msg) return m.reply(msg).then(_ => m.react('✖️'));
-
-let file = global.__filename(import.meta.url, true);
+let file = global.__filename(import.meta.url, true)
 watchFile(file, async () => {
-  unwatchFile(file);
-  console.log(chalk.magenta("Se actualizó 'handler.js'"));
-});
+unwatchFile(file)
+console.log(chalk.magenta("Se actualizo 'handler.js'"))})
