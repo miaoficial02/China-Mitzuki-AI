@@ -1,9 +1,3 @@
-/*───────────────────────────────────────
-  📁 Módulo:     sticker.js
-  🧠 Autor:      Carlos
-  🛠 Proyecto:   Shizuka-AI
-  🔗 GitHub:     https://github.com/Kone457/Shizuka-AI
-───────────────────────────────────────*/
 
 import { sticker } from '../lib/sticker.js'
 import uploadFile from '../lib/uploadFile.js'
@@ -12,7 +6,7 @@ import { webp2png } from '../lib/webp2mp4.js'
 
 let handler = async (m, { conn, args }) => {
   let stiker = false
-  const thumbnailCard = 'https://qu.ax/phgPU.jpg' // Miniatura usada en la tarjeta
+  const thumbnailCard = 'https://files.catbox.moe/e271al.jpg' // Miniatura usada en la tarjeta
 
   try {
     const q = m.quoted ? m.quoted : m
@@ -20,12 +14,12 @@ let handler = async (m, { conn, args }) => {
 
     if (/webp|image|video/g.test(mime)) {
       if (/video/.test(mime) && (q.msg || q).seconds > 15) {
-        return m.reply('⏱️ El video no puede superar los 15 segundos. Intenta con algo más corto.')
+        return m.reply('⏳ 𝐄𝐥 𝐯𝐢𝐝𝐞𝐨 𝐧𝐨 𝐩𝐮𝐞𝐝𝐞 𝐬𝐮𝐩𝐞𝐫𝐚𝐫 𝐥𝐨𝐬 𝟏𝟓 𝐬𝐞𝐠𝐮𝐧𝐝𝐨𝐬. 𝐈𝐧𝐭𝐞𝐧𝐭𝐚 𝐜𝐨𝐧 𝐚𝐥𝐠𝐨 𝐦𝐚́𝐬 𝐜𝐨𝐫𝐭𝐨.')
       }
 
       const media = await q.download?.()
       if (!media) {
-        return m.reply('🖼️ Necesito una imagen, video o sticker para convertirlo. ¡Envíame algo bonito!')
+        return m.reply('🌨️ 𝐀𝐮́𝐧 𝐧𝐨 𝐡𝐞 𝐩𝐨𝐝𝐢𝐝𝐨 𝐠𝐞𝐧𝐞𝐫𝐚𝐫 𝐭𝐮 𝐬𝐭𝐢𝐜𝐤𝐞𝐫. 𝐈𝐧𝐭𝐞𝐧𝐭𝐚 𝐧𝐮𝐞𝐯𝐚𝐦𝐞𝐧𝐭𝐞 𝐜𝐨𝐧 𝐮𝐧𝐚 𝐢𝐦𝐚𝐠𝐞𝐧 𝐨 𝐯𝐢𝐝𝐞𝐨.')
       }
 
       let out
@@ -57,7 +51,7 @@ let handler = async (m, { conn, args }) => {
   } finally {
     if (stiker) {
       await conn.sendMessage(m.chat, {
-        text: '🎁 Tu sticker está listo 🎉',
+        text: '🖼️ Tu sticker está listo ✨',
         footer: '✨ Generado con estilo personalizado',
         contextInfo: {
           externalAdReply: {
@@ -72,8 +66,10 @@ let handler = async (m, { conn, args }) => {
       await conn.sendFile(m.chat, stiker, 'sticker.webp', '', m)
     } else {
       await conn.sendMessage(m.chat, {
-        text: '💌 Aún no he podido generar tu sticker. Intenta nuevamente con una imagen o video.',
-        footer: '🎨 Generador automático de stickers',
+        let text = `✦ Lo siento...
+✦ Aún no he podido generar tu sticker.
+✦ Intenta nuevamente con una imagen o video.`
+        footer: '🌟 Generador automático de stickers',
         contextInfo: {
           externalAdReply: {
             title: 'No se pudo generar el sticker',
