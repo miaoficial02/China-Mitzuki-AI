@@ -15,26 +15,22 @@ let handler = async (m, { conn, usedPrefix }) => {
     let totalStats = Object.values(global.db.data.stats).reduce((total, stat) => total + stat.total, 0)
     let totalf = Object.values(global.plugins).filter((v) => v.help && v.tags).length
 
-    let info = `╭━━━┳┳┳┳┳┳━━━╮
-┃✿  *𝕀𝕟𝕗𝕠𝕣𝕞𝕒𝕔𝕚𝕠́𝕟 𝕕𝕖 ${global.botname}*  ✿┃
-╰━━━━━━━━━━━━━━━━╯\n`
+   let info = `╭━━━〔 📊 𝗘𝗦𝗧𝗔𝗗𝗢 𝗗𝗘 ${global.botname.toUpperCase()} 〕━━━╮
+┃ ✦ *Prefijo:* [ ${usedPrefix} ]
+┃ ✦ *Plugins Activos:* ${totalf}
+┃ ✦ *Comandos Usados:* ${toNum(totalStats)} ( ${totalStats} )
+╰━━━━━━━━━━━━━━━━━━━━━━━━━━━━╯\n`
 
-    info += `╭─╼⃟🧩 *𝗘𝘀𝘁𝗮𝗱𝗼 𝗗𝗲𝗹 𝗕𝗼𝘁*\n`
-    info += `┃ ✎ *Prefijo*: [ ${usedPrefix} ]\n`
-    info += `┃ ✦ *Plugins Activos*: ${totalf}\n`
-    info += `┃ ⚙ *Comandos Usados*: ${toNum(totalStats)} ( ${totalStats} )\n`
-    info += `╰────────────────────╯\n\n`
+info += `╭━━━〔 💻 𝗗𝗔𝗧𝗢𝗦 𝗗𝗘𝗟 𝗛𝗢𝗦𝗧 〕━━━╮
+┃ ✦ *Plataforma:* ${platform()}
+┃ ✦ *Servidor:* ${hostname()}
+┃ ✦ *RAM Usada:* ${format(totalmem() - freemem())} / ${format(totalmem())}
+┃ ✦ *RAM Libre:* ${format(freemem())}
+╰━━━━━━━━━━━━━━━━━━━━━━━━━━━━╯\n\n`
 
-    info += `╭─╼⃟💻 *𝗗𝗮𝘁𝗼𝘀 𝗗𝗲𝗹 𝗛𝗼𝘀𝘁*\n`
-    info += `┃ 🪟 *Plataforma*: ${platform()}\n`
-    info += `┃ 🖥️ *Servidor*: ${hostname()}\n`
-    info += `┃ 🚀 *RAM Usada*: ${format(totalmem() - freemem())} / ${format(totalmem())}\n`
-    info += `┃ 🧊 *RAM Libre*: ${format(freemem())}\n`
-    info += `╰────────────────────╯\n\n`
-
-    info += `╭─╼⃟🧠 *𝗠𝗲𝗺𝗼𝗿𝗶𝗮 𝗡𝗼𝗱𝗲𝗝𝗦*\n`
-    info += '┃ ' + Object.keys(process.memoryUsage()).map((key) => `🔹 ${key}: ${format(process.memoryUsage()[key])}`).join('\n┃ ') + '\n'
-    info += `╰────────────────────╯\n`
+info += `╭━━━〔 🧠 𝗠𝗘𝗠𝗢𝗥𝗜𝗔 𝗡𝗢𝗗𝗘𝗝𝗦 〕━━━╮
+` + Object.entries(process.memoryUsage()).map(([key, val]) => `┃ ✦ ${key}: ${format(val)}`).join('\n') + `
+╰━━━━━━━━━━━━━━━━━━━━━━━━━━━━╯\n`
 
     await conn.reply(m.chat, info, fkontak, {
         contextInfo: {
