@@ -19,7 +19,7 @@ export async function before(m, { conn }) {
     // BIENVENIDA
     if (m.messageStubType === 27 || m.messageStubType === 31) {
       await conn.sendMessage(m.chat, {
-        text: `💫 ¡Bienvenido ${taguser} al grupo *${groupMetadata.subject}*!\n\n> 📝 Nombre: *${name}*\n> 🆔 ID: ${user}\n> 📆 Fecha: ${fecha}\n\n> Puedes Usar.help Para Ver La Lista De Comando 📜`,
+        text: `💫 ¡Bienvenido ${taguser} al grupo *${groupMetadata.subject}*!\n\n📝 > Nombre: *${name}*\n🆔 > ID: ${user}\n📆 > Fecha: ${fecha}\n\n> Puedes Usar .help Para Ver La Lista De Comando 📜`,
         mentions: [user],
         contextInfo: {
           externalAdReply: {
