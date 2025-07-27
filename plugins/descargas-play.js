@@ -1,4 +1,4 @@
-// play By RukiXzy
+// Hijos De Puta Play Actualizado Por RukiXzy y El Bicho Man Putos Xzy
 
 import fetch from "node-fetch"
 import yts from 'yt-search'
