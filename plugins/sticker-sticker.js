@@ -66,9 +66,7 @@ let handler = async (m, { conn, args }) => {
       await conn.sendFile(m.chat, stiker, 'sticker.webp', '', m)
     } else {
       await conn.sendMessage(m.chat, {
-        let text = `✦ Lo siento...
-✦ Aún no he podido generar tu sticker.
-✦ Intenta nuevamente con una imagen o video.`
+        text: '‼️ 𝐀𝐮́𝐧 𝐧𝐨 𝐡𝐞 𝐩𝐨𝐝𝐢𝐝𝐨 𝐠𝐞𝐧𝐞𝐫𝐚𝐫 𝐭𝐮 𝐬𝐭𝐢𝐜𝐤𝐞𝐫. 𝐈𝐧𝐭𝐞𝐧𝐭𝐚 𝐧𝐮𝐞𝐯𝐚𝐦𝐞𝐧𝐭𝐞 𝐜𝐨𝐧 𝐮𝐧𝐚 𝐢𝐦𝐚𝐠𝐞𝐧 𝐨 𝐯𝐢𝐝𝐞𝐨.'
         footer: '🌟 Generador automático de stickers',
         contextInfo: {
           externalAdReply: {
