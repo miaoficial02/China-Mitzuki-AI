@@ -30,7 +30,7 @@ let crm3 = "SBpbmZvLWRvbmFyLmpz"
 let crm4 = "IF9hdXRvcmVzcG9uZGVyLmpzIGluZm8tYm90Lmpz"
 let drm1 = ""
 let drm2 = ""
-let rtx = "𝙎𝙝𝙞𝙯𝙪𝙠𝙖-𝘼𝙄\n✐ Cσɳҽxισɳ SυႦ-Bσƚ Mσԃҽ QR\n\n✰ Con otro celular o en la PC escanea este QR para convertirte en un *Sub-Bot* Temporal.\n\n\`1\` » Haga clic en los tres puntos en la esquina superior derecha\n\n\`2\` » Toque dispositivos vinculados\n\n\`3\` » Escanee este codigo QR para iniciar sesion con el bot\n\n✧ ¡Este código QR expira en 45 segundos!."
+let rtx = "𝐑𝐔𝐊𝐈𝐀-𝐁𝐎𝐓\n✐ Cσɳҽxισɳ SυႦ-Bσƚ Mσԃҽ QR\n\n✦ Con otro celular o en la PC escanea este QR para convertirte en un *Sub-Bot* Temporal.\n\n\`1\` ➣ Haga clic en los tres puntos en la esquina superior derecha\n\n\`2\` ➣ Toque dispositivos vinculados\n\n\`3\` ➣ Escanee este codigo QR para iniciar sesion con el bot\n\n✧ ¡Este código QR expira en 45 segundos!."
 let rtx2 = "𝐑𝐔𝐊𝐈𝐀-𝐁𝐎𝐓\n\n 𝘾𝙤𝙣𝙚𝙭𝙞𝙤𝙣 𝙙𝙚 𝙨𝙪𝙗-𝙗𝙤𝙩𝙨 𝙥𝙤𝙧 𝘾𝙤𝙙𝙞𝙜𝙤\n\n 𝑆𝑖𝑔𝑢𝑒 𝑒𝑠𝑡𝑜𝑠 𝑝𝑎𝑠𝑜𝑠 𝑝𝑎𝑟𝑎 𝑢𝑛𝑖𝑟𝑡𝑒 𝑐𝑜𝑚𝑜 𝑆𝑢𝑏-𝐵𝑜𝑡.\n\n\`✦\` Haga clic en los tres puntos en la esquina superior derecha\n\n\`✦\` ➪ Toque *Dispositivos Vinculados*\n\n\`✦\` ➪ Seleccione *Vincular con el número de teléfono*\n\n\`✦\` ➪ Escriba el *Código* para iniciar sesión con el bot."
 
 const __filename = fileURLToPath(import.meta.url)
