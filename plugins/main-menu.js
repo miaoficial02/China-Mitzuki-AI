@@ -209,7 +209,8 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
 ┃ ✦ setemoji
 ┃ ✦ kicknum
 ╰━━━━━━━━━━━━━━━━━━━━━━━━╯
-    `.trim()
+   
+ `.trim()
 
     await conn.sendMessage(m.chat, {
         text: txt,
