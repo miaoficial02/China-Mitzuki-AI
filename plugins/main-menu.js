@@ -220,11 +220,6 @@ let handler = async (m, { conn, args }) => {
       contextInfo: {
           mentionedJid: [m.sender, userId],
           isForwarded: true,
-          forwardedNewsletterMessageInfo: {
-              newsletterJid: channelRD.id,
-              newsletterName: channelRD.name,
-              serverMessageId: -1,
-          },
           forwardingScore: 999,
           externalAdReply: {
               title: botname,
