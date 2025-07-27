@@ -1,15 +1,15 @@
 import PhoneNumber from 'awesome-phonenumber'
 
 let handler = async (m, { conn }) => {
-  const suittag = '5355699866' // Número sin "+" ni "@s.whatsapp.net"
-  const botname = 'Shizuka-AI'
-  const correo = 'c211762O@gmail.com'
+  const suittag = '18493907272' // Número sin "+" ni "@s.whatsapp.net"
+  const botname = 'RukiaBotv2'
+  const correo = 'erenxz01@gmail.com'
   const md = 'https://github.com/Kone457/Shizuka-AI'
   const channel = 'https://whatsapp.com/channel/XXXX'
-  const packname = 'ShizukaBot'
-  const dev = 'Carlos Dev'
+  const packname = 'RukiaXzyV2'
+  const dev = 'Dev RukiaXzy'
 
-  await m.react('📇')
+  await m.react('🥷🏻')
 
   const who = m.mentionedJid?.[0] || (m.fromMe ? conn.user.jid : m.sender)
 
@@ -21,7 +21,7 @@ let handler = async (m, { conn }) => {
 
   // Aviso en público
   await conn.sendMessage(m.chat, {
-    text: `📬 Te envié por privado los datos de mi creador. No los pierdas.`,
+    text: `𝗔𝗾𝘂𝗶 𝗧𝗲 𝗗𝗲𝗷𝗼 𝗟𝗼𝘀 𝗗𝗮𝘁𝗼𝘀 𝗗𝗲 𝗠𝗶 𝗖𝗿𝗲𝗮𝗱𝗼𝗿 𝗥𝘂𝗸𝗶𝗮𝗫𝘇𝘆`,
     mentions: [who]
   }, { quoted: m })
 
@@ -29,21 +29,21 @@ let handler = async (m, { conn }) => {
   await sendContactArray(conn, who, [
     [
       suittag,
-      `ᰔᩚ Propietario`,
+      `𝑿𝒁𝒀 𝑷𝑹𝑶𝑷𝑰𝑬𝑻𝑨𝑹𝑰𝑶`,
       botname,
-      `❀ No Hacer Spam`,
+      `ɴᴏ sᴘᴀᴍ ᴀʟ ɴᴜᴍᴇʀᴏ ⚠︎`,
       correo,
-      `⊹˚• Cuba •˚⊹`,
+      `ᴛᴏᴋɪᴏ`,
       md,
       bio
     ],
     [
       conn.user.jid.split('@')[0],
-      `✦ Es Un Bot`,
+      `𝑿𝒁𝒀 𝑩𝑶𝑻 `,
       packname,
       dev,
       correo,
-      `Sabrá Dios 🫏`,
+      `ʙᴏᴛ ᴀᴄᴛɪᴠᴀ ᴀɴᴛɪᴘᴠ ᴛᴀᴍʙɪᴇɴ `,
       channel,
       bioBot
     ]
