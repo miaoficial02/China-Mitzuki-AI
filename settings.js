@@ -34,26 +34,26 @@ global.prems = []
 global.libreria = 'Baileys'
 global.baileys = 'V 6.7.16' 
 global.vs = '1.0'
-global.nameqr = 'Shizuka-AI'
-global.namebot = 'Shizuka-AI'
+global.nameqr = 'RukiaBotv2Qr'
+global.namebot = 'RukiaBotv2'
 global.sessions = 'Sessions'
 global.jadi = 'JadiBots' 
 
 
 //-----------------------------
 
-global.packname = '「𝑆ℎ𝑖𝑧𝑢𝑘𝑎-𝐴𝐼」'
-global.botname = 'Shizuka-AI'
-global.wm = '𝙎𝙃𝙄𝙕𝙐𝙆𝘼-𝘼𝙄'
-global.author = 'Power By Carlos'
-global.dev = '© 𝙋𝙤𝙬𝙚𝙧-𝙗𝙮-Carlos°'
-global.textbot = '𝙎𝙝𝙞𝙕𝙪𝙠𝙖-𝘼𝙄 𝙋𝙤𝙬𝙚𝙧 𝙗𝙮 Carlos '
-global.etiqueta = 'Carlos'
+global.packname = '𝑹𝒖𝒌𝒊𝒂𝒗2'
+global.botname = '𝑹𝒖𝒌𝒊𝒂 𝑩𝒐𝒕𝒗2'
+global.wm = '𝑹𝑼𝑲𝑰𝑨-𝑩𝑶𝑻 𝑿𝒁𝒀𝒗2'
+global.author = '𝐛𝐲 𝐄𝐫𝐞𝐧𝐱𝐳𝐲🥷🏻'
+global.dev = '𝐃𝐞𝐯 𝐑𝐮𝐤𝐢𝐚𝐗𝐳𝐲🥷🏻✨'
+global.textbot = '𝙍𝙪𝙠𝙞𝙖𝙓𝙯𝙮 𝘽𝙮 𝙀𝙧𝙚𝙣𝙭𝙯𝙮 🕊️ '
+global.etiqueta = '𝙭𝙯𝙮🥷🏻'
 
 
 //-----------------------------
 
-global.moneda = 'Coins'
+global.moneda = 'coin'
 global.welcom1 = `
 
  *🕸️ Registro del sistema:* 
@@ -81,18 +81,18 @@ global.welcom2 = `
 *☠️ Advertencia para los sobrevivientes:* 
 > *"No preguntéis por ello... o seréis el próximo."*`
 
-global.banner = 'https://raw.githubusercontent.com/Kone457/Nexus/refs/heads/main/Shizuka.jpg'
+global.banner = 'https://qu.ax/Bupnx.jpg'
 global.avatar = 'https://raw.githubusercontent.com/Kone457/Nexus/refs/heads/main/v2.jpg'
 
 //-----------------------------
 
-global.gp1 = 'https://chat.whatsapp.com/FULTpMKUnwcI6zR7LT3qsW'
-global.comunidad1 = 'https://chat.whatsapp.com/KUQIRhtLBir2FhiiFuqbGO'
-global.channel = 'https://whatsapp.com/channel/0029VbAVMtj2f3EFmXmrzt0v'
-global.channel2 = 'https://whatsapp.com/channel/0029VbAVMtj2f3EFmXmrzt0v'
+global.gp1 = 'https://chat.whatsapp.com/BwoPmcZVruTH2hjYyvoEs5?mode=ac_t'
+global.comunidad1 = 'https://chat.whatsapp.com/GXwZX6U6f6OIxthaE4kF37?mode=ac_t'
+global.channel = 'https://whatsapp.com/channel/0029VbBBn9R4NViep4KwCT3Z'
+global.channel2 = 'https://whatsapp.com/channel/0029VbBBn9R4NViep4KwCT3Z'
 global.md = 'https://github.com/Kone457/Shizuka-AI'
-global.correo = 'c2117620@gmail.com'
-global.cn ='https://whatsapp.com/channel/0029VbAVMtj2f3EFmXmrzt0v';
+global.correo = 'erenxz01@gmail.com'
+global.cn ='https://whatsapp.com/channel/0029VbBBn9R4NViep4KwCT3Z';
 
 //-----------------------------
 
@@ -100,7 +100,7 @@ global.cn ='https://whatsapp.com/channel/0029VbAVMtj2f3EFmXmrzt0v';
 global.catalogo = fs.readFileSync('./src/catalogo.jpg');
 global.estilo = { key: {  fromMe: false, participant: `0@s.whatsapp.net`, ...(false ? { remoteJid: "5219992095479-1625305606@g.us" } : {}) }, message: { orderMessage: { itemCount : -999999, status: 1, surface : 1, message: packname, orderTitle: 'Bang', thumbnail: catalogo, sellerJid: '0@s.whatsapp.net'}}}
 global.ch = {
-ch1: '120363400241973967@newsletter',
+ch1: '120363417252896376@newsletter',
 }
 global.multiplier = 70
 
