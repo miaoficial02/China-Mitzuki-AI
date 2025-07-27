@@ -57,7 +57,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
         externalAdReply: {
           title: 'TikTok Video',
           body: 'Descarga completada',
-          thumbnailUrl: 'thumbnailCard,
+          thumbnailUrl: thumbnailCard,
           sourceUrl: '𝗕𝘆 𝗘𝗹 𝗕𝗶𝗰𝗵𝗼 𝗠𝗮𝗻 𝗫𝘇𝘆'
         }
       }
