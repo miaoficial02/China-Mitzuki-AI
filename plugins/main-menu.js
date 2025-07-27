@@ -8,6 +8,7 @@ let handler = async (m, { conn, args }) => {
     let totalCommands = Object.values(global.plugins).filter((v) => v.help && v.tags).length
     
     let txt = `
+
 ╭━━━〔 🌨️ 𝗥𝗨𝗞𝗜𝗔-𝗕𝗢𝗧 𝗩2 - 𝗠𝗘𝗡𝗨 〕━━━╮
 ┃✎ ¡Hola @${userId.split('@')[0]}!
 ┃➥ Soy *${botname}*, tu bot virtual.
