@@ -30,12 +30,8 @@ let crm3 = "SBpbmZvLWRvbmFyLmpz"
 let crm4 = "IF9hdXRvcmVzcG9uZGVyLmpzIGluZm8tYm90Lmpz"
 let drm1 = ""
 let drm2 = ""
-let rtx = "𝙎𝙝𝙞𝙯𝙪𝙠𝙖-𝘼𝙄\n✐ Cσɳҽxισɳ SυႦ-Bσƚ Mσԃҽ QR\n\n✰ Con otro celular o en la PC escanea este QR para convertirte en un *Sub-Bot* Temporal.\n\n\`1\` » Haga clic en los tres puntos en la esquina superior derecha\n\n\`2\` » Toque dispositivos vinculados\n\n\`3\` » Escanee este codigo QR para iniciar sesion con el bot\n\n✧ ¡Este código QR expira en 45 segundos!."
-let rtx2 = "❀ *Hazte Sub Bot*
-
-✧ Usa el código manualmente:
-✐ Más opciones → Dispositivos vinculados → Vincular nuevo dispositivo → Con número
-☁︎ *Importante:* El código es válido solo para este número."
+let rtx = "𝙍𝙪𝙠𝙞𝙖𝘽𝙤𝙩\n✐ Cσɳҽxισɳ SυႦ-Bσƚ Mσԃҽ QR\n\n✰ Con otro celular o en la PC escanea este QR para convertirte en un *Sub-Bot* Temporal.\n\n\`1\` » Haga clic en los tres puntos en la esquina superior derecha\n\n\`2\` » Toque dispositivos vinculados\n\n\`3\` » Escanee este codigo QR para iniciar sesion con el bot\n\n✧ ¡Este código QR expira en 45 segundos!."
+let rtx2 = "✎ 𝙍𝙪𝙠𝙞𝙖𝘽𝙤𝙩\n\n 𝘾𝙤𝙣𝙚𝙭𝙞𝙤𝙣 𝙑𝙞𝙖 𝘾𝙤𝙙𝙞𝙜𝙤 𝙎𝙪𝙗-𝘽𝙤𝙩\n\n Sigue estos pasos para convertirte en un sub-bot:\n\n`❄️` Haz clic en los tres puntos en la esquina superior derecha\n\n`❄️` » Toca *Dispositivos vinculados*\n\n`❄️` » Selecciona *Vincular con número de teléfono*\n\n`❄️` » Escribe el *código* para iniciar sesión con el bot."
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -302,3 +298,5 @@ async function joinChannels(conn) {
 for (const channelId of Object.values(global.ch)) {
 await conn.newsletterFollow(channelId).catch(() => {})
 }}
+
+Cada vez que cambio eso osea el texto para hacerse subot se me jode
