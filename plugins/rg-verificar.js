@@ -8,22 +8,21 @@ let handler = async function (m, { conn, text, args, usedPrefix, command }) {
     let user = global.db.data.users[m.sender]
     let name2 = conn.getName(m.sender)
     let whe = m.mentionedJid[0] ? m.mentionedJid[0] : m.quoted ? m.quoted.sender : m.sender
-    let perfil = await conn.profilePictureUrl(whe, 'image').catch(_ => 'https://files.catbox.moe/e271al.jpg')
+    let perfil = await conn.profilePictureUrl(whe, 'image').catch(_ => 'https://files.catbox.moe/sagb7p.jpg')
 
     if (user.registered === true) {
-        return m.reply(`✦ 𝗬𝗮 𝘁𝗲 𝗲𝗻𝗰𝘂𝗲𝗻𝘁𝗿𝗮𝘀 𝗿𝗲𝗴𝗶𝘀𝘁𝗿𝗮𝗱𝗼.\n\n¿𝗤𝘂𝗶𝗲𝗿𝗲 𝘃𝗼𝗹𝘃𝗲𝗿 𝗮 𝗿𝗲𝗴𝗶𝘀𝘁𝗿𝗮𝗿𝘀𝗲?\n\n𝗨𝘀𝗲 𝗲𝘀𝘁𝗲 𝗰𝗼𝗺𝗮𝗻𝗱𝗼 𝗽𝗮𝗿𝗮 𝗲𝗹𝗶𝗺𝗶𝗻𝗮𝗿 𝘀𝘂 𝗿𝗲𝗴𝗶𝘀𝘁𝗿𝗼.\n*${usedPrefix}unreg*`)
+        return m.reply(`*『✦』Ya estás registrado, para volver a registrarte, usa el comando: #unreg*`)
     }
 
-    if (!Reg.test(text)) return m.reply(`Eʟ ғᴏʀᴍᴀᴛᴏ ɪɴɢʀᴇsᴀᴅᴏ ᴇs ɪɴᴄᴏʀʀᴇᴄᴛᴏ\n\nUsᴏ ᴅᴇʟ ᴄᴏᴍᴀɴᴅᴏ: ${usedPrefix + command} 𝗻𝗼𝗺𝗯𝗿𝗲.𝗲𝗱𝗮𝗱\nEᴊᴇᴍᴘʟᴏ : *${usedPrefix + command} ${name2}.14*`)
+    if (!Reg.test(text)) return m.reply(`*『✦』El comando ingresado es incorrecto, uselo de la siguiente manera:*\n\n#reg *Nombre.edad*\n\n\`\`\`Ejemplo:\`\`\`\n#reg *${name2}.18*`)
 
     let [_, name, splitter, age] = text.match(Reg)
-    if (!name) return m.reply('✎ ᴇʟ ɴᴏᴍʙʀᴇ ɴᴏ ᴘᴜᴇᴅᴇ ᴇsᴛᴀʀ ᴠᴀᴄɪᴏ.')
-    if (!age) return m.reply('✎ Lᴀ ᴇᴅᴀᴅ ɴᴏ ᴘᴜᴇᴅᴇ ᴇsᴛᴀʀ ᴠᴀᴄɪ́ᴀ.')
-    if (name.length >= 100) return m.reply('✐ El nombre es demasiado largo.')
+    if (!name) return m.reply('*『✦』No puedes registrarte sin nombre, el nombre es obligatorio. Inténtelo de nuevo.*')
+    if (!age) return m.reply('*『✦』No puedes registrarte sin la edad, la edad es opcional. Inténtelo de nuevo.*')
+    if (name.length >= 100) return m.reply('*『✦』El nombre no debe tener más de 30 caracteres.*')
 
     age = parseInt(age)
-    if (age > 1000) return m.reply('*ʟᴀ ᴇᴅᴀᴅ ɪɴɢʀᴇsᴀᴅᴀ ᴇs ɪɴᴄᴏʀʀᴇᴄᴛᴀ*')
-    if (age < 5) return m.reply('*ʟᴀ ᴇᴅᴀᴅ ɪɴɢʀᴇsᴀᴅᴀ ᴇs ɪɴᴄᴏʀʀᴇᴄᴛᴀ*')
+    if (age > 1000 || age < 5) return m.reply('𝑳𝒂 𝑬𝒅𝒂𝒅 𝒊𝒏𝒈𝒓𝒆𝒔𝒂𝒅𝒂 𝑬𝒔 𝒊𝒏𝒄𝒐𝒓𝒓𝒆𝒄𝒕𝒂')
 
     user.name = name.trim()
     user.age = age
@@ -34,79 +33,68 @@ let handler = async function (m, { conn, text, args, usedPrefix, command }) {
     global.db.data.users[m.sender].exp += 245
     global.db.data.users[m.sender].joincount += 5    
 
-    let who;
-    if (m.quoted && m.quoted.sender) {
-        who = m.quoted.sender;
-    } else {
-        who = m.mentionedJid && m.mentionedJid[0] ? m.mentionedJid[0] : m.fromMe ? conn.user.jid : m.sender;
-    }
+    let sn = createHash('md5').update(m.sender).digest('hex');
+    let moneda = '💸'
+    let regbot = `
+╭━━━━━━━━━━━━━━━━━━━━━━━╮
+│ ✅ 𝙍𝙚𝙜𝙞𝙨𝙩𝙧𝙤 𝘾𝙤𝙢𝙥𝙡𝙚𝙩𝙖𝙙𝙤 ฅ^•ﻌ•^ฅ
+│
+│ ✎ 𝐍𝐨𝐦𝐛𝐫𝐞: ${name}
+│ ✎ 𝐄𝐝𝐚𝐝: ${age} años
+│
+│ 🌸 ¡Gracias por registrarte!
+│ 📜 Usa *.menu* para ver comandos
+╰━━━━━━━━━━━━━━━━━━━━━━━╯
+> 𝑮𝒓𝒂𝒄𝒊𝒂 𝑷𝒐𝒓 𝑼𝒔𝒂𝒓 𝑭𝒆𝒏𝒓𝒚𝒔𝑩𝒐𝒕ᰔᩚ
+`;
 
-    let sn = createHash('md5').update(m.sender).digest('hex')
-    let regbot = `╭━━━〔 ✅ REGISTRO COMPLETADO 〕━━━╮\n`
-regbot += `┃  ✦ Registrado exitosamente por *RukiaBotv2*\n`
-regbot += `┃\n`
-regbot += `┃  ✦ *Nombre:* ${name}\n`
-regbot += `┃  ✦ *Edad:* ${age} años\n`
-regbot += `┃\n`
-regbot += `┃  ✦ *Recompensas obtenidas:*\n`
-regbot += `┃      ➤ 15 ✦ Estrellas\n`
-regbot += `┃      ➤ 5 ✦ Coins\n`
-regbot += `┃      ➤ 245 ✦ Experiencia\n`
-regbot += `┃      ➤ 12 ✦ Tokens\n`
-regbot += `┃\n`
-regbot += `┃  Usa *#perfil* para ver tu perfil\n`
-regbot += `╰━━━━━━━━━━━━━━━━━━━━━━━━━━╯`
-
-  await conn.sendMessage(m.chat, {
+    await conn.sendMessage(m.chat, {
         text: regbot,
         contextInfo: {
             externalAdReply: {
-                title: '𝐑 𝐄 𝐆 𝐈 𝐒 𝐓 𝐑 𝐀 𝐃 𝐎',
-                thumbnailUrl: 'https://files.catbox.moe/e271al.jpg',
+                title: 'ʙʏ ᴘʀᴏʏᴇᴄᴛ ғᴇɴʀʏs ꨄ︎',
+                thumbnailUrl: 'https://files.catbox.moe/j6ci3o.jpg',
                 mediaType: 1,
-                renderLargerThumbnail: true
+                body: '𝙼𝚎𝚗𝚞 𝚍𝚒𝚜𝚙𝚘𝚗𝚒𝚋𝚕𝚎 𝚌𝚘𝚗 .𝚖𝚎𝚗𝚞 ꨄ︎',
             }
         }
     }, { quoted: m });
 
-/*    await m.react('📩')
-  await conn.sendMessage(m.chat, {
-           text: regbot, 
-        contextInfo: {
-            externalAdReply: {
-                showAdAttribution: true,                      
-                containsAutoReply: true,     
-                renderLargerThumbnail": true,
-                title: '𝐑𝐄𝐆 𝐂𝐎𝐍 𝐄𝐗𝐈𝐓𝐎 𝐁𝐘 𝐑𝐔𝐊𝐈𝐀 𝐗𝐙𝐘',  
-                body: dev,  
-                containsAutoReply: true,
-                showAdAttribution: true,
-                mediaType: 1, 
-                thumbnailUrl: 'https://files.catbox.moe/e271al.jpg' }}}, {quoted: m})
-*/
-
-let chtxt = `👤 *𝚄𝚜𝚎𝚛* » ${m.pushName || 'Anónimo'}
-🗂 *𝚅𝚎𝚛𝚒𝚏𝚒𝚌𝚊𝚌𝚒𝚘́𝚗* » ${user.name}
-🍨 *𝙴𝚍𝚊𝚍* » ${user.age} años
-⌨️ *𝙳𝚎𝚜𝚌𝚛𝚒𝚙𝚌𝚒𝚘𝚗* » ${user.descripcion}
-🍭 *𝙽𝚞𝚖𝚎𝚛𝚘 𝚍𝚎 𝚛𝚎𝚐𝚒𝚜𝚝𝚛𝚘* »
+    // Envío silencioso al canal, solo si el bot es admin
+    let chtxt = `🌸 𝑵𝒖𝒆𝒗𝒐 𝙁𝙚𝙣𝙧𝙮𝙨𝘽𝙤𝙩 𝙐𝙨𝙪𝙖𝙧𝙞𝙤ꜜ
+˚₊· ➪💎 *𝗨𝘀𝘂𝗮𝗿𝗶𝗼:* ${m.pushName || 'Anónimo'}    
+˚₊· ➪📂 *𝗩𝗲𝗿𝗶𝗳𝗶𝗰𝗮𝗰𝗶𝗼́𝗻:* ${user.name}    
+˚₊· ➪🍰 *𝗘𝗱𝗮𝗱:* ${user.age} años    
+˚₊· ➪⌨️ *𝗥𝗲𝗴𝗶𝘀𝘁𝗿𝗼 𝗜𝗗:*  
 ⤷ ${sn}`;
 
-    let channelID = '120363400241973967@newsletter';
-        await conn.sendMessage(channelID, {
-        text: chtxt,
-        contextInfo: {
-            externalAdReply: {
-                title: "【 🔔 𝐍𝐎𝐓𝐈𝐅𝐈𝐂𝐀𝐂𝐈𝐎́𝐍 𝐃𝐄 𝐑𝐄𝐆𝐈𝐒𝐓𝐑𝐎 🔔 】",
-                body: '🌸 ¡𝚄𝚗 𝚞𝚜𝚞𝚊𝚛𝚒𝚘 𝚗𝚞𝚎𝚟𝚘 𝚎𝚗 𝚖𝚒 𝚋𝚊𝚜𝚎 𝚍𝚎 𝚍𝚊𝚝𝚘𝚜!',
-                thumbnailUrl: 'perfil',
-                sourceUrl: 'redes',
-                mediaType: 1,
-                showAdAttribution: false,
-                renderLargerThumbnail: false
-            }
+    let channelID = '120363397177582655@newsletter';
+    try {
+        let metadata = await conn.groupMetadata(channelID);
+        let botID = conn.user.jid;
+        let isBotAdmin = metadata.participants?.some(p => p.id === botID && (p.admin === 'admin' || p.admin === 'superadmin'));
+
+        if (isBotAdmin) {
+            await conn.sendMessage(channelID, {
+                text: chtxt,
+                contextInfo: {
+                    externalAdReply: {
+                        title: " ʀᴇɢɪsᴛʀᴏ ᴄᴏᴍᴘʟᴇᴛᴀᴅᴏ ᰔᩚ ",
+                        body: '𝑭𝒆𝒏𝒓𝒚𝒔𝑹𝒆𝒈𝒊𝒔𝒕𝒓𝒐ᰔᩚ ',
+                        thumbnailUrl: perfil,
+                        sourceUrl: 'https://github.com/Dioneibi-rip/Ruby-Hoshino-Bot',
+                        mediaType: 1,
+                        showAdAttribution: false,
+                        renderLargerThumbnail: false
+                    }
+                }
+            }, { quoted: null });
+        } else {
+            console.log('[❌] El bot no es admin del canal, mensaje no enviado.')
         }
-    }, { quoted: null });
+    } catch (e) {
+        console.log('⚠️ Error al verificar canal o enviar mensaje:', e.message)
+    }
 };
 
 handler.help = ['reg']
