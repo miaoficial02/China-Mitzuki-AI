@@ -82,7 +82,7 @@ global.welcom2 = `
 > *"No preguntéis por ello... o seréis el próximo."*`
 
 global.banner = 'https://qu.ax/Bupnx.jpg'
-global.avatar = 'https://raw.githubusercontent.com/Kone457/Nexus/refs/heads/main/v2.jpg'
+global.avatar = 'https://files.catbox.moe/1w8sut.jpeg'
 
 //-----------------------------
 
