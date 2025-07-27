@@ -298,5 +298,3 @@ async function joinChannels(conn) {
 for (const channelId of Object.values(global.ch)) {
 await conn.newsletterFollow(channelId).catch(() => {})
 }}
-
-Cada vez que cambio eso osea el texto para hacerse subot se me jode
