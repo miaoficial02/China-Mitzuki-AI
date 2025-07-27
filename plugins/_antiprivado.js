@@ -19,20 +19,20 @@ export async function before(m, { conn, isAdmin, isBotAdmin, isOwner, isROwner }
       const usuario = `@${m.sender.split('@')[0]}`;
       
       const mensajeBloqueo = `
-╭─── *♢ Aviso Automático ♢* ───
-│
-│ ✦ *Hola ${usuario}* ✦
-│
-│ Lamentamos informarte que los comandos
-│ están desactivados en chats privados.
-│
-│ ⚠️ *Has sido bloqueado automáticamente*
-│
-│ 📌 *Para usar el bot:*
-│ 1. Únete a nuestro grupo oficial
-│ 2. Contacta al administrador
-│
-╰───「 ✦ *${global.nombreBot}* ✦ 」───
+╭━━━〔 ⚠️ 𝗔𝗖𝗖𝗘𝗦𝗢 𝗥𝗘𝗦𝗧𝗥𝗜𝗡𝗚𝗜𝗗𝗢 〕━━━╮
+┃
+┃ ✦ Hola ${usuario}
+┃ ✦ Los comandos están *desactivados* en chats privados.
+┃ ✦ Por seguridad, has sido *bloqueado automáticamente*.
+┃
+┃ 📌 Para volver a usar el bot:
+┃    ✦ Únete al grupo oficial
+┃    ✦ Contacta al administrador
+┃
+┃ 🌐 Más información aquí:
+┃    ✦ https://erenxsit.vercel.app
+┃
+╰━━━〔 ✦ ${global.nombreBot} ✦ 〕━━━╯
       `.trim();
 
       await conn.sendMessage(m.chat, { 
