@@ -31,7 +31,12 @@ let crm4 = "IF9hdXRvcmVzcG9uZGVyLmpzIGluZm8tYm90Lmpz"
 let drm1 = ""
 let drm2 = ""
 let rtx = "𝙎𝙝𝙞𝙯𝙪𝙠𝙖-𝘼𝙄\n✐ Cσɳҽxισɳ SυႦ-Bσƚ Mσԃҽ QR\n\n✰ Con otro celular o en la PC escanea este QR para convertirte en un *Sub-Bot* Temporal.\n\n\`1\` » Haga clic en los tres puntos en la esquina superior derecha\n\n\`2\` » Toque dispositivos vinculados\n\n\`3\` » Escanee este codigo QR para iniciar sesion con el bot\n\n✧ ¡Este código QR expira en 45 segundos!."
-let rtx2 = "𝙎𝙝𝙞𝙯𝙪𝙠𝙖-𝘼𝙄\n\n 𝘾𝙤𝙣𝙚𝙭𝙞𝙤𝙣 𝙨𝙪𝙗-𝙗𝙤𝙩𝙨 𝙢𝙚𝙙𝙞𝙖𝙣𝙩𝙚 𝘾𝙤𝙙𝙚 \n\n 𝑆𝑖𝑔𝑢𝑒 𝑒𝑠𝑡𝑜𝑠 𝑝𝑎𝑠𝑜𝑠 𝑝𝑎𝑟𝑎 𝑐𝑜𝑛𝑣𝑒𝑟𝑡𝑖𝑟𝑡𝑒 𝑒𝑛 𝑠𝑢𝑏-𝑏𝑜𝑡𝑠 .\n\n\`🌟\` 𝓗𝓪𝓰𝓪 𝓬𝓵𝓲𝓬 𝓮𝓷 𝓵𝓸𝓼 𝓽𝓻𝓮𝓼 𝓹𝓾𝓷𝓽𝓸𝓼 𝓮𝓷 𝓵𝓪 𝓮𝓼𝓺𝓾𝓲𝓷𝓪 𝓼𝓾𝓹𝓮𝓻𝓲𝓸𝓻 𝓭𝓮𝓻𝓮𝓬𝓱𝓪\n\n\`🌟\` » 𝓣𝓸𝓺𝓾𝓮 𝓭𝓲𝓼𝓹𝓸𝓼𝓲𝓽𝓲𝓿𝓸𝓼 𝓿𝓲𝓷𝓬𝓾𝓵𝓪𝓭𝓸𝓼\n\n\`🌟\` » 𝓢𝓮𝓵𝓮𝓬𝓬𝓲𝓸𝓷𝓪 𝓥𝓲𝓷𝓬𝓾𝓵𝓪𝓻 𝓬𝓸𝓷 𝓮𝓵 𝓷𝓾𝓶𝓮𝓻𝓸 𝓭𝓮 𝓽𝓮𝓵𝓮𝓯𝓸𝓷𝓸\n\n\`🌟\` » 𝓔𝓼𝓬𝓻𝓲𝓫𝓪 𝓮𝓵 𝓒𝓸𝓭𝓲𝓰𝓸 𝓹𝓪𝓻𝓪 𝓲𝓷𝓲𝓬𝓲𝓪𝓻 𝓼𝓮𝓼𝓲𝓸𝓷 𝓬𝓸𝓷 𝓮𝓵 𝓫𝓸𝓽."
+let rtx2 = "❀ *Hazte Sub Bot*
+
+✧ Usa el código manualmente:
+✐ Más opciones → Dispositivos vinculados → Vincular nuevo dispositivo → Con número
+
+☁︎ *Importante:* El código es válido solo para este número."
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
