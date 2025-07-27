@@ -1,9 +1,8 @@
-let handler = async (m, { conn, args, usedPrefix, command }) => {
+let handler = async (m, { conn, args }) => {
     let userId = m.mentionedJid && m.mentionedJid[0] ? m.mentionedJid[0] : m.sender
     let name = await conn.getName(userId)
     let _uptime = process.uptime() * 1000
     let uptime = clockString(_uptime)
-    let totalreg = Object.keys(global.db.data.users).length
     let totalCommands = Object.values(global.plugins).filter(v => v.help && v.tags).length
 
     let txt = `
@@ -209,30 +208,11 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
 ┃ ✦ setemoji
 ┃ ✦ kicknum
 ╰━━━━━━━━━━━━━━━━━━━━━━━━╯
-   
- `.trim()
+`.trim()
 
     await conn.sendMessage(m.chat, {
         text: txt,
-        contextInfo: {
-            mentionedJid: [userId],
-            forwardingScore: 999,
-            isForwarded: true,
-            externalAdReply: {
-                title: botname,
-                body: '✨ Tu menú está listo ✨',
-                thumbnailUrl: banner,
-                sourceUrl: redes,
-                mediaType: 1,
-                showAdAttribution: true,
-                renderLargerThumbnail: true,
-            },
-        }
-    }, {
-        quoted: {
-            key: { fromMe: false, participant: '0@s.whatsapp.net' },
-            message: { conversation: '🌨️ Menú de Rukia-Bot V2' }
-        }
+        mentions: [userId]
     })
 }
 
