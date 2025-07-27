@@ -12,19 +12,19 @@ export async function before(m, { conn }) {
   for (const user of participants) {
     let name = await conn.getName(user);
     let pp = await conn.profilePictureUrl(user, 'image').catch(() =>
-      'https://files.cloudkuimages.guru/images/Y7PT6XwM.jpg'
+      'https://files.catbox.moe/l1210e.jpg'
     );
     const taguser = '@' + user.split('@')[0];
 
     // BIENVENIDA
     if (m.messageStubType === 27 || m.messageStubType === 31) {
       await conn.sendMessage(m.chat, {
-        text: `👋 ¡Bienvenido ${taguser} al grupo *${groupMetadata.subject}*!\n\n🧑 Nombre: *${name}*\n📱 ID: ${user}\n📆 Fecha: ${fecha}\n\nPor favor, lee las reglas y disfruta tu estadía.`,
+        text: `💫 ¡Bienvenido ${taguser} al grupo *${groupMetadata.subject}*!\n\n📝 Nombre: *${name}*\n🆔 ID: ${user}\n📆 Fecha: ${fecha}\n\n> Por favor, lee las reglas y disfruta tu estadía.`,
         mentions: [user],
         contextInfo: {
           externalAdReply: {
-            title: `Nuevo miembro del grupo`,
-            body: `${name} se ha unido 🥳`,
+            title: `𝙉𝙀𝙒 𝙈𝙀𝙈𝘽𝙀𝙍 𝙓𝙕𝙔`,
+            body: `${name} 𝙎𝙚 𝘼 𝙐𝙣𝙞𝙙𝙤`,
             thumbnailUrl: pp,
             mediaType: 1,
             renderLargerThumbnail: true,
@@ -37,12 +37,12 @@ export async function before(m, { conn }) {
     // DESPEDIDA
     if (m.messageStubType === 28 || m.messageStubType === 32) {
       await conn.sendMessage(m.chat, {
-        text: `👋 ${taguser} ha salido del grupo *${groupMetadata.subject}*.\n\n🧑 Nombre: *${name}*\n📱 ID: ${user}\n📆 Fecha: ${fecha}\n\n¡Buena suerte en tu camino!`,
+        text: `🕊️ ${taguser} ha salido del grupo *${groupMetadata.subject}*.\n\n📝 Nombre: *${name}*\n🆔 ID: ${user}\n📆 Fecha: ${fecha}\n\n> ¡Buena suerte en tu camino!`,
         mentions: [user],
         contextInfo: {
           externalAdReply: {
-            title: `Miembro salió del grupo`,
-            body: `${name} se fue ❌`,
+            title: `𝘽𝙔𝙀 𝙈𝙀𝙈𝙀𝘽𝙀𝙍 𝙓𝙕𝙔`,
+            body: `${name} 𝙎𝙚 𝙁𝙪𝙚`,
             thumbnailUrl: pp,
             mediaType: 1,
             renderLargerThumbnail: true,
