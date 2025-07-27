@@ -54,33 +54,6 @@ global.etiqueta = '𝙭𝙯𝙮🥷🏻'
 //-----------------------------
 
 global.moneda = 'coin'
-global.welcom1 = `
-
- *🕸️ Registro del sistema:* 
-> *"Su presencia ha sido registrada en nuestro sistema. Perfil de corrupción: 68%. Bienvenido a la matriz."*
-
-*🕷️ Reglas de supervivencia:*  
-- No aceptes dulces del bot (son veneno digital)  
-- Los mensajes de la madrugada son ley  
-- Si ves tu nombre en rojo... huye inmediatamente  
-
-*💀 Dato siniestro:* 
-> *El 97% de los que entran no vuelven a ser humanos.*
-
-*🕷️ Disfruta tu estancia... mientras puedas.* `
-
-global.welcom2 = `
-> *Los datos de su paso por este lugar han sido erradicados.*  
-> *No existe copias de seguridad... o eso creemos.*
-
-*🕸️ Reporte de eliminación:*  
-✖️ Chat history: *deleted*  
-✖️ Relaciones: *purged*  
-✖️ Recuerdos: *corrupted*
-
-*☠️ Advertencia para los sobrevivientes:* 
-> *"No preguntéis por ello... o seréis el próximo."*`
-
 global.banner = 'https://qu.ax/Bupnx.jpg'
 global.avatar = 'https://files.catbox.moe/1w8sut.jpeg'
 
