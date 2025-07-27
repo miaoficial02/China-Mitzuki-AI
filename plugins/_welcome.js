@@ -19,7 +19,7 @@ export async function before(m, { conn }) {
     // BIENVENIDA
     if (m.messageStubType === 27 || m.messageStubType === 31) {
       await conn.sendMessage(m.chat, {
-        text: `💫 ¡Bienvenido ${taguser} al grupo *${groupMetadata.subject}*!\n\n📝 > Nombre: *${name}*\n🆔 > ID: ${user}\n📆 > Fecha: ${fecha}\n\n> Puedes Usar .help Para Ver La Lista De Comando 📜`,
+        text: `💫 ¡Bienvenido ${taguser} al grupo *${groupMetadata.subject}*!\n\n> 📝 Nombre: *${name}*\n> 🆔 ID: ${user}\n> 📆 Fecha: ${fecha}\n\n> Puedes Usar .help Para Ver La Lista De Comando 📜`,
         mentions: [user],
         contextInfo: {
           externalAdReply: {
@@ -37,7 +37,7 @@ export async function before(m, { conn }) {
     // DESPEDIDA
     if (m.messageStubType === 28 || m.messageStubType === 32) {
       await conn.sendMessage(m.chat, {
-        text: `🕊️ ${taguser} ha salido del grupo *${groupMetadata.subject}*.\n\n📝 Nombre: *${name}*\n🆔 ID: ${user}\n📆 Fecha: ${fecha}\n\n> ¡Buena suerte en tu camino!`,
+        text: `🕊️ ${taguser} ha salido del grupo *${groupMetadata.subject}*.\n\n> 📝 Nombre: *${name}*\n> 🆔 ID: ${user}\n> 📆 Fecha: ${fecha}\n\n> ¡Buena suerte en tu camino!`,
         mentions: [user],
         contextInfo: {
           externalAdReply: {
