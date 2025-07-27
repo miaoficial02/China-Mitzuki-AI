@@ -35,7 +35,6 @@ let rtx2 = "❀ *Hazte Sub Bot*
 
 ✧ Usa el código manualmente:
 ✐ Más opciones → Dispositivos vinculados → Vincular nuevo dispositivo → Con número
-
 ☁︎ *Importante:* El código es válido solo para este número."
 
 const __filename = fileURLToPath(import.meta.url)
