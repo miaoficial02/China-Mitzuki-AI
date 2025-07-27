@@ -1,48 +1,35 @@
-import fetch from 'node-fetch'
+const handler = async (m, { conn, usedPrefix, command }) => {
+  const texto = `
+🌐 𝐆𝐑𝐔𝐏𝐎 𝐎𝐅𝐈𝐂𝐈𝐀𝐋 𝐗𝐙𝐘 𝐑𝐔𝐊𝐈𝐀-𝐁𝐎𝐓
 
-let handler = async (m, { conn, usedPrefix, command }) => {
-  
-  // Dark tech aesthetic variables
-  const emojis = '🕷️☠️'
-  const darkBorder = 'ׄ─ׄ⭒─ׄ─ׅ─ׄ⭒─ׄ─ׅ─ׄ⭒─ׄ─ׅ─ׄ⭒─ׄ─ׅ─ׄ⭒─ׄ'
-  const warning = '⚠️ 𝕯𝖆𝖙𝖆 �𝖓𝖙𝖗𝖚𝖘𝖎𝖔𝖓 𝖉𝖊𝖙𝖊𝖈𝖙𝖊𝖉 ⚠️'
-  
-  let grupos = `*${warning}*
+✨ Únete a nuestra comunidad, comparte ideas, reporta errores, o simplemente charla con otros usuarios. ¡Eres bienvenido!
 
-*ℌ𝔬𝔩𝔞 𝔪𝔬𝔯𝔱𝔞𝔩, 𝔢𝔩 𝔟𝔬𝔱 𝔥𝔞 𝔡𝔢𝔱𝔢𝔠𝔱𝔞𝔡𝔬 𝔱𝔲 𝔭𝔯𝔢𝔰𝔢𝔫𝔠𝔦𝔞...*
+1️⃣  𝙂𝙧𝙪𝙥𝙤 𝙊𝙛𝙞𝙘𝙞𝙖𝙡 𝘿𝙚 𝙍𝙪𝙠𝙞𝙖 (𝘾𝙚𝙧𝙤 𝙎𝙪𝙗𝘽𝙤𝙩)  
+https://chat.whatsapp.com/BwoPmcZVruTH2hjYyvoEs5?mode=ac_t
 
-▄︻デ══━► *𝕲𝖗𝖚𝖕𝖔𝖘 𝕺𝖋𝖎𝖈𝖎𝖆𝖑𝖊𝖘* ◄══━デ︻▄
-> 🕸️ ${namegrupo}
-> *❀* ${gp1}
+⚠️ Respeta las normas de cada grupo.
 
-▄︻デ══━► *𝕾𝖔𝖕𝖔𝖗𝖙𝖊 𝕯𝖆𝖗𝖐* ◄══━デ︻▄
-> 🕸️ Soporte 
+─
+📌 Usa .menu Para Ver la Lista De Comando By Rokixzy
+`
 
-${darkBorder}
-
-*⚠️ 𝕷𝖎𝖓𝖐 𝖈𝖔𝖗𝖗𝖚𝖕𝖙𝖔? 𝕽𝖊𝖕𝖔𝖗𝖙𝖆𝖑𝖔 𝖆𝖖𝖚𝖎́:*
-> 🕷️ ${namechannel}
-> *❀* ${channel}
-
-*𝕯𝖊𝖛𝖊𝖑𝖔𝖕𝖊𝖗'𝖘 𝖒𝖊𝖘𝖘𝖆𝖌𝖊:*
-> ${dev}`
-
-  // Send with dark tech aesthetic
-  await conn.sendFile(m.chat, catalogo, "grupos_dark.jpg", grupos, m, null, {
+  await conn.sendMessage(m.chat, {
+    text: texto.trim(),
     contextInfo: {
       externalAdReply: {
-        title: `⚠️ 𝕽𝖊𝖉 𝕯𝖆𝖗𝖐 𝕹𝖊𝖙𝖜𝖔𝖗𝖐 ⚠️`,
-        body: "𝕿𝖚 𝖉𝖆𝖙𝖆 𝖍𝖆𝖘 𝖇𝖊𝖊𝖓 𝖗𝖊𝖈𝖔𝖗𝖉𝖊𝖉",
-        thumbnail: await (await fetch('https://i.imgur.com/XYZdarkimage.jpg')).buffer()
+        title: "𝐑𝐮𝐤𝐢𝐚𝐗𝐳𝐲𝐕2",
+        body: "𝐔𝐧𝐞𝐭𝐞 𝐀 𝐋𝐨𝐬 𝐆𝐫𝐮𝐩𝐨𝐬 𝐎𝐟𝐢𝐜𝐢𝐚𝐥𝐞𝐬 𝐃𝐞 𝐑𝐮𝐤𝐢𝐚",
+        thumbnailUrl: 'https://files.catbox.moe/1w8sut.jpeg', // Puedes cambiar la imagen
+        sourceUrl: "https://github.com/El-brayan502/NyanCatBot-MD",
+        mediaType: 1,
+        renderLargerThumbnail: true
       }
     }
-  })
-
-  await m.react(emojis)
+  }, { quoted: m })
 }
 
-handler.help = ['grupos', 'links', 'darknetwork']
-handler.tags = ['dark', 'info']
-handler.command = /^(grupos|links|groups|darkweb)$/i
+handler.help = ['grupos']
+handler.tags = ['info']
+handler.command = /^grupos$/i
 
 export default handler
