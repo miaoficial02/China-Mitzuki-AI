@@ -42,26 +42,26 @@ let handler = async function (m, { conn, text, args, usedPrefix, command }) {
     }
 
     let sn = createHash('md5').update(m.sender).digest('hex')
-    let regbot = `╔═━──══━────────━══──━═╗
-║    *Registrado por Shizuka*
-╚═━──══━────────━══──━═╝\n`
-regbot += `✦✧─────┈┈ ♡ ┈┈─────✧✦\n`
-regbot += `*「 」Nombre:* ${name}\n`
-regbot += `*「 」Edad:* ${age} años\n`
-regbot += `✦✧─────┈┈ ♡ ┈┈─────✧✦\n`
-regbot += `*「 」Recompensas:*\n> `
-regbot += `• 15 Estrellas\n> `
-regbot += `• 5 Coins\n> `
-regbot += `• 245 Experiencia\n> `
-regbot += `• 12 Tokens\n`
-regbot += `━━━━━━━━━━━━━━━━━━━━━━━\n> `
-regbot += `Usa *#perfil* para ver tu perfil.`
+    let regbot = `╭━━━〔 ✅ REGISTRO COMPLETADO 〕━━━╮\n`
+regbot += `┃  ✦ Registrado exitosamente por *RukiaBotv2*\n`
+regbot += `┃\n`
+regbot += `┃  ✦ *Nombre:* ${name}\n`
+regbot += `┃  ✦ *Edad:* ${age} años\n`
+regbot += `┃\n`
+regbot += `┃  ✦ *Recompensas obtenidas:*\n`
+regbot += `┃      ➤ 15 ✦ Estrellas\n`
+regbot += `┃      ➤ 5 ✦ Coins\n`
+regbot += `┃      ➤ 245 ✦ Experiencia\n`
+regbot += `┃      ➤ 12 ✦ Tokens\n`
+regbot += `┃\n`
+regbot += `┃  Usa *#perfil* para ver tu perfil\n`
+regbot += `╰━━━━━━━━━━━━━━━━━━━━━━━━━━╯`
 
   await conn.sendMessage(m.chat, {
         text: regbot,
         contextInfo: {
             externalAdReply: {
-                title: 'ＲＥＧＩＳＴＲＡＤＯ ✨️',
+                title: 'ＲＥＧＩＳＴＲＡＤＯ 🥷🏻✨',
                 thumbnailUrl: 'https://qu.ax/YnWMn.jpg',
                 mediaType: 1,
                 renderLargerThumbnail: true
@@ -69,7 +69,7 @@ regbot += `Usa *#perfil* para ver tu perfil.`
         }
     }, { quoted: m });
 
-/*    await m.react('📪')
+/*    await m.react('📩')
   await conn.sendMessage(m.chat, {
            text: regbot, 
         contextInfo: {
