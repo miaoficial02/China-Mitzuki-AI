@@ -15,9 +15,9 @@ export default handler*/
 let handler = async (m, { conn }) => {
   try {
     if (global.conn?.user?.jid === conn.user.jid) {
-      return conn.reply(m.chat, '*☁️ El bot principal no se puede apagar.*', m)
+      return conn.reply(m.chat, '*🌨️ El bot principal no se puede apagar.*', m)
     }
-    await conn.reply(m.chat, '*🛑 El Subbot fue desactivado exitosamente.*', m)
+    await conn.reply(m.chat, '*✅ El Subbot fue desactivado exitosamente.*', m)
 
     setTimeout(() => {
       try {
