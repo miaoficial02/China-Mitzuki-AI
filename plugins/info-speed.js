@@ -34,7 +34,7 @@ let handler = async (m, { conn }) => {
 ╰━━━━━━━━━━━━━━━━━━━━━━━━━━━━╯
 `.trim()
 
-  await m.react('🧭')
+  await m.react('🏃🏻‍♂️')
   await conn.reply(m.chat, texto, m)
 }
 
