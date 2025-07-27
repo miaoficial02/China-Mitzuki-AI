@@ -63,7 +63,7 @@ global.gp1 = 'https://chat.whatsapp.com/BwoPmcZVruTH2hjYyvoEs5?mode=ac_t'
 global.comunidad1 = 'https://chat.whatsapp.com/GXwZX6U6f6OIxthaE4kF37?mode=ac_t'
 global.channel = 'https://whatsapp.com/channel/0029VbBBn9R4NViep4KwCT3Z'
 global.channel2 = 'https://whatsapp.com/channel/0029VbBBn9R4NViep4KwCT3Z'
-global.md = 'https://github.com/Kone457/Shizuka-AI'
+global.md = 'https://github.com/erenxzy/Rukia-Botv2'
 global.correo = 'erenxz01@gmail.com'
 global.cn ='https://whatsapp.com/channel/0029VbBBn9R4NViep4KwCT3Z';
 
