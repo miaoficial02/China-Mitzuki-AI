@@ -21,7 +21,7 @@ let handler = async (m, { conn }) => {
 
   // Aviso en público
   await conn.sendMessage(m.chat, {
-    text: `👨🏻‍💻 aqui están los info de mi creador Supremo `,
+    text: `👨🏻‍💻 Te envié Las Info De Mi Creador RukiXzy`,
     mentions: [who]
   }, { quoted: m })
 
