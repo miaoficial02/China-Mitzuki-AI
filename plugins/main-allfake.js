@@ -27,17 +27,17 @@ return res.data
 console.log(`Error : ${e}`)
 }}
   
-global.creador = 'Wa.me/5355699866'
+global.creador = 'Wa.me/18493907272'
 global.ofcbot = `${conn.user.jid.split('@')[0]}`
-global.namechannel = '𝙎𝙝𝙞𝙯𝙪𝙠𝙖-𝘼𝙄 𝘾𝙝𝙖𝙣𝙣𝙚𝙡'
-global.namechannel2 = '𝙎𝙝𝙞𝙯𝙪𝙠𝙖-𝘼𝙄 𝘾𝙝𝙖𝙣𝙣𝙚𝙡'
-global.namegrupo = 'Shizuka-AI'
-global.namecomu = 'Shizuka-AI'
-global.listo = '*Aquí tienes '
-global.fotoperfil = await conn.profilePictureUrl(m.sender, 'image').catch(_ => 'https://raw.githubusercontent.com/Kone457/Nexus/refs/heads/main/sss.jpg')
+global.namechannel = '𝑹𝑼𝑲𝑰𝑨  𝑿𝒁𝒀  𝑽2'
+global.namechannel2 = '𝙍𝙐𝙆𝙄𝘼 𝙓𝙕𝙔  𝙑2'
+global.namegrupo = '𝐑𝐮𝐤𝐢𝐚𝐁𝐨𝐭𝐯2'
+global.namecomu = '𝐑𝐮𝐤𝐢𝐚𝐗𝐳𝐲𝐕2'
+global.listo = 'ᴀǫᴜɪ ʟɪsᴛᴏ ʙʏ ʀᴜᴋɪ ฅ^•ﻌ•^ฅ'
+global.fotoperfil = await conn.profilePictureUrl(m.sender, 'image').catch(_ => 'https://qu.ax/KAvuk.jpg')
 
-global.canalIdM = ["120363400241973967@newsletter'", "120363400241973967@newsletter"]
-global.canalNombreM = ["Shizuka-AI Channel", "Shizuka-AI Channel"]
+global.canalIdM = ["120363417252896376@newsletter'", "120363417252896376@newsletter"]
+global.canalNombreM = ["𝐑𝐮𝐤𝐢𝐚  𝐗𝐳𝐲 𝐕2", "𝐑𝐮𝐤𝐢𝐚  𝐗𝐳𝐲 𝐕2"]
 global.channelRD = await getRandomChannel()
 
 global.d = new Date(new Date + 3600000)
@@ -48,16 +48,16 @@ global.mes = d.toLocaleDateString('es', {month: 'long'})
 global.año = d.toLocaleDateString('es', {year: 'numeric'})
 global.tiempo = d.toLocaleString('en-US', {hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true})
 
-global.rwait = '🔥'
-global.done = '❤‍🔥'
-global.error = '💔'
-global.msm = '⚠︎'
+global.rwait = '🕒'
+global.done = '☑️'
+global.error = '⚠️'
+global.msm = '🎀'
 
 global.emoji = '❀'
 global.emoji2 = '✧'
 global.emoji3 = '✦'
 global.emoji4 = '❍'
-global.emoji5 = '✰'
+global.emoji5 = '✏'
 global.emojis = [emoji, emoji2, emoji3, emoji4].getRandom()
 
 global.wait = '❍ Espera un momento...';
@@ -65,11 +65,11 @@ global.waitt = '❍ Espera un momento...';
 global.waittt = '❍ Espera un momento...';
 global.waitttt = '❍ Espera un momento...';
 
-var canal = 'https://whatsapp.com/channel/0029VbAVMtj2f3EFmXmrzt0v'  
-var comunidad = 'https://chat.whatsapp.com/FKdA4geFvKVD17dP6O6MHt'
-var git = 'https://github.com/Kone457'
+var canal = 'https://whatsapp.com/channel/0029VbBBn9R4NViep4KwCT3Z'  
+var comunidad = 'https://chat.whatsapp.com/BwoPmcZVruTH2hjYyvoEs5?mode=ac_t'
+var git = 'https://github.com/erenxzy'
 var github = 'https://github.com/Kone457/Shizuka-AI' 
-let correo = 'c2117620@gmail.com'
+let correo = 'erenxz01@gmail.com'
 global.redes = [canal, comunidad, git, github, correo].getRandom()
 
 let category = "imagen"
@@ -98,7 +98,7 @@ global.fake = { contextInfo: { isForwarded: true, forwardedNewsletterMessageInfo
 }}, { quoted: m }
 
 global.icono = [
-'https://tinyurl.com/285a5ejf',
+'https://qu.ax/TenBy.jpg',
 ].getRandom()
 
 global.rcanal = { contextInfo: { isForwarded: true, forwardedNewsletterMessageInfo: { newsletterJid: channelRD.id, serverMessageId: 100, newsletterName: channelRD.name, }, externalAdReply: { showAdAttribution: true, title: packname, body: dev, mediaUrl: null, description: null, previewType: "PHOTO", thumbnailUrl: icono, sourceUrl: redes, mediaType: 1, renderLargerThumbnail: false }, }, }}
