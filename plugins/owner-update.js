@@ -1,7 +1,7 @@
 import { exec } from 'child_process'
 
 let handler = async (m, { conn }) => {
-  await m.reply(`🌸 *Shizuka está iniciando el proceso de actualización...*`)
+  await m.reply(`🔄 *Rukia está iniciando el proceso de actualización...*`)
 
   exec('git pull', (err, stdout, stderr) => {
     if (err) {
@@ -14,15 +14,15 @@ let handler = async (m, { conn }) => {
     }
 
     if (stderr) {
-      console.warn('🌬️ Advertencia durante la actualización:', stderr)
+      console.warn('🌨️ Advertencia durante la actualización:', stderr)
     }
 
     if (stdout.includes('Already up to date.')) {
-      conn.reply(m.chat, `🧘‍♀️ *Todo está en calma.*\n✨ *Shizuka ya está actualizada.*`, m)
+      conn.reply(m.chat, `🥷🏻 *Todo Listo.*\n✨ *Rukia ya está actualizada.*`, m)
     } else {
       conn.reply(
         m.chat,
-        `🌕 *Actualización completada con éxito.*\n\n🔧 *Detalles del proceso:*\n${stdout}`,
+        `❄️ *Actualización completada con éxito.*\n\n✅ *Detalles del proceso:*\n${stdout}`,
         m
       )
     }
