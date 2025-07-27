@@ -8,269 +8,213 @@ let handler = async (m, { conn, args }) => {
     let totalCommands = Object.values(global.plugins).filter((v) => v.help && v.tags).length
     
     let txt = `
-╭━━〔 🌟 𝘽𝙞𝙚𝙣𝙫𝙚𝙣𝙞𝙙𝙤 🌟 〕━╮
+╭━━━〔 🌨️ 𝗥𝗨𝗞𝗜𝗔-𝗕𝗢𝗧 𝗩2 🌨️ 〕━━━╮
 ┃ ¡Hola @${userId.split('@')[0]}!
-┃ Soy *${botname}*, tu asistente virtual.
-╰━━━━━━━━━━━━━━━━━━━━╯
-
-╭━━━〔 📊 𝙀𝙨𝙩𝙖𝙙𝙞́𝙨𝙩𝙞𝙘𝙖𝙨 〕━━━╮
-┃ 🕒 Tiempo activo: *${uptime}*
-┃ 👥 Usuarios registrados: *${totalreg}*
-┃ 📚 Comandos disponibles: *${totalCommands}*
-╰━━━━━━━━━━━━━━━━━━━━━╯
-
-╭━━━〔 𝙄𝙣𝙛𝙤-𝘽𝙤𝙩 ☄️ 〕━━━╮
-┃ 🛠️ #menu       » Lista de comandos
-┃ ⏱️ #uptime     » Tiempo activo del bot
-┃ 💻 #sc         » Repositorio oficial
-┃ 🧠 #staff      » Desarrolladores
-┃ 🧑‍💼 #creador   » Contacto del creador
-┃ 📊 #status     » Estado actual del bot
-┃ 🔗 #links      » Enlaces oficiales
-┃ 🧾 #infobot    » Información general
-┃ 📶 #ping       » Latencia de conexión
-┃ 🚀 #speed      » Estadísticas de velocidad
-╰━━━━━━━━━━━━━━━━━━━━╯
-
-╭━━━〔 🧍 Registro 〕━━━╮
-┃ 📝 #reg        » Registrarse
-┃ ❌ #unreg      » Borrar registro
-┃ 🧑‍💻 #profile   » Tu perfil
-┃ 🔢 #myns       » Número de serie
-╰━━━━━━━━━━━━━━━━━━╯
-
-╭━━━〔 📥 Descargas 〕━━━╮
-┃ 🎵 #play       » Música por nombre
-┃ 🎧 #ytmp3      » Audio desde YouTube
-┃ 🎞️ #ytmp4      » Video desde YouTube
-┃ 🎬 #tiktok     » Video desde TikTok
-┃ 📷 #instagram  » Media desde Instagram
-┃ 📘 #facebook   » Video desde Facebook
-┃ 🐦 #twitter    » Descarga desde Twitter
-┃ 🎼 #spotify    » Canción desde Spotify
-┃ 📂 #mediafire  » Archivos de MediaFire
-┃ 📦 #mega       » Archivos de Mega
-╰━━━━━━━━━━━━━━━━━━━━╯
-
-╭━━━〔 🔍 𝘽𝙪𝙨𝙘𝙖𝙙𝙤𝙧𝙚𝙨 〕━━━╮
-┃ 🌐 #google        » Buscar en Google
-┃ 🖼️ #imagen        » Imágenes desde Google
-┃ 📌 #pinterest     » Buscar en Pinterest
-┃ 🎥 #yts           » Videos en YouTube
-┃ 📦 #npmjs         » Paquetes NPM
-┃ 🧬 #github        » Repositorios GitHub
-┃ 🎌 #infoanime     » Info de Anime
-╰━━━━━━━━━━━━━━━━━━━╯
-
-╭━━〔 ♻️ 𝘾𝙤𝙣𝙫𝙚𝙧𝙩𝙞𝙙𝙤𝙧𝙚𝙨 〕━╮
-┃ 🎶 #tomp3         » Video a MP3
-┃ 🎞️ #tovideo       » Convertir a video
-┃ 🔗 #tourl         » Archivo a enlace
-┃ 🗣️ #tts           » Texto a voz
-┃ 🌀 #togif         » Video a GIF
-╰━━━━━━━━━━━━━━━━━━━╯
-
-╭━〔 🤖 𝙄𝙣𝙩𝙚𝙡𝙞𝙜𝙚𝙣𝙘𝙞𝙖 𝘼𝙧𝙩𝙞𝙛𝙞𝙘𝙞𝙖𝙡 〕━╮
-┃ 💬 #ia            » Chat con IA
-┃ 🤖 #gemini        » Gemini AI
-┃ 🎨 #dalle         » Generar imágenes (IA)
-┃ 💡 #flux          » Imágenes Flux
-┃ 😺 #simi          » Habla con SimSimi
-╰━━━━━━━━━━━━━━━━━━━━━━━╯
-
-╭━〔 🎌 𝘼𝙣𝙞𝙢𝙚 & 𝘼𝙘𝙘𝙞𝙤𝙣𝙚𝙨 〕━╮
-┃ 💘 #waifu         » Imagen waifu
-┃ 🤗 #hug           » Abrazo
-┃ 😘 #kiss          » Beso
-┃ 👋 #pat           » Acariciar
-┃ 👋 #slap          » Bofetada
-┃ 😠 #angry         » Enfadarse
-┃ 😄 #happy         » Alegría
-┃ 😢 #sad           » Tristeza
-┃ ❤️ #love          » Amor
-┃ 😭 #cry           » Llorar
-┃ 💃 #dance         » Bailar
-┃ 😴 #sleep         » Dormir
-╰━━━━━━━━━━━━━━━━━━━╯
-
-╭━━━〔 🧩 𝙎𝙩𝙞𝙘𝙠𝙚𝙧𝙨 〕━━━╮
-┃ 🖼️ #sticker       » Crear sticker
-┃ 🧬 #emojimix      » Fusionar emojis
-┃ 💧 #wm            » Marca de agua
-┃ ✏️ #take          » Renombrar sticker
-╰━━━━━━━━━━━━━━━━━╯
-
-╭━━━〔 📎 𝘿𝙚𝙨𝙘𝙖𝙧𝙜𝙖𝙨 〕━━━╮
-┃ 🎵 #play          » Descargar audio
-┃ 🎬 #play2         » Descargar video
-┃ 🕺 #tiktok         » Videos de TikTok
-┃ 📘 #facebook       » Videos de Facebook
-┃ 🐦 #twitter        » Videos de Twitter
-┃ 📷 #instagram      » Medios de Instagram
-┃ 📂 #mediafire      » Archivos MediaFire
-┃ 📦 #mega           » Archivos Mega
-┃ 🧊 #terabox        » Descargas de Terabox
-┃ 🧬 #gitclone       » Clonar de GitHub
-┃ 📥 #pinvid         » Videos de Pinterest
-┃ 🛠 #apk            » APKs de Aptoide
-╰━━━━━━━━━━━━━━━━━━━╯
-
-╭━━〔 💰 𝙀𝙘𝙤𝙣𝙤𝙢í𝙖 〕━━╮
-┃ 🛠️ #work        » Trabaja por ${moneda}
-┃ 🎲 #suerte      » Apuesta tu ${moneda}
-┃ 💣 #crime       » Realiza un crimen
-┃ 🎰 #ruleta      » Juega a la ruleta
-┃ 🏦 #casino      » Prueba suerte en el casino
-┃ 🎰 #slot        » Slot de la fortuna
-┃ 👛 #cartera     » Ver billetera
-┃ 🏛️ #bank        » Ver cuenta bancaria
-┃ 💳 #depositar   » Deposita ${moneda}
-┃ 🏧 #retirar     » Retira del banco
-┃ 🔁 #transfer    » Transferir ${moneda}/XP
-┃ ⛏️ #minar       » Trabajo de minería
-┃ 🛒 #buy         » Comprar con XP
-┃ 📆 #daily       » Recompensa diaria
-┃ 🎁 #cofre       » Cofre diario
-┃ 📅 #semanal     » Regalo semanal
-┃ 📆 #mensual     » Recompensa mensual
-┃ 🦹 #robar       » Roba ${moneda}
-┃ 🧠 #robarxp     » Roba experiencia
-┃ 🏆 #baltop      » Ranking global
-┃ 🧭 #aventura    » Viaje de aventura
-┃ 💉 #curar       » Recupera tu salud
-┃ 🐗 #cazar       » Caza animales
-┃ 🎒 #inventario  » Ver inventario
-┃ 🏰 #mazmorra    » Explora mazmorras
-┃ 🎃 #halloween   » Evento especial
-┃ 🎄 #navidad     » Regalo navideño
-╰━━━━━━━━━━━━━━━━━━╯
-
-╭━〔 🎴 𝙂𝙖𝙘𝙝𝙖 & 𝙋𝙚𝙧𝙨𝙤𝙣𝙖𝙟𝙚𝙨 〕━╮
-┃ 🎎 #rw          » Waifu o husbando random
-┃ 📥 #claim       » Reclamar personaje
-┃ 📜 ##waifus     » Tus personajes
-┃ 🎭 #wimage      » Imagen aleatoria
-┃ 🧾 #winfo       » Info del personaje
-┃ 🎁 #regalar     » Regala personaje
-┃ 🗳️ #votar       » Vota por personaje
-┃ 🔝 #waifustop   » Ranking waifus
+┃ Soy *${botname}*, Tu Bot Virtual 
 ╰━━━━━━━━━━━━━━━━━━━━━━━━╯
 
-╭━━〔 🖼️ 𝙎𝙩𝙞𝙘𝙠𝙚𝙧𝙨 〕━━╮
-┃ 🧷 #sticker     » Crear sticker
-┃ ✍️ #setmeta     » Fijar autor del pack
-┃ 🧹 #delmeta     » Eliminar pack
-┃ 👤 #pfp         » Foto de perfil
-┃ 🧾 #qc          » Sticker con texto
-┃ 📤 #img         » Sticker a imagen
-┃ 💬 #attp        » Sticker estilo texto
-┃ 💞 #emojimix    » Fusión de emojis
-┃ 🖋️ #wm          » Marcar sticker
-╰━━━━━━━━━━━━━━━━━╯
+╭━━━〔 📊 𝗘𝘀𝘁𝗮𝗱𝗼-𝗕𝗼𝘁 〕━━━╮
+┃ ✦ Tiempo activo: *${uptime}*
+┃ ✦ Usuarios registrados: *${totalreg}*
+┃ ✦ Comandos disponibles: *${totalCommands}*
+╰━━━━━━━━━━━━━━━━━━━━━━━━╯
 
-╭━━〔 🧰 𝙃𝙚𝙧𝙧𝙖𝙢𝙞𝙚𝙣𝙩𝙖𝙨 〕━━╮
-┃ ➗ #calcular    » Resolver ecuaciones
-┃ 🌦️ #clima       » Clima de un país
-┃ 🕒 #horario     » Hora global
-┃ 🧪 #fake        » Mensaje falso
-┃ 🖼️ #hd          » Mejorar imagen
-┃ ✒️ #letra       » Cambiar fuente
-┃ 👁️ #ver         » Ver imágenes fugaces
-┃ 🎶 #shazam      » Detectar canción
-┃ 📡 #ss          » Estado de una web
-┃ 🔍 #tamaño      » Escalar imágenes
-┃ 🗣️ #say         » Repetir texto
-┃ 📝 #todoc       » Documento multimedia
-┃ 🌍 #traducir    » Traductor universal
-╰━━━━━━━━━━━━━━━━╯
+╭━━━〔 🔰 𝗜𝗡𝗙𝗢-𝗕𝗢𝗧 〕━━━╮
+┃ ✦ #menu
+┃ ✦ #uptime
+┃ ✦ #status
+┃ ✦ #ping
+┃ ✦ #speed
+┃ ✦ #sc
+┃ ✦ #staff
+┃ ✦ #creador
+┃ ✦ #links
+┃ ✦ #infobot
+╰━━━━━━━━━━━━━━━━━━━━━━━━╯
 
-╭━━〔 👤 𝙋𝙚𝙧𝙛𝙞𝙡 〕━━╮
-┃ 📝 #reg         » Registro de usuario
-┃ ❌ #unreg       » Eliminar registro
-┃ 🧑‍💻 #profile    » Mostrar perfil
-┃ 💍 #marry       » Proponer matrimonio
-┃ 💔 #divorce     » Divorciarse
-┃ 🚻 #setgenero   » Establecer género
-┃ 🧽 #delgenero   » Borrar género
-┃ 🎂 #setbirth    » Registrar cumpleaños
-┃ 🗑️ #delbirth    » Borrar cumpleaños
-┃ 🧾 #setdesc     » Descripción personal
-┃ ✂️ #deldesc     » Quitar descripción
-┃ 🏅 #lb          » Top de usuarios
-┃ 🆙 #level       » Nivel de experiencia
-┃ 💎 #premium     » Activar premium
-┃ 💌 #confesar    » Declarar sentimientos
-╰━━━━━━━━━━━━━━━━━╯
+╭━━━〔 📜 𝗥𝗘𝗚𝗜𝗦𝗧𝗥𝗢 〕━━━╮
+┃ ✦ #reg
+┃ ✦ #unreg
+┃ ✦ #profile
+┃ ✦ #myns
+╰━━━━━━━━━━━━━━━━━━━━━━━━╯
 
-╭━━〔 👥 𝙂𝙧𝙪𝙥𝙤𝙨 〕━━╮
-┃ 📢 #tag           » Mencionar a todos
-┃ 🏷️ #gp            » Información del grupo
-┃ 🧍 #linea         » Usuarios en línea
-┃ 🎉 #setwelcome    » Mensaje de bienvenida
-┃ 👋 #setbye        » Mensaje de despedida
-┃ 🔗 #link          » Enlace del grupo
-┃ 👑 #admin         » Mencionar admins
-┃ ♻️ #revoke        » Restablecer enlace
-┃ 🔓 #group open    » Abrir grupo
-┃ 🔒 #group close   » Cerrar grupo
-┃ 👢 #kick          » Eliminar usuario
-┃ ➕ #add           » Agregar usuario
-┃ 📈 #promote       » Promover a admin
-┃ 📉 #demote        » Quitar admin
-┃ 🖼️ #gpbanner      » Cambiar imagen del grupo
-┃ ✏️ #gpname        » Cambiar nombre
-┃ 📝 #gpdesc        » Cambiar descripción
-┃ ⚠️ #warn          » Dar advertencia
-┃ ✅ #unwarn        » Quitar advertencia
-┃ 🗂️ #advlist       » Ver advertidos
-┃ ⚙️ #bot on        » Encender bot
-┃ 📴 #bot off       » Apagar bot
-┃ 🔇 #mute          » Silenciar usuario
-┃ 🔊 #unmute        » Quitar silencio
-┃ 📊 #poll          » Crear encuesta
-┃ 🗑️ #delete        » Borrar mensaje
-┃ 👻 #fantasmas     » Ver inactivos
-┃ 🧹 #kickfantasmas » Eliminar inactivos
-┃ 🧙 #invocar       » Invocar a todos
-┃ 🌟 #setemoji      » Establecer emoji
-┃ 🔢 #kicknum       » Kick por código país
-╰━━━━━━━━━━━━━━━━━━╯
+╭━━━〔 📥 𝗗𝗘𝗦𝗖𝗔𝗥𝗚𝗔𝗦 〕━━━╮
+┃ ✦ #play
+┃ ✦ #play2
+┃ ✦ #ytmp3
+┃ ✦ #ytmp4
+┃ ✦ #tiktok
+┃ ✦ #instagram
+┃ ✦ #facebook
+┃ ✦ #twitter
+┃ ✦ #spotify
+┃ ✦ #mediafire
+┃ ✦ #mega
+┃ ✦ #terabox
+┃ ✦ #apk
+┃ ✦ #pinvid
+┃ ✦ #gitclone
+╰━━━━━━━━━━━━━━━━━━━━━━━━╯
 
-╭━━〔 🎌 𝘼𝙣𝙞𝙢𝙚 〕━━╮
-┃ 😡 #angry         » Estar enojado
-┃ 😬 #bite          » Morder a alguien
-┃ 😛 #bleh          » Sacar lengua
-┃ 😊 #blush         » Sonrojarse
-┃ 😑 #bored         » Estar aburrido
-┃ 😢 #cry           » Llorar
-┃ 🤗 #cuddle        » Acurrucarse
-┃ 💃 #dance         » Bailar un rato
-┃ 🥴 #drunk         » Estar borracho
-┃ 🍔 #comer         » Comer algo
-┃ 🤦 #facepalm      » Palmada en la cara
-┃ 😄 #happy         » Estar feliz
-┃ 🤝 #hug           » Abrazar
-┃ 💋 #kiss          » Dar un beso
-┃ 😂 #laugh         » Reír
-┃ 👅 #lick          » Lamer (sano)
-┃ ❤️ #love          » Enamorarse
-┃ 🖐️ #pat          » Acariciar
-┃ 👈 #poke          » Picar a alguien
-┃ 😤 #pout          » Puchero
-┃ 👊 #punch         » Puñetazo amistoso
-┃ 🏃 #run           » Correr
-┃ 😔 #sad           » Mostrar tristeza
-┃ 😱 #scared        » Asustado
-┃ 🙈 #shy           » Timidez
-┃ ✋ #slap          » Bofetada
-┃ 🌞 #dias          » Buenos días
-┃ 🌙 #noches        » Buenas noches
-┃ 💤 #sleep         » Dormir
-┃ 🤔 #think         » Pensar en algo
-╰━━━━━━━━━━━━━━━━━╯
+╭━━━〔 🔍 𝗕𝗨𝗦𝗖𝗔𝗗𝗢𝗥𝗘𝗦 〕━━━╮
+┃ ✦ #google
+┃ ✦ #imagen
+┃ ✦ #pinterest
+┃ ✦ #yts
+┃ ✦ #npmjs
+┃ ✦ #github
+┃ ✦ #infoanime
+╰━━━━━━━━━━━━━━━━━━━━━━━━╯
 
+╭━━━〔 ♻️ 𝗖𝗢𝗡𝗩𝗘𝗥𝗧𝗜𝗗𝗢𝗥𝗘𝗦 〕━━━╮
+┃ ✦ #tomp3
+┃ ✦ #tovideo
+┃ ✦ #tourl
+┃ ✦ #tts
+┃ ✦ #togif
+╰━━━━━━━━━━━━━━━━━━━━━━━━╯
 
-  `.trim()
+╭━━━〔 🤖 𝗜𝗔/𝗔𝗥𝗧𝗜𝗙𝗜𝗖𝗜𝗔𝗟 〕━━━╮
+┃ ✦ #ia
+┃ ✦ #gemini
+┃ ✦ #dalle
+┃ ✦ #flux
+┃ ✦ #simi
+╰━━━━━━━━━━━━━━━━━━━━━━━━╯
+
+╭━━━〔 🎌 𝗔𝗡𝗜𝗠𝗘/𝗥𝗘𝗔𝗖𝗜𝗢𝗡 〕━━━╮
+┃ ✦ #waifu
+┃ ✦ #hug
+┃ ✦ #kiss
+┃ ✦ #pat
+┃ ✦ #slap
+┃ ✦ #angry
+┃ ✦ #happy
+┃ ✦ #sad
+┃ ✦ #cry
+┃ ✦ #dance
+┃ ✦ #sleep
+╰━━━━━━━━━━━━━━━━━━━━━━━━╯
+
+╭━━━〔 🎴 𝗚𝗔𝗖𝗛𝗔𝗦/𝗣𝗘𝗥𝗦𝗢𝗡𝗔𝗝𝗘 〕━━━╮
+┃ ✦ #rw
+┃ ✦ #claim
+┃ ✦ #waifus
+┃ ✦ #wimage
+┃ ✦ #winfo
+┃ ✦ #regalar
+┃ ✦ #votar
+┃ ✦ #waifustop
+╰━━━━━━━━━━━━━━━━━━━━━━━━╯
+
+╭━━━〔 🖼️ 𝗦𝗧𝗜𝗖𝗞𝗘𝗥𝗦 〕━━━╮
+┃ ✦ #sticker
+┃ ✦ #emojimix
+┃ ✦ #wm
+┃ ✦ #take
+┃ ✦ #setmeta
+┃ ✦ #delmeta
+┃ ✦ #qc
+┃ ✦ #img
+┃ ✦ #attp
+╰━━━━━━━━━━━━━━━━━━━━━━━━╯
+
+╭━━━〔 💰 𝗘𝗖𝗢𝗡𝗢𝗠𝗜𝗔/𝗥𝗨𝗞𝗜𝗔 〕━━━╮
+┃ ✦ #work
+┃ ✦ #suerte
+┃ ✦ #crime
+┃ ✦ #ruleta
+┃ ✦ #casino
+┃ ✦ #slot
+┃ ✦ #cartera
+┃ ✦ #bank
+┃ ✦ #depositar
+┃ ✦ #retirar
+┃ ✦ #transfer
+┃ ✦ #minar
+┃ ✦ #buy
+┃ ✦ #daily
+┃ ✦ #cofre
+┃ ✦ #semanal
+┃ ✦ #mensual
+┃ ✦ #robar
+┃ ✦ #robarxp
+┃ ✦ #baltop
+┃ ✦ #aventura
+┃ ✦ #curar
+┃ ✦ #cazar
+┃ ✦ #inventario
+┃ ✦ #mazmorra
+┃ ✦ #halloween
+┃ ✦ #navidad
+╰━━━━━━━━━━━━━━━━━━━━━━━━╯
+
+╭━━━〔 🧰 𝗛𝗘𝗥𝗥𝗔𝗠𝗜𝗘𝗡𝗧𝗔𝗦 〕━━━╮
+┃ ✦ #calcular
+┃ ✦ #clima
+┃ ✦ #horario
+┃ ✦ #fake
+┃ ✦ #hd
+┃ ✦ #letra
+┃ ✦ #ver
+┃ ✦ #shazam
+┃ ✦ #ss
+┃ ✦ #tamaño
+┃ ✦ #say
+┃ ✦ #todoc
+┃ ✦ #traducir
+╰━━━━━━━━━━━━━━━━━━━━━━━━╯
+
+╭━━━〔 👤 𝗣𝗘𝗥𝗙𝗜𝗟/𝗨𝗦𝗨𝗔𝗥𝗜𝗢𝗦 〕━━━╮
+┃ ✦ #marry
+┃ ✦ #divorce
+┃ ✦ #setgenero
+┃ ✦ #delgenero
+┃ ✦ #setbirth
+┃ ✦ #delbirth
+┃ ✦ #setdesc
+┃ ✦ #deldesc
+┃ ✦ #lb
+┃ ✦ #level
+┃ ✦ #premium
+┃ ✦ #confesar
+╰━━━━━━━━━━━━━━━━━━━━━━━━╯
+
+╭━━━〔 👥 𝗚𝗥𝗨𝗣𝗢𝗦/𝗖𝗢𝗡𝗙𝗜𝗚 〕━━━╮
+┃ ✦ #tag
+┃ ✦ #gp
+┃ ✦ #linea
+┃ ✦ #setwelcome
+┃ ✦ #setbye
+┃ ✦ #link
+┃ ✦ #admin
+┃ ✦ #revoke
+┃ ✦ #group open
+┃ ✦ #group close
+┃ ✦ #kick
+┃ ✦ #add
+┃ ✦ #promote
+┃ ✦ #demote
+┃ ✦ #gpbanner
+┃ ✦ #gpname
+┃ ✦ #gpdesc
+┃ ✦ #warn
+┃ ✦ #unwarn
+┃ ✦ #advlist
+┃ ✦ #bot on
+┃ ✦ #bot off
+┃ ✦ #mute
+┃ ✦ #unmute
+┃ ✦ #poll
+┃ ✦ #delete
+┃ ✦ #fantasmas
+┃ ✦ #kickfantasmas
+┃ ✦ #invocar
+┃ ✦ #setemoji
+┃ ✦ #kicknum
+╰━━━━━━━━━━━━━━━━━━━━━━━━╯
+`.trim()
 
   await conn.sendMessage(m.chat, { 
       text: txt,
