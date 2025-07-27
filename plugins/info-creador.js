@@ -4,7 +4,7 @@ let handler = async (m, { conn }) => {
   const suittag = '18493907272' // Número sin "+" ni "@s.whatsapp.net"
   const botname = 'RukiaXzyBot'
   const correo = 'erenxz01@gmail.com'
-  const md = 'https://github.com/Kone457/Shizuka-AI'
+  const md = 'https://github.com/erenxzy/Rukia-Botv2'
   const channel = 'https://whatsapp.com/channel/XXXX'
   const packname = 'XzyV2'
   const dev = 'Rukiav2'
@@ -21,7 +21,7 @@ let handler = async (m, { conn }) => {
 
   // Aviso en público
   await conn.sendMessage(m.chat, {
-    text: `👨🏻‍💻 Te envié Las Info De Mi Creador RukiXzy`,
+    text: `*👨🏻‍💻 Te envié Las Info De Mi Creador*`,
     mentions: [who]
   }, { quoted: m })
 
