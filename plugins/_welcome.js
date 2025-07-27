@@ -19,12 +19,12 @@ export async function before(m, { conn }) {
     // BIENVENIDA
     if (m.messageStubType === 27 || m.messageStubType === 31) {
       await conn.sendMessage(m.chat, {
-        text: `💫 ¡Bienvenido ${taguser} al grupo *${groupMetadata.subject}*!\n\n📝 Nombre: *${name}*\n🆔 ID: ${user}\n📆 Fecha: ${fecha}\n\n> Por favor, lee las reglas y disfruta tu estadía.`,
+        text: `💫 ¡Bienvenido ${taguser} al grupo *${groupMetadata.subject}*!\n\n> 📝 Nombre: *${name}*\n> 🆔 ID: ${user}\n> 📆 Fecha: ${fecha}\n\n> Puedes Usar.help Para Ver La Lista De Comando 📜`,
         mentions: [user],
         contextInfo: {
           externalAdReply: {
             title: `𝙉𝙀𝙒 𝙈𝙀𝙈𝘽𝙀𝙍 𝙓𝙕𝙔`,
-            body: `${name} 𝙎𝙚 𝘼 𝙐𝙣𝙞𝙙𝙤`,
+            body: `${name} 𝙎𝙚 𝘼 𝙐𝙣𝙞𝙙𝙤 ✨`,
             thumbnailUrl: pp,
             mediaType: 1,
             renderLargerThumbnail: true,
@@ -42,7 +42,7 @@ export async function before(m, { conn }) {
         contextInfo: {
           externalAdReply: {
             title: `𝘽𝙔𝙀 𝙈𝙀𝙈𝙀𝘽𝙀𝙍 𝙓𝙕𝙔`,
-            body: `${name} 𝙎𝙚 𝙁𝙪𝙚`,
+            body: `${name} 𝙎𝙚 𝙁𝙪𝙚 🕊️`,
             thumbnailUrl: pp,
             mediaType: 1,
             renderLargerThumbnail: true,
