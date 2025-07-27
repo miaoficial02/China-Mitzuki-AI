@@ -70,7 +70,8 @@ return resultado;
 const message = users.map((v, index) => `• 「 ${index + 1} 」\n📎 Wa.me/${v.user.jid.replace(/[^0-9]/g, '')}?text=${usedPrefix}estado\n👤 Usuario: ${v.user.name || 'Sub-Bot'}\n🕑 Online: ${ v.uptime ? convertirMsADiasHorasMinutosSegundos(Date.now() - v.uptime) : 'Desconocido'}`).join('\n\n__________________________\n\n');
 const replyMessage = message.length === 0 ? `No hay Sub-Bots disponible por el momento, verifique mas tarde.` : message;
 const totalUsers = users.length;
-const responseMessage = `${emoji} LISTA DE *SUB-BOTS* ACTIVOS\n\n${emoji2} PUEDES PEDIR PERMISO PARA QUE TE DEJEN UNIR EL BOT A TÚ GRUPO\n\n\`\`\`CADA USUARIO SUB-BOT USA SUS FUNCIONES COMO QUIERA, EL NÚMERO PRINCIPAL NO SE HACE RESPONSABLE DEL USO DEL MAL USO DE ELLA \`\`\`\n\n*SUB-BOT CONECTADOS:* ${totalUsers || '0'}\n\n${replyMessage.trim()}`.trim();
+const responseMessage = `${emoji} 𝗟𝗜𝗦𝗧𝗔 𝗗𝗘 *𝗦𝗨𝗕-𝗕𝗢𝗧𝗦* 𝗔𝗖𝗧𝗜𝗩𝗢𝗦\n\n${emoji2} 𝗣𝗨𝗘𝗗𝗘𝗦 𝗣𝗘𝗗𝗜𝗥 𝗣𝗘𝗥𝗠𝗜𝗦𝗢 𝗣𝗔𝗥𝗔 𝗤𝗨𝗘 𝗧𝗘 𝗗𝗘𝗝𝗘𝗡 𝗨𝗡𝗜𝗥 𝗘𝗟 𝗕𝗢𝗧 𝗔 𝗧𝗨́ 𝗚𝗥𝗨𝗣𝗢\n\n\`\`\`𝗖𝗔𝗗𝗔 𝗨𝗦𝗨𝗔𝗥𝗜𝗢 𝗦𝗨𝗕-𝗕𝗢𝗧 𝗨𝗦𝗔 𝗦𝗨𝗦 𝗙𝗨𝗡𝗖𝗜𝗢𝗡𝗘𝗦 𝗖𝗢𝗠𝗢 𝗤𝗨𝗜𝗘𝗥𝗔, 𝗘𝗟 𝗡𝗨́𝗠𝗘𝗥𝗢 𝗣𝗥𝗜𝗡𝗖𝗜𝗣𝗔𝗟 𝗡𝗢 𝗦𝗘 𝗛𝗔𝗖𝗘 𝗥𝗘𝗦𝗣𝗢𝗡𝗦𝗔𝗕𝗟𝗘 𝗗𝗘𝗟 𝗠𝗔𝗟 𝗨𝗦𝗢 𝗗𝗘 𝗘𝗟𝗟𝗔\`\`\`\n\n*𝗦𝗨𝗕-𝗕𝗢𝗧𝗦 𝗖𝗢𝗡𝗘𝗖𝗧𝗔𝗗𝗢𝗦:* ${totalUsers || '0'}\n\n${replyMessage.trim()}`.trim();
+
 await _envio.sendMessage(m.chat, {text: responseMessage, mentions: _envio.parseMention(responseMessage)}, {quoted: m})
 break   
 }}
