@@ -1,7 +1,7 @@
 import fetch from 'node-fetch';
 
 let handler = async (m, { conn, text, usedPrefix, command }) => {
-  const thumbnailCard = 'https://qu.ax/phgPU.jpg';
+  const thumbnailCard = 'https://files.catbox.moe/l1210e.jpg';
 
   if (!text) {
     return conn.sendMessage(m.chat, {
@@ -52,13 +52,13 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
     await conn.sendMessage(m.chat, {
       image: { url: selected.cover || thumbnailCard },
       caption,
-      footer: '📲 Video obtenido vía Vreden + Delirius API',
+      footer: '➪ Video obtenido vía Vreden + Delirius API',
       contextInfo: {
         externalAdReply: {
           title: 'TikTok Video',
           body: 'Descarga completada',
-          thumbnailUrl: thumbnailCard,
-          sourceUrl: 𝓟𝓸𝔀𝓮𝓻 𝓫𝔂 𝓒𝓪𝓻𝓵𝓸𝓼 
+          thumbnailUrl: 'thumbnailCard,
+          sourceUrl: '𝗕𝘆 𝗘𝗹 𝗕𝗶𝗰𝗵𝗼 𝗠𝗮𝗻 𝗫𝘇𝘆'
         }
       }
     }, { quoted: m });
