@@ -40,15 +40,15 @@ const PORT = process.env.PORT || process.env.SERVER_PORT || 3000
 //const yuw = dirname(fileURLToPath(import.meta.url))
 //let require = createRequire(megu)
 let { say } = cfonts
-console.log(chalk.bold.redBright(`\n✰ 𝙄𝙣𝙞𝙘𝙞𝙖𝙣𝙙𝙤 𝙎𝙝𝙞𝙯𝙪𝙠𝙖-𝘼𝙄 ✰\n`))
+console.log(chalk.bold.redBright(`\n✦𝐈𝐍𝐈𝐂𝐈𝐀𝐍𝐃𝐎 𝐂𝐎𝐍 𝐑𝐔𝐊𝐈𝐀-𝐁𝐎𝐓✦\n`))
 
-say('𝙎𝙝𝙞𝙯𝙪𝙠𝙖-𝘼𝙄', {
+say('𝐑𝐔𝐊𝐈𝐀-𝐁𝐎𝐓', {
 font: 'block',
 align: 'center',
 colors: ['magentaBright']
 })
 
-say(`𝙋𝙤𝙬𝙚𝙧 𝙗𝙮 • 𝘾𝙖𝙧𝙡𝙤𝙨 `, {
+say(`𝑬𝑪𝑯𝑶 𝑷𝑶𝑹 𝑬𝑹𝑬𝑵𝑿𝒁𝒀 𝑿𝒁𝒀`, {
 font: 'console',
 align: 'center',
 colors: ['blueBright']
@@ -123,7 +123,7 @@ if (methodCodeQR) {
 opcion = '1'
 }
 if (!methodCodeQR && !methodCode && !fs.existsSync(`./${sessions}/creds.json`)) {
-do {opcion = await question(colores('𝕾𝖊𝖑𝖊𝖈𝖈𝖎𝖔𝖓𝖊 𝖚𝖓 𝖒𝖊𝖙𝖔𝖉𝖔 𝖉𝖊 𝖈𝖔𝖓𝖊𝖝𝖎𝖔𝖓:\n') + opcionQR('1. 𝕮𝖔𝖓𝖊𝖝𝖎𝖔𝖓 𝖒𝖊𝖉𝖎𝖆𝖓𝖙𝖊 𝕼𝕽\n') + opcionTexto('2. 𝕮𝖔𝖓𝖊𝖝𝖎𝖔𝖓 𝖒𝖊𝖉𝖎𝖆𝖓𝖙𝖊 𝖓𝖚𝖒𝖊𝖗𝖔\n--> '))
+do {opcion = await question(colores('𝗦𝗘𝗟𝗘𝗖𝗜𝗢𝗡𝗔 𝗨𝗡𝗔 𝗢𝗣𝗖𝗜𝗢𝗡 𝗗𝗘 𝗖𝗢𝗡𝗘𝗡𝗘𝗫𝗜𝗢𝗡:\n') + opcionQR('1.𝗠𝗲𝗱𝗶𝗮𝗻𝘁𝗲 𝗔 𝗤𝗿\n') + opcionTexto('2. 𝗠𝗲𝗱𝗶𝗮𝗻𝘁𝗲 𝗖𝗼𝗱𝗶𝗴𝗼 𝗗𝗲 8 𝗗𝗶𝗴𝗶𝘁𝗼𝘀\n--> '))
 if (!/^[1-2]$/.test(opcion)) {
 console.log(chalk.bold.redBright(`𝓝𝓸 𝓼𝓮 𝓹𝓮𝓻𝓶𝓲𝓽𝓮𝓷 𝓷𝓾𝓶𝓮𝓻𝓸𝓼 𝓺𝓾𝓮 𝓷𝓸 𝓼𝓮𝓪𝓷 1 𝓸 2, 𝓽𝓪𝓶𝓹𝓸𝓬𝓸 𝓵𝓮𝓽𝓻𝓪𝓼 𝓸 𝓼𝓲𝓶𝓫𝓸𝓵𝓸𝓼 𝓮𝓼𝓹𝓮𝓬𝓲𝓪𝓵𝓮𝓼.`))
 }} while (opcion !== '1' && opcion !== '2' || fs.existsSync(`./${sessions}/creds.json`))
