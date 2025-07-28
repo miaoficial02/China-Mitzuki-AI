@@ -69,9 +69,7 @@ npm start
 ### ✦ `DELUXE HOST` ✦
 
 <p align="center">
-  <a href="https://dash.skyultraplus.com/home">
-    <img src="https://qu.ax/hZUst.jpg" height="125px" alt="Deluxe Host Logo">
-  </a>
+  <img src="https://qu.ax/hZUst.jpg" height="125px" alt="Deluxe Host Logo">
 </p>
 
 <details>
@@ -84,11 +82,8 @@ Si deseas que tu bot también esté siempre en línea y funcionando sin interrup
 - 🔧 Panel de Control: [`Panel Deluxe Host`](https://panel.skyultraplus.com)
 - 📢 Canal oficial de WhatsApp: [`Canal Deluxe Host`](https://whatsapp.com/channel/0029VbBAXMdBlHpcfaLPDV1n)
 - 🌐 Comunidad de soporte: [`Únete aquí`](https://chat.whatsapp.com/GXwZX6U6f6OIxthaE4kF37)
-- 📞 Contacto técnico:
+- 📞 Contacto De Los Creadores:
   - [`KenisawaDev`](https://wa.me/+5493865642938)
   - [`Sebas`](https://wa.me/+5491166887146)
 
 </details>
-
-> 💠 **¿Quieres que RukiaBotV2 funcione 24/7 sin que tu celular esté encendido?**  
-> Contrata tu espacio en Deluxe Host y mantenla activa en la nube día y noche.
