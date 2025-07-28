@@ -68,7 +68,7 @@ npm start
 ### **`✦ DELUXE HOST ✦`**
 
 <a
-href="https://dash.skyultraplus.com/home"><img src="https://qu.ax/hZUst.jpg" height="125px"></a>
+href="https://dash.deluxehost.cl"><img src="https://qu.ax/hZUst.jpg" height="125px"></a>
 
 <details>
  <summary><b> 👨🏻‍💻 Servidor Deluxe Host </b></summary>
