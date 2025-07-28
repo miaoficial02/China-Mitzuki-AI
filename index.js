@@ -40,15 +40,15 @@ const PORT = process.env.PORT || process.env.SERVER_PORT || 3000
 //const yuw = dirname(fileURLToPath(import.meta.url))
 //let require = createRequire(megu)
 let { say } = cfonts
-console.log(chalk.bold.redBright(`\n✰ Iniciando Yuki-Suou-Bot ✰\n`))
+console.log(chalk.bold.redBright(`\n⚡︎ Iniciando Con Rukia-Botv2\n`))
 
-say('YukiBot-MD', {
+say('Rukia-v2', {
 font: 'block',
 align: 'center',
 colors: ['magentaBright']
 })
 
-say(`Developed By • The-King-Destroy`, {
+say(`Developed By • Erenxszy Xzy`, {
 font: 'console',
 align: 'center',
 colors: ['blueBright']
@@ -123,9 +123,11 @@ if (methodCodeQR) {
 opcion = '1'
 }
 if (!methodCodeQR && !methodCode && !fs.existsSync(`./${sessions}/creds.json`)) {
-do {opcion = await question(colores('𝗦𝗘𝗟𝗘𝗖𝗜𝗢𝗡𝗔 𝗨𝗡𝗔 𝗢𝗣𝗖𝗜𝗢𝗡 𝗗𝗘 𝗖𝗢𝗡𝗘𝗡𝗘𝗫𝗜𝗢𝗡:\n') + opcionQR('1.𝗠𝗲𝗱𝗶𝗮𝗻𝘁𝗲 𝗔 𝗤𝗿\n') + opcionTexto('2. 𝗠𝗲𝗱𝗶𝗮𝗻𝘁𝗲 𝗔 𝗖𝗼𝗱𝗶𝗴𝗼 𝗗𝗲 8 𝗗𝗶𝗴𝗶𝘁𝗼𝘀\n--> '))
+do {
+opcion = await question(colores('➤ Seleccione una opción:\n') + opcionQR('1. Con código QR\n') + opcionTexto('2. Con código de texto de 8 dígitos\n--> '))
+
 if (!/^[1-2]$/.test(opcion)) {
-console.log(chalk.bold.redBright(`𝓝𝓸 𝓼𝓮 𝓹𝓮𝓻𝓶𝓲𝓽𝓮𝓷 𝓷𝓾𝓶𝓮𝓻𝓸𝓼 𝓺𝓾𝓮 𝓷𝓸 𝓼𝓮𝓪𝓷 1 𝓸 2, 𝓽𝓪𝓶𝓹𝓸𝓬𝓸 𝓵𝓮𝓽𝓻𝓪𝓼 𝓸 𝓼𝓲𝓶𝓫𝓸𝓵𝓸𝓼 𝓮𝓼𝓹𝓮𝓬𝓲𝓪𝓵𝓮𝓼.`))
+console.log(chalk.bold.redBright(`✎ No se permiten numeros que no sean 1 o 2, tampoco letras o símbolos especiales.`))
 }} while (opcion !== '1' && opcion !== '2' || fs.existsSync(`./${sessions}/creds.json`))
 } 
 
@@ -209,7 +211,7 @@ if (opcion == '1' || methodCodeQR) {
 console.log(chalk.bold.yellow(`\n❐ ESCANEA EL CÓDIGO QR EXPIRA EN 45 SEGUNDOS`))}
 }
 if (connection == 'open') {
-console.log(chalk.bold.green('\n 𝙎𝙝𝙞𝙯𝙪𝙠𝙖 𝘾𝙤𝙣𝙚𝙘𝙩𝙖𝙙𝙖 𝙘𝙤𝙣 𝙚𝙭𝙞𝙩𝙤'))
+console.log(chalk.bold.green('\n 𝑹𝑼𝑲𝑰𝑨 𝑩𝑶𝑻 𝑪𝑶𝑵𝑬𝑪𝑻𝑨𝑫𝑨 𝑪𝑶𝑵 𝑬𝑿𝑰𝑻𝑶'))
 }
 let reason = new Boom(lastDisconnect?.error)?.output?.statusCode
 if (connection === 'close') {
