@@ -73,8 +73,8 @@ href="https://dash.skyultraplus.com/home"><img src="https://qu.ax/hZUst.jpg" hei
 <details>
  <summary><b> 👨🏻‍💻 Servidor Deluxe Host </b></summary>
 
-* Dashboard : [`Dash Deluxe Host`](https://dash.skyultraplus.com)
-* Panel : [`Panel Deluxe Host`](https://panel.skyultraplus.com)
+* Dashboard : [`Dash Deluxe Host`](https://dash.deluxehost.cl)
+* Panel : [`Panel Deluxe Host`](https://panel.deluxehost.cl/)
 * Canal de WhatsApp : [`Canal Deluxe Host`](https://whatsapp.com/channel/0029VbBAXMdBlHpcfaLPDV1n)
 * Comunidad : [`Aquí`](https://chat.whatsapp.com/GXwZX6U6f6OIxthaE4kF37)
 * Contacto : [`KenisawaDev`](https://wa.me/+5493865642938)
