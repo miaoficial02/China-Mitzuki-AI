@@ -79,5 +79,3 @@ href="https://dash.skyultraplus.com/home"><img src="https://qu.ax/hZUst.jpg" hei
 * Comunidad : [`Aquí`](https://chat.whatsapp.com/GXwZX6U6f6OIxthaE4kF37)
 * Contacto : [`KenisawaDev`](https://wa.me/+5493865642938)
 * Contacto  : [`Sebas`](https://wa.me/+5491166887146)
-
-### INFO SOBRE EL CREADOR 
