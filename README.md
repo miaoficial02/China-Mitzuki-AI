@@ -65,27 +65,17 @@ npm update
 ```bash
 npm start
 ```
-### ✦ DELUXE HOST ✦
+### **`✦ DELUXE HOST ✦`**
 
-<p align="center">
-  <img src="https://qu.ax/hZUst.jpg" height="125px" alt="Deluxe Host Logo">
-</p>
+<a
+href="https://dash.skyultraplus.com/home"><img src="https://qu.ax/hZUst.jpg" height="125px"></a>
 
 <details>
-<summary><b>❒ Servidor Sky-Ultra-Plus (Hosting 24/7)</b></summary>
+ <summary><b> 👨🏻‍💻 Servidor Deluxe Host </b></summary>
 
-📌 <strong>RukiaBotV2</strong> está alojada 24/7 en un servidor privado exclusivo de <strong>Deluxe Host</strong>.  
-Si deseas que tu bot también esté siempre en línea y funcionando sin interrupciones, puedes usar este servicio confiable.
-
-- 🖥️ Dashboard: [`Dash Deluxe Host`](https://dash.skyultraplus.com)
-- 🔧 Panel de Control: [`Panel Deluxe Host`](https://panel.skyultraplus.com)
-- 📢 Canal oficial de WhatsApp: [`Canal Deluxe Host`](https://whatsapp.com/channel/0029VbBAXMdBlHpcfaLPDV1n)
-- 🌐 Comunidad de soporte: [`Únete aquí`](https://chat.whatsapp.com/GXwZX6U6f6OIxthaE4kF37)
-- 📞 Contacto técnico:
-  - [`KenisawaDev`](https://wa.me/+5493865642938)
-  - [`Sebas`](https://wa.me/+5491166887146)
-
-</details>
-
-> ✨ ¿Quieres que <strong>RukiaBotV2</strong> funcione <strong>24/7</strong> sin que tu celular esté encendido?  
-> Contrata tu espacio en Deluxe Host y mantenla activa en la nube día y noche.
+* Dashboard : [`Dash Deluxe Host`](https://dash.skyultraplus.com)
+* Panel : [`Panel Deluxe Host`](https://panel.skyultraplus.com)
+* Canal de WhatsApp : [`Canal Deluxe Host`](https://whatsapp.com/channel/0029VbBAXMdBlHpcfaLPDV1n)
+* Comunidad : [`Aquí`](https://chat.whatsapp.com/GXwZX6U6f6OIxthaE4kF37)
+* Contacto : [`KenisawaDev`](https://wa.me/+5493865642938)
+* Contacto  : [`Sebas`](https://wa.me/+5491166887146)
