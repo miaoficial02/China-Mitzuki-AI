@@ -253,12 +253,32 @@ m.exp += Math.ceil(Math.random() * 10)
 
 let usedPrefix
 
-const groupMetadata = (m.isGroup ? ((conn.chats[m.chat] || {}).metadata || await this.groupMetadata(m.chat).catch(_ => null)) : {}) || {}
+const groupMetadata = (m.isGroup 
+  ? ((conn.chats[m.chat] || {}).metadata || await this.groupMetadata(m.chat).catch(_ => null)) 
+  : {}) || {}
+
 const participants = (m.isGroup ? groupMetadata.participants : []) || []
-const user = (m.isGroup ? participants.find(u => conn.decodeJid(u.id) === m.sender) : {}) || {}
-const bot = (m.isGroup ? participants.find(u => conn.decodeJid(u.id) == this.user.jid) : {}) || {}
+
+const user = (m.isGroup 
+  ? participants.find(u => conn.decodeJid(u.id) === m.sender) 
+  : {}) || {}
+
+const bot = (m.isGroup 
+  ? participants.find(u => conn.decodeJid(u.id) == this.user.jid) 
+  : {}) || {}
+
+// Reconocer owner (creador) desde global.owner
+const isROwner = [conn.decodeJid(global.conn.user.id), ...global.owner.map(([number]) => number)]
+  .map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net')
+  .includes(m.sender)
+
+const isOwner = isROwner || m.fromMe
+
 const isRAdmin = user?.admin == 'superadmin' || false
-const isAdmin = isRAdmin || user?.admin == 'admin' || false
+
+// Owner siempre es admin aunque no tenga rol en el grupo
+const isAdmin = isOwner || isRAdmin || user?.admin == 'admin' || false
+
 const isBotAdmin = bot?.admin || false
 
 const ___dirname = path.join(path.dirname(fileURLToPath(import.meta.url)), './plugins')
