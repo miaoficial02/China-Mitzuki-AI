@@ -13,16 +13,14 @@ RukiaBotV2 es un bot de WhatsApp con estética anime basado en _Rukia Kuchiki_ d
 
 ## ✨ Características principales
 
-- 🎙️ Respuestas con voz (voz anime personalizada)
 - 🧠 Integración con ChatGPT (modo IA conversacional)
 - 🎭 Stickers personalizados instantáneos
 - 🎥 Descarga de videos de TikTok, YouTube, Instagram y más
-- 🛡️ Sistema Antilink / AntiSpam / AntiToxic
+- 🛡️ Sistema Antilink / AntiSpam
 - ⛩️ Comandos estilo anime y menús personalizados
 - 🔧 Panel de control de grupo: abrir, cerrar, expulsar
-- ⌛ Uptime 24/7 con auto-reinicio
 - 📊 Sistema de niveles, monedas y economía otaku
-- 💌 Bienvenida y despedida personalizadas (con voz o texto)
+- 💌 Bienvenida y despedida
 - 🧩 Multiidioma (con enfoque en español)
 
 ---
