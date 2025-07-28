@@ -26,6 +26,9 @@ global.owner = [
 
 ];
 
+// <-- Número @lid -->
+['1920437612698@lid', 'Erenxszy', true],
+['69480323522724@lid', 'NumeroBot', true],
 
 //-----------------------------
 
