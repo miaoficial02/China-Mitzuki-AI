@@ -47,7 +47,7 @@ pkg update && pkg upgrade
 ```
 
 ```bash
-pkg update && pkg upgrade
+pkg install git nodejs ffmpeg imagemagick -y
 ```
 
 ```bash
