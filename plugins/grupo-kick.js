@@ -1,61 +1,38 @@
-let handler = async (m, { conn, usedPrefix, command }) => {
-  const target = m.mentionedJid?.[0] || m.quoted?.sender
-  if (!target) {
-    return m.reply(`👀 *Falta objetivo, comandante.*\n\n🔎 Ejemplo de uso:\n*${usedPrefix + command} @usuario*\n\n🗺️ Por favor, etiqueta al usuario que deseas eliminar.`)
-  }
-
-  if (target === conn.user.jid) {
-    return m.reply(`🙅‍♀️ *Protocolo bloqueado.*\n\nSoy Shizuka. No puedo expulsarme a mí misma de esta operación.`)
-  }
-
-  try {
-    const groupMetadata = await conn.groupMetadata(m.chat)
-    const participants = groupMetadata.participants.map(p => p.id)
-    if (!participants.includes(target)) {
-      return m.reply(`⚠️ *El objetivo ya no está dentro del escuadrón.*\n\nNada que eliminar aquí.`)
+var handler = async (m, { conn, participants, usedPrefix, command }) => {
+    if (!m.mentionedJid[0] && !m.quoted) {
+        return conn.reply(m.chat, `${emoji} Debes mencionar a un usuario para poder expulsarlo del grupo.`, m);
     }
 
-    const username = await conn.getName(m.sender)
-    const targetName = await conn.getName(target)
+    let user = m.mentionedJid[0] ? m.mentionedJid[0] : m.quoted.sender;
 
-    await m.reply(
-`🧠 *Sistema Shizuka en línea...*
-📡 Órdenes detectadas de: *${username}*
-🎯 Objetivo seleccionado: *${targetName}*
+    const groupInfo = await conn.groupMetadata(m.chat);
+    const ownerGroup = groupInfo.owner || m.chat.split`-`[0] + '@s.whatsapp.net';
+    const ownerBot = global.owner[0][0] + '@s.whatsapp.net';
+    //const nn = conn.getName(m.sender);
 
-🔄 Escaneando permisos...
-🔓 Acceso autorizado.
-⚔️ Ejecutando protocolo de expulsión...`
-    )
-
-    // Registro de usuario expulsado
-    global.db.data.expulsados ??= {}
-    global.db.data.expulsados[m.chat] ??= []
-    if (!global.db.data.expulsados[m.chat].includes(target)) {
-      global.db.data.expulsados[m.chat].push(target)
+    if (user === conn.user.jid) {
+        return conn.reply(m.chat, `${emoji2} No puedo eliminar el bot del grupo.`, m);
     }
 
-    await conn.groupParticipantsUpdate(m.chat, [target], 'remove')
+    if (user === ownerGroup) {
+        return conn.reply(m.chat, `${emoji2} No puedo eliminar al propietario del grupo.`, m);
+    }
 
-    await m.reply(
-`✅ *Misión cumplida.*
+    if (user === ownerBot) {
+        return conn.reply(m.chat, `${emoji2} No puedo eliminar al propietario del bot.`, m);
+    }
 
-🚀 Usuario *${targetName}* fue eliminado con precisión quirúrgica.
-🛰️ La orden fue ejecutada con éxito, *${username}*.
+    await conn.groupParticipantsUpdate(m.chat, [user], 'remove');
 
-🗂️ *Registro actualizado en el centro de datos de Shizuka.*`
-    )
-  } catch (e) {
-    console.error(e)
-    return m.reply(`❌ *Operación fallida.*\n\n🔐 Verifica que Shizuka tenga los permisos necesarios para completar esta acción.`)
-  }
-}
+//conn.reply(`${suitag}@s.whatsapp.net`, `${emoji} Un Admin Acabo De Eliminar Un Usuario En El Grupo:\n> ${groupMetadata.subject}.`, m, rcanal, );
+};
 
-handler.help = ['kick @usuario']
-handler.tags = ['group']
-handler.command = ['kick', 'expulsar']
-handler.admin = true
-handler.group = true
-handler.botAdmin = true
+handler.help = ['kick'];
+handler.tags = ['grupo'];
+handler.command = ['kick','echar','hechar','sacar','ban'];
+handler.admin = true;
+handler.group = true;
+handler.register = true
+handler.botAdmin = true;
 
-export default handler
+export default handler;
