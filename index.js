@@ -40,15 +40,15 @@ const PORT = process.env.PORT || process.env.SERVER_PORT || 3000
 //const yuw = dirname(fileURLToPath(import.meta.url))
 //let require = createRequire(megu)
 let { say } = cfonts
-console.log(chalk.bold.redBright(`\n✦𝐈𝐍𝐈𝐂𝐈𝐀𝐍𝐃𝐎 𝐂𝐎𝐍 𝐑𝐔𝐊𝐈𝐀-𝐁𝐎𝐓✦\n`))
+console.log(chalk.bold.redBright(`\n✰ Iniciando Yuki-Suou-Bot ✰\n`))
 
-say('𝐑𝐔𝐊𝐈𝐀-𝐁𝐎𝐓', {
+say('YukiBot-MD', {
 font: 'block',
 align: 'center',
 colors: ['magentaBright']
 })
 
-say(`𝑬𝑪𝑯𝑶 𝑷𝑶𝑹 𝑬𝑹𝑬𝑵𝑿𝒁𝒀 𝑿𝒁𝒀`, {
+say(`Developed By • The-King-Destroy`, {
 font: 'console',
 align: 'center',
 colors: ['blueBright']
