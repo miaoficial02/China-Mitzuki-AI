@@ -257,15 +257,9 @@ const groupMetadata = (m.isGroup ? ((conn.chats[m.chat] || {}).metadata || await
 const participants = (m.isGroup ? groupMetadata.participants : []) || []
 const user = (m.isGroup ? participants.find(u => conn.decodeJid(u.id) === m.sender) : {}) || {}
 const bot = (m.isGroup ? participants.find(u => conn.decodeJid(u.id) == this.user.jid) : {}) || {}
-
-const isROwner = [conn.decodeJid(global.conn.user.id), ...global.owner.map(([number]) => number)]
-    .map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net')
-    .includes(m.sender)
-
-const isOwner = isROwner || m.fromMe
 const isRAdmin = user?.admin == 'superadmin' || false
-const isAdmin = isOwner || isRAdmin || user?.admin == 'admin' || false
-const isBotAdmin = bot?.admin == 'admin' || false
+const isAdmin = isRAdmin || user?.admin == 'admin' || false
+const isBotAdmin = bot?.admin || false
 
 const ___dirname = path.join(path.dirname(fileURLToPath(import.meta.url)), './plugins')
 for (let name in global.plugins) {
