@@ -1,5 +1,4 @@
-
-  <img src="https://qu.ax/ViZAp.jpg" alt="RukiaBotV2 Logo" height="200px">
+<img src="https://qu.ax/ViZAp.jpg" alt="RukiaBotV2 Logo" height="200px">
 </p>
 
 # ❄️ RukiaBotV2 - Proyecto Nieve del Infinito ❄️
