@@ -14,7 +14,7 @@ global.botNumber = '' //Ejemplo: 123456789
 
 global.owner = [
 ['18493907272', 'RukiaCreator', true],
-['', '', true],
+['18493907272@s.whatsapp.net', 'creator', true],
 ['', '', true],
 ['', 'Colaborador', true],
 ];
@@ -25,8 +25,8 @@ global.owner = [
 
 //-----------------------------
 
-global.mods = ['5355699866']
-global.suittag = ['18493907272'] 
+global.mods = ['']
+global.suittag = [''] 
 global.prems = []
 
 //-----------------------------
