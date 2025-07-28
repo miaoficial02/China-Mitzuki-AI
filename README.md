@@ -43,7 +43,11 @@ termux-setup-storage
 ```
 
 ```bash
-apt update && apt upgrade && pkg install -y git nodejs ffmpeg imagemagick yarn
+pkg update && pkg upgrade
+```
+
+```bash
+pkg update && pkg upgrade
 ```
 
 ```bash
