@@ -1,6 +1,6 @@
 <p align="center">
   <img src="https://qu.ax/ViZAp.jpg" alt="GonBot Logo">
-</p>p
+</p>
 
 
 # ❄️ RukiaBotV2 - Proyecto Nieve del Infinito ❄️
