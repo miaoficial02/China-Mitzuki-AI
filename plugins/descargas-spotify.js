@@ -1,7 +1,7 @@
 import fetch from 'node-fetch';
 
 let handler = async (m, { conn, text, usedPrefix, command }) => {
-  const thumbnailCard = 'https://qu.ax/phgPU.jpg';
+  const thumbnailCard = 'https://cdn.russellxz.click/7a075849.jpeg';
   
   if (!text) {
     return conn.sendMessage(m.chat, {
