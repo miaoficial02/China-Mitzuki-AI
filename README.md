@@ -66,10 +66,10 @@ npm update
 npm start
 ```
 
-### **`✧ SKY-ULTRA-PLUS ✧`**
+### **`✦ DELUXE HOST ✦`**
 
 <a
-href="https://dash.skyultraplus.com/home"><img src="https://qu.ax/zFzXF.png" height="125px"></a>
+href="https://dash.skyultraplus.com/home"><img src="https://qu.ax/hZUst.jpg" height="125px"></a>
 
 <details>
  <summary><b> ❒ Servidor Sky-Ultra-Plus</b></summary>
