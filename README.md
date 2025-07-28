@@ -85,9 +85,3 @@ href="https://dash.skyultraplus.com/home"><img src="https://qu.ax/hZUst.jpg" hei
 <a
 href="https://github.com/erenxzy"><img src="https://github.com/erenxzy.png" width="130" height="130" alt="
 𝙀𝙧𝙚𝙣𝙭𝙯𝙮𝙈𝘿𝙁"/></a>
-
-### SITIO WEB PARA LOS GRUPOS OFICIALES Y INFO SOBRE EL CREADOR 
-
-https://erenxsit.vercel.app
-https://xzysitweb.vercel.app
-
