@@ -253,29 +253,19 @@ m.exp += Math.ceil(Math.random() * 10)
 
 let usedPrefix
 
-let groupMetadata = (m.isGroup
-  ? ((conn.chats[m.chat] || {}).metadata || await this.groupMetadata(m.chat).catch(_ => null))
-  : {}) || {}
+const groupMetadata = (m.isGroup ? ((conn.chats[m.chat] || {}).metadata || await this.groupMetadata(m.chat).catch(_ => null)) : {}) || {}
+const participants = (m.isGroup ? groupMetadata.participants : []) || []
+const user = (m.isGroup ? participants.find(u => conn.decodeJid(u.id) === m.sender) : {}) || {}
+const bot = (m.isGroup ? participants.find(u => conn.decodeJid(u.id) == this.user.jid) : {}) || {}
 
-let participants = (m.isGroup ? groupMetadata.participants : []) || []
+const isROwner = [conn.decodeJid(global.conn.user.id), ...global.owner.map(([number]) => number)]
+    .map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net')
+    .includes(m.sender)
 
-let user = (m.isGroup
-  ? participants.find(u => conn.decodeJid(u.id) === m.sender)
-  : {}) || {}
-
-let bot = (m.isGroup
-  ? participants.find(u => conn.decodeJid(u.id) == this.user.jid)
-  : {}) || {}
-
-let isROwner = [conn.decodeJid(global.conn.user.id), ...global.owner.map(([number]) => number)]
-  .map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net')
-  .includes(m.sender)
-
-let isOwner = isROwner || m.fromMe
-
-let isRAdmin = user?.admin == 'superadmin' || false
-let isAdmin = isOwner || isRAdmin || user?.admin == 'admin' || false
-let isBotAdmin = bot?.admin == 'admin' || bot?.admin == 'superadmin' || false
+const isOwner = isROwner || m.fromMe
+const isRAdmin = user?.admin == 'superadmin' || false
+const isAdmin = isOwner || isRAdmin || user?.admin == 'admin' || false
+const isBotAdmin = bot?.admin == 'admin' || false
 
 const ___dirname = path.join(path.dirname(fileURLToPath(import.meta.url)), './plugins')
 for (let name in global.plugins) {
@@ -578,7 +568,7 @@ const msg = {
 
   restrict: `🔒 *𝙁𝙪𝙣𝙘𝙞ó𝙣 𝙄𝙣𝙝𝙖𝙗𝙞𝙡𝙞𝙩𝙖𝙙𝙖* 🔒\n» Esta función está desactivada en el sistema de *Rukia-Bot*.`
 
- 
+
 }[type];
 if (msg) return m.reply(msg).then(_ => m.react('✖️'))}
 
