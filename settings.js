@@ -13,15 +13,19 @@ global.botNumber = '' //Ejemplo: 123456789
 //-----------------------------
 
 global.owner = [
-['18493907272', 'RukiaCreator', true],
-['18493907272@s.whatsapp.net', 'creator', true],
-['', '', true],
-['', 'Colaborador', true],
+
+  ['18493907272@s.whatsapp.net', '🜲 Propietario 🜲', true],
+
+  ['18097769423'],
+
+  [''],
+
+  [''], 
+
+  ['']
+
 ];
 
-// <-- Número @lid -->
-['1920437612698@lid', 'Erenxszy', true],
-['69480323522724@lid', 'NumeroBot', true],
 
 //-----------------------------
 
