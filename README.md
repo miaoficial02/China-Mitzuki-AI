@@ -74,8 +74,9 @@ href="https://dash.skyultraplus.com/home"><img src="https://qu.ax/hZUst.jpg" hei
 <details>
  <summary><b> ❒ Servidor Sky-Ultra-Plus</b></summary>
 
-* Dashboard : [`Dash`](https://dash.skyultraplus.com)
-* Panel : [`Panel`](https://panel.skyultraplus.com)
-* Canal de WhatsApp : [`Canal Deluxe Host`](https://whatsapp.com/channel/0029VakUvreFHWpyWUr4Jr0g)
-* Comunidad : [`Aquí`](https://chat.whatsapp.com/JPwcXvPEUwlEOyjI3BpYys)
-* Contacto : [`Gata Dios`](https://wa.me/message/B3KTM5XN2JMRD1)
+* Dashboard : [`Dash Deluxe Host`](https://dash.skyultraplus.com)
+* Panel : [`Panel Deluxe Host`](https://panel.skyultraplus.com)
+* Canal de WhatsApp : [`Canal Deluxe Host`](https://whatsapp.com/channel/0029VbBAXMdBlHpcfaLPDV1n)
+* Comunidad : [`Aquí`](https://chat.whatsapp.com/GXwZX6U6f6OIxthaE4kF37)
+* Contacto : [`KenisawaDev`](https://wa.me/+5493865642938)
+*Contacto : [`Sebas`](https://wa.me/+5491166887146)
