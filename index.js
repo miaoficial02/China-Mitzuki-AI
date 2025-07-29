@@ -40,15 +40,16 @@ const PORT = process.env.PORT || process.env.SERVER_PORT || 3000
 //const yuw = dirname(fileURLToPath(import.meta.url))
 //let require = createRequire(megu)
 let { say } = cfonts
-console.log(chalk.bold.redBright(`\n✰ 𝙄𝙣𝙞𝙘𝙞𝙖𝙣𝙙𝙤 𝙎𝙝𝙞𝙯𝙪𝙠𝙖-𝘼𝙄 ✰\n`))
 
-say('𝙎𝙝𝙞𝙯𝙪𝙠𝙖-𝘼𝙄', {
+console.log(chalk.bold.redBright(`\n Iniciando Con RukiaBot\n`))
+
+say('RukiaBotv2', {
 font: 'block',
 align: 'center',
 colors: ['magentaBright']
 })
 
-say(`𝙋𝙤𝙬𝙚𝙧 𝙗𝙮 • 𝘾𝙖𝙧𝙡𝙤𝙨 `, {
+say(`Developed By • Erenxszy`, {
 font: 'console',
 align: 'center',
 colors: ['blueBright']
@@ -123,9 +124,9 @@ if (methodCodeQR) {
 opcion = '1'
 }
 if (!methodCodeQR && !methodCode && !fs.existsSync(`./${sessions}/creds.json`)) {
-do {opcion = await question(colores('𝕾𝖊𝖑𝖊𝖈𝖈𝖎𝖔𝖓𝖊 𝖚𝖓 𝖒𝖊𝖙𝖔𝖉𝖔 𝖉𝖊 𝖈𝖔𝖓𝖊𝖝𝖎𝖔𝖓:\n') + opcionQR('1. 𝕮𝖔𝖓𝖊𝖝𝖎𝖔𝖓 𝖒𝖊𝖉𝖎𝖆𝖓𝖙𝖊 𝕼𝕽\n') + opcionTexto('2. 𝕮𝖔𝖓𝖊𝖝𝖎𝖔𝖓 𝖒𝖊𝖉𝖎𝖆𝖓𝖙𝖊 𝖓𝖚𝖒𝖊𝖗𝖔\n--> '))
+do {opcion = await question(colores('Selecione Un Método De Conexión:\n') + opcionQR('1. Metodo De Qr\n') + opcionTexto('2. Metodo De Código\n--> '))
 if (!/^[1-2]$/.test(opcion)) {
-console.log(chalk.bold.redBright(`𝓝𝓸 𝓼𝓮 𝓹𝓮𝓻𝓶𝓲𝓽𝓮𝓷 𝓷𝓾𝓶𝓮𝓻𝓸𝓼 𝓺𝓾𝓮 𝓷𝓸 𝓼𝓮𝓪𝓷 1 𝓸 2, 𝓽𝓪𝓶𝓹𝓸𝓬𝓸 𝓵𝓮𝓽𝓻𝓪𝓼 𝓸 𝓼𝓲𝓶𝓫𝓸𝓵𝓸𝓼 𝓮𝓼𝓹𝓮𝓬𝓲𝓪𝓵𝓮𝓼.`))
+console.log(chalk.bold.redBright(`No Se Permiten Símbolo Y Número Mal Puesto `))
 }} while (opcion !== '1' && opcion !== '2' || fs.existsSync(`./${sessions}/creds.json`))
 } 
 
@@ -209,7 +210,7 @@ if (opcion == '1' || methodCodeQR) {
 console.log(chalk.bold.yellow(`\n❐ ESCANEA EL CÓDIGO QR EXPIRA EN 45 SEGUNDOS`))}
 }
 if (connection == 'open') {
-console.log(chalk.bold.green('\n 𝙎𝙝𝙞𝙯𝙪𝙠𝙖 𝘾𝙤𝙣𝙚𝙘𝙩𝙖𝙙𝙖 𝙘𝙤𝙣 𝙚𝙭𝙞𝙩𝙤'))
+console.log(chalk.bold.green('\n RukiaBot Conectada Con Éxito'))
 }
 let reason = new Boom(lastDisconnect?.error)?.output?.statusCode
 if (connection === 'close') {
