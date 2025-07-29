@@ -55,15 +55,7 @@ git clone https://github.com/erenxzy/Rukia-Botv2 && cd Rukia-Botv2
 ```
 
 ```bash
-yarn install
-```
-
-```bash
 npm install
-```
-
-```bash
-npm update
 ```
 
 ```bash
