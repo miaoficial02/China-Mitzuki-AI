@@ -7,7 +7,7 @@ let handler = async (m, { conn }) => {
   const OFFICIAL_NUMBER = "521234567890" // <-- cámbialo por el tuyo
 
   // 📌 ID del grupo permitido
-  const OFFICIAL_GROUP = "123456789-987654321@g.us" // <-- cámbialo por el ID de tu grupo
+  const OFFICIAL_GROUP = "120363419244550510@g.us" // <-- cámbialo por el ID de tu grupo
 
   // Obtenemos el número del bot conectado
   let botNumber = conn.user.id.split(':')[0].replace(/[^0-9]/g, '')
