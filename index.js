@@ -211,7 +211,7 @@ if (opcion == '1' || methodCodeQR) {
 console.log(chalk.bold.yellow(`\n❐ ESCANEA EL CÓDIGO QR EXPIRA EN 45 SEGUNDOS`))}
 }
 if (connection == 'open') {
-console.log(chalk.bold.green('\n 𝙎𝙝𝙞𝙯𝙪𝙠𝙖 𝘾𝙤𝙣𝙚𝙘𝙩𝙖𝙙𝙖 𝙘𝙤𝙣 𝙚𝙭𝙞𝙩𝙤'))
+console.log(chalk.bold.green('\n Conectada Con ÉXITO'))
 }
 let reason = new Boom(lastDisconnect?.error)?.output?.statusCode
 if (connection === 'close') {
