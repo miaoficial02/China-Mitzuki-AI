@@ -9,7 +9,7 @@ let handler = async (m, { conn, text }) => {
     const res = await axios.get(`https://api.simsimi.net/v2/?text=${encodeURIComponent(text)}&lc=es`);
     const respuesta = res.data.success || "No pude responder.";
 
-    await conn.sendMessage(m.chat, { text: respuesta + "\n\n🤖 IA By Erenxszy 🥷🏽✨" }, { quoted: m });
+    await conn.sendMessage(m.chat, { text: respuesta + "\n\n𝗜𝗔 𝗕𝘆 𝗘𝗿𝗲𝗻𝘅𝘇𝘆 🥷🏽✨" }, { quoted: m });
   } catch (e) {
     console.error("Error Simsimi:", e);
     m.reply("❌ Error con Simsimi.");
