@@ -1,31 +1,27 @@
-import 'dotenv/config'   // 🔹 esto carga tu archivo .env automáticamente
-import OpenAI from "openai";
-
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY || "TU_API_KEY_AQUI", // usa la clave del .env o la escrita
-});
+import fetch from "node-fetch";
 
 let handler = async (m, { conn, text }) => {
-  if (!text) return m.reply("✦ Debes escribir algo. Ejemplo:\n.IAxzy Cuéntame un chiste");
+  if (!text) return m.reply("✦ Escribe algo para que la IA responda. Ejemplo:\n.IAxzy Hola");
 
-  await m.reply("⏳ Espera un momento, estoy pensando...");
+  await m.reply("⏳ Pensando...");
 
   try {
-    const res = await openai.chat.completions.create({
-      model: "gpt-4o-mini", 
-      messages: [{ role: "user", content: text }],
+    const response = await fetch("https://api-inference.huggingface.co/models/tiiuae/falcon-7b-instruct", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ inputs: text }),
     });
 
-    let respuesta = res.choices[0].message.content.trim();
+    const data = await response.json();
+    let respuesta = data[0]?.generated_text || "No pude responder.";
 
-    // Firma personalizada
     respuesta += `\n\n━━━━━━━━━━━━━━━\n🤖 IA By Erenxszy 🥷🏽✨`;
 
     await conn.sendMessage(m.chat, { text: respuesta }, { quoted: m });
 
   } catch (e) {
     console.error(e);
-    m.reply("❌ Error al conectar con ChatGPT.");
+    m.reply("❌ Error al conectar con la IA de Hugging Face.");
   }
 };
 
