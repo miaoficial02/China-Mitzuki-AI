@@ -1,23 +1,20 @@
-import axios from "axios";
+import { ChatGPTUnofficialProxyAPI } from "gpt4free";
 
 let handler = async (m, { conn, text }) => {
-  if (!text) return m.reply("✦ Escribe algo para que la IA responda.");
+  if (!text) return m.reply("✦ Escribe algo para la IA.");
 
   await m.reply("⏳ Pensando...");
 
   try {
-    const res = await axios.get(`https://api.affiliateplus.xyz/api/chatbot?message=${encodeURIComponent(text)}&botname=Rukia&ownername=Erenxszy&user=${m.sender.split('@')[0]}`);
-    const respuesta = res.data.message || "No pude responder.";
+    const api = new ChatGPTUnofficialProxyAPI();
+    const res = await api.sendMessage(text);
+    const respuesta = res.text || "No pude responder.";
 
     await conn.sendMessage(m.chat, { text: respuesta + "\n\n🤖 IA By Erenxszy 🥷🏽✨" }, { quoted: m });
   } catch (e) {
-    console.error("Error chatbot alternativa:", e);
-    m.reply("❌ Error con el chatbot alternativo.");
+    m.reply("❌ Error con GPT4Free.");
   }
 };
 
 handler.command = ["iaxzy"];
-handler.help = ["iaxzy <texto>"];
-handler.tags = ["ia"];
-
 export default handler;
