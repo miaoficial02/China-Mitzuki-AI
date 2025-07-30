@@ -1,7 +1,8 @@
+import 'dotenv/config'   // 🔹 esto carga tu archivo .env automáticamente
 import OpenAI from "openai";
 
 const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY || "TU_API_KEY_AQUI", // pon tu API key aquí
+  apiKey: process.env.OPENAI_API_KEY || "TU_API_KEY_AQUI", // usa la clave del .env o la escrita
 });
 
 let handler = async (m, { conn, text }) => {
