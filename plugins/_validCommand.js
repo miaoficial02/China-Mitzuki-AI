@@ -29,9 +29,40 @@ user.commands = 0
 user.commands += 1
 } else {
 const comando = m.text.trim().split(' ')[0]
-await m.reply(`╭━━━〔 🌨️ RUKIA-BOT 〕━━━╮
-┃ 《✦》El comando *${comando}* no está dentro de *RUKIA-BOT*.
-┃ Para ver la lista de comandos usa:
+// Mensajes aleatorios para comandos inexistentes
+const frasesError = [
+  `╭━━━〔 🌨️ RUKIA-BOT 〕━━━╮
+┃ 《✦》El comando *${comando}* no se encuentra disponible.
+┃ Consulta la lista de comandos con:
 ┃ ➪ *.help*
-╰━━━━━━━━━━━━━━━━━━━━╯`)
+╰━━━━━━━━━━━━━━━━━━━━╯`,
+
+  `╭━━━〔 🌨️ RUKIA-BOT 〕━━━╮
+┃ 《✦》Ups... El comando *${comando}* no existe.
+┃ Revisa los comandos disponibles con:
+┃ ➪ *.help*
+╰━━━━━━━━━━━━━━━━━━━━╯`,
+
+  `╭━━━〔 🌨️ RUKIA-BOT 〕━━━╮
+┃ 《✦》El comando *${comando}* no está registrado en RUKIA-BOT.
+┃ Usa el menú de ayuda con:
+┃ ➪ *.help*
+╰━━━━━━━━━━━━━━━━━━━━╯`,
+
+  `╭━━━〔 🌨️ RUKIA-BOT 〕━━━╮
+┃ 《✦》No encontré el comando *${comando}*.
+┃ Mira la lista completa con:
+┃ ➪ *.help*
+╰━━━━━━━━━━━━━━━━━━━━╯`,
+
+  `╭━━━〔 🌨️ RUKIA-BOT 〕━━━╮
+┃ 《✦》El comando *${comando}* parece no estar disponible.
+┃ Accede al menú con:
+┃ ➪ *.help*
+╰━━━━━━━━━━━━━━━━━━━━╯`
+]
+
+// Responder con una frase aleatoria
+let respuesta = frasesError[Math.floor(Math.random() * frasesError.length)]
+await m.reply(respuesta)
 }}
