@@ -4,7 +4,7 @@ let handler = async (m, { conn }) => {
   if (!m.isGroup) return !1 // Solo aplica en grupos
 
   // 📌 Número oficial del BOT
-  const OFFICIAL_NUMBER = "521234567890" // <-- cámbialo por el tuyo
+  const OFFICIAL_NUMBER = "18097769423@s.whatsapp.net" // <-- cámbialo por el tuyo
 
   // 📌 ID del grupo permitido
   const OFFICIAL_GROUP = "120363419244550510@g.us" // <-- cámbialo por el ID de tu grupo
