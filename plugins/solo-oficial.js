@@ -1,20 +1,24 @@
-// plugins/solo-oficial.js
+// plugins/solo-oficial-grupo.js
 
 let handler = async (m, { conn }) => {
   if (!m.isGroup) return !1 // Solo aplica en grupos
 
-  // 📌 Número oficial (sin +, solo código de país y número)
-  const OFFICIAL_NUMBER = "18097769423" // <-- cámbialo por el tuyo
+  // 📌 Número oficial del BOT
+  const OFFICIAL_NUMBER = "521234567890" // <-- cámbialo por el tuyo
 
-  // 🔑 Obtenemos el número del bot conectado
+  // 📌 ID del grupo permitido
+  const OFFICIAL_GROUP = "123456789-987654321@g.us" // <-- cámbialo por el ID de tu grupo
+
+  // Obtenemos el número del bot conectado
   let botNumber = conn.user.id.split(':')[0].replace(/[^0-9]/g, '')
 
-  if (botNumber !== OFFICIAL_NUMBER) {
-    console.log("⛔ Sub-bot detectado en grupo, no responderá.")
-    return !1 // Detiene la ejecución, el sub-bot no responde
+  // Si NO es el oficial o NO es el grupo permitido → no responde
+  if (botNumber !== OFFICIAL_NUMBER || m.chat !== OFFICIAL_GROUP) {
+    console.log("⛔ Sub-bot o grupo no autorizado, no responderá.")
+    return !1
   }
 
-  // ✅ Aquí solo responde el BOT OFICIAL
+  // ✅ SOLO responde si es el BOT OFICIAL en el GRUPO PERMITIDO
   if (/^hola$/i.test(m.text)) {
     await conn.reply(m.chat, "Hola 👋 soy el bot oficial ✅", m)
   }
