@@ -13,7 +13,18 @@ let handler = async (m, { conn, text }) => {
     });
 
     const data = await response.json();
-    let respuesta = data[0]?.generated_text || "No pude responder.";
+    console.log("Respuesta API HuggingFace:", JSON.stringify(data, null, 2));
+
+    let respuesta = "No pude responder.";
+    if (Array.isArray(data) && data.length > 0 && data[0].generated_text) {
+      respuesta = data[0].generated_text;
+    } else if (data.generated_text) {
+      respuesta = data.generated_text;
+    } else if (typeof data === "string") {
+      respuesta = data;
+    } else if (data.error) {
+      respuesta = "Error: " + data.error;
+    }
 
     respuesta += `\n\n━━━━━━━━━━━━━━━\n🤖 IA By Erenxszy 🥷🏽✨`;
 
