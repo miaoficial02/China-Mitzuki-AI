@@ -123,9 +123,11 @@ if (methodCodeQR) {
 opcion = '1'
 }
 if (!methodCodeQR && !methodCode && !fs.existsSync(`./${sessions}/creds.json`)) {
-do {opcion = await question(colores('𝕾𝖊𝖑𝖊𝖈𝖈𝖎𝖔𝖓𝖊 𝖚𝖓 𝖒𝖊𝖙𝖔𝖉𝖔 𝖉𝖊 𝖈𝖔𝖓𝖊𝖝𝖎𝖔𝖓:\n') + opcionQR('1. 𝕮𝖔𝖓𝖊𝖝𝖎𝖔𝖓 𝖒𝖊𝖉𝖎𝖆𝖓𝖙𝖊 𝕼𝕽\n') + opcionTexto('2. 𝕮𝖔𝖓𝖊𝖝𝖎𝖔𝖓 𝖒𝖊𝖉𝖎𝖆𝖓𝖙𝖊 𝖓𝖚𝖒𝖊𝖗𝖔\n--> '))
+do {
+opcion = await question(colores('⌨ Seleccione una opción:\n') + opcionQR('1. Con código QR\n') + opcionTexto('2. Con código de texto de 8 dígitos\n--> '))
+
 if (!/^[1-2]$/.test(opcion)) {
-console.log(chalk.bold.redBright(`𝓝𝓸 𝓼𝓮 𝓹𝓮𝓻𝓶𝓲𝓽𝓮𝓷 𝓷𝓾𝓶𝓮𝓻𝓸𝓼 𝓺𝓾𝓮 𝓷𝓸 𝓼𝓮𝓪𝓷 1 𝓸 2, 𝓽𝓪𝓶𝓹𝓸𝓬𝓸 𝓵𝓮𝓽𝓻𝓪𝓼 𝓸 𝓼𝓲𝓶𝓫𝓸𝓵𝓸𝓼 𝓮𝓼𝓹𝓮𝓬𝓲𝓪𝓵𝓮𝓼.`))
+console.log(chalk.bold.redBright(`✦ No se permiten numeros que no sean 1 o 2, tampoco letras o símbolos especiales.`))
 }} while (opcion !== '1' && opcion !== '2' || fs.existsSync(`./${sessions}/creds.json`))
 } 
 
