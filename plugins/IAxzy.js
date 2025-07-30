@@ -11,7 +11,7 @@ let handler = async (m, { conn, text }) => {
 
     await conn.sendMessage(
       m.chat,
-      { text: `🌸 *Rukia*: ${respuesta}\n\n🤖 Creada por Erenxszy 🥷🏽✨` },
+      { text: `❄️ *Rukia*: ${respuesta}\n\n𝗜𝗔 𝗕𝘆 𝗘𝗿𝗲𝗻𝘅𝘇𝘆🥷🏻✨` },
       { quoted: m }
     );
   } catch (e) {
