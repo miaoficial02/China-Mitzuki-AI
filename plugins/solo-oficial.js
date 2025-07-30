@@ -3,17 +3,17 @@
 let handler = async (m, { conn }) => {
   if (!m.isGroup) return !1 // Solo aplica en grupos
 
-  // 📌 Número oficial del BOT
-  const OFFICIAL_NUMBER = "18097769423@s.whatsapp.net" // <-- cámbialo por el tuyo
+  // 📌 ID del BOT OFICIAL
+  const OFFICIAL_BOT_ID = "18097769423@s.whatsapp.net" // <-- tu número oficial con @s.whatsapp.net
 
-  // 📌 ID del grupo permitido
-  const OFFICIAL_GROUP = "120363419244550510@g.us" // <-- cámbialo por el ID de tu grupo
+  // 📌 ID del GRUPO PERMITIDO
+  const OFFICIAL_GROUP_ID = "120363419244550510@g.us" // <-- ID de tu grupo oficial
 
-  // Obtenemos el número del bot conectado
-  let botNumber = conn.user.id.split(':')[0].replace(/[^0-9]/g, '')
-
-  // Si NO es el oficial o NO es el grupo permitido → no responde
-  if (botNumber !== OFFICIAL_NUMBER || m.chat !== OFFICIAL_GROUP) {
+  // 🔑 Verificación: si NO es el BOT OFICIAL o NO está en el GRUPO OFICIAL → no responde
+  if (
+    conn.user.id.split(':')[0] !== OFFICIAL_BOT_ID.split(':')[0] ||
+    m.chat !== OFFICIAL_GROUP_ID
+  ) {
     console.log("⛔ Sub-bot o grupo no autorizado, no responderá.")
     return !1
   }
