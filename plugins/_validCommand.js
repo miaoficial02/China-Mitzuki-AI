@@ -29,5 +29,9 @@ user.commands = 0
 user.commands += 1
 } else {
 const comando = m.text.trim().split(' ')[0]
-await m.reply(`《✦》El comando *${comando}* no existe.\nPara ver la lista de comandos usa:\n» *#help*`)
+await m.reply(`╭━━━〔 🌨️ RUKIA-BOT 〕━━━╮
+┃ 《✦》El comando *${comando}* no está dentro de *RUKIA-BOT*.
+┃ Para ver la lista de comandos usa:
+┃ ➪ *.help*
+╰━━━━━━━━━━━━━━━━━━━━╯`)
 }}
