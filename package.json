@@ -1,5 +1,5 @@
 {
-"name": "RukiaBotv2",
+"name": "YukiBot-MD",
 "version": "2.2.5",
 "description": "WhatsApp Bot Multi Device",
 "main": "index.js",
@@ -33,7 +33,7 @@
 "dependencies": {
 "@bochilteam/scraper": "^4.2.4",
 "@vitalets/google-translate-api": "^8.0.0",
-"@whiskeysockets/baileys": "github:ds6/meta",
+"@whiskeysockets/baileys": "^6.7.18",
 "acrcloud": "^1.4.0",
 "api-dylux": "^1.7.2",
 "aptoide-scraper": "github:DIEGO-OFC/dv-aptoide-scraper",
