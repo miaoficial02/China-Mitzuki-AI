@@ -23,7 +23,7 @@ let handler = async (m, { conn, args }) => {
     let coins = user.coin || 0;
     let bankCoins = user.bank || 0;
 
-    let perfil = await conn.profilePictureUrl(userId, 'image').catch(_ => 'https://raw.githubusercontent.com/The-King-Destroy/Adiciones/main/Contenido/1745522645448.jpeg');
+    let perfil = await conn.profilePictureUrl(userId, 'image').catch(_ => 'https://cdn.russellxz.click/9d409818.jpeg');
 
     let profileText = `
 ╭━━━〔   P E R F I L 📝 〕━━━╮
