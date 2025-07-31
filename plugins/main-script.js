@@ -3,22 +3,27 @@ import fetch from 'node-fetch'
 
 let handler = async (m, { conn, args }) => {
 try {
-let res = await fetch('https://api.github.com/repos/Kone457/Shizuka-AI')
+let res = await fetch('https://api.github.com/repos/erenxzy/Rukia-Botv2')
 
 if (!res.ok) throw new Error('Error al obtener datos del repositorio')
 let json = await res.json()
 
-let txt = `*乂  S C R I P T  -  M A I N  乂*\n\n`
-txt += `✩  *Nombre* : ${json.name}\n`
-txt += `✩  *Visitas* : ${json.watchers_count}\n`
-txt += `✩  *Peso* : ${(json.size / 1024).toFixed(2)} MB\n`
-txt += `✩  *Actualizado* : ${moment(json.updated_at).format('DD/MM/YY - HH:mm:ss')}\n`
-txt += `✩  *Url* : ${json.html_url}\n`
-txt += `✩  *Forks* : ${json.forks_count}\n`
-txt += `✩  *Stars* : ${json.stargazers_count}\n\n`
-txt += `> *${dev}*`
+let txt = `
+╭━━━〔 ✦  S C R I P T  -  M A I N  ✦ 〕━━━╮
 
-await conn.sendMessage(m.chat, {text: txt, contextInfo: { forwardingScore: 999, isForwarded: true, forwardedNewsletterMessageInfo: { newsletterName: channelRD.name, newsletterJid: channelRD.id, }, externalAdReply: { title: packname, body: dev, thumbnailUrl: 'https://raw.githubusercontent.com/Kone457/Nexus/refs/heads/main/Shizuka.jpg', sourceUrl: redes, mediaType: 1, renderLargerThumbnail: true }}}, {quoted: fkontak})
+✦  *Nombre*      : ${json.name}
+✦  *Visitas*     : ${json.watchers_count}
+✦  *Peso*        : ${(json.size / 1024).toFixed(2)} MB
+✦  *Actualizado* : ${moment(json.updated_at).format('DD/MM/YY - HH:mm:ss')}
+✦  *Url*         : ${json.html_url}
+✦  *Forks*       : ${json.forks_count}
+✦  *Stars*       : ${json.stargazers_count}
+
+╰━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╯
+
+>  *${dev}*
+`
+await conn.sendMessage(m.chat, {text: txt, contextInfo: { forwardingScore: 999, isForwarded: true, forwardedNewsletterMessageInfo: { newsletterName: channelRD.name, newsletterJid: channelRD.id, }, externalAdReply: { title: packname, body: dev, thumbnailUrl: 'https://files.catbox.moe/1w8sut.jpeg', sourceUrl: redes, mediaType: 1, renderLargerThumbnail: true }}}, {quoted: fkontak})
 
 } catch {
 await conn.reply(m.chat, `${msm} Ocurrió un error.`, m)
