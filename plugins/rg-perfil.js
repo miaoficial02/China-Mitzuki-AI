@@ -26,7 +26,7 @@ let handler = async (m, { conn, args }) => {
     let perfil = await conn.profilePictureUrl(userId, 'image').catch(_ => 'https://raw.githubusercontent.com/The-King-Destroy/Adiciones/main/Contenido/1745522645448.jpeg');
 
     let profileText = `
-╭━━━〔 ✿  P E R F I L  ✿ 〕━━━╮
+╭━━━〔   P E R F I L 📝 〕━━━╮
 ┃ ✦ Usuario » @${userId.split('@')[0]}
 ┃ ✦ Descripción » ${description || 'Sin descripción'}
 ┃
@@ -49,7 +49,7 @@ let handler = async (m, { conn, args }) => {
         contextInfo: {
             mentionedJid: [userId],
             externalAdReply: {
-                title: '✧ Perfil de Usuario ✧',
+                title: '𝙋𝙀𝙍𝙁𝙄𝙇 𝙐𝙎𝙀𝙍',
                 body: dev,
                 thumbnailUrl: perfil,
                 mediaType: 1,
