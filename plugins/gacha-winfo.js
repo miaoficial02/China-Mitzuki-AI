@@ -43,9 +43,12 @@ let handler = async (m, { conn, args }) => {
         const statusMessage = userEntry 
             ? `Reclamado por @${userEntry.userId.split('@')[0]}` 
             : 'Libre';
-        
-        const message = `❀ Nombre » *${character.name}*\n⚥ Género » *${character.gender}*\n✰ Valor » *${character.value}*\n♡ Estado » ${statusMessage}\n❖ Fuente » *${character.source}*`;
 
+        const message = `🌷 Nombre » *${character.name}*
+🧬 Género » *${character.gender}*
+💠 Valor » *${character.value}*
+💞 Estado » ${statusMessage}
+📖 Fuente » *${character.source}*`;
         await conn.reply(m.chat, message, m, { mentions: [userEntry ? userEntry.userId : null] });
     } catch (error) {
         await conn.reply(m.chat, `✘ Error al cargar la información del personaje: ${error.message}`, m);
