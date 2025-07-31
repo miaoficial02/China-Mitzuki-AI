@@ -6,8 +6,10 @@ let handler = async (m, { conn, text }) => {
   await m.reply("⏳ Rukia está pensando...");
 
   try {
-    const res = await axios.get(`https://delirius-apiofc.vercel.app/tools/simi?text=${encodeURIComponent(text)}`);
-    const respuesta = res.data.data.message || "No pude responder.";
+    // Petición a la nueva API Mode-IA
+    const res = await axios.get(`https://mode-ia.onrender.com/mode-ia?prompt=${encodeURIComponent(text)}`);
+    
+    const respuesta = res.data.result || "No pude responder.";
 
     await conn.sendMessage(
       m.chat,
@@ -16,7 +18,7 @@ let handler = async (m, { conn, text }) => {
     );
   } catch (e) {
     console.error(e);
-    m.reply("❌ Error al conectar con Rukia IA (proxy).");
+    m.reply("❌ Error al conectar con Rukia IA (Mode-IA).");
   }
 };
 
