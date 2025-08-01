@@ -590,9 +590,9 @@ let handler = async (m, { conn, args }) => {
           externalAdReply: {
               title: botname,
               body: textbot,
-              thumbnailUrl: banner,
+              mediaType: 2,
+              videoUrl: 'https://files.catbox.moe/ebtaq1.mp4', // ⚠️ reemplaza con tu video real
               sourceUrl: redes,
-              mediaType: 1,
               showAdAttribution: true,
               renderLargerThumbnail: true,
           },
