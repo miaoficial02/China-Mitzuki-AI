@@ -168,6 +168,8 @@ let handler = async (m, { conn, args }) => {
 > ✦ Hablar con Rukia.  
 ✎ Rukia
 
+> ✦ Hablar con Iaxzy.  
+✎ Iaxzy
 ╰━━━━━━━━━━━━━━━━━━━━━━━━╯
 
 ╭━━━〔 🎌 𝗔𝗡𝗜𝗠𝗘/𝗥𝗘𝗔𝗖𝗜𝗢𝗡 〕━━━╮
