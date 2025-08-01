@@ -1,26 +1,60 @@
-import axios from "axios";
+const fetch = require("node-fetch");
 
-let handler = async (m, { conn, text }) => {
-  if (!text) return m.reply("✦ Escribe algo para hablar con Rukia IA. Ejemplo:\n.rukia Hola");
+const handler = async (msg, { conn, args, command }) => {
+  const chatId = msg.key.remoteJid;
+  const text = args.join(" ");
+  const userId = msg.key.participant || msg.key.remoteJid;
+  const pref = global.prefixes?.[0] || ".";
 
-  await m.reply("⏳ Rukia está pensando...");
+  if (!text) {
+    return conn.sendMessage(chatId, {
+      text: `⚠️ *Uso incorrecto.*\n🌨️ *Ejemplo:* \`${pref}${command} Hola, ¿cómo estás?\``
+    }, { quoted: msg });
+  }
+
+  // Reacción inicial
+  await conn.sendMessage(chatId, {
+    react: { text: "❄️", key: msg.key }
+  });
 
   try {
-    // Petición a la nueva API Mode-IA
-    const res = await axios.get(`https://mode-ia.onrender.com/mode-ia?prompt=${encodeURIComponent(text)}`);
-    
-    const respuesta = res.data.result || "No pude responder.";
+    const apiUrl = `https://api.neoxr.eu/api/gpt4-session?q=${encodeURIComponent(text)}&session=1727468410446638&apikey=russellxz`;
+    const response = await fetch(apiUrl);
 
-    await conn.sendMessage(
-      m.chat,
-      { text: `❄️ *Rukia*: ${respuesta}\n\n𝗜𝗔 𝗕𝘆 𝗘𝗿𝗲𝗻𝘅𝘇𝘆🥷🏻✨` },
-      { quoted: m }
-    );
-  } catch (e) {
-    console.error(e);
-    m.reply("❌ Error al conectar con Rukia IA (Mode-IA).");
+    if (!response.ok) {
+      throw new Error(`Error de la API: ${response.status} ${response.statusText}`);
+    }
+
+    const data = await response.json();
+
+    if (!data.status || !data.data?.message) {
+      throw new Error("❌ No se pudo obtener una respuesta válida.");
+    }
+
+    const respuesta = data.data.message;
+
+    // Enviar respuesta con mención y tu firma
+    await conn.sendMessage(chatId, {
+      text: `✨ *rukiaIA responde a @${userId.replace(/@s\\.whatsapp\\.net$/, "")}:*\n\n${respuesta}\n\n────────────\n🤖 rukiaIA by erenxszy 🥷🏽✨`,
+      mentions: [userId]
+    }, { quoted: msg });
+
+    // Reacción final
+    await conn.sendMessage(chatId, {
+      react: { text: "✅", key: msg.key }
+    });
+
+  } catch (error) {
+    console.error("❌ Error en comando iaxzy:", error);
+    await conn.sendMessage(chatId, {
+      text: `❌ *Error al obtener respuesta de rukiaIA:*\n_${error.message}_`
+    }, { quoted: msg });
+
+    await conn.sendMessage(chatId, {
+      react: { text: "❌", key: msg.key }
+    });
   }
 };
 
-handler.command = ["rukia", "iaxzy"];
-export default handler;
+handler.command = ["iaxzy"];
+module.exports = handler;
