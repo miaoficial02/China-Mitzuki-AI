@@ -70,7 +70,7 @@ module.exports = {
 
     } catch (err) {
       console.error(`🌷 Error al descargar ${command}:`, err);
-      ms.reply(`🌿 Ocurrió un error al descargar el ${command === 'play2' ? 'video' : 'audio'}.\n${err.message}`);
+      ms.reply(`🌿 Ocurrió un error al descargar el ${command === 'play5' ? 'video' : 'audio'}.\n${err.message}`);
     }
   }
 };
