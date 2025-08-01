@@ -61,7 +61,6 @@ global.etiqueta = '𝙭𝙯𝙮🥷🏻'
 //-----------------------------
 
 global.moneda = 'coin'
-global.banner = 'https://qu.ax/Bupnx.jpg'
 global.avatar = 'https://files.catbox.moe/1w8sut.jpeg'
 
 //-----------------------------
