@@ -14,17 +14,14 @@ export async function before(m, { participants, conn }) {
 
     // Mensaje de despedida mejorado
     const farewellMessage = `
-╔═══════════════╗
-   ✦ 𝗗𝗘𝗦𝗣𝗘𝗗𝗜𝗗𝗔 𝗕𝗢𝗧 ✦
-╚═══════════════╝
+╭━━━〔 ✦ 𝗗𝗘𝗦𝗣𝗘𝗗𝗜𝗗𝗔 𝗗𝗘𝗟 𝗦𝗨𝗕-𝗕𝗢𝗧 ✦ 〕━━━╮
 
-《✧》 *Motivo* 《✧》
-"Este grupo contiene al bot principal,
-por lo que me retiraré para evitar spam"
+✦ *Motivo*  
+"Este grupo ya cuenta con el bot principal,  
+por lo tanto me retiro para evitar duplicidad y spam."
 
-╔═══════════════╗
-  ✦ 𝗚𝗥𝗔𝗖𝗜𝗔𝗦 𝗣𝗢𝗥 𝗟𝗔 𝗖𝗢𝗠𝗣𝗥𝗘𝗡𝗦𝗜𝗢𝗡 ✦
-╚═══════════════╝`.trim()
+╰━━━〔 ✦ 𝗚𝗥𝗔𝗖𝗜𝗔𝗦 𝗣𝗢𝗥 𝗟𝗔 𝗖𝗢𝗠𝗣𝗥𝗘𝗡𝗦𝗜𝗢𝗡 ✦ 〕━━━╯
+`.trim()
 
     // Acciones con manejo de errores
     try {
