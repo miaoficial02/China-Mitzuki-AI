@@ -5,7 +5,7 @@ const axios = require('axios');
 const limit = 50 * 1024 * 1024; // 50 MB
 
 module.exports = {
-  command: ['play', 'play2'],
+  command: ['play5', 'play5'],
   help: ["play", "play2"],
   description: "🌿 Buscar y descargar música o video desde YouTube.",
   run: async (ms, { sylph, command, prefix, text }) => {
