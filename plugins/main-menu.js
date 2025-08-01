@@ -583,6 +583,7 @@ let handler = async (m, { conn, args }) => {
 
 await conn.sendMessage(m.chat, {
     video: { url: 'https://files.catbox.moe/ebtaq1.mp4' },
+    gifPlayback: true,
     caption: txt,
     contextInfo: {
       isForwarded: true,
