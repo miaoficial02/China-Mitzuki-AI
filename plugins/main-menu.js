@@ -519,6 +519,62 @@ let handler = async (m, { conn, args }) => {
 ✎ kicknum
 ╰━━━━━━━━━━━━━━━━━━━━━━━━╯
 
+╭━━━〔 🔞 𝗡𝗦𝗙𝗪 〕━━━╮
+> ✦ Boobjob  
+✎ boobjob
+
+> ✦ Eyaculación  
+✎ cum
+
+> ✦ Masturbarse  
+✎ fap
+
+> ✦ Follar  
+✎ follar
+
+> ✦ Footjob  
+✎ footjob
+
+> ✦ Sexo explícito  
+✎ fuck
+
+> ✦ Agarrar pechos  
+✎ grabboobs
+
+> ✦ Manosear  
+✎ grop
+
+> ✦ Packs  
+✎ pack
+
+> ✦ Penetrar  
+✎ penetrar
+
+> ✦ Pussy  
+✎ pussy
+
+> ✦ Rule34  
+✎ rule34
+
+> ✦ Sexo  
+✎ sexo
+
+> ✦ Spank  
+✎ spank
+
+> ✦ Chupar pechos  
+✎ suckboobs
+
+> ✦ Tetas  
+✎ tetas
+
+> ✦ Desnudar  
+✎ undress
+
+> ✦ Violar   
+✎ violar
+╰━━━━━━━━━━━━━━━━━━━━╯
+
 > by RukiaXzyV2 Actualizada 🥷🏻✨
 
 
