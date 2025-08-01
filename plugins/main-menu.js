@@ -586,6 +586,7 @@ await conn.sendMessage(m.chat, {
     gifPlayback: true,
     caption: txt,
     contextInfo: {
+      mentionedJid: [m.sender, userId],
       isForwarded: true,
       forwardedNewsletterMessageInfo: {
         newsletterJid: channelRD.id,
