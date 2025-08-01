@@ -581,7 +581,7 @@ let handler = async (m, { conn, args }) => {
 
 `.trim()
 
-  await conn.sendMessage(m.chat, { 
+/*  await conn.sendMessage(m.chat, { 
       text: txt,
       contextInfo: {
           mentionedJid: [m.sender, userId],
@@ -597,7 +597,22 @@ let handler = async (m, { conn, args }) => {
               renderLargerThumbnail: true,
           },
       },
-  }, { quoted: m })
+  }, { quoted: m }) */
+
+await conn.sendMessage(m.chat, {
+    video: { url: 'https://files.catbox.moe/ebtaq1.mp4' },
+    caption: txt,
+    contextInfo: {
+      isForwarded: true,
+      forwardedNewsletterMessageInfo: {
+        newsletterJid: channelRD.id,
+        newsletterName: channelRD.name,
+      },
+    }
+  },
+  {
+    quoted: m
+  });
 
 }
 
