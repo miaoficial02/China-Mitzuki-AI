@@ -581,24 +581,6 @@ let handler = async (m, { conn, args }) => {
 
 `.trim()
 
-/*  await conn.sendMessage(m.chat, { 
-      text: txt,
-      contextInfo: {
-          mentionedJid: [m.sender, userId],
-          isForwarded: true,
-          forwardingScore: 999,
-          externalAdReply: {
-              title: botname,
-              body: textbot,
-              mediaType: 2,
-              videoUrl: 'https://files.catbox.moe/ebtaq1.mp4', // ⚠️ reemplaza con tu video real
-              sourceUrl: redes,
-              showAdAttribution: true,
-              renderLargerThumbnail: true,
-          },
-      },
-  }, { quoted: m }) */
-
 await conn.sendMessage(m.chat, {
     video: { url: 'https://files.catbox.moe/ebtaq1.mp4' },
     caption: txt,
