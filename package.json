@@ -18,9 +18,9 @@
 "eslint": "eslint .",
 "eslintfix": "eslint --fix ."
 },
-"homepage": "https://github.com/The-King-Destroy/Yuki_Suou-Bot",
+"homepage": "https://github.com/erenxzy/Rukia-Botv2",
 "author": {
-"name": "The-King-Destroy"
+"name": "Erenxszy"
 },
 "repository": {
 "type": "git",
