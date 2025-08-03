@@ -30,7 +30,8 @@ user.commands += 1
 } else {
 const comando = m.text.trim().split(' ')[0]
 // Mensajes aleatorios para comandos inexistentes
-const frasesError = [
+
+//const frasesError = [
   `╭━━━〔 🌨️ RUKIA-BOT 〕━━━╮
 ┃ 《✦》El comando *${comando}* no se encuentra disponible.
 ┃ Consulta la lista de comandos con:
