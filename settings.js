@@ -14,7 +14,7 @@ global.botNumber = '' //Ejemplo: 123456789
 
 global.owner = [
 
-  ['18493907272@s.whatsapp.net', '🜲 Propietario 🜲', true],
+  ['18493907272', '🜲 Propietario 🜲', true],
 
   ['18097769423'],
 
@@ -28,7 +28,6 @@ global.owner = [
 
 // <-- Número @lid -->
 ['1920437612698@lid', 'Erenxszy', true],
-['69480323522724@lid', 'NumeroBot', true],
 
 //-----------------------------
 
