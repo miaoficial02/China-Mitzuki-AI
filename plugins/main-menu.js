@@ -582,7 +582,7 @@ let handler = async (m, { conn, args }) => {
 `.trim()
 
 await conn.sendMessage(m.chat, {
-    video: { url: 'https://files.catbox.moe/ebtaq1.mp4' },
+    video: { url: 'https://cdn.russellxz.click/a98b9080.mp4' },
     gifPlayback: true,
     caption: txt,
     contextInfo: {
