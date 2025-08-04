@@ -9,7 +9,7 @@ import path from 'path'
 
 let handler = async (m, { conn, usedPrefix }) => {
     if (global.conn.user.jid !== conn.user.jid) {
-        return conn.reply(m.chat, `🚫 *Este comando solo puede usarse desde el número principal de Shizuka.*`, m)
+        return conn.reply(m.chat, `🚫 *Este comando solo puede usarse desde el número principal de Rukia.*`, m)
     }
 
     let chatId = m.isGroup ? [m.chat, m.sender] : [m.sender]
@@ -30,15 +30,15 @@ let handler = async (m, { conn, usedPrefix }) => {
         }
 
         if (filesDeleted === 0) {
-            await conn.reply(m.chat, `🧘‍♀️ *No se ha encontrado ningún archivo de sesión relacionado con este chat.*`, m)
+            await conn.reply(m.chat, `🌸 *No encontré ningún archivo de sesión relacionado con este chat.*`, m)
         } else {
-            await conn.reply(m.chat, `🗂️ *Shizuka ha eliminado con éxito ${filesDeleted} fragmentos de sesión que interferían con tu armonía.*`, m)
-            await conn.reply(m.chat, `🌸 *Hola de nuevo... ¿me ves más clara ahora?*`, m)
+            await conn.reply(m.chat, `📂 *Rukia ha eliminado con éxito ${filesDeleted} fragmentos de sesión que bloqueaban tu conexión.*`, m)
+            await conn.reply(m.chat, `❄️ *He regresado... ¿me percibes con mayor claridad ahora?*`, m)
         }
 
     } catch (err) {
-        console.error('🌀 Error en la limpieza de sesión:', err)
-        await conn.reply(m.chat, `🌙 *Soy Shizuka, y parece que hubo un problema inesperado.*\n🔔 *Apóyanos y sigue nuestro canal:*\n> ${channel}`, m)
+        console.error('⚠️ Error en la limpieza de sesión:', err)
+        await conn.reply(m.chat, `🌙 *Soy Rukia, y parece que ocurrió un error inesperado.*\n🔔 *Apóyanos y sigue nuestro canal:*\n> ${channel}`, m)
     }
 }
 
