@@ -227,10 +227,11 @@ console.error(e)
 
 let _user = global.db.data && global.db.data.users && global.db.data.users[m.sender]
 
-const isROwner = [conn.decodeJid(global.conn.user.id), ...global.owner.map(([number]) => number)].map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender)
+const detectwhat = m.sender.includes('@lid') ? '@lid' : '@s.whatsapp.net';
+const isROwner = [...global.owner.map(([number]) => number)].map(v => v.replace(/[^0-9]/g, '') + detectwhat).includes(m.sender)
 const isOwner = isROwner || m.fromMe
-const isMods = isROwner || global.mods.map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender)
-const isPrems = isROwner || global.prems.map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender) || _user.premium == true
+const isMods = isROwner || global.mods.map(v => v.replace(/[^0-9]/g, '') + detectwhat).includes(m.sender)
+const isPrems = isROwner || global.prems.map(v => v.replace(/[^0-9]/g, '') + detectwhat).includes(m.sender) || _user.premium == true
 
 if (m.isBaileys) return
 if (opts['nyimak'])  return
@@ -359,18 +360,11 @@ if (m.chat in global.db.data.chats || m.sender in global.db.data.users) {
 let chat = global.db.data.chats[m.chat]
 let user = global.db.data.users[m.sender]
 if (!['grupo-unbanchat.js'].includes(name) && chat && chat.isBanned && !isROwner) return
-if (name != 'grupo-unbanchat.js' && name != 'owner-exec.js' && name != 'owner-exec2.js' && name != 'grupo-delete.js' && chat?.isBanned && !isROwner) return 
-if (user.antispam > 2) return
+if (name != 'grupo-unbanchat.js' && name != 'owner-exec.js' && name != 'owner-exec2.js' && name != 'grupo-delete.js' && chat?.isBanned && !isROwner) return
 if (m.text && user.banned && !isROwner) {
 m.reply(`《✦》Estas baneado/a, no puedes usar comandos en este bot!\n\n${user.bannedReason ? `✰ *Motivo:* ${user.bannedReason}` : '✰ *Motivo:* Sin Especificar'}\n\n> ✧ Si este Bot es cuenta oficial y tiene evidencia que respalde que este mensaje es un error, puedes exponer tu caso con un moderador.`)
-user.antispam++
 return
 }
-
-if (user.antispam2 && isROwner) return
-let time = global.db.data.users[m.sender].spam + 1000
-if (new Date - global.db.data.users[m.sender].spam < 1000) return console.log(`[ SPAM ]`) 
-global.db.data.users[m.sender].spam = new Date * 1
 
 if (m.chat in global.db.data.chats || m.sender in global.db.data.users) {
 let chat = global.db.data.chats[m.chat]
@@ -570,12 +564,15 @@ const msg = {
   unreg: `📜 *𝙍𝙚𝙜𝙞𝙨𝙩𝙧𝙤 𝙍𝙚𝙦𝙪𝙚𝙧𝙞𝙙𝙤* 📜\n» Necesitas registrarte antes de usar *${comando}*.\n\n✦ Usa: #${verifyaleatorio} ${user2}.${edadaleatoria}`,
 
   restrict: `🔒 *𝙁𝙪𝙣𝙘𝙞ó𝙣 𝙄𝙣𝙝𝙖𝙗𝙞𝙡𝙞𝙩𝙖𝙙𝙖* 🔒\n» Esta función está desactivada en el sistema de *Rukia-Bot*.`
-
-
 }[type];
 if (msg) return m.reply(msg).then(_ => m.react('✖️'))}
 
 let file = global.__filename(import.meta.url, true)
 watchFile(file, async () => {
 unwatchFile(file)
-console.log(chalk.magenta("Se actualizo 'handler.js'"))})
+console.log(chalk.magenta("Se actualizo 'handler.js'"))
+
+if (global.conns && global.conns.length > 0 ) {
+const users = [...new Set([...global.conns.filter((conn) => conn.user && conn.ws.socket && conn.ws.socket.readyState !== ws.CLOSED).map((conn) => conn)])]
+for (const userr of users) {
+userr.subreloadHandler(false)
