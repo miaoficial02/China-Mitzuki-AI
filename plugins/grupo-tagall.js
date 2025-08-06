@@ -8,7 +8,7 @@ const handler = async (m, { isOwner, isAdmin, conn, text, participants, args, co
   if (usedPrefix?.toLowerCase() === 'a') return // evita conflicto con alias "a"
 
   const chatData = global.db.data.chats[m.chat] || {}
-  const customEmoji = chatData.customEmoji || '🍫'
+  const customEmoji = chatData.customEmoji || '🇨🇳'
   const botName = global.botname || 'Shizuka-AI'
   const version = global.vs || 'v1.0.0'
 
