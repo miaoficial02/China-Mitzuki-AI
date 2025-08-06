@@ -9,7 +9,7 @@ const handler = async (m, { isOwner, isAdmin, conn, text, participants, args, co
 
   const chatData = global.db.data.chats[m.chat] || {}
   const customEmoji = chatData.customEmoji || '🇨🇳'
-  const botName = global.botname || 'Shizuka-AI'
+  const botName = global.botname || '𝕮𝖍𝖎𝖓𝖆-𝕸𝖎𝖙𝖟𝖚𝖐𝖎'
   const version = global.vs || 'v1.0.0'
 
   await m.react(customEmoji)
