@@ -9,11 +9,11 @@ let handler = async (m, { conn, args }) => {
 
     let txt = `
 
-╭━━━〔 🌨️ 𝗥𝗨𝗞𝗜𝗔-𝗕𝗢𝗧 𝗩2 - 𝗠𝗘𝗡𝗨 〕━━━╮
-┃✎ ¡Hola @${userId.split('@')[0]}!
-┃➥ Soy *${botname}*, tu bot virtual.
-┃➤ Tiempo activo: *${uptime}*
-┃✦ Comandos disponibles: *${totalCommands}*
+╭━━━〔 🇨🇳𝕮𝖍𝖎𝖓𝖆-𝕸𝖎𝖙𝖟𝖚𝖐𝖎 - 𝗠𝗘𝗡𝗨 〕━━━╮
+┃👤 ¡Hola @${userId.split('@')[0]}!
+┃🤖 Soy *${botname}*, tu bot virtual.
+┃⏳ Tiempo activo: *${uptime}*
+┃🌐 Comandos disponibles: *${totalCommands}*
 ╰━━━━━━━━━━━━━━━━━━━━━━━━╯
 
 ╭━━━〔 🔰 𝗜𝗡𝗙𝗢-𝗕𝗢𝗧 〕━━━╮
@@ -24,7 +24,7 @@ let handler = async (m, { conn, args }) => {
 ✎ uptime
 
 > ✦ Verifica el estado actual del bot.  
-✎ status
+✎ #status
 
 > ✦ Mide la velocidad de respuesta.  
 ✎ ping
